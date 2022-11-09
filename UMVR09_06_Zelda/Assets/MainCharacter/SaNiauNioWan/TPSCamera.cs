@@ -15,7 +15,10 @@ public class TPSCamera : MonoBehaviour
      */
     public Transform m_LookPoint;
     public Transform m_FollowTarget;
+    public Transform m_StarePoint;
+    public Transform m_StareTarget;
     public float m_LookHeight;
+    public float m_StareHeight = 2.5f;
     public float m_LookSmoothTime = 0.1f;
     public float m_FollowSmoothTime = 0.1f;
     public float m_FollowDistance = 5.0f;
