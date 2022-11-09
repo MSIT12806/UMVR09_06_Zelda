@@ -15,10 +15,9 @@ public class TPSCamera : MonoBehaviour
      */
     public Transform m_LookPoint;
     public Transform m_FollowTarget;
-    public Transform m_StarePoint;
     public Transform m_StareTarget;
-    public float m_LookHeight;
     public float m_StareHeight = 2.5f;
+    public float m_LookHeight;
     public float m_LookSmoothTime = 0.1f;
     public float m_FollowSmoothTime = 0.1f;
     public float m_FollowDistance = 5.0f;
@@ -28,31 +27,39 @@ public class TPSCamera : MonoBehaviour
     public float m_FollowHeight = 0.0f;
     public LayerMask m_HitLayers;
     public float m_HitMoveDistance = 0.1f;
-    private float horizontalRotateDegreeByMouseMoving = 0.0f;
-    private float verticalRotateDegreeByMouseMoving = 0.0f;
-    private Vector3 m_FollowPosition = Vector3.zero;
-    private Vector3 cameraDirection = Vector3.zero;
+    //private float horizontalRotateDegree = 0.0f;
+    //private float verticalRotateDegree = 0.0f;
+    //private Vector3 m_FollowPosition = Vector3.zero;
+    //private Vector3 cameraDirection = Vector3.zero;
     private Vector3 m_RefVel = Vector3.zero;
 
     Vector3 lookDirection;
+
+    CameraState state; 
+
     // Start is called before the first frame update
     void Start()
     {
-        cameraDirection = m_FollowTarget.forward;
+        state = new Default(m_LookPoint, m_FollowTarget, m_LookHeight);
+        state.CameraDirection= m_FollowTarget.forward;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKey(KeyCode.Alpha0))//defaut camera
+            state = new Default(m_LookPoint, m_FollowTarget, m_LookHeight);
+        if (Input.GetKey(KeyCode.Alpha1))//stare camera
+            state = new Stare(m_LookPoint, m_FollowTarget, m_LookHeight, m_StareTarget);
         //TransparentBlockObject();
-        GetRotateDegreeByMouse();
+        state.GetRotateDegree(m_CameraSensitivity);
     }
 
     private void LateUpdate()
     {
-        lookDirection = cameraDirection; //default 
-        ChangeLookDirection();
-        MoveCameraSmoothly();
+        lookDirection = state.CameraDirection; //default 
+        state.OperateLookDirection();
+        state.MoveCameraSmoothly(this.transform);
 
         this.transform.LookAt(m_LookPoint);
         AdjustPositionToAvoidObstruct(this.transform.forward);
@@ -64,43 +71,26 @@ public class TPSCamera : MonoBehaviour
 
     #region private methods
 
-    private void GetRotateDegreeByMouse()
-    {
-        //Get input in Update
-        //Apply changes to physics in FixedUpdate
-        float fMX = Input.GetAxis("Mouse X");
-        float fMY = Input.GetAxis("Mouse Y");
-        horizontalRotateDegreeByMouseMoving = fMX * m_CameraSensitivity;
-
-        verticalRotateDegreeByMouseMoving += fMY * m_CameraSensitivity / 10;
-        if (verticalRotateDegreeByMouseMoving > 20.0f)
-        {
-            verticalRotateDegreeByMouseMoving = 20.0f;
-        }
-        else if (verticalRotateDegreeByMouseMoving < -45.0f)
-        {
-            verticalRotateDegreeByMouseMoving = -45.0f;
-        }
-    }
+    
     private void GetRotateDegreeByKeyboard()
     {
         float fMX = Input.GetAxis("CameraHor");
         float fMY = Input.GetAxis("CameraVer");
-        horizontalRotateDegreeByMouseMoving = fMX * m_CameraSensitivity;
+        state.HorizontalRotateDegree = fMX * m_CameraSensitivity;
 
-        verticalRotateDegreeByMouseMoving += fMY * m_CameraSensitivity / 10;
-        if (verticalRotateDegreeByMouseMoving > 20.0f)
+        state.VerticalRotateDegree += fMY * m_CameraSensitivity / 10;
+        if (state.VerticalRotateDegree > 20.0f)
         {
-            verticalRotateDegreeByMouseMoving = 20.0f;
+            state.VerticalRotateDegree = 20.0f;
         }
-        else if (verticalRotateDegreeByMouseMoving < -45.0f)
+        else if (state.VerticalRotateDegree < -45.0f)
         {
-            verticalRotateDegreeByMouseMoving = -45.0f;
+            state.VerticalRotateDegree = -45.0f;
         }
     }
     private void RefreshCameraDirectionValue()
     {
-        cameraDirection = transform.forward;
+        state.CameraDirection = transform.forward;
     }
 
     private void MoveCameraSmoothly()
@@ -110,20 +100,20 @@ public class TPSCamera : MonoBehaviour
         // m_LookPoint.position = Vector3.Lerp(m_LookPoint.position, vHeadUpPos, m_LookSmoothTime);
         m_LookPoint.position = Vector3.SmoothDamp(m_LookPoint.position, vHeadUpPos, ref m_RefVel, m_LookSmoothTime);
         //2. get camera position
-        m_FollowPosition = m_LookPoint.position - lookDirection * m_FollowDistance;
+        state.FollowPosition = m_LookPoint.position - lookDirection * m_FollowDistance;
 
         //3. move camera to m_FollowPosition smoothly
-        transform.position = Vector3.Lerp(transform.position, m_FollowPosition, m_FollowSmoothTime);
+        transform.position = Vector3.Lerp(transform.position, state.FollowPosition, m_FollowSmoothTime);
     }
 
     private void ChangeLookDirection()
     {
-        Vector3 targetForwardHorizontalVector = cameraDirection;
+        Vector3 targetForwardHorizontalVector = state.CameraDirection;
         targetForwardHorizontalVector.y = 0.0f;
-        Vector3 unitVectorAfterYRotate = Quaternion.AngleAxis(horizontalRotateDegreeByMouseMoving, Vector3.up) * targetForwardHorizontalVector;
+        Vector3 unitVectorAfterYRotate = Quaternion.AngleAxis(state.HorizontalRotateDegree, Vector3.up) * targetForwardHorizontalVector;
         unitVectorAfterYRotate.Normalize();
         Vector3 verticalRotateAxis = Vector3.Cross(Vector3.up, unitVectorAfterYRotate);
-        lookDirection = Quaternion.AngleAxis(-verticalRotateDegreeByMouseMoving, verticalRotateAxis) * unitVectorAfterYRotate;
+        lookDirection = Quaternion.AngleAxis(-state.VerticalRotateDegree, verticalRotateAxis) * unitVectorAfterYRotate;
     }
     private void AdjustPositionToAvoidObstruct(Vector3 lookDirection)
     {
@@ -167,10 +157,10 @@ public class TPSCamera : MonoBehaviour
     }
     #endregion
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(m_LookPoint.position, 0.5f);
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(m_FollowPosition, 0.5f);
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.DrawWireSphere(m_LookPoint.position, 0.5f);
+    //    Gizmos.color = Color.red;
+    //    //Gizmos.DrawWireSphere(state.FollowPosition, 0.5f);
+    //}
 }
