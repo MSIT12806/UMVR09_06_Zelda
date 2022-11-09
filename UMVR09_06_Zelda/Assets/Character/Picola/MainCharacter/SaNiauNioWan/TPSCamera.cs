@@ -15,7 +15,6 @@ public class TPSCamera : MonoBehaviour
      */
     public Transform m_LookPoint;
     public Transform m_FollowTarget;
-    public Transform m_StarePoint;
     public Transform m_StareTarget;
     public float m_StareHeight = 2.5f;
     public float m_LookHeight;
@@ -36,11 +35,12 @@ public class TPSCamera : MonoBehaviour
 
     Vector3 lookDirection;
 
-    CameraState state = new Default();
+    CameraState state; 
 
     // Start is called before the first frame update
     void Start()
     {
+        state = new Default(m_LookPoint, m_FollowTarget, m_LookHeight);
         state.CameraDirection= m_FollowTarget.forward;
     }
 
@@ -48,9 +48,9 @@ public class TPSCamera : MonoBehaviour
     void Update()
     {
         if(Input.GetKey(KeyCode.Alpha0))//defaut camera
-            state = new Default();
+            state = new Default(m_LookPoint, m_FollowTarget, m_LookHeight);
         if (Input.GetKey(KeyCode.Alpha1))//stare camera
-            state = new Stare();
+            state = new Stare(m_LookPoint, m_FollowTarget, m_LookHeight, m_StareTarget);
         //TransparentBlockObject();
         state.GetRotateDegree(m_CameraSensitivity);
     }
@@ -58,8 +58,8 @@ public class TPSCamera : MonoBehaviour
     private void LateUpdate()
     {
         lookDirection = state.CameraDirection; //default 
-        ChangeLookDirection();
-        MoveCameraSmoothly();
+        state.OperateLookDirection();
+        state.MoveCameraSmoothly(this.transform);
 
         this.transform.LookAt(m_LookPoint);
         AdjustPositionToAvoidObstruct(this.transform.forward);
@@ -157,10 +157,10 @@ public class TPSCamera : MonoBehaviour
     }
     #endregion
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(m_LookPoint.position, 0.5f);
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(state.FollowPosition, 0.5f);
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.DrawWireSphere(m_LookPoint.position, 0.5f);
+    //    Gizmos.color = Color.red;
+    //    //Gizmos.DrawWireSphere(state.FollowPosition, 0.5f);
+    //}
 }
