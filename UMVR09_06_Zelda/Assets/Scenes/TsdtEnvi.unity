@@ -3396,8 +3396,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_LookPoint: {fileID: 572728940}
-  m_FollowTarget: {fileID: 0}
+  m_FollowTarget: {fileID: 1638287273}
+  m_StarePoint: {fileID: 0}
+  m_StareTarget: {fileID: 0}
   m_LookHeight: 1.8
+  m_StareHeight: 2.5
   m_LookSmoothTime: 0.1
   m_FollowSmoothTime: 0.1
   m_FollowDistance: 4
@@ -4012,6 +4015,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4000011030967876, guid: b1c5390c34f90a34997dfc73dcbac5c7, type: 3}
   m_PrefabInstance: {fileID: 1638232915}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1638287273 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6468527640734677741, guid: 510be0e958e2ffe4bb58cb4fc9c1be5e, type: 3}
+  m_PrefabInstance: {fileID: 1840060788}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1741887490
 PrefabInstance:
