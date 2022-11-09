@@ -41,8 +41,8 @@ public class TPSCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //TransparentBlockObject();
         GetRotateDegreeByMouse();
-        //GetRotateDegreeByKeyboard();
     }
 
     private void LateUpdate()
@@ -50,7 +50,9 @@ public class TPSCamera : MonoBehaviour
         lookDirection = cameraDirection; //default 
         ChangeLookDirection();
         MoveCameraSmoothly();
-        //AdjustPositionToAvoidObstruct(viewDirection);
+
+        this.transform.LookAt(m_LookPoint);
+        AdjustPositionToAvoidObstruct(this.transform.forward);
 
         this.transform.LookAt(m_LookPoint);
 
@@ -58,7 +60,7 @@ public class TPSCamera : MonoBehaviour
     }
 
     #region private methods
-    
+
     private void GetRotateDegreeByMouse()
     {
         //Get input in Update
@@ -131,11 +133,35 @@ public class TPSCamera : MonoBehaviour
         //}
         if (Physics.SphereCast(r, 0.5f, out RaycastHit rh, m_FollowDistance, m_HitLayers))
         {
+            Debug.Log(rh.transform.gameObject.name);
             Vector3 t = m_LookPoint.position - lookDirection * (rh.distance - m_HitMoveDistance);
             transform.position = t;
         }
     }
 
+    private void TransparentBlockObject()
+    {
+        if (Physics.Raycast(this.transform.position, m_FollowTarget.position - this.transform.position, out var hit, Vector3.Distance(this.transform.position, m_FollowTarget.position)))
+        {
+            var trees = Terrain.activeTerrain.terrainData.treeInstances;
+            if (hit.transform.gameObject.name != "MainCharacter")
+            {
+                Debug.Log(hit.transform.gameObject.name);//Terrain
+                SetTransparent(hit.transform.gameObject);
+            }
+        }
+
+    }
+    private void SetTransparent(GameObject g)
+    {
+        for (int i = 0; i < g.GetComponent<Renderer>().materials.Length; i++)
+        {
+            g.GetComponent<Renderer>().materials[i].shader = Shader.Find("Transparent/Diffuse");
+            g.GetComponent<Renderer>().materials[i].SetColor("_Color", new Color(1, 1, 1, 0.1f));
+        }
+        for (int i = 0; i < g.transform.childCount; i++)
+            SetTransparent(g.transform.GetChild(i).gameObject);
+    }
     #endregion
 
     private void OnDrawGizmos()
