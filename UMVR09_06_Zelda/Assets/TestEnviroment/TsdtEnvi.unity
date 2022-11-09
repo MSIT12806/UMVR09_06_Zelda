@@ -959,6 +959,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4000011985447166, guid: 3cc19b7b11b9b7143a7c1db2f77b93a6, type: 3}
   m_PrefabInstance: {fileID: 242755621}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &281362030 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5948977148470059095, guid: 84ee7e24bcae7e14e898956f05bdffb8, type: 3}
+  m_PrefabInstance: {fileID: 1780502651}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &298192464
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4409,15 +4414,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6468527640734677741, guid: 84ee7e24bcae7e14e898956f05bdffb8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 38.81
+      value: 34.02
       objectReference: {fileID: 0}
     - target: {fileID: 6468527640734677741, guid: 84ee7e24bcae7e14e898956f05bdffb8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.686
+      value: 3.22
       objectReference: {fileID: 0}
     - target: {fileID: 6468527640734677741, guid: 84ee7e24bcae7e14e898956f05bdffb8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 58.14
+      value: 63.16
       objectReference: {fileID: 0}
     - target: {fileID: 6468527640734677741, guid: 84ee7e24bcae7e14e898956f05bdffb8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4454,6 +4459,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6468527640734677741, guid: 84ee7e24bcae7e14e898956f05bdffb8, type: 3}
   m_PrefabInstance: {fileID: 1780502651}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1780502657 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1091277705450938519, guid: 84ee7e24bcae7e14e898956f05bdffb8, type: 3}
+  m_PrefabInstance: {fileID: 1780502651}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1780502658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 281362030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf85a7df003eda942952007cc428be53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1780502657}
 --- !u!1001 &1804036196
 PrefabInstance:
   m_ObjectHideFlags: 0
