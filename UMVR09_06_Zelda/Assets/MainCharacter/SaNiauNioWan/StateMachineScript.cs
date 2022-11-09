@@ -17,7 +17,7 @@ public class StateMachineScript : MonoBehaviour
     {
         asi = animator.GetCurrentAnimatorStateInfo(0);
         var tpc = this.GetComponent<UnityStandardAssets.Characters.ThirdPerson.ThirdPersonCharacter>();
-        if (asi.IsName("attack01") || asi.IsName("attack01 0") || asi.IsName("attack01 1") || asi.IsName("attack01 2") || asi.IsName("getHit") || asi.IsName("died"))
+        if (asi.IsName("Attack01") || asi.IsName("Attack01 0") || asi.IsName("Attack01 1") || asi.IsName("Attack01 2") || asi.IsName("GetHit") || asi.IsName("Die"))
             tpc.CanRotate = false;
         else tpc.CanRotate = true;
         //if(asi.IsName(nowAsiName))
