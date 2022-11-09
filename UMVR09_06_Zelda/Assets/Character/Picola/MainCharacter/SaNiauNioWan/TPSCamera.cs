@@ -40,7 +40,7 @@ public class TPSCamera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        state = new Default(m_LookPoint, m_FollowTarget, m_LookHeight);
+        state = new Default(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance);
         state.CameraDirection = m_FollowTarget.forward;
     }
 
@@ -48,7 +48,7 @@ public class TPSCamera : MonoBehaviour
     void Update()
     {
         if (Input.GetKey(KeyCode.Alpha0))//defaut camera
-            state = new Default(m_LookPoint, m_FollowTarget, m_LookHeight);
+            state = new Default(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance);
         if (Input.GetKey(KeyCode.Alpha1))//stare camera
         {
             state = new Stare(m_LookPoint, m_FollowTarget, m_LookHeight, m_StareTarget);
