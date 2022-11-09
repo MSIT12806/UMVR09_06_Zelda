@@ -124,12 +124,12 @@ public class Stare : CameraState
     public override void MoveCameraSmoothly(Transform cameraTransform)
     {
         //1. move look point smoothly
-        Vector3 vHeadUpPos = _stareTarget.position + _lookHeight * Vector3.up;
+        Vector3 vHeadUpPos = _stareTarget.position;// + _lookHeight * Vector3.up
         _lookPoint.position = Vector3.SmoothDamp(_lookPoint.position, vHeadUpPos, ref m_RefVel, m_LookSmoothTime);
         //2. get camera position
         Vector3 cameraDirection = _stareTarget.position - _followTarget.position;
         var vToGetCameraPosition = -cameraDirection.normalized;
-        FollowPosition = _followTarget.position + vToGetCameraPosition * followDistance;
+        FollowPosition = _followTarget.position + vToGetCameraPosition * followDistance - lookDirection * followDistance;
         //3. move camera to m_FollowPosition smoothly
         cameraTransform.position = Vector3.Lerp(cameraTransform.position, FollowPosition, followSmoothTime);
     }
