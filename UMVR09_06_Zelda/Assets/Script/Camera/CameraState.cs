@@ -8,6 +8,7 @@ public abstract class CameraState
     public float VerticalRotateDegree = 0.0f;
     public Vector3 FollowPosition = Vector3.zero;
     public Vector3 CameraDirection = Vector3.zero;
+    public float _followDistance = 5.0f;
     //public Vector3 RefVel = Vector3.zero;
     protected Vector3 lookDirection;
     public abstract void GetRotateDegree(float sensitivity);
@@ -35,7 +36,6 @@ public class Default : CameraState
     private Transform _lookPoint;
 
     private float lookSmoothTime = 0.1f;
-    private float _followDistance = 5.0f;
     private float followSmoothTime = 0.1f;
 
     Vector3 m_RefVel = Vector3.zero;

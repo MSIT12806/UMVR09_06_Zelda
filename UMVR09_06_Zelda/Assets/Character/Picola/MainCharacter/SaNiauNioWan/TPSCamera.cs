@@ -56,6 +56,7 @@ public class TPSCamera : MonoBehaviour
         }
         //TransparentBlockObject();
         state.GetRotateDegree(m_CameraSensitivity);
+        state._followDistance = m_FollowDistance;
     }
 
     private void LateUpdate()
