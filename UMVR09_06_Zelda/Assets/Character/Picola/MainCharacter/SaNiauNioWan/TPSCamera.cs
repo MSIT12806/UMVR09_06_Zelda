@@ -35,22 +35,25 @@ public class TPSCamera : MonoBehaviour
 
     Vector3 lookDirection;
 
-    CameraState state; 
+    CameraState state;
 
     // Start is called before the first frame update
     void Start()
     {
         state = new Default(m_LookPoint, m_FollowTarget, m_LookHeight);
-        state.CameraDirection= m_FollowTarget.forward;
+        state.CameraDirection = m_FollowTarget.forward;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey(KeyCode.Alpha0))//defaut camera
+        if (Input.GetKey(KeyCode.Alpha0))//defaut camera
             state = new Default(m_LookPoint, m_FollowTarget, m_LookHeight);
         if (Input.GetKey(KeyCode.Alpha1))//stare camera
+        {
             state = new Stare(m_LookPoint, m_FollowTarget, m_LookHeight, m_StareTarget);
+            state.VerticalRotateDegree -= 20f;
+        }
         //TransparentBlockObject();
         state.GetRotateDegree(m_CameraSensitivity);
     }
@@ -71,7 +74,7 @@ public class TPSCamera : MonoBehaviour
 
     #region private methods
 
-    
+
     private void GetRotateDegreeByKeyboard()
     {
         float fMX = Input.GetAxis("CameraHor");
@@ -117,6 +120,7 @@ public class TPSCamera : MonoBehaviour
     }
     private void AdjustPositionToAvoidObstruct(Vector3 lookDirection)
     {
+        //lookDirection = this.transform.position - m_LookPoint.position;
         Ray r = new Ray(m_LookPoint.position, -lookDirection);
         // first method.
         //if(Physics.Raycast(r, out rh, m_FollowDistance, m_HitLayers))
@@ -124,10 +128,10 @@ public class TPSCamera : MonoBehaviour
         //    Vector3 t = rh.point + finialVec* m_HitMoveDistance;
         //    transform.position = t;
         //}
-        if (Physics.SphereCast(r, 0.5f, out RaycastHit rh, m_FollowDistance, m_HitLayers))
+
+        if (Physics.SphereCast(r, 0.5f, out RaycastHit rh, state.GetFollowDistance(this.transform), m_HitLayers))//形成一個圓柱體？
         {
-            Debug.Log(rh.transform.gameObject.name);
-            Vector3 t = m_LookPoint.position - lookDirection * (rh.distance - m_HitMoveDistance);
+            Vector3 t = m_LookPoint.position - lookDirection * (rh.distance);// - m_HitMoveDistance
             transform.position = t;
         }
     }
@@ -161,6 +165,6 @@ public class TPSCamera : MonoBehaviour
     //{
     //    Gizmos.DrawWireSphere(m_LookPoint.position, 0.5f);
     //    Gizmos.color = Color.red;
-    //    //Gizmos.DrawWireSphere(state.FollowPosition, 0.5f);
+    //    Gizmos.DrawWireSphere(state.FollowPosition, 0.5f);
     //}
 }
