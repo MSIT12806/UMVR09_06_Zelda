@@ -13,7 +13,7 @@ public abstract class CameraState
     protected Vector3 lookDirection;
     public abstract void GetRotateDegree(float sensitivity);
     /// <summary>
-    /// ¨Ï¥ÎªÌ¾ŞÁaÄá¼v¾÷µø¨¤
+    /// ä½¿ç”¨è€…æ“ç¸±æ”å½±æ©Ÿè¦–è§’
     /// </summary>
     public virtual void OperateLookDirection()
     {
@@ -88,8 +88,8 @@ public class Default : CameraState
 public class Stare : CameraState
 {
     /*
-     * 1. Â÷©Ç¤Óªñ·|¥d¦í
-     * 2. ½Õ¾ã¤W¤U
+     * 1. é›¢æ€ªå¤ªè¿‘æœƒå¡ä½
+     * 2. èª¿æ•´ä¸Šä¸‹
      */
     private Transform _stareTarget;
     private Transform _followTarget;
