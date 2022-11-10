@@ -49,6 +49,17 @@ public class TPSCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        RefreshCameraState();
+        //GetRotateDegreeByKeyboard();
+        GetRotateDegreeByMouse();
+        //TransparentBlockObject();
+        state.GetRotateDegree(fMX, fMY, m_CameraSensitivity);
+        state.UpdateParameters(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance, m_StareTarget);
+        //DebugExtension.DebugWireSphere(m_LookPoint.position, 0.5f);
+    }
+
+    private void RefreshCameraState()
+    {
         if (Input.GetKey(KeyCode.Alpha0))//defaut camera
             state = new Default(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance);
         if (Input.GetKey(KeyCode.Alpha1))//stare camera
@@ -56,11 +67,6 @@ public class TPSCamera : MonoBehaviour
             state = new Stare(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance, m_StareTarget);
             state.VerticalRotateDegree -= 20f;
         }
-        //GetRotateDegreeByKeyboard();
-        GetRotateDegreeByMouse();
-        //TransparentBlockObject();
-        state.GetRotateDegree(fMX, fMY, m_CameraSensitivity);
-        state.UpdateParameters(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance, m_StareTarget);
     }
 
     private void LateUpdate()
