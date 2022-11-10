@@ -24,7 +24,7 @@ public class TPSCamera : MonoBehaviour
     [Range(0.1f, 1000f)]
     public float m_CameraSensitivity = 1.0f;
 
-    public float m_FollowHeight = 0.0f;
+    //public float m_FollowHeight = 0.0f;
     public LayerMask m_HitLayers;
     public float m_HitMoveDistance = 0.1f;
     //private float horizontalRotateDegree = 0.0f;
@@ -36,6 +36,8 @@ public class TPSCamera : MonoBehaviour
     Vector3 lookDirection;
 
     CameraState state;
+    private float fMX;
+    private float fMY;
 
     // Start is called before the first frame update
     void Start()
@@ -51,12 +53,14 @@ public class TPSCamera : MonoBehaviour
             state = new Default(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance);
         if (Input.GetKey(KeyCode.Alpha1))//stare camera
         {
-            state = new Stare(m_LookPoint, m_FollowTarget, m_LookHeight, m_StareTarget);
+            state = new Stare(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance, m_StareTarget);
             state.VerticalRotateDegree -= 20f;
         }
+        //GetRotateDegreeByKeyboard();
+        GetRotateDegreeByMouse();
         //TransparentBlockObject();
-        state.GetRotateDegree(m_CameraSensitivity);
-        state._followDistance = m_FollowDistance;
+        state.GetRotateDegree(fMX, fMY, m_CameraSensitivity);
+        state.UpdateParameters(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance, m_StareTarget);
     }
 
     private void LateUpdate()
@@ -78,19 +82,15 @@ public class TPSCamera : MonoBehaviour
 
     private void GetRotateDegreeByKeyboard()
     {
-        float fMX = Input.GetAxis("CameraHor");
-        float fMY = Input.GetAxis("CameraVer");
-        state.HorizontalRotateDegree = fMX * m_CameraSensitivity;
-
-        state.VerticalRotateDegree += fMY * m_CameraSensitivity / 10;
-        if (state.VerticalRotateDegree > 20.0f)
-        {
-            state.VerticalRotateDegree = 20.0f;
-        }
-        else if (state.VerticalRotateDegree < -45.0f)
-        {
-            state.VerticalRotateDegree = -45.0f;
-        }
+        fMX = Input.GetAxis("CameraHor");
+        fMY = Input.GetAxis("CameraVer");
+    }
+    private void GetRotateDegreeByMouse()
+    {
+        //Get input in Update
+        //Apply changes to physics in FixedUpdate
+        fMX = Input.GetAxis("Mouse X");
+        fMY = Input.GetAxis("Mouse Y");
     }
     private void RefreshCameraDirectionValue()
     {

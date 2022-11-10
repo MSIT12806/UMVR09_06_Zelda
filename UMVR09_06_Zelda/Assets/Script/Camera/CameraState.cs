@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.Utility;
 
 public abstract class CameraState
 {
@@ -8,10 +10,18 @@ public abstract class CameraState
     public float VerticalRotateDegree = 0.0f;
     public Vector3 FollowPosition = Vector3.zero;
     public Vector3 CameraDirection = Vector3.zero;
-    public float _followDistance = 5.0f;
-    //public Vector3 RefVel = Vector3.zero;
+    public float FollowDistance = 5.0f;
+
+    protected Vector3 RefVel = Vector3.zero;
     protected Vector3 lookDirection;
-    public abstract void GetRotateDegree(float sensitivity);
+    protected float lookSmoothTime = 0.1f;
+    protected float followSmoothTime = 0.1f;
+    public abstract void GetRotateDegree(float fMX, float fMY, float sensitivity);
+    public abstract void MoveCameraSmoothly(Transform cameraTransform);
+    public abstract float GetFollowDistance(Transform cameraTransform);
+    public abstract void UpdateParameters(Transform m_LookPoint, Transform m_FollowTarget, float m_LookHeight, float m_FollowDistance, Transform m_StareTarget);
+
+
     /// <summary>
     /// 使用者操縱攝影機視角
     /// </summary>
@@ -24,10 +34,6 @@ public abstract class CameraState
         Vector3 verticalRotateAxis = Vector3.Cross(Vector3.up, unitVectorAfterYRotate);
         lookDirection = Quaternion.AngleAxis(-this.VerticalRotateDegree, verticalRotateAxis) * unitVectorAfterYRotate;
     }
-    public abstract void MoveCameraSmoothly(Transform cameraTransform);
-
-    public abstract float GetFollowDistance(Transform cameraTransform);
-
 }
 public class Default : CameraState
 {
@@ -35,16 +41,13 @@ public class Default : CameraState
     private float _lookHeight;
     private Transform _lookPoint;
 
-    private float lookSmoothTime = 0.1f;
-    private float followSmoothTime = 0.1f;
 
-    Vector3 m_RefVel = Vector3.zero;
     public Default(Transform lookPoint, Transform followTarget, float lookHeight, float followDistance)
     {
         _lookPoint = lookPoint;
         _lookHeight = lookHeight;
         _followTarget = followTarget;
-        _followDistance = followDistance;
+        FollowDistance = followDistance;
     }
 
     public override float GetFollowDistance(Transform cameraTransform)
@@ -52,12 +55,10 @@ public class Default : CameraState
         return Vector3.Distance(_followTarget.position, cameraTransform.position);
     }
 
-    public override void GetRotateDegree(float sensitivity)
+    public override void GetRotateDegree(float fMX, float fMY, float sensitivity)
     {
         //Get input in Update
         //Apply changes to physics in FixedUpdate
-        float fMX = Input.GetAxis("Mouse X");
-        float fMY = Input.GetAxis("Mouse Y");
         HorizontalRotateDegree = fMX * sensitivity;
 
         VerticalRotateDegree += fMY * sensitivity / 10;
@@ -75,15 +76,21 @@ public class Default : CameraState
     {        //1. move look point smoothly
         Vector3 vHeadUpPos = _followTarget.position + _lookHeight * Vector3.up;
         // m_LookPoint.position = Vector3.Lerp(m_LookPoint.position, vHeadUpPos, m_LookSmoothTime);
-        _lookPoint.position = Vector3.SmoothDamp(_lookPoint.position, vHeadUpPos, ref m_RefVel, lookSmoothTime);
+        _lookPoint.position = Vector3.SmoothDamp(_lookPoint.position, vHeadUpPos, ref RefVel, lookSmoothTime);
         //2. get camera position
-        this.FollowPosition = _lookPoint.position - lookDirection * _followDistance;
+        this.FollowPosition = _lookPoint.position - lookDirection * FollowDistance;
 
         //3. move camera to m_FollowPosition smoothly
         cameraTransform.position = Vector3.Lerp(cameraTransform.position, this.FollowPosition, followSmoothTime);
     }
 
-
+    public override void UpdateParameters(Transform lookPoint, Transform followTarget, float lookHeight, float followDistance, Transform m_StareTarget)
+    {
+        _lookPoint = lookPoint;
+        _lookHeight = lookHeight;
+        _followTarget = followTarget;
+        FollowDistance = followDistance;
+    }
 }
 public class Stare : CameraState
 {
@@ -95,37 +102,27 @@ public class Stare : CameraState
     private Transform _followTarget;
     private float _lookHeight;
     private Transform _lookPoint;
-    private float lookSmoothTime = 0.1f;
-    private float followDistance = 5.0f;
-    private float followSmoothTime = 0.1f;
 
-    Vector3 m_RefVel = Vector3.zero;
-    float m_LookSmoothTime = 0.1f;
-
-    public Stare(Transform lookPoint, Transform followTarget, float lookHeight, Transform stareTarget)
+    public Stare(Transform lookPoint, Transform followTarget, float lookHeight, float followDistance, Transform stareTarget)
     {
         _lookPoint = lookPoint;
         _lookHeight = lookHeight;
         _followTarget = followTarget;
         _stareTarget = stareTarget;
+        FollowDistance = followDistance;
     }
 
-    public override void GetRotateDegree(float sensitivity)
+
+    public override void GetRotateDegree(float fMX, float fMY, float sensitivity)
     {
         //Get input in Update
         //Apply changes to physics in FixedUpdate
-        float fMX = Input.GetAxis("Mouse X");
-        float fMY = Input.GetAxis("Mouse Y");
 
         VerticalRotateDegree += fMY * sensitivity / 10;
-        if (VerticalRotateDegree > 20.0f)
-        {
-            VerticalRotateDegree = 20.0f;
-        }
-        else if (VerticalRotateDegree < -45.0f)
-        {
-            VerticalRotateDegree = -45.0f;
-        }
+        float min = -65.0f;
+        float max = 40.0f;
+        VerticalRotateDegree= Math.Clamp(VerticalRotateDegree, min, max);
+        Debug.Log(VerticalRotateDegree);
     }
 
 
@@ -134,11 +131,15 @@ public class Stare : CameraState
         //1. move look point smoothly
         //Vector3 vHeadUpPos = _stareTarget.position;// + _lookHeight * Vector3.up
         Vector3 vHeadUpPos = _followTarget.position + _lookHeight * Vector3.up;
-        _lookPoint.position = Vector3.SmoothDamp(_lookPoint.position, vHeadUpPos, ref m_RefVel, m_LookSmoothTime);
+        _lookPoint.position = Vector3.SmoothDamp(_lookPoint.position, vHeadUpPos, ref RefVel, lookSmoothTime);
         //2. get camera position
-        Vector3 cameraDirection = _stareTarget.position - _followTarget.position;
-        var vToGetCameraPosition = -cameraDirection.normalized;
-        FollowPosition = _followTarget.position + vToGetCameraPosition * followDistance - lookDirection * followDistance;
+        var followTargetWithoutY = _followTarget.position;
+        followTargetWithoutY.y = 0;
+        var stareTargetWithoutY = _stareTarget.position;
+        stareTargetWithoutY.y = 0;
+
+        Vector3 stareTargetToCameraDirection = (followTargetWithoutY - stareTargetWithoutY).normalized;
+        FollowPosition = _lookPoint.position + (stareTargetToCameraDirection - lookDirection) * FollowDistance;
         //3. move camera to m_FollowPosition smoothly
         cameraTransform.position = Vector3.Lerp(cameraTransform.position, FollowPosition, followSmoothTime);
     }
@@ -146,5 +147,14 @@ public class Stare : CameraState
     public override float GetFollowDistance(Transform cameraTransform)
     {
         return Vector3.Distance(_followTarget.position, cameraTransform.position);
+    }
+
+    public override void UpdateParameters(Transform lookPoint, Transform followTarget, float lookHeight, float followDistance, Transform stareTarget)
+    {
+        _lookPoint = lookPoint;
+        _lookHeight = lookHeight;
+        _followTarget = followTarget;
+        _stareTarget = stareTarget;
+        FollowDistance = followDistance;
     }
 }
