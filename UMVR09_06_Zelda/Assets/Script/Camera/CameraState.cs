@@ -14,8 +14,8 @@ public abstract class CameraState
 
     protected Vector3 RefVel = Vector3.zero;
     protected Vector3 lookDirection;
-    protected float lookSmoothTime = 0.1f;
-    protected float followSmoothTime = 0.1f;
+    protected float lookSmoothTime = 0.3f;
+    protected float followSmoothTime = 0.3f;
     public abstract void SetRotateDegree(float fMX, float fMY, float sensitivity);
     public abstract void MoveCameraSmoothly(Transform cameraTransform);
     public abstract float GetFollowDistance(Transform cameraTransform);
@@ -75,13 +75,16 @@ public class Default : CameraState
     public override void MoveCameraSmoothly(Transform cameraTransform)
     {        //1. move look point smoothly
         Vector3 vHeadUpPos = _followTarget.position + _lookHeight * Vector3.up;
-        // m_LookPoint.position = Vector3.Lerp(m_LookPoint.position, vHeadUpPos, m_LookSmoothTime);
-        _lookPoint.position = Vector3.SmoothDamp(_lookPoint.position, vHeadUpPos, ref RefVel, lookSmoothTime);
+        //_lookPoint.position = Vector3.SmoothDamp(_lookPoint.position, vHeadUpPos, ref RefVel, lookSmoothTime);
+        _lookPoint.position = vHeadUpPos;
         //2. get camera position
         this.FollowPosition = _lookPoint.position - lookDirection * FollowDistance;
 
         //3. move camera to m_FollowPosition smoothly
-        cameraTransform.position = Vector3.Lerp(cameraTransform.position, this.FollowPosition, followSmoothTime);
+        //cameraTransform.position = new Vector3(this.FollowPosition.x, cameraTransform.position.y, this.FollowPosition.z);
+        //cameraTransform.position = new Vector3(this.FollowPosition.x, this.FollowPosition.y, this.FollowPosition.z);
+        cameraTransform.position =this.FollowPosition;
+        //cameraTransform.position = Vector3.Lerp(cameraTransform.position, this.FollowPosition, followSmoothTime);
     }
 
     public override void UpdateParameters(Transform lookPoint, Transform followTarget, float lookHeight, float followDistance, Transform m_StareTarget)
@@ -121,7 +124,7 @@ public class Stare : CameraState
         VerticalRotateDegree += fMY * sensitivity / 10;
         float min = -65.0f;
         float max = 40.0f;
-        VerticalRotateDegree= Math.Clamp(VerticalRotateDegree, min, max);
+        VerticalRotateDegree = Math.Clamp(VerticalRotateDegree, min, max);
     }
 
 

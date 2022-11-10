@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 6942378765527368339}
   - component: {fileID: 6942378765527368336}
   - component: {fileID: 6942378765527368338}
-  - component: {fileID: 6942378765527368341}
   m_Layer: 3
   m_Name: TpsCamera
   m_TagString: MainCamera
@@ -29,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6942378765527368332}
-  m_LocalRotation: {x: -0.049903322, y: -0.71234125, z: 0.059263702, w: -0.69754386}
+  m_LocalRotation: {x: 0.049902044, y: 0.71234375, z: -0.059267465, w: 0.6975411}
   m_LocalPosition: {x: 32.53, y: 6.73, z: 61.24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -190,16 +189,3 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 55
   m_HitMoveDistance: 0.1
---- !u!135 &6942378765527368341
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6942378765527368332}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.73338705
-  m_Center: {x: 7.148847e-11, y: -0.0479157, z: 5.5087667e-11}

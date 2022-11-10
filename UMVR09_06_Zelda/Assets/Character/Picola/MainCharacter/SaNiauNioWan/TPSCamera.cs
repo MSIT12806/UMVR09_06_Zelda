@@ -77,8 +77,9 @@ public class TPSCamera : MonoBehaviour
 
         this.transform.LookAt(m_LookPoint);
         AdjustPositionToAvoidObstruct(this.transform.forward);
-
         this.transform.LookAt(m_LookPoint);
+        //this.transform.LookAt(m_FollowTarget);
+
 
         RefreshCameraDirectionValue();
     }
