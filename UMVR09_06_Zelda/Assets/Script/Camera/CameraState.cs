@@ -16,7 +16,7 @@ public abstract class CameraState
     protected Vector3 lookDirection;
     protected float lookSmoothTime = 0.1f;
     protected float followSmoothTime = 0.1f;
-    public abstract void GetRotateDegree(float fMX, float fMY, float sensitivity);
+    public abstract void SetRotateDegree(float fMX, float fMY, float sensitivity);
     public abstract void MoveCameraSmoothly(Transform cameraTransform);
     public abstract float GetFollowDistance(Transform cameraTransform);
     public abstract void UpdateParameters(Transform m_LookPoint, Transform m_FollowTarget, float m_LookHeight, float m_FollowDistance, Transform m_StareTarget);
@@ -55,7 +55,7 @@ public class Default : CameraState
         return Vector3.Distance(_followTarget.position, cameraTransform.position);
     }
 
-    public override void GetRotateDegree(float fMX, float fMY, float sensitivity)
+    public override void SetRotateDegree(float fMX, float fMY, float sensitivity)
     {
         //Get input in Update
         //Apply changes to physics in FixedUpdate
@@ -113,7 +113,7 @@ public class Stare : CameraState
     }
 
 
-    public override void GetRotateDegree(float fMX, float fMY, float sensitivity)
+    public override void SetRotateDegree(float fMX, float fMY, float sensitivity)
     {
         //Get input in Update
         //Apply changes to physics in FixedUpdate

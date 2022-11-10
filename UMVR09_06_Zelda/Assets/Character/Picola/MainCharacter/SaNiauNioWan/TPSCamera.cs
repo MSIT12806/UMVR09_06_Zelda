@@ -53,7 +53,7 @@ public class TPSCamera : MonoBehaviour
         //GetRotateDegreeByKeyboard();
         GetRotateDegreeByMouse();
         //TransparentBlockObject();
-        state.GetRotateDegree(fMX, fMY, m_CameraSensitivity);
+        state.SetRotateDegree(fMX, fMY, m_CameraSensitivity);
         state.UpdateParameters(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance, m_StareTarget);
         //DebugExtension.DebugWireSphere(m_LookPoint.position, 0.5f);
     }
