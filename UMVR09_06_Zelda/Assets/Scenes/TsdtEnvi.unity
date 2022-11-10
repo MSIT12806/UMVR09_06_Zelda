@@ -3570,6 +3570,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4000013211622862, guid: 5c53f487853b326428fc6d8680cb7a5f, type: 3}
   m_PrefabInstance: {fileID: 1403672383}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1411544908 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2046102329944778830, guid: 510be0e958e2ffe4bb58cb4fc9c1be5e, type: 3}
+  m_PrefabInstance: {fileID: 1840060788}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1411544915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1411544908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4072d2db740542b49bcef1bd30e63242, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerRightHandBone: {fileID: 1900428887}
+  weapon: {fileID: 6547270053017804577, guid: 26dda1e81c1fa184f8ffaeb39ad7bfb8, type: 3}
 --- !u!1001 &1442435103
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5103,6 +5122,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4000013220515510, guid: 180be7fe06e234b45aaacb711cdac093, type: 3}
   m_PrefabInstance: {fileID: 1899287501}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1900428887 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2046102328627199870, guid: 510be0e958e2ffe4bb58cb4fc9c1be5e, type: 3}
+  m_PrefabInstance: {fileID: 1840060788}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1940293492
 PrefabInstance:
