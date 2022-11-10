@@ -122,7 +122,6 @@ public class Stare : CameraState
         float min = -65.0f;
         float max = 40.0f;
         VerticalRotateDegree= Math.Clamp(VerticalRotateDegree, min, max);
-        Debug.Log(VerticalRotateDegree);
     }
 
 
