@@ -9692,6 +9692,7 @@ GameObject:
   - component: {fileID: 2046102329944782774}
   - component: {fileID: 2046102329944782773}
   - component: {fileID: 2046102329944782772}
+  - component: {fileID: 1278729833}
   m_Layer: 0
   m_Name: TestIK
   m_TagString: Untagged
@@ -9706,7 +9707,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2046102329944778830}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 39.045845, y: 3.0031128, z: 60.479282}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -9728,7 +9729,7 @@ Animator:
   m_GameObject: {fileID: 2046102329944778830}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 10038fdbf93c4dd43af9ce774d03a956, type: 3}
-  m_Controller: {fileID: 9100000, guid: e2cf68ff4b1ffda45a77f7307dd789b9, type: 2}
+  m_Controller: {fileID: 9100000, guid: 75357803ea966234eaa37506f31eeee8, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -9814,6 +9815,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2046102329944782771}
+--- !u!114 &1278729833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2046102329944778830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b85164394593500449109aea113c8757, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LookAtObj: {fileID: 0}
+  BodyObj: {fileID: 0}
+  LeftElbowObj: {fileID: 0}
+  RightElbowObj: {fileID: 0}
+  LeftHandObj: {fileID: 0}
+  RightHandObj: {fileID: 0}
+  LeftKneeObj: {fileID: 0}
+  RightKneeObj: {fileID: 0}
+  LeftFootObj: {fileID: 0}
+  RightFootObj: {fileID: 0}
+  IkActive: 0
 --- !u!1 &2046102329951195951
 GameObject:
   m_ObjectHideFlags: 0
