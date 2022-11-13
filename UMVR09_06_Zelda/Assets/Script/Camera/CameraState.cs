@@ -20,7 +20,7 @@ public abstract class CameraState
     public abstract void SetRotateDegree(float fMX, float fMY, float sensitivity);
     public abstract void MoveCameraSmoothly(Transform cameraTransform);
     public abstract float GetFollowDistance(Transform cameraTransform);
-    public abstract void UpdateParameters(Transform m_LookPoint, Transform m_FollowTarget, float m_LookHeight, float m_FollowDistance, Transform m_StareTarget);
+    public abstract void UpdateParameters(Transform m_LookPoint, Transform m_FollowTarget, float m_LookHeight, float m_FollowDistance, Transform m_StareTarget, float lookSmoothTime);
 
 
     /// <summary>
@@ -77,24 +77,26 @@ public class Default : CameraState
     public override void MoveCameraSmoothly(Transform cameraTransform)
     {        //1. move look point smoothly
         Vector3 vHeadUpPos = _followTarget.position + _lookHeight * Vector3.up;
-        //_lookPoint.position = Vector3.SmoothDamp(_lookPoint.position, vHeadUpPos, ref RefVel, lookSmoothTime);
-        _lookPoint.position = vHeadUpPos;
+        _lookPoint.position = Vector3.SmoothDamp(_lookPoint.position, vHeadUpPos, ref RefVel, lookSmoothTime);
+        //_lookPoint.position = vHeadUpPos;
         //2. get camera position
         this.FollowPosition = _lookPoint.position - lookDirection * FollowDistance;
 
         //3. move camera to m_FollowPosition smoothly
         //cameraTransform.position = new Vector3(this.FollowPosition.x, cameraTransform.position.y, this.FollowPosition.z);
         //cameraTransform.position = new Vector3(this.FollowPosition.x, this.FollowPosition.y, this.FollowPosition.z);
-        cameraTransform.position =this.FollowPosition;
-        //cameraTransform.position = Vector3.Lerp(cameraTransform.position, this.FollowPosition, followSmoothTime);
+        cameraTransform.position = this.FollowPosition;
+        //cameraTransform.position = Vector3.SmoothDamp(cameraTransform.position, this.FollowPosition, ref RefVel, followSmoothTime);
     }
 
-    public override void UpdateParameters(Transform lookPoint, Transform followTarget, float lookHeight, float followDistance, Transform m_StareTarget)
+    public override void UpdateParameters(Transform lookPoint, Transform followTarget, float lookHeight, float followDistance, Transform m_StareTarget, float lookSmoothTime)
     {
         _lookPoint = lookPoint;
         _lookHeight = lookHeight;
         _followTarget = followTarget;
         FollowDistance = followDistance;
+        this.lookSmoothTime = lookSmoothTime;
+        Debug.Log(lookSmoothTime);
     }
 }
 public class Stare : CameraState
@@ -132,8 +134,8 @@ public class Stare : CameraState
         //1. move look point smoothly
         //Vector3 vHeadUpPos = _stareTarget.position;// + _lookHeight * Vector3.up
         Vector3 vHeadUpPos = _followTarget.position + _lookHeight * Vector3.up;
-        //_lookPoint.position = Vector3.SmoothDamp(_lookPoint.position, vHeadUpPos, ref RefVel, lookSmoothTime);
-        _lookPoint.position = vHeadUpPos;
+        _lookPoint.position = Vector3.SmoothDamp(_lookPoint.position, vHeadUpPos, ref RefVel, lookSmoothTime);
+        //_lookPoint.position = vHeadUpPos;
         //2. get camera position
         var followTargetWithoutY = _followTarget.position;
         followTargetWithoutY.y = 0;
@@ -151,12 +153,13 @@ public class Stare : CameraState
         return Vector3.Distance(_followTarget.position, cameraTransform.position);
     }
 
-    public override void UpdateParameters(Transform lookPoint, Transform followTarget, float lookHeight, float followDistance, Transform stareTarget)
+    public override void UpdateParameters(Transform lookPoint, Transform followTarget, float lookHeight, float followDistance, Transform stareTarget, float lookSmoothTime)
     {
         _lookPoint = lookPoint;
         _lookHeight = lookHeight;
         _followTarget = followTarget;
         _stareTarget = stareTarget;
         FollowDistance = followDistance;
+        this.lookSmoothTime = lookSmoothTime;
     }
 }
