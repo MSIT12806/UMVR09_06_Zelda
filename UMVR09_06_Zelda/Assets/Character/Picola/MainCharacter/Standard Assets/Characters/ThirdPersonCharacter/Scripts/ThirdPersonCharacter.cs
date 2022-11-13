@@ -2,6 +2,8 @@ using UnityEngine;
 
 namespace UnityStandardAssets.Characters.ThirdPerson
 {
+	//TODO: UMVR09_06
+	//要將 rigidbody消除掉
 	[RequireComponent(typeof(Rigidbody))]
 	[RequireComponent(typeof(CapsuleCollider))]
 	[RequireComponent(typeof(Animator))]
@@ -15,8 +17,9 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		[SerializeField] float m_MoveSpeedMultiplier = 1f;
 		[SerializeField] float m_AnimSpeedMultiplier = 1f;
 		[SerializeField] float m_GroundCheckDistance = 0.1f;
-
-		Rigidbody m_Rigidbody;
+        //TODO: UMVR09_06
+        //要將 rigidbody消除掉
+        Rigidbody m_Rigidbody;
 		Animator m_Animator;
 		bool m_IsGrounded;
 		float m_OrigGroundCheckDistance;
@@ -34,7 +37,9 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		void Start()
 		{
 			m_Animator = GetComponent<Animator>();
-			m_Rigidbody = GetComponent<Rigidbody>();
+            //TODO: UMVR09_06
+            //要將 rigidbody消除掉
+            m_Rigidbody = GetComponent<Rigidbody>();
 			m_Capsule = GetComponent<CapsuleCollider>();
 			m_CapsuleHeight = m_Capsule.height;
 			m_CapsuleCenter = m_Capsule.center;
@@ -88,7 +93,9 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			}
 			else
 			{
-				Ray crouchRay = new Ray(m_Rigidbody.position + Vector3.up * m_Capsule.radius * k_Half, Vector3.up);
+                //TODO: UMVR09_06
+                //要將 rigidbody消除掉
+                Ray crouchRay = new Ray(m_Rigidbody.position + Vector3.up * m_Capsule.radius * k_Half, Vector3.up);
 				float crouchRayLength = m_CapsuleHeight - m_Capsule.radius * k_Half;
 				if (Physics.SphereCast(crouchRay, m_Capsule.radius * k_Half, crouchRayLength, Physics.AllLayers, QueryTriggerInteraction.Ignore))
 				{
@@ -156,6 +163,14 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 		void HandleAirborneMovement()
 		{
+            //TODO: UMVR09_06
+            //要將 rigidbody 消除掉
+            //1. 判斷是否在空中：
+            //   以身體某中心點向模型參考系的下方發射半徑可包覆pico雙足的球型射線(Physics.Spherecast)，長度為剛好到達pico腳底(還是應該要長一點？畢竟要站在斜坡上)。
+            //   (1) 若有 hit 到 terrain，則為觸地。
+            //   (2) 若沒有 hit 到 terrain，則要落下。
+            //2. 落下：將剛體受到向下的力量，改成適當的位移。
+
             // apply extra gravity from multiplier:
             Vector3 extraGravityForce = (Physics.gravity * m_GravityMultiplier) - Physics.gravity;
             m_Rigidbody.AddForce(extraGravityForce);
