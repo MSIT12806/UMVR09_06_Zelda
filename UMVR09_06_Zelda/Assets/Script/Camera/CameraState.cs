@@ -11,6 +11,7 @@ public abstract class CameraState
     public Vector3 FollowPosition = Vector3.zero;
     public Vector3 CameraDirection = Vector3.zero;
     public float FollowDistance = 5.0f;
+    public string Name;
 
     protected Vector3 RefVel = Vector3.zero;
     protected Vector3 lookDirection;
@@ -44,6 +45,7 @@ public class Default : CameraState
 
     public Default(Transform lookPoint, Transform followTarget, float lookHeight, float followDistance)
     {
+        Name = "Default";
         _lookPoint = lookPoint;
         _lookHeight = lookHeight;
         _followTarget = followTarget;
@@ -97,10 +99,6 @@ public class Default : CameraState
 }
 public class Stare : CameraState
 {
-    /*
-     * 1. 離怪太近會卡住
-     * 2. 調整上下
-     */
     private Transform _stareTarget;
     private Transform _followTarget;
     private float _lookHeight;
@@ -108,6 +106,7 @@ public class Stare : CameraState
 
     public Stare(Transform lookPoint, Transform followTarget, float lookHeight, float followDistance, Transform stareTarget)
     {
+        Name = "Stare";
         _lookPoint = lookPoint;
         _lookHeight = lookHeight;
         _followTarget = followTarget;
