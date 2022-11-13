@@ -133,7 +133,8 @@ public class Stare : CameraState
         //1. move look point smoothly
         //Vector3 vHeadUpPos = _stareTarget.position;// + _lookHeight * Vector3.up
         Vector3 vHeadUpPos = _followTarget.position + _lookHeight * Vector3.up;
-        _lookPoint.position = Vector3.SmoothDamp(_lookPoint.position, vHeadUpPos, ref RefVel, lookSmoothTime);
+        //_lookPoint.position = Vector3.SmoothDamp(_lookPoint.position, vHeadUpPos, ref RefVel, lookSmoothTime);
+        _lookPoint.position = vHeadUpPos;
         //2. get camera position
         var followTargetWithoutY = _followTarget.position;
         followTargetWithoutY.y = 0;
@@ -143,7 +144,7 @@ public class Stare : CameraState
         Vector3 stareTargetToCameraDirection = (followTargetWithoutY - stareTargetWithoutY).normalized;
         FollowPosition = _lookPoint.position + (stareTargetToCameraDirection - lookDirection) * FollowDistance;
         //3. move camera to m_FollowPosition smoothly
-        cameraTransform.position = Vector3.Lerp(cameraTransform.position, FollowPosition, followSmoothTime);
+        cameraTransform.position = FollowPosition;
     }
 
     public override float GetFollowDistance(Transform cameraTransform)

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -52,23 +53,11 @@ public class TPSCamera : MonoBehaviour
         RefreshCameraState();
         //GetRotateDegreeByKeyboard();
         GetRotateDegreeByMouse();
-        //TransparentBlockObject();
+        TransparentBlockObject();
         state.SetRotateDegree(fMX, fMY, m_CameraSensitivity);
         state.UpdateParameters(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance, m_StareTarget);
         //DebugExtension.DebugWireSphere(m_LookPoint.position, 0.5f);
     }
-
-    private void RefreshCameraState()
-    {
-        if (Input.GetKey(KeyCode.Alpha0))//defaut camera
-            state = new Default(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance);
-        if (Input.GetKey(KeyCode.Alpha1))//stare camera
-        {
-            state = new Stare(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance, m_StareTarget);
-            state.VerticalRotateDegree -= 20f;
-        }
-    }
-
     private void LateUpdate()
     {
         lookDirection = state.CameraDirection; //default 
@@ -82,6 +71,16 @@ public class TPSCamera : MonoBehaviour
 
 
         RefreshCameraDirectionValue();
+    }
+    private void RefreshCameraState()
+    {
+        if (Input.GetKey(KeyCode.Alpha0))//defaut camera
+            state = new Default(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance);
+        if (Input.GetKey(KeyCode.Alpha1))//stare camera
+        {
+            state = new Stare(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance, m_StareTarget);
+            state.VerticalRotateDegree -= 20f;
+        }
     }
 
     #region private methods
@@ -144,28 +143,74 @@ public class TPSCamera : MonoBehaviour
         }
     }
 
+    HashSet<GameObject> transparentObj = new HashSet<GameObject>();
+    Dictionary<int, (Shader, Color)> materialShader = new Dictionary<int, (Shader, Color)>();
     private void TransparentBlockObject()
     {
-        if (Physics.Raycast(this.transform.position, m_FollowTarget.position - this.transform.position, out var hit, Vector3.Distance(this.transform.position, m_FollowTarget.position)))
+        var hitArr = Physics.RaycastAll(this.transform.position, m_FollowTarget.position - this.transform.position, Vector3.Distance(this.transform.position, m_FollowTarget.position));
+        if (hitArr.Length != 0)
         {
-            var trees = Terrain.activeTerrain.terrainData.treeInstances;
-            if (hit.transform.gameObject.name != "MainCharacter")
+            foreach (var hit in hitArr)
             {
-                Debug.Log(hit.transform.gameObject.name);//Terrain
-                SetTransparent(hit.transform.gameObject);
+                if (hit.transform.gameObject.name != "MainCharacter" && hit.transform.gameObject.name != "Terrain")
+                {
+                    SetTransparent(hit.transform.gameObject);
+                    transparentObj.Add(hit.transform.gameObject);
+                }
             }
+            OnRaycastLeave(hitArr);
         }
 
     }
+
+    private void OnRaycastLeave(IEnumerable<RaycastHit> hitArr)
+    {
+        var item = transparentObj.FirstOrDefault(go => !hitArr.Any(i => i.transform.gameObject == go));
+        if (item == null) return;
+        RecoverTransparentObj(item.transform.gameObject);
+        transparentObj.Remove(item.transform.gameObject);
+    }
+    private void RecoverTransparentObj(GameObject g)
+    {
+        var renderer = g.GetComponent<Renderer>();
+        for (int i = 0; i < g.transform.childCount; i++)
+            RecoverTransparentObj(g.transform.GetChild(i).gameObject);
+
+        if (renderer == null)
+        {
+            return;
+        }
+
+        for (int i = 0; i < renderer.materials.Length; i++)
+        {
+            materialShader.TryGetValue(renderer.materials[i].GetHashCode(), out var tuple);
+            renderer.materials[i].shader = tuple.Item1;
+            renderer.materials[i].SetColor("_Color", tuple.Item2);
+            materialShader.Remove(renderer.materials[i].GetHashCode());
+            Debug.Log(g.name + " is remove in materialShader");
+        }
+    }
     private void SetTransparent(GameObject g)
     {
-        for (int i = 0; i < g.GetComponent<Renderer>().materials.Length; i++)
-        {
-            g.GetComponent<Renderer>().materials[i].shader = Shader.Find("Transparent/Diffuse");
-            g.GetComponent<Renderer>().materials[i].SetColor("_Color", new Color(1, 1, 1, 0.1f));
-        }
         for (int i = 0; i < g.transform.childCount; i++)
             SetTransparent(g.transform.GetChild(i).gameObject);
+        var renderer = g.GetComponent<Renderer>();
+        if (renderer == null)
+        {
+            return;
+        }
+        for (int i = 0; i < renderer.materials.Length; i++)
+        {
+            if (materialShader.ContainsKey(renderer.materials[i].GetHashCode()))
+            {
+                break;
+            }
+
+            materialShader.Add(renderer.materials[i].GetHashCode(), (renderer.materials[i].shader, renderer.materials[i].GetColor("_Color")));
+            renderer.materials[i].shader = Shader.Find("Transparent/Diffuse");
+            renderer.materials[i].SetColor("_Color", new Color(1, 1, 1, 0.1f));
+            Debug.Log(g.name + " is add in materialShader");
+        }
     }
     #endregion
 
