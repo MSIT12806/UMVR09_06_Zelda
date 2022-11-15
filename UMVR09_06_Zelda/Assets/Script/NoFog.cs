@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class NoFog : MonoBehaviour
 {
-    bool enableFog = false;
-    bool previousFogState;
-    void OnPreRender()
+    bool doWeHaveFogInScene;
+    private void Start()
     {
-        previousFogState = RenderSettings.fog;
-        RenderSettings.fog = enableFog;
+        doWeHaveFogInScene = RenderSettings.fog;
     }
-    void OnPostRender()
+
+    private void OnPreRender()
     {
-        RenderSettings.fog = previousFogState;
+        RenderSettings.fog = false;
+    }
+    private void OnPostRender()
+    {
+        RenderSettings.fog = doWeHaveFogInScene;
     }
 }
