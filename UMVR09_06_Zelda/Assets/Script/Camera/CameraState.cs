@@ -28,9 +28,9 @@ public abstract class CameraState
     /// </summary>
     public virtual void OperateLookDirection()
     {
-        Vector3 targetForwardHorizontalVector = this.CameraDirection;
-        targetForwardHorizontalVector.y = 0.0f;
-        Vector3 unitVectorAfterYRotate = Quaternion.AngleAxis(this.HorizontalRotateDegree, Vector3.up) * targetForwardHorizontalVector;
+        Vector3 targetForwardHorizontalDirection = this.CameraDirection;
+        targetForwardHorizontalDirection.y = 0.0f;
+        Vector3 unitVectorAfterYRotate = Quaternion.AngleAxis(this.HorizontalRotateDegree, Vector3.up) * targetForwardHorizontalDirection;
         unitVectorAfterYRotate.Normalize();
         Vector3 verticalRotateAxis = Vector3.Cross(Vector3.up, unitVectorAfterYRotate);
         lookDirection = Quaternion.AngleAxis(-this.VerticalRotateDegree, verticalRotateAxis) * unitVectorAfterYRotate;
@@ -86,7 +86,7 @@ public class Default : CameraState
         //cameraTransform.position = new Vector3(this.FollowPosition.x, cameraTransform.position.y, this.FollowPosition.z);
         //cameraTransform.position = new Vector3(this.FollowPosition.x, this.FollowPosition.y, this.FollowPosition.z);
         cameraTransform.position = this.FollowPosition;
-        //cameraTransform.position = Vector3.SmoothDamp(cameraTransform.position, this.FollowPosition, ref RefVel, followSmoothTime);
+        //cameraTransform.position = Vector3.Lerp(cameraTransform.position, this.FollowPosition, ref RefVel, followSmoothTime);
     }
 
     public override void UpdateParameters(Transform lookPoint, Transform followTarget, float lookHeight, float followDistance, Transform m_StareTarget, float lookSmoothTime)
