@@ -85,8 +85,8 @@ public class Default : CameraState
         //3. move camera to m_FollowPosition smoothly
         //cameraTransform.position = new Vector3(this.FollowPosition.x, cameraTransform.position.y, this.FollowPosition.z);
         //cameraTransform.position = new Vector3(this.FollowPosition.x, this.FollowPosition.y, this.FollowPosition.z);
-        cameraTransform.position = this.FollowPosition;
-        //cameraTransform.position = Vector3.Lerp(cameraTransform.position, this.FollowPosition, ref RefVel, followSmoothTime);
+        //cameraTransform.position = this.FollowPosition;
+        cameraTransform.position = Vector3.Lerp(cameraTransform.position, this.FollowPosition, followSmoothTime);
     }
 
     public override void UpdateParameters(Transform lookPoint, Transform followTarget, float lookHeight, float followDistance, Transform m_StareTarget, float lookSmoothTime)
