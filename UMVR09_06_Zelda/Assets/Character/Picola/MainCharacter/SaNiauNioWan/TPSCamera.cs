@@ -60,7 +60,6 @@ public class TPSCamera : MonoBehaviour
     }
     private void LateUpdate()
     {
-        lookDirection = state.CameraDirection; //default 
         state.OperateLookDirection();
         state.MoveCameraSmoothly(this.transform);
 
