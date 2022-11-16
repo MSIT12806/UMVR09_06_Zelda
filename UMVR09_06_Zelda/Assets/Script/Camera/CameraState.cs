@@ -96,7 +96,7 @@ public class Default : CameraState
         _followTarget = followTarget;
         FollowDistance = followDistance;
         this.lookSmoothTime = lookSmoothTime;
-        Debug.Log(lookSmoothTime);
+        //Debug.Log(lookSmoothTime);
     }
 }
 public class Stare : CameraState
