@@ -681,7 +681,7 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -1134,13 +1134,13 @@ AnimatorStateMachine:
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions:
-  - first: {fileID: 2587545310444187945}
-    second:
-    - {fileID: 2152222813983219226}
   - first: {fileID: -1792167008525087218}
     second:
     - {fileID: -3884471332507482820}
     - {fileID: -8538393552220286498}
+  - first: {fileID: 2587545310444187945}
+    second:
+    - {fileID: 2152222813983219226}
   - first: {fileID: 2644186638694043308}
     second:
     - {fileID: -2295990491492509632}

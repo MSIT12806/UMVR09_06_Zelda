@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateMachineScript : MonoBehaviour
+public class EnemyStateMachine : MonoBehaviour
 {
-    public Animator animator;
-    public AnimatorStateInfo currentAnimation;
+    private Animator animator;
+    private AnimatorStateInfo currentAnimation;
     // Start is called before the first frame update
     void Start()
     {
-        
+        animator = this.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -33,8 +33,8 @@ public class StateMachineScript : MonoBehaviour
         else
         {
             //º¢ªÅ®É¶¡¡H
-            if (currentAnimation.IsName("BackFlip2") || currentAnimation.IsName("BackFlip") )
-            {
+            if ((currentAnimation.IsName("BackFlip2") || currentAnimation.IsName("BackFlip")) && currentAnimation.normalizedTime >= 0.5f)
+            {                
                 animator.SetTrigger("endHit");
             }
         }

@@ -207,7 +207,7 @@ public class TPSCamera : MonoBehaviour
 
             materialShader.Add(renderer.materials[i].GetHashCode(), (renderer.materials[i].shader, renderer.materials[i].GetColor("_Color")));
             renderer.materials[i].shader = Shader.Find("Transparent/Diffuse");
-            renderer.materials[i].SetColor("_Color", new Color(1, 1, 1, 0.1f));
+            renderer.materials[i].SetColor("_Color", new Color(1, 1, 1, 0.3f));
             Debug.Log(g.name + " is add in materialShader");
         }
     }
