@@ -16458,6 +16458,10 @@ MonoBehaviour:
   m_MoveSpeedMultiplier: 1
   m_AnimSpeedMultiplier: 1
   m_GroundCheckDistance: 0.1
+  aaa: 0.14
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
   CanRotate: 0
 --- !u!136 &1861475080
 CapsuleCollider:
@@ -16501,7 +16505,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ded12531b8b728347a775a0e18893d6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
 --- !u!1001 &1876794570
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16531,7 +16534,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2046102329827991577, guid: 510be0e958e2ffe4bb58cb4fc9c1be5e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.29
+      value: 1.876
       objectReference: {fileID: 0}
     - target: {fileID: 2046102329827991577, guid: 510be0e958e2ffe4bb58cb4fc9c1be5e, type: 3}
       propertyPath: m_LocalPosition.z
