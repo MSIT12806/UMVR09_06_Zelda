@@ -3340,6 +3340,10 @@ MonoBehaviour:
   m_MoveSpeedMultiplier: 1
   m_AnimSpeedMultiplier: 1
   m_GroundCheckDistance: 0.1
+  aaa: 0.14
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
   CanRotate: 0
 --- !u!136 &455430474
 CapsuleCollider:
@@ -16504,6 +16508,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MiniMainCharacter
       objectReference: {fileID: 0}
+    - target: {fileID: 1849170203, guid: 510be0e958e2ffe4bb58cb4fc9c1be5e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1849170204, guid: 510be0e958e2ffe4bb58cb4fc9c1be5e, type: 3}
       propertyPath: m_LocalPosition.y
       value: -1
@@ -16518,7 +16526,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2046102329827991577, guid: 510be0e958e2ffe4bb58cb4fc9c1be5e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.0000009536743
+      value: 6.08
       objectReference: {fileID: 0}
     - target: {fileID: 2046102329827991577, guid: 510be0e958e2ffe4bb58cb4fc9c1be5e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -16556,7 +16564,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainCharacter
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 2046102329944782774, guid: 510be0e958e2ffe4bb58cb4fc9c1be5e, type: 3}
+      propertyPath: aaa
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046102329944782774, guid: 510be0e958e2ffe4bb58cb4fc9c1be5e, type: 3}
+      propertyPath: layerMask.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 2046102329944782776, guid: 510be0e958e2ffe4bb58cb4fc9c1be5e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 510be0e958e2ffe4bb58cb4fc9c1be5e, type: 3}
 --- !u!1001 &1880902004
 PrefabInstance:
