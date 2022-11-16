@@ -504,24 +504,24 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 #endif
 			// 0.1f is a small offset to start the ray from inside the character
 			// it is also good to note that the transform position in the sample assets is at the base of the character
-			if (Physics.Raycast(transform.position + (Vector3.up * 0.1f), Vector3.down, out hitInfo, aaa + 3f, layerMask))
+			if (Physics.Raycast(transform.position + (Vector3.up * 1f), Vector3.down, out hitInfo, 5f, layerMask))
 			{
-				Debug.Log(hitInfo.transform.name);
+				//Debug.Log(hitInfo.transform.name);
 				m_GroundNormal = hitInfo.normal;
 				m_IsGrounded = true;
 				m_Animator.applyRootMotion = true;
-				if (hitInfo.point.y - transform.position.y < aaa - 1.98f)
+				if (hitInfo.point.y - transform.position.y < 0f)
 				{
 					//transform.Translate(0f, 0.01f,0f);
 					Vector3 vec = transform.position;
-					vec.y = hitInfo.point.y + aaa - 1.98f;
+					vec.y = hitInfo.point.y;
 					transform.position = vec;
 					//Debug.Log("111111111111111111111");
 				}
-				else if (hitInfo.point.y - transform.position.y > aaa - 1.98f)
+				else if (hitInfo.point.y - transform.position.y > 0f)
 				{
 					Vector3 vec = transform.position;
-					vec.y = hitInfo.point.y + aaa - 1.98f;
+					vec.y = hitInfo.point.y;
 					transform.position = vec;
 				}
 			}
