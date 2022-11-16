@@ -27,6 +27,9 @@ public class IKController : MonoBehaviour
     //右腳
     public Transform RightFootObj = null;
 
+    public float LookAtWeight = 1.0f;
+    public float Weight = 1.0f;
+
 
     //使用IK
     public bool IkActive = false;
@@ -107,22 +110,22 @@ public class IKController : MonoBehaviour
         //3.部分旋轉賦值
         if (IkActive) 
         {
-            avatar.SetLookAtWeight(1.0f, 0.3f, 0.6f, 1.0f, 0.5f);
+            avatar.SetLookAtWeight(LookAtWeight, 0.3f, 0.6f, 1.0f, 0.5f);
 
-            avatar.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1.0f);
-            avatar.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1.0f);
-            avatar.SetIKPositionWeight(AvatarIKGoal.RightHand, 1.0f);
-            avatar.SetIKRotationWeight(AvatarIKGoal.RightHand, 1.0f);
+            avatar.SetIKPositionWeight(AvatarIKGoal.LeftHand, Weight);
+            avatar.SetIKRotationWeight(AvatarIKGoal.LeftHand, Weight);
+            avatar.SetIKPositionWeight(AvatarIKGoal.RightHand, Weight);
+            avatar.SetIKRotationWeight(AvatarIKGoal.RightHand, Weight);
 
-            avatar.SetIKPositionWeight(AvatarIKGoal.LeftFoot, 1.0f);
-            avatar.SetIKRotationWeight(AvatarIKGoal.LeftFoot, 1.0f);
-            avatar.SetIKPositionWeight(AvatarIKGoal.RightFoot, 1.0f);
-            avatar.SetIKRotationWeight(AvatarIKGoal.RightFoot, 1.0f);
+            avatar.SetIKPositionWeight(AvatarIKGoal.LeftFoot, Weight);
+            avatar.SetIKRotationWeight(AvatarIKGoal.LeftFoot, Weight);
+            avatar.SetIKPositionWeight(AvatarIKGoal.RightFoot, Weight);
+            avatar.SetIKRotationWeight(AvatarIKGoal.RightFoot, Weight);
 
-            avatar.SetIKHintPositionWeight(AvatarIKHint.LeftElbow, 1.0f);
-            avatar.SetIKHintPositionWeight(AvatarIKHint.RightElbow, 1.0f);
-            avatar.SetIKHintPositionWeight(AvatarIKHint.LeftKnee, 1.0f);
-            avatar.SetIKHintPositionWeight(AvatarIKHint.RightKnee, 1.0f);
+            avatar.SetIKHintPositionWeight(AvatarIKHint.LeftElbow, Weight);
+            avatar.SetIKHintPositionWeight(AvatarIKHint.RightElbow, Weight);
+            avatar.SetIKHintPositionWeight(AvatarIKHint.LeftKnee, Weight);
+            avatar.SetIKHintPositionWeight(AvatarIKHint.RightKnee, Weight);
 
             if (LookAtObj != null) 
             {
