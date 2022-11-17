@@ -5,7 +5,7 @@ using UnityEngine;
 public class StateMachineScript : MonoBehaviour
 {
     public Animator animator;
-    public AnimatorStateInfo asi;
+    public AnimatorStateInfo currentAnimation;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,9 +15,9 @@ public class StateMachineScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        asi = animator.GetCurrentAnimatorStateInfo(0);
+        currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
         var tpc = this.GetComponent<UnityStandardAssets.Characters.ThirdPerson.ThirdPersonCharacter>();
-        if (asi.IsName("Attack01") || asi.IsName("Attack01 0") || asi.IsName("Attack01 1") || asi.IsName("Attack01 2") || asi.IsName("GetHit") || asi.IsName("Die"))
+        if (currentAnimation.IsName("Attack01") || currentAnimation.IsName("Attack01 0") || currentAnimation.IsName("Attack01 1") || currentAnimation.IsName("Attack01 2") || currentAnimation.IsName("GetHit") || currentAnimation.IsName("Die"))
             tpc.CanRotate = false;
         else tpc.CanRotate = true;
         //if(asi.IsName(nowAsiName))
@@ -29,6 +29,14 @@ public class StateMachineScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.H))
         {
             animator.SetTrigger("getHit");
+        }
+        else
+        {
+            //º¢ªÅ®É¶¡¡H
+            if (currentAnimation.IsName("BackFlip2") || currentAnimation.IsName("BackFlip") )
+            {
+                animator.SetTrigger("endHit");
+            }
         }
 
         if (animator.IsInTransition(0) == false)
