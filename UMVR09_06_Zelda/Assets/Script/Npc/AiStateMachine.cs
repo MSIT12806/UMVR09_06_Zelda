@@ -16,6 +16,57 @@ public abstract class AiState
 
     public abstract AiState SwitchState();
 }
+public class Idel : AiState
+{
+    Vector3 originPosition;
+    //Idle的啟動要是固定範圍 Physics.CheckSphere
+
+    public override AiState SwitchState()
+    {
+        throw new NotImplementedException();
+    }
+}
+/// <summary>
+/// 面向玩家
+/// </summary>
+public class Alert : AiState
+{
+    //固定範圍內展開追擊 Physics.CheckSphere
+    GameObject alertTarget;
+    public Alert(GameObject alertObject)
+    {
+        alertTarget = alertObject;
+    }
+    public override AiState SwitchState()
+    {
+        throw new NotImplementedException();
+    }
+}
+public class Taunt : AiState
+{
+    public override AiState SwitchState()
+    {
+        throw new NotImplementedException();
+    }
+}
+/// <summary>
+/// 朝著角色方向移動
+/// </summary>
+public class Chase : AiState
+{
+    GameObject alertTarget;
+    public Chase(GameObject alertObject)
+    {
+        alertTarget = alertObject;
+    }
+    public override AiState SwitchState()
+    {
+        throw new NotImplementedException();
+    }
+}
+/// <summary>
+/// 停下並站在角色面前
+/// </summary>
 public class Confrontation : AiState
 {
     public override AiState SwitchState()
