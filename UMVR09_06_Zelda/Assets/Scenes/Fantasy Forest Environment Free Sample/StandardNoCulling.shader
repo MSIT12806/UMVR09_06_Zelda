@@ -9,24 +9,39 @@ Shader "Fantasy Forest/StandardNoCulling"
 		_Color("Color", Color) = (1,1,1,0)
 		[HideInInspector] _texcoord( "", 2D ) = "white" {}
 		[HideInInspector] __dirty( "", Int ) = 1
+		_EmissionMap("Emission Map", 2D) = "white" {}
+        [HDR] _EmissionColor("Emission Color", Color) = (0,0,0)
+		//dither
+		_DitherPattern ("Dithering Pattern", 2D) = "white" {}
+        _MinDistance ("Minimum Fade Distance", Float) = 0
 	}
 
 	SubShader
 	{
-		Tags{ "RenderType" = "TransparentCutout"  "Queue" = "Geometry+0" }
-		Cull Off
+		Tags{ "RenderType" = "TransparentCutout"  "Queue" = "Geometry+0"  }
+		Cull Back //只渲染前方
 		CGPROGRAM
 		#pragma target 3.0
-		#pragma surface surf StandardSpecular keepalpha addshadow fullforwardshadows 
+		#pragma surface surf StandardSpecular keepalpha  fullforwardshadows 
 		struct Input
 		{
 			float2 uv_texcoord;
+            float4 screenPos;
 		};
 
 		uniform float4 _Color;
 		uniform sampler2D _MainTex;
 		uniform float4 _MainTex_ST;
 		uniform float _Cutoff = 0.5;
+        fixed4 _EmissionColor;
+        sampler2D _EmissionMap;
+
+		//The dithering pattern
+        sampler2D _DitherPattern;
+        float4 _DitherPattern_TexelSize;
+        //remapping of distance
+        float _MinDistance;
+        float _MaxDistance;
 
 		void surf( Input i , inout SurfaceOutputStandardSpecular o )
 		{
@@ -38,7 +53,26 @@ Shader "Fantasy Forest/StandardNoCulling"
 			o.Specular = temp_cast_1;
 			o.Smoothness = temp_output_1_0;
 			o.Alpha = 1;
+
+			float4 emissionCoordinate = tex2D( _EmissionMap, uv_MainTex );
+			o.Emission = _EmissionColor*emissionCoordinate;
 			clip( tex2DNode3.a - _Cutoff );
+
+			//value from the dither pattern
+            float2 screenPos = i.screenPos.xy / i.screenPos.w;
+            float2 ditherCoordinate = screenPos * _ScreenParams.xy * _DitherPattern_TexelSize.xy;
+            float ditherValue = tex2D(_DitherPattern, ditherCoordinate).r;
+
+            //get relative distance from the camera
+			//如何把整個物件都進行處理？
+            float relDistance = i.screenPos.w;
+            relDistance = relDistance - _MinDistance;
+			if(relDistance < 0){
+			  relDistance = relDistance-1;
+			}
+
+            //discard pixels accordingly
+            clip(relDistance - ditherValue);
 		}
 
 		ENDCG

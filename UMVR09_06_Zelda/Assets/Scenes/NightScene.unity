@@ -20,9 +20,9 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.050062295, g: 0.08298327, b: 0.14150941, a: 1}
-  m_AmbientEquatorColor: {r: 0.34749907, g: 0.4616411, b: 0.5377358, a: 1}
-  m_AmbientGroundColor: {r: 0.1509434, g: 0.13694079, b: 0.108935565, a: 1}
+  m_AmbientSkyColor: {r: 0, g: 0, b: 0, a: 1}
+  m_AmbientEquatorColor: {r: 0, g: 0, b: 0, a: 1}
+  m_AmbientGroundColor: {r: 0.078431375, g: 0.046858326, b: 0, a: 1}
   m_AmbientIntensity: 1.5
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.46752366, g: 0.41960785, b: 0.627451, a: 1}
@@ -17008,6 +17008,14 @@ PrefabInstance:
     - target: {fileID: 2046102329944782774, guid: 510be0e958e2ffe4bb58cb4fc9c1be5e, type: 3}
       propertyPath: layerMask.m_Bits
       value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046102329944782776, guid: 510be0e958e2ffe4bb58cb4fc9c1be5e, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046102329944782776, guid: 510be0e958e2ffe4bb58cb4fc9c1be5e, type: 3}
+      propertyPath: m_Constraints
+      value: 112
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2046102329944782776, guid: 510be0e958e2ffe4bb58cb4fc9c1be5e, type: 3}
