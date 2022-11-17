@@ -56,6 +56,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _DitherPattern:
+        m_Texture: {fileID: 2800000, guid: 905bbd105fd97c4439a0ef79a53d1e13, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 2800000, guid: 73c7632d8e087254ca217c8eaa2b6868, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -220,6 +224,7 @@ Material:
     - _MToonVersion: 38
     - _MatCap: 0
     - _Metallic: 0
+    - _MinDistance: 4
     - _Mode: 0
     - _Nearest_Distance: 0.5
     - _OUTLINE: 0
@@ -273,7 +278,7 @@ Material:
     - _UvAnimScrollX: 0
     - _UvAnimScrollY: 0
     - _ZWrite: 1
-    - _simpleUI: 0
+    - _simpleUI: 2
     - _utsTechnique: 0
     - _utsVersion: 2.08
     m_Colors:

@@ -5,6 +5,10 @@
 //(C)Unity Technologies Japan/UCL
 Shader "UnityChanToonShader/Toon_DoubleShadeWithFeather" {
     Properties {
+            		//dither
+		_DitherPattern ("Dithering Pattern", 2D) = "white" {}
+        _MinDistance ("Minimum Fade Distance", Float) = 0
+
         [HideInInspector] _simpleUI ("SimpleUI", Int ) = 0
         [HideInInspector] _utsVersion ("Version", Float ) = 2.08
         [HideInInspector] _utsTechnique ("Technique", int ) = 0 //DWF
@@ -204,6 +208,8 @@ Shader "UnityChanToonShader/Toon_DoubleShadeWithFeather" {
             //v.2.0.7
             #pragma multi_compile _EMISSIVE_SIMPLE _EMISSIVE_ANIMATION
             //
+     
+
             #include "UCTS_DoubleShadeWithFeather.cginc"
 
             ENDCG
@@ -260,6 +266,9 @@ Shader "UnityChanToonShader/Toon_DoubleShadeWithFeather" {
             //v.2.0.4
             #pragma multi_compile _IS_CLIPPING_OFF
             #include "UCTS_ShadowCaster.cginc"
+
+
+
             ENDCG
         }
 //ToonCoreEnd

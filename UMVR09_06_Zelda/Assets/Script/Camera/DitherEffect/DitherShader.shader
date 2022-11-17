@@ -6,6 +6,7 @@ Shader "Ron/DitherShader"
     _MainTex ("Texture", 2D) = "white" {}
     //Shader Property
     _DitherPattern ("Dithering Pattern", 2D) = "white" {}
+        _MinDistance ("Minimum Fade Distance", Float) = 0
   }
 
   SubShader{
@@ -25,6 +26,7 @@ Shader "Ron/DitherShader"
       //texture and transforms of the texture
       sampler2D _MainTex;
       float4 _MainTex_ST;
+        float _MinDistance;
 
       //tint of the texture
       fixed4 _Color;
@@ -52,23 +54,28 @@ Shader "Ron/DitherShader"
         o.position = UnityObjectToClipPos(v.vertex);
         //apply the texture transforms to the UV coordinates and pass them to the v2f struct
         o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+        o.screenPosition = ComputeScreenPos(o.position);
         return o;
       }
 
       //the fragment shader function
       fixed4 frag(v2f i) : SV_TARGET{
-    //texture value the dithering is based on
-    float texColor = tex2D(_MainTex, i.uv).r;
+        //texture value the dithering is based on
+        float4 texColor = tex2D(_MainTex, i.uv);
+    
+        //value from the dither pattern
+        float2 screenPos = i.screenPosition.xy / i.screenPosition.w;
+        float2 ditherCoordinate = screenPos * _ScreenParams.xy * _DitherPattern_TexelSize.xy;
+        float ditherValue = tex2D(_DitherPattern, ditherCoordinate).r;
+  //  return ditherValue;
+        //combine dither pattern with texture value to get final result
+         float relDistance = i.screenPosition.w;
+            relDistance = relDistance - _MinDistance;
+            clip(relDistance - ditherValue.r);
 
-    //value from the dither pattern
-    float2 screenPos = i.screenPosition.xy / i.screenPosition.w;
-    float2 ditherCoordinate = screenPos * _ScreenParams.xy * _DitherPattern_TexelSize.xy;
-    float ditherValue = tex2D(_DitherPattern, ditherCoordinate).r;
-
-    //combine dither pattern with texture value to get final result
-    float col = step(ditherValue, texColor);
-    return col;
-      }
+        float4 col =  texColor;
+        return col;
+          }
 
       ENDCG
     }

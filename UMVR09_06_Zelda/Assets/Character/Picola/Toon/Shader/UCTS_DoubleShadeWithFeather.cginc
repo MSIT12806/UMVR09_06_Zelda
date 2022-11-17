@@ -125,6 +125,7 @@
 #elif _IS_CLIPPING_OFF
 //DoubleShadeWithFeather
 #endif
+#include "UnityCG.cginc"
 
             // UV回転をする関数：RotateUV()
             //float2 rotatedUV = RotateUV(i.uv0, (_angular_Verocity*3.141592654), float2(0.5, 0.5), _Time.g);
@@ -141,7 +142,10 @@
             }
             
             uniform float _GI_Intensity;
-
+                  //The dithering pattern
+      uniform sampler2D _DitherPattern;//
+      uniform float4 _DitherPattern_TexelSize;
+      uniform float _MinDistance;
             struct VertexInput {
                 float4 vertex : POSITION;
                 float3 normal : NORMAL;
@@ -157,6 +161,7 @@
                 float3 bitangentDir : TEXCOORD4;
                 //v.2.0.7
                 float mirrorFlag : TEXCOORD5;
+        float4 screenPosition : TEXCOORD9;
                 LIGHTING_COORDS(6,7)
                 UNITY_FOG_COORDS(8)
                 //
@@ -175,6 +180,7 @@
                 o.mirrorFlag = dot(crossFwd, UNITY_MATRIX_V[2]) < 0 ? 1 : -1;
                 //
                 UNITY_TRANSFER_FOG(o,o.pos);
+                o.screenPosition = ComputeScreenPos(o.pos);
                 TRANSFER_VERTEX_TO_FRAGMENT(o)
                 return o;
             }
@@ -436,6 +442,17 @@
                 	fixed4 finalRGBA = fixed4(finalColor * Set_Opacity,0);
 	#endif
 #endif
+
+ //value from the dither pattern
+        float2 screenPos = i.screenPosition.xy / i.screenPosition.w;
+        float2 ditherCoordinate = screenPos * _ScreenParams.xy * _DitherPattern_TexelSize.xy;
+        float ditherValue = tex2D(_DitherPattern, ditherCoordinate).r;
+  //  return ditherValue;
+        //combine dither pattern with texture value to get final result
+         float relDistance = i.screenPosition.w;
+            relDistance = relDistance - _MinDistance;
+            clip(relDistance - ditherValue.r);
+
                 UNITY_APPLY_FOG(i.fogCoord, finalRGBA);
                 return finalRGBA;
             }

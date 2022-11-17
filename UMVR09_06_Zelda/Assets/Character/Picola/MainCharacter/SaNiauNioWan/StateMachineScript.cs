@@ -32,7 +32,7 @@ public class StateMachineScript : MonoBehaviour
         }
         else
         {
-            //º¢ªÅ®É¶¡¡H
+            //æ»¯ç©ºæ™‚é–“ï¼Ÿ
             if (currentAnimation.IsName("BackFlip2") || currentAnimation.IsName("BackFlip") )
             {
                 animator.SetTrigger("endHit");

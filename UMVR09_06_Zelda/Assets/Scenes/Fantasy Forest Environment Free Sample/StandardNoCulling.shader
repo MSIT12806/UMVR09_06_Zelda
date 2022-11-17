@@ -19,7 +19,7 @@ Shader "Fantasy Forest/StandardNoCulling"
 	SubShader
 	{
 		Tags{ "RenderType" = "TransparentCutout"  "Queue" = "Geometry+0"  }
-		Cull Back //¥u´è¬V«e¤è
+		Cull Back //åªæ¸²æŸ“å‰æ–¹
 		CGPROGRAM
 		#pragma target 3.0
 		#pragma surface surf StandardSpecular keepalpha  fullforwardshadows 
@@ -64,7 +64,7 @@ Shader "Fantasy Forest/StandardNoCulling"
             float ditherValue = tex2D(_DitherPattern, ditherCoordinate).r;
 
             //get relative distance from the camera
-			//¦p¦ó§â¾ã­Óª«¥ó³£¶i¦æ³B²z¡H
+			//å¦‚ä½•æŠŠæ•´å€‹ç‰©ä»¶éƒ½é€²è¡Œè™•ç†ï¼Ÿ
             float relDistance = i.screenPos.w;
             relDistance = relDistance - _MinDistance;
 			if(relDistance < 0){

@@ -5,6 +5,11 @@
 //(C)Unity Technologies Japan/UCL
 Shader "UnityChanToonShader/NoOutline/ToonColor_DoubleShadeWithFeather" {
     Properties {
+    
+        		//dither
+		_DitherPattern ("Dithering Pattern", 2D) = "white" {}
+        _MinDistance ("Minimum Fade Distance", Float) = 0
+
         [HideInInspector] _simpleUI ("SimpleUI", Int ) = 0
         [HideInInspector] _utsVersion ("Version", Float ) = 2.08
         [HideInInspector] _utsTechnique ("Technique", int ) = 0 //DWF
@@ -131,12 +136,15 @@ Shader "UnityChanToonShader/NoOutline/ToonColor_DoubleShadeWithFeather" {
         _Offset_X_Axis_BLD (" Offset X-Axis (Built-in Light Direction)", Range(-1, 1)) = -0.05
         _Offset_Y_Axis_BLD (" Offset Y-Axis (Built-in Light Direction)", Range(-1, 1)) = 0.09
         [Toggle(_)] _Inverse_Z_Axis_BLD (" Inverse Z-Axis (Built-in Light Direction)", Float ) = 1
+
     }
     SubShader {
         Tags {
             "RenderType"="Opaque"
         }
 
+
+        
         UsePass "UnityChanToonShader/Toon_DoubleShadeWithFeather/FORWARD"
         UsePass "UnityChanToonShader/Toon_DoubleShadeWithFeather/FORWARD_DELTA"
         UsePass "UnityChanToonShader/Toon_DoubleShadeWithFeather/SHADOWCASTER"
