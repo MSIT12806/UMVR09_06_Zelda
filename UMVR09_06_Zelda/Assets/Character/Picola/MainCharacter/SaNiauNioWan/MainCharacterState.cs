@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateMachineScript : MonoBehaviour
+public class MainCharacterState : MonoBehaviour
 {
     public GameObject Sword;
     public Animator animator;
