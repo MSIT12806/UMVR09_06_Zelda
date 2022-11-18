@@ -71,6 +71,18 @@ public class MainCharacterState : MonoBehaviour
             a.IkActive = true;
             Sword.SetActive(true);
         }
+        if (currentAnimation.IsName("Attack01"))
+        {
+            //Vector3 ForwardMove = transform.position;
+            //ForwardMove.z += 3f*Time.deltaTime;
+            //transform.position = transform.position + transform.forward * 0.2f;
+        }
+
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    //transform.position = transform.position + transform.forward * 10f;
+        //    transform.position = Vector3.Lerp(transform.position, transform.position + transform.forward.normalized * 2f, 0.1f);
+        //}
     }
     public virtual void LeftMouseClick()
     {
@@ -81,4 +93,13 @@ public class MainCharacterState : MonoBehaviour
         animator.SetTrigger("attack02");
     }
 
+    public void ForwardMove()
+    {
+        //設定true false開關外面主程式來位移------------------------------------------------------------------------------
+        transform.position = Vector3.Lerp(transform.position, transform.position + transform.forward.normalized * 1f, 1f);
+        //print(transform.position);
+        //transform.position = transform.position + transform.forward * 100f;
+        //print(transform.position);
+        
+    }
 }
