@@ -46,6 +46,7 @@ public class IKController : MonoBehaviour
     void Update()
     {
         //如果IK沒啟動，則把控制器附上動畫本身的值
+
         if (IkActive == false) 
         {
             if (LookAtObj != null)
