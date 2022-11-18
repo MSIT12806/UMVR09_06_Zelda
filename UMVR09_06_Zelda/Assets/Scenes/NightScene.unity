@@ -3328,6 +3328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18c9139d34b25594188c45080c29c25d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Sword: {fileID: 0}
   animator: {fileID: 455430470}
 --- !u!114 &455430473
 MonoBehaviour:
@@ -16874,6 +16875,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainCharacter
       objectReference: {fileID: 0}
+    - target: {fileID: 2046102329944782772, guid: 510be0e958e2ffe4bb58cb4fc9c1be5e, type: 3}
+      propertyPath: Sword
+      value: 
+      objectReference: {fileID: 653899936}
     - target: {fileID: 2046102329944782774, guid: 510be0e958e2ffe4bb58cb4fc9c1be5e, type: 3}
       propertyPath: aaa
       value: 2
@@ -19710,6 +19715,10 @@ PrefabInstance:
     - target: {fileID: 516019870177020777, guid: 30f9abfc3e334dd428a89c1ad9183b0f, type: 3}
       propertyPath: m_Name
       value: stylized_fantasy_sword
+      objectReference: {fileID: 0}
+    - target: {fileID: 516019870177020777, guid: 30f9abfc3e334dd428a89c1ad9183b0f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3811838354897535924, guid: 30f9abfc3e334dd428a89c1ad9183b0f, type: 3}
       propertyPath: m_IsActive

@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class StateMachineScript : MonoBehaviour
 {
+    public GameObject Sword;
     public Animator animator;
     public AnimatorStateInfo currentAnimation;
+    private float fTimer = 0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -45,6 +47,29 @@ public class StateMachineScript : MonoBehaviour
                 LeftMouseClick();
             if (Input.GetMouseButtonDown(1))
                 RightMouseClick();
+        }
+
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            fTimer += Time.deltaTime;
+            animator.SetFloat("dodge", fTimer);
+        }
+        else
+        {
+            fTimer = 0f;
+            animator.SetFloat("dodge", fTimer);
+        } 
+
+        var a = this.GetComponent<IKController>();
+        if(currentAnimation.IsName("Fast run"))
+        {
+            a.IkActive = false;
+            Sword.SetActive(false);
+        }
+        else
+        {
+            a.IkActive = true;
+            Sword.SetActive(true);
         }
     }
     public virtual void LeftMouseClick()
