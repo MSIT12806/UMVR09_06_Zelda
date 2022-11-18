@@ -54,6 +54,12 @@ public class Taunt : AiState
 /// </summary>
 public class Chase : AiState
 {
+    ChaseState chaseState;
+    enum ChaseState
+    {
+        Around,//todo: 要定範圍外停住
+        Close  //貼近 8隻
+    }
     GameObject alertTarget;
     public Chase(GameObject alertObject)
     {
@@ -63,6 +69,16 @@ public class Chase : AiState
     {
         throw new NotImplementedException();
     }
+    public void AroundOrClose()
+    {
+
+    }
+    public string GetChaseState()
+    {
+        return chaseState.DisplayName();
+    }
+    public void Turn() { }
+    public void Seek() { }
 }
 /// <summary>
 /// 停下並站在角色面前

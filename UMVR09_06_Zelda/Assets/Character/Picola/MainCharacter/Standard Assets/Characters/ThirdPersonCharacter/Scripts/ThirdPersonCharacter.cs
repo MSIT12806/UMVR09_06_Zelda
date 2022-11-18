@@ -304,6 +304,18 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			m_OrigGroundCheckDistance = m_GroundCheckDistance;
 		}
 
+		void OnAnimatorMove()
+		{
+			Animator animator = GetComponent<Animator>();
+
+			if (animator)
+			{
+				Vector3 newPosition = transform.position;
+				newPosition += animator.deltaPosition;
+				transform.position = newPosition;
+			}
+		}
+
 
 		public void Move(Vector3 move, bool crouch, bool jump)
 		{
@@ -514,6 +526,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 				{
 					//transform.Translate(0f, 0.01f,0f);
 					Vector3 vec = transform.position;
+
 					vec.y = hitInfo.point.y;
 					transform.position = vec;
 					//Debug.Log("111111111111111111111");
@@ -534,6 +547,12 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 
 		}
+		//public void ForwardMove()
+		//{
+		//	//transform.position = Vector3.Lerp(transform.position, transform.position + transform.forward.normalized*0.2f, 0.5f);`
+		//	print(transform.position);
+		//	transform.position = transform.position + transform.forward * 10f;
+		//}
 	}
 }
 

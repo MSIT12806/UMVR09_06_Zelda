@@ -1,8 +1,6 @@
-// Made with Amplify Shader Editor
-// Available at the Unity Asset Store - http://u3d.as/y3X 
-Shader "Fantasy Forest/StandardNoCulling"
+Shader "Ron/MyDitherDiffuse"
 {
-	Properties
+  Properties
 	{
 		_Cutoff( "Mask Clip Value", Float ) = 0.5
 		_MainTex("Main Texture", 2D) = "white" {}
@@ -19,10 +17,10 @@ Shader "Fantasy Forest/StandardNoCulling"
 	SubShader
 	{
 		Tags{ "RenderType" = "TransparentCutout"  "Queue" = "Geometry+0"  }
-		Cull Back //åªæ¸²æŸ“å‰æ–¹
+		Cull Back //¥u´è¬V«e¤è  //fullforwardshadows   addshadow  noshadow
 		CGPROGRAM
 		#pragma target 3.0
-		#pragma surface surf StandardSpecular keepalpha  fullforwardshadows 
+		#pragma surface surf StandardSpecular keepalpha  noforwardadd
 		struct Input
 		{
 			float2 uv_texcoord;
@@ -64,71 +62,23 @@ Shader "Fantasy Forest/StandardNoCulling"
             float ditherValue = tex2D(_DitherPattern, ditherCoordinate).r;
 
             //get relative distance from the camera
-			//å¦‚ä½•æŠŠæ•´å€‹ç‰©ä»¶éƒ½é€²è¡Œè™•ç†ï¼Ÿ
+			//¦p¦ó§â¾ã­Óª«¥ó³£¶i¦æ³B²z¡H
             float relDistance = i.screenPos.w;
             relDistance = relDistance - _MinDistance;
 
             //discard pixels accordingly
-            clip(relDistance - ditherValue);
+			float f = relDistance - ditherValue;
+			clip(f);
+			o.Alpha = f;
 		}
 
 		ENDCG
-		  Pass {
-        Name "ShadowCaster"
-        Tags { "LightMode" = "ShadowCaster" }
-
-CGPROGRAM
-#pragma vertex vert
-#pragma fragment frag
-#pragma target 2.0
-#pragma multi_compile_shadowcaster
-#pragma multi_compile_instancing // allow instanced shadow pass for most of the shaders
-#include "UnityCG.cginc"
-
-        sampler2D _DitherPattern;
-        float4 _DitherPattern_TexelSize;
-        float _MinDistance;
-		float4x4 _VP;
-struct v2f {
-    V2F_SHADOW_CASTER;
-    float4 screenPosition : TEXCOORD1;
-    UNITY_VERTEX_OUTPUT_STEREO
-};
-
-v2f vert( appdata_base v )
-{
-    v2f o;
-    UNITY_SETUP_INSTANCE_ID(v);
-    //UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
-	UNITY_INITIALIZE_OUTPUT(v2f, o);
-    o.screenPosition = ComputeScreenPos(o.pos);
-    TRANSFER_SHADOW_CASTER_NORMALOFFSET(o)
-    return o;
-}
-
-float4 frag( v2f i ) : SV_Target
-{
-			//value from the dither pattern
-                float2 screenPos = i.screenPosition.xy / i.screenPosition.w;
-                float2 ditherCoordinate = screenPos * _ScreenParams.xy * _DitherPattern_TexelSize.xy;
-                float ditherValue = tex2D(_DitherPattern, ditherCoordinate).r;
-
-            //get relative distance from the camera
-			//å¦‚ä½•æŠŠæ•´å€‹ç‰©ä»¶éƒ½é€²è¡Œè™•ç†ï¼Ÿ
-            float relDistance = i.screenPosition.w;
-            relDistance = relDistance - _MinDistance;
-
-            //discard pixels accordingly
-            clip(_MinDistance);
-			 fixed4 col;
-			 col = fixed4(1,0,1,1);
-			 return col;
-    //SHADOW_CASTER_FRAGMENT(i)
-}
-ENDCG
-}
 	}
-	//Fallback "Unlit/MyVertexLitDither"
+	//Fallback Off
+	Fallback "Diffuse"
+	//    Fallback "VertexLit"
+	   // Fallback "Legacy Shaders/VertexLit"
+	    //Fallback "Transparent/Cutoff/VertexLit"
 	CustomEditor "ASEMaterialInspector"
 }
 /*ASEBEGIN
