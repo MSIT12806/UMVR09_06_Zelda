@@ -5,6 +5,8 @@
 //(C)Unity Technologies Japan/UCL
 Shader "UnityChanToonShader/Toon_DoubleShadeWithFeather_TransClipping" {
     Properties {
+                _DitherPattern ("Dithering Pattern", 2D) = "white" {}
+        _MinDistance ("Minimum Fade Distance", Float) = 0
         [HideInInspector] _simpleUI ("SimpleUI", Int ) = 0
         [HideInInspector] _utsVersion ("Version", Float ) = 2.08
         [HideInInspector] _utsTechnique ("Technique", int ) = 0 //DWF

@@ -142,10 +142,7 @@
             }
             
             uniform float _GI_Intensity;
-                  //The dithering pattern
-      uniform sampler2D _DitherPattern;//
-      uniform float4 _DitherPattern_TexelSize;
-      uniform float _MinDistance;
+
             struct VertexInput {
                 float4 vertex : POSITION;
                 float3 normal : NORMAL;
@@ -443,15 +440,7 @@
 	#endif
 #endif
 
- //value from the dither pattern
-        float2 screenPos = i.screenPosition.xy / i.screenPosition.w;
-        float2 ditherCoordinate = screenPos * _ScreenParams.xy * _DitherPattern_TexelSize.xy;
-        float ditherValue = tex2D(_DitherPattern, ditherCoordinate).r;
-  //  return ditherValue;
-        //combine dither pattern with texture value to get final result
-         float relDistance = i.screenPosition.w;
-            relDistance = relDistance - _MinDistance;
-            clip(relDistance - ditherValue.r);
+
 
                 UNITY_APPLY_FOG(i.fogCoord, finalRGBA);
                 return finalRGBA;
