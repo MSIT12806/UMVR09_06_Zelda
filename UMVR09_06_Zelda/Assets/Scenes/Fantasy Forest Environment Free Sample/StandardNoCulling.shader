@@ -67,17 +67,68 @@ Shader "Fantasy Forest/StandardNoCulling"
 			//如何把整個物件都進行處理？
             float relDistance = i.screenPos.w;
             relDistance = relDistance - _MinDistance;
-			if(relDistance < 0){
-			  relDistance = relDistance-1;
-			}
 
             //discard pixels accordingly
             clip(relDistance - ditherValue);
 		}
 
 		ENDCG
+		  Pass {
+        Name "ShadowCaster"
+        Tags { "LightMode" = "ShadowCaster" }
+
+CGPROGRAM
+#pragma vertex vert
+#pragma fragment frag
+#pragma target 2.0
+#pragma multi_compile_shadowcaster
+#pragma multi_compile_instancing // allow instanced shadow pass for most of the shaders
+#include "UnityCG.cginc"
+
+        sampler2D _DitherPattern;
+        float4 _DitherPattern_TexelSize;
+        float _MinDistance;
+		float4x4 _VP;
+struct v2f {
+    V2F_SHADOW_CASTER;
+    float4 screenPosition : TEXCOORD1;
+    UNITY_VERTEX_OUTPUT_STEREO
+};
+
+v2f vert( appdata_base v )
+{
+    v2f o;
+    UNITY_SETUP_INSTANCE_ID(v);
+    //UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
+	UNITY_INITIALIZE_OUTPUT(v2f, o);
+    o.screenPosition = ComputeScreenPos(o.pos);
+    TRANSFER_SHADOW_CASTER_NORMALOFFSET(o)
+    return o;
+}
+
+float4 frag( v2f i ) : SV_Target
+{
+			//value from the dither pattern
+                float2 screenPos = i.screenPosition.xy / i.screenPosition.w;
+                float2 ditherCoordinate = screenPos * _ScreenParams.xy * _DitherPattern_TexelSize.xy;
+                float ditherValue = tex2D(_DitherPattern, ditherCoordinate).r;
+
+            //get relative distance from the camera
+			//如何把整個物件都進行處理？
+            float relDistance = i.screenPosition.w;
+            relDistance = relDistance - _MinDistance;
+
+            //discard pixels accordingly
+            clip(_MinDistance);
+			 fixed4 col;
+			 col = fixed4(1,0,1,1);
+			 return col;
+    //SHADOW_CASTER_FRAGMENT(i)
+}
+ENDCG
+}
 	}
-	Fallback "Diffuse"
+	//Fallback "Unlit/MyVertexLitDither"
 	CustomEditor "ASEMaterialInspector"
 }
 /*ASEBEGIN
