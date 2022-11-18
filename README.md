@@ -19,7 +19,8 @@
 增加關卡豐富度、
 找希卡之石的動作、
 (如果不用rigidbody)
-場景邊界、Npcs、...
+場景邊界、Npcs、碰撞判定...
+處理 dither: 烘培場景(FallBack OFF?)
 
 
 
