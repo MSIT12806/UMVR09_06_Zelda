@@ -8,10 +8,14 @@ public class MainCharacterState : MonoBehaviour
     public Animator animator;
     public AnimatorStateInfo currentAnimation;
     private float fTimer = 0f;
+
+
+    bool frontMove = false;
+    float time = 0f;
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -35,7 +39,7 @@ public class MainCharacterState : MonoBehaviour
         else
         {
             //滯空時間？
-            if (currentAnimation.IsName("BackFlip2") || currentAnimation.IsName("BackFlip") )
+            if (currentAnimation.IsName("BackFlip2") || currentAnimation.IsName("BackFlip"))
             {
                 animator.SetTrigger("endHit");
             }
@@ -58,10 +62,10 @@ public class MainCharacterState : MonoBehaviour
         {
             fTimer = 0f;
             animator.SetFloat("dodge", fTimer);
-        } 
+        }
 
         var a = this.GetComponent<IKController>();
-        if(currentAnimation.IsName("Fast run"))
+        if (currentAnimation.IsName("Fast run"))
         {
             a.IkActive = false;
             Sword.SetActive(false);
@@ -78,6 +82,32 @@ public class MainCharacterState : MonoBehaviour
             //transform.position = transform.position + transform.forward * 0.2f;
         }
 
+        if (!(currentAnimation.IsName("Attack01") || currentAnimation.IsName("Attack01 0") || currentAnimation.IsName("Attack01 1") || currentAnimation.IsName("Attack01 2")))
+        {
+            animator.SetBool("attack02", false);
+        }
+
+        //增加 按下Lctrl閃避 時的位移距離
+        //Vector3 newPos = transform.position;
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            frontMove = true;
+        }
+        if (frontMove)
+        {
+            time += Time.deltaTime;
+        }
+        if(0f < time && time < 0.21f)
+        {
+            transform.Translate(transform.forward * 0.15f);
+        }
+        else if(time > 0.4f)
+        {
+            frontMove = false;
+            time = 0f;
+        }
+
+
         //if (Input.GetMouseButtonDown(0))
         //{
         //    //transform.position = transform.position + transform.forward * 10f;
@@ -90,7 +120,10 @@ public class MainCharacterState : MonoBehaviour
     }
     public virtual void RightMouseClick()
     {
-        animator.SetTrigger("attack02");
+        if (currentAnimation.IsName("Attack01") || currentAnimation.IsName("Attack01 0") || currentAnimation.IsName("Attack01 1") || currentAnimation.IsName("Attack01 2"))
+            animator.SetBool("attack02",true);
+        else
+            animator.SetBool("attack02", false);
     }
 
     public void ForwardMove()
@@ -100,6 +133,12 @@ public class MainCharacterState : MonoBehaviour
         //print(transform.position);
         //transform.position = transform.position + transform.forward * 100f;
         //print(transform.position);
-        
+
+    }
+
+    public void AttackSpeedChange(float f)
+    {
+        animator.SetFloat("attackSpeed",f);
+        //print(231321213);
     }
 }
