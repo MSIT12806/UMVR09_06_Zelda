@@ -40,6 +40,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: a13189946baa9b04fa12e27419bcc3eb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _DitherPattern:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -62,6 +66,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 2800000, guid: 2d85bc61587588f44b58c347e909e84c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseTex:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
@@ -152,10 +160,11 @@ Material:
     - _ColorShift_Speed: 0
     - _Cull: 2
     - _CullMode: 2
-    - _Cutoff: 0.57
+    - _Cutoff: 0
     - _DebugMode: 0
     - _DstBlend: 0
     - _EMISSIVE: 0
+    - _EdgeWidth: 0.05
     - _EnvironmentReflections: 1
     - _GI_Intensity: 0
     - _GlossMapScale: 0
@@ -166,7 +175,7 @@ Material:
     - _Inverse_MatcapMask: 0
     - _Inverse_Z_Axis_BLD: 1
     - _Is_BLD: 0
-    - _Is_BlendAddToHiColor: 0
+    - _Is_BlendAddToHiColor: 1
     - _Is_BlendAddToMatCap: 1
     - _Is_ColorShift: 0
     - _Is_Filter_HiCutPointLightColor: 1
@@ -194,6 +203,7 @@ Material:
     - _MToonVersion: 38
     - _MatCap: 0
     - _Metallic: 0
+    - _MinDistance: 0
     - _OcclusionStrength: 1
     - _Offset_X_Axis_BLD: -0.05
     - _Offset_Y_Axis_BLD: 0.09
@@ -210,8 +220,8 @@ Material:
     - _RimLift: 0
     - _RimLight: 1
     - _RimLight_FeatherOff: 1
-    - _RimLight_InsideMask: 0.38
-    - _RimLight_Power: 0.144
+    - _RimLight_InsideMask: 0.614
+    - _RimLight_Power: 0.133
     - _RimLightingMix: 0
     - _Rotate_EmissiveUV: 0
     - _Rotate_MatCapUV: 0
@@ -245,7 +255,7 @@ Material:
     - _UvAnimScrollY: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - _simpleUI: 0
+    - _simpleUI: 2
     - _utsTechnique: 0
     - _utsVersion: 2.08
     m_Colors:
@@ -257,7 +267,7 @@ Material:
     - _ColorShift: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Emissive_Color: {r: 0.2264151, g: 0.2264151, b: 0.2264151, a: 1}
-    - _HighColor: {r: 0, g: 0, b: 0, a: 1}
+    - _HighColor: {r: 1, g: 1, b: 1, a: 1}
     - _MatCapColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _RimColor: {r: 0, g: 0, b: 0, a: 1}
