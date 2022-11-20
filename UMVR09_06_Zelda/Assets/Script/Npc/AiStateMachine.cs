@@ -75,7 +75,7 @@ public class Chase : AiState
     }
     public string GetChaseState()
     {
-        return chaseState.DisplayName();
+        return chaseState.ToString();
     }
     public void Turn() { }
     public void Seek() { }
