@@ -18,7 +18,7 @@ Shader "Fantasy Forest/StandardNoCulling"
 
 	SubShader
 	{
-		Tags{ "RenderType" = "TransparentCutout"  "Queue" = "Geometry+0"  }
+		Tags{ "RenderType" = "Opaque"  "Queue" = "Geometry+0"  }
 		Cull Back //只渲染前方
 		CGPROGRAM
 		#pragma target 3.0
@@ -128,7 +128,7 @@ float4 frag( v2f i ) : SV_Target
 ENDCG
 }
 	}
-	//Fallback "Unlit/MyVertexLitDither"
+	Fallback "DIFFUSE"
 	CustomEditor "ASEMaterialInspector"
 }
 /*ASEBEGIN

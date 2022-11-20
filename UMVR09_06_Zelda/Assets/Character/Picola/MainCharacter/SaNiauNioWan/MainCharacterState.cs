@@ -97,7 +97,7 @@ public class MainCharacterState : MonoBehaviour
         //}
         //Vector3.Lerp(transform.position, newPos, 0.5f);
 
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.LeftControl) && (currentAnimation.IsName("Grounded") || currentAnimation.IsName("Front Dodge")))
         {
             frontMove = true;
         }
