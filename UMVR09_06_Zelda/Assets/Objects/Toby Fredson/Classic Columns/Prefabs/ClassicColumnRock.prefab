@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 33000011129179884}
   - component: {fileID: 23000011098250304}
   - component: {fileID: 64000011543678294}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClassicColumnRock_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4000011142957254
 Transform:
@@ -69,7 +69,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
+  m_ScaleInLightmap: 0.5
   m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
@@ -110,12 +110,12 @@ GameObject:
   - component: {fileID: 33000011889923312}
   - component: {fileID: 23000011277264808}
   - component: {fileID: 64000011255019310}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClassicColumnRock_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4000011934153786
 Transform:
@@ -208,12 +208,12 @@ GameObject:
   - component: {fileID: 33000010526903262}
   - component: {fileID: 23000011142379166}
   - component: {fileID: 64000011594481054}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClassicColumnRock_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4000013453847632
 Transform:
@@ -306,12 +306,12 @@ GameObject:
   - component: {fileID: 33000014248897244}
   - component: {fileID: 23000014202319888}
   - component: {fileID: 64000011398182896}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClassicColumnRock_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4000014289434874
 Transform:
@@ -402,12 +402,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4000013211622862}
   - component: {fileID: 205000013129967896}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClassicColumnRock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4000013211622862
 Transform:
@@ -419,7 +419,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4000011142957254}
   - {fileID: 4000014289434874}
