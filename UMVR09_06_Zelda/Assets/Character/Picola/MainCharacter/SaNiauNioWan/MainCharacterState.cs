@@ -9,12 +9,14 @@ public class MainCharacterState : MonoBehaviour
     public AnimatorStateInfo currentAnimation;
     private float fTimer = 0f;
 
-
+    Vector3 newPos;
     bool frontMove = false;
     float time = 0f;
+    public Transform newPlace;
     // Start is called before the first frame update
     void Start()
     {
+        Vector3 newPos = transform.position;
 
     }
 
@@ -88,7 +90,13 @@ public class MainCharacterState : MonoBehaviour
         }
 
         //增加 按下Lctrl閃避 時的位移距離
-        //Vector3 newPos = transform.position;
+
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    newPos = transform.position += transform.forward * 5f;
+        //}
+        //Vector3.Lerp(transform.position, newPos, 0.5f);
+
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             frontMove = true;
@@ -97,15 +105,23 @@ public class MainCharacterState : MonoBehaviour
         {
             time += Time.deltaTime;
         }
-        if(0f < time && time < 0.21f)
+        if (0f < time && time < 0.21f)
         {
-            transform.Translate(transform.forward * 0.15f);
+            print(transform.forward);
+            transform.Translate( new Vector3(0f,0f,1f) * 0.15f);
         }
-        else if(time > 0.4f)
+        else if (time > 0.4f)
         {
             frontMove = false;
             time = 0f;
         }
+        Debug.DrawLine(transform.position,transform.position+ transform.forward*10f);
+
+        var IK = GetComponent<IKController>();
+        if (currentAnimation.IsName("Attack01 2") || currentAnimation.IsName("Fast run"))
+            IK.IkActive = false;
+        else
+            IK.IkActive = true;
 
 
         //if (Input.GetMouseButtonDown(0))
@@ -142,3 +158,4 @@ public class MainCharacterState : MonoBehaviour
         //print(231321213);
     }
 }
+

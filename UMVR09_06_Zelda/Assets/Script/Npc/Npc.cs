@@ -25,7 +25,7 @@ public class Npc : MonoBehaviour
         var hitSomething = Physics.SphereCast(this.transform.position + new Vector3(0, 1.1f, 0), 1f, this.transform.forward, out var result, layerMask);
         if (hitSomething)
         {
-            print(result.transform.name);
+            //print(result.transform.name);
         }
     }
 
