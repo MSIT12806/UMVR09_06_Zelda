@@ -23,7 +23,7 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0, g: 0, b: 0, a: 1}
   m_AmbientEquatorColor: {r: 0, g: 0, b: 0, a: 1}
   m_AmbientGroundColor: {r: 0.078431375, g: 0.046858326, b: 0, a: 1}
-  m_AmbientIntensity: 1.5
+  m_AmbientIntensity: 2
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.46752366, g: 0.41960785, b: 0.627451, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: 6eecb3bb77b3f7a43a504fceda3b0b5f, type: 2}
@@ -893,7 +893,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 63109911}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 23.23282, y: 0.37, z: 9.04}
+  m_LocalPosition: {x: 23.589, y: 1.119, z: 16.149}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3365,6 +3365,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6942378765527368334, guid: 4f320ab5e1c207d479610b23bcf76d58, type: 3}
+      propertyPath: m_HDR
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6942378765527368334, guid: 4f320ab5e1c207d479610b23bcf76d58, type: 3}
+      propertyPath: m_AllowMSAA
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6942378765527368334, guid: 4f320ab5e1c207d479610b23bcf76d58, type: 3}
       propertyPath: m_CullingMask.m_Bits
       value: 255
       objectReference: {fileID: 0}
@@ -3382,31 +3390,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6942378765527368337, guid: 4f320ab5e1c207d479610b23bcf76d58, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 18.121567
+      value: 23.638865
       objectReference: {fileID: 0}
     - target: {fileID: 6942378765527368337, guid: 4f320ab5e1c207d479610b23bcf76d58, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.3879466
+      value: 2.7998242
       objectReference: {fileID: 0}
     - target: {fileID: 6942378765527368337, guid: 4f320ab5e1c207d479610b23bcf76d58, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 60.963963
+      value: 13.747717
       objectReference: {fileID: 0}
     - target: {fileID: 6942378765527368337, guid: 4f320ab5e1c207d479610b23bcf76d58, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.93211305
+      value: 0.98710555
       objectReference: {fileID: 0}
     - target: {fileID: 6942378765527368337, guid: 4f320ab5e1c207d479610b23bcf76d58, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.02041608
+      value: 0.15850322
       objectReference: {fileID: 0}
     - target: {fileID: 6942378765527368337, guid: 4f320ab5e1c207d479610b23bcf76d58, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.36153662
+      value: 0.00069677824
       objectReference: {fileID: 0}
     - target: {fileID: 6942378765527368337, guid: 4f320ab5e1c207d479610b23bcf76d58, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.006306753
+      value: -0.022336006
       objectReference: {fileID: 0}
     - target: {fileID: 6942378765527368337, guid: 4f320ab5e1c207d479610b23bcf76d58, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3474,6 +3482,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sword: {fileID: 0}
   animator: {fileID: 455430470}
+  newPlace: {fileID: 0}
 --- !u!114 &455430473
 MonoBehaviour:
   m_ObjectHideFlags: 0
