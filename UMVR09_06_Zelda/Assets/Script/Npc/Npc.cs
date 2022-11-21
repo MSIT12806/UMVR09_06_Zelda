@@ -2,16 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Npc : MonoBehaviour
+
+
+
+[RequireComponent(typeof(Collider))]
+public class Npc : MonoBehaviour, IHp
 {
     // Start is called before the first frame update
 
     /*
-     * 1. ¹ï collider ªº¸I¼²°»´ú»P¸I¼²¤ÏÀ³¡C  °O±o°İ¦Ñ®v«ç»ò³B²z npc¸I¼² (raycast? ¨â¨âºâ¶ZÂ÷?)
-     * 1.1 À°¨C­Óª«¥ó³]©w¥b®|¡Aµeraycast
-     * 1.2 ½ü¨µ(®e¾¹¡H)À°¨C­Óª«¥óºâ¶ZÂ÷
+     * 1. å° collider çš„ç¢°æ’åµæ¸¬èˆ‡ç¢°æ’åæ‡‰ã€‚  è¨˜å¾—å•è€å¸«æ€éº¼è™•ç† npcç¢°æ’ (raycast? å…©å…©ç®—è·é›¢?)
+     * 1.1 å¹«æ¯å€‹ç‰©ä»¶è¨­å®šåŠå¾‘ï¼Œç•«raycast
+     * 1.2 è¼ªå·¡(å®¹å™¨ï¼Ÿ)å¹«æ¯å€‹ç‰©ä»¶ç®—è·é›¢
      */
     [SerializeField] LayerMask layerMask;
+    Collider collider;
 
     void Start()
     {
@@ -28,9 +33,23 @@ public class Npc : MonoBehaviour
             //print(result.transform.name);
         }
     }
-
+    public DamageData Attack()
+    {
+        //è«‹å–„ç”¨ç‹€æ…‹æ©Ÿè™•ç†æ”»æ“Šåˆ¤å®š
+        return DamageData.NoDamage;
+    }
+    public void GetHurt(DamageData damageData)
+    {
+        //æ’­æ”¾å—å‚·åƒµç›´å‹•ç•«
+        //è¨ˆç®—å¾Œé€€ or æ“Šé£›æ–¹å‘ & åŠ›é“
+        this.transform.Translate(damageData.force.point);
+        //åˆ¤å®šæ­»äº¡
+    }
     [Range(0.1f, 1f)] public float sphereCastRadius;
     [Range(0f, 100f)] public float range;
+
+    public float Hp { get; set; }
+
     private void OnDrawGizmos()
     {
         var position = this.transform.position + new Vector3(0, 1.1f, 0);
