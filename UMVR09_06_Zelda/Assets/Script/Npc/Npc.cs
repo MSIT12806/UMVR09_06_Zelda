@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
-
-
-
+using UnityStandardAssets.Characters.ThirdPerson;
 
 [RequireComponent(typeof(Collider))]
 public class Npc : MonoBehaviour, IHp
@@ -17,21 +16,49 @@ public class Npc : MonoBehaviour, IHp
      */
     [SerializeField] LayerMask layerMask;
     Collider collider;
+    ThirdPersonCharacter tpc;
 
+    Vector3 nextPosition;
+
+    public bool collide;
     void Start()
     {
-
+        nextPosition = this.transform.position;
+        tpc = GetComponent<ThirdPersonCharacter>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        DebugExtension.DebugWireSphere(this.transform.position + new Vector3(0, 1.1f, 0));
-        var hitSomething = Physics.SphereCast(this.transform.position + new Vector3(0, 1.1f, 0), 1f, this.transform.forward, out var result, layerMask);
+        collide = StaticCollision();
+        tpc.artistMovement = !collide;
+    }
+    void FixedUpdate()
+    {
+
+
+    }
+    public bool StaticCollision(float radius = 0.23f, float maxDistance = 0.3f)
+    {
+        var hitSomething = Physics.SphereCast(this.transform.position + new Vector3(0, 0.7f, 0), radius,transform.forward, out var hitInfo, maxDistance, layerMask);
         if (hitSomething)
         {
-            //print(result.transform.name);
+            print(hitInfo.transform.name);
+            print(hitInfo.transform.gameObject.layer != this.gameObject.layer);
         }
+        if (hitSomething && hitInfo.transform.gameObject.layer != this.gameObject.layer)
+        {
+            var nowPosXZ = transform.position;
+            nowPosXZ.y = 0;
+            var hitPointXZ = hitInfo.point;
+            hitPointXZ.y = 0;
+
+            var concactVec = hitPointXZ - nowPosXZ;
+            nextPosition = transform.position - concactVec;
+            //transform.position = Vector3.Lerp(transform.position, nextPosition,0.1f);
+            return true;
+        }
+        return false;
     }
     public DamageData Attack()
     {
@@ -45,29 +72,29 @@ public class Npc : MonoBehaviour, IHp
         this.transform.Translate(damageData.force.point);
         //判定死亡
     }
-    [Range(0.1f, 1f)] public float sphereCastRadius;
-    [Range(0f, 100f)] public float range;
 
     public float Hp { get; set; }
 
     private void OnDrawGizmos()
     {
-        var position = this.transform.position + new Vector3(0, 1.1f, 0);
+        //檢查球射線是否有交點
+        float sphereCastRadius = 0.23f;
+        float range = 0.3f;
+        var position = this.transform.position + new Vector3(0, 0.7f, 0);
+        var direction = transform.forward;
         Gizmos.DrawWireSphere(position, sphereCastRadius);
 
         RaycastHit hit;
-        if (Physics.SphereCast(position, sphereCastRadius, -transform.up * range, out hit, range, layerMask))
+        if (Physics.SphereCast(position, sphereCastRadius, direction, out hit, range, layerMask) && hit.transform.gameObject.layer != this.gameObject.layer)
         {
             Gizmos.color = Color.green;
-            Vector3 sphereCastMidpoint = transform.position + (transform.forward * hit.distance);
-            Gizmos.DrawWireSphere(sphereCastMidpoint, 0.1f);
             Gizmos.DrawSphere(hit.point, 0.1f);
             //Debug.DrawLine(transform.position, sphereCastMidpoint, Color.green);
         }
         else
         {
             Gizmos.color = Color.red;
-            Vector3 sphereCastMidpoint = position + (transform.forward * (range - sphereCastRadius));
+            Vector3 sphereCastMidpoint = position - direction * sphereCastRadius + direction * range;// + (direction * (range - sphereCastRadius));
             Gizmos.DrawWireSphere(sphereCastMidpoint, sphereCastRadius);
             //Debug.DrawLine(transform.position, sphereCastMidpoint, Color.red);
         }
