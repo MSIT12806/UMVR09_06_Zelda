@@ -53,7 +53,7 @@ public class MainCharacterState : MonoBehaviour
 
         if (animator.IsInTransition(0) == false)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && (currentAnimation.IsName("Grounded") || currentAnimation.IsName("Attack01") || currentAnimation.IsName("Attack01 0") || currentAnimation.IsName("Attack01 1") || currentAnimation.IsName("Fast run") ))
                 LeftMouseClick();
             if (Input.GetMouseButtonDown(1))
                 RightMouseClick();
