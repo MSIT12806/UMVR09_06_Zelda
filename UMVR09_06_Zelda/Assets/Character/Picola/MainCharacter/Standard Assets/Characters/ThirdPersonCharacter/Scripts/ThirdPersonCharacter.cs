@@ -303,12 +303,13 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			//m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 			m_OrigGroundCheckDistance = m_GroundCheckDistance;
 		}
-
+		public bool artistMovement = true;
 		void OnAnimatorMove()
 		{
-			Animator animator = GetComponent<Animator>();
+			var n = GetComponent<Npc>();
 
-			if (animator)
+			Animator animator = GetComponent<Animator>();
+			if (animator && artistMovement)
 			{
 				Vector3 newPosition = transform.position;
 				newPosition += animator.deltaPosition;
