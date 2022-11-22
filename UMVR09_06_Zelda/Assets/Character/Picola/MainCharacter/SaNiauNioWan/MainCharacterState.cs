@@ -165,7 +165,7 @@ public class MainCharacterState : MonoBehaviour
 
     public void AttackSpeedChange(float f)
     {
-        animator.SetFloat("attackSpeed",f);
+        animator.SetFloat("attackSpeed",f*1.5f);
         //print(231321213);
     }
 }
