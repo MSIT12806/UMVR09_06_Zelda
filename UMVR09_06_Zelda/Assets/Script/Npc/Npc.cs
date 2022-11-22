@@ -41,22 +41,31 @@ public class Npc : MonoBehaviour, IHp
     public bool StaticCollision(float radius = 0.23f, float maxDistance = 0.3f)
     {
         var hitSomething = Physics.SphereCast(this.transform.position + new Vector3(0, 0.7f, 0), radius,transform.forward, out var hitInfo, maxDistance, layerMask);
-        if (hitSomething)
+        if (hitSomething && hitInfo.transform != this.transform)
         {
-            print(hitInfo.transform.name);
-            print(hitInfo.transform.gameObject.layer != this.gameObject.layer);
-        }
-        if (hitSomething && hitInfo.transform.gameObject.layer != this.gameObject.layer)
-        {
+            print("hit");
             var nowPosXZ = transform.position;
             nowPosXZ.y = 0;
             var hitPointXZ = hitInfo.point;
             hitPointXZ.y = 0;
+            var hitObject = hitInfo.transform.gameObject;
+            //Npc 之間碰撞
+            if (hitObject.tag =="Npc")
+            {
+                var hitObjectPosXZ = hitObject.transform.position;
+                hitObjectPosXZ.y = 0;
+                var backVec = hitObjectPosXZ - hitPointXZ;
+                hitObject.transform.position -= backVec;
+                return false;
+            }
+            else//靜物碰撞
+            {
+                var concactVec = hitPointXZ - nowPosXZ;
+                nextPosition = transform.position - concactVec;
+                return true;
+            }
 
-            var concactVec = hitPointXZ - nowPosXZ;
-            nextPosition = transform.position - concactVec;
-            //transform.position = Vector3.Lerp(transform.position, nextPosition,0.1f);
-            return true;
+
         }
         return false;
     }
