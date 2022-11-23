@@ -6,45 +6,71 @@ public class Throw : MonoBehaviour
 {
     private Vector3 start_pos;
     private Vector3 current_pos;
-    private Vector3 next_pos;
-    public float Speed = 0.1f;
     private Vector3 start_vel;
     private Vector3 vel;
     private Vector3 next_vel;
     private Vector3 resistance;
 
-    private Quaternion face;
+    private Vector3 face;
 
 
-    public GameObject ThrowItem;
-    private Transform m_ThrowItem;
+    public Transform ThrowItem;
+    public Transform RightHandThrow_pos;
+    public GameObject Sword;
+    public float Speed = 0.1f;
+    public float vertical = 1.0f;
+    public Vector3 Gravity = Physics.gravity;
 
     // Start is called before the first frame update
     void Start()
     {
-        face = transform.rotation;
+        face = transform.forward;
 
-        m_ThrowItem = ThrowItem.GetComponent<Transform>();
-        
-        start_pos = m_ThrowItem.position;
+        //初始位置 = 物件生成位置
+        start_pos = ThrowItem.position;
+        //當前位置 = 初始位置
         current_pos = start_pos;
+       
 
-        //start_vel = (0.0f,0.0f,face.eulerAngles.x) * Speed;
+        //初始速度 = 人物面向 * 速率
+        start_vel = face * Speed;
+        start_vel.y += vertical;
+        //當前速度 = 初始速度
         vel = start_vel;
 
-        resistance = -(m_ThrowItem.forward) * 1.0f;
+        //阻力 = - 初始速度 * 0.X
+        resistance = -(vel) * 1.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        next_pos = current_pos + vel;
-        current_pos = next_pos;
-        m_ThrowItem.position = current_pos;
+        
+    }
 
-        //next_vel = vel + Physics.gravity * Time.deltaTime - resistance * Time.deltaTime;
-        next_vel = vel - resistance * Time.deltaTime;
+     public void OnThrow() 
+    {
+        ThrowItem.transform.parent = null;
+        //下一位置 = 當前位置 + 當前速度
+        //當前位置 = 下一位置
+        current_pos = ThrowItem.position + vel;
+        //物體移動到當前位置
+        ThrowItem.position = current_pos;
+
+        //下一速度 = 當前速度 + 重力 * Time.Deltatime + 阻力 * Time.Deltatime
+        next_vel = vel + Gravity * Time.deltaTime + resistance * Time.deltaTime;
+        //當前速度 = 下一速度
         vel = next_vel;
+    }
+
+    public void GetBomb() 
+    {
+        Sword.SetActive(false);
+        Object o = Resources.Load("TranslucentCrystal_Bomb");
+        GameObject go = Instantiate((GameObject)o);
+        go.transform.SetParent(RightHandThrow_pos.transform);
+        go.transform.position = RightHandThrow_pos.position;
+        ThrowItem = go.transform;
     }
 
     /*

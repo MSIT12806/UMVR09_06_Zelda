@@ -53,7 +53,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _HighColor_Tex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 10a9b58215fd6dd438627981aa3ed222, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -140,7 +140,7 @@ Material:
     m_Floats:
     - _1st2nd_Shades_Feather: 0.0001
     - _1st_ShadeColor_Feather: 0.0001
-    - _1st_ShadeColor_Step: 0.5
+    - _1st_ShadeColor_Step: 0.609
     - _2nd_ShadeColor_Feather: 0.0001
     - _2nd_ShadeColor_Step: 0
     - _Add_Antipodean_RimLight: 0
@@ -148,7 +148,7 @@ Material:
     - _AlphaToMask: 0
     - _Ap_RimLight_FeatherOff: 0
     - _Ap_RimLight_Power: 0.1
-    - _BaseColor_Step: 0.5
+    - _BaseColor_Step: 0.609
     - _BaseShade_Feather: 0.0001
     - _Base_Speed: 0
     - _Blend: 0
@@ -170,7 +170,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _HighColor_Power: 0
+    - _HighColor_Power: 0.463
     - _IndirectLightIntensity: 0.1
     - _Inverse_MatcapMask: 0
     - _Inverse_Z_Axis_BLD: 1
@@ -193,7 +193,7 @@ Material:
     - _Is_NormalMapToRimLight: 0
     - _Is_Ortho: 0
     - _Is_PingPong_Base: 0
-    - _Is_SpecularToHighColor: 0
+    - _Is_SpecularToHighColor: 1
     - _Is_UseTweakHighColorOnShadow: 0
     - _Is_UseTweakMatCapOnShadow: 0
     - _Is_ViewCoord_Scroll: 0
@@ -218,7 +218,7 @@ Material:
     - _ReceiveShadows: 1
     - _RimFresnelPower: 1
     - _RimLift: 0
-    - _RimLight: 1
+    - _RimLight: 0
     - _RimLight_FeatherOff: 1
     - _RimLight_InsideMask: 0.614
     - _RimLight_Power: 0.133
@@ -255,7 +255,7 @@ Material:
     - _UvAnimScrollY: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - _simpleUI: 2
+    - _simpleUI: 0
     - _utsTechnique: 0
     - _utsVersion: 2.08
     m_Colors:
@@ -266,7 +266,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ColorShift: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Emissive_Color: {r: 0.2264151, g: 0.2264151, b: 0.2264151, a: 1}
+    - _Emissive_Color: {r: 0.24252403, g: 0.33229473, b: 0.4716981, a: 1}
     - _HighColor: {r: 1, g: 1, b: 1, a: 1}
     - _MatCapColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
