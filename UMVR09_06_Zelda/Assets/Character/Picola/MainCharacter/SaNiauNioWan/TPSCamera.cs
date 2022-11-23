@@ -53,7 +53,7 @@ public class TPSCamera : MonoBehaviour
         RefreshCameraState();
         //GetRotateDegreeByKeyboard();
         GetRotateDegreeByMouse();
-        //TransparentBlockObject();
+        TransparentBlockObject();
         state.SetRotateDegree(fMX, fMY, m_CameraSensitivity);
         state.UpdateParameters(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance, m_StareTarget, m_LookSmoothTime);
         //DebugExtension.DebugWireSphere(m_LookPoint.position, 0.5f);
@@ -74,7 +74,7 @@ public class TPSCamera : MonoBehaviour
     private void RefreshCameraState()
     {
         if (Input.GetMouseButtonDown(2))//defaut camera
-            state = state.Name=="Default" ? new Stare(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance, m_StareTarget): new Default(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance);
+            state = state.Name == "Default" ? new Stare(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance, m_StareTarget) : new Default(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance);
         //if (Input.GetKey(KeyCode.Alpha1))//stare camera
         //{
         //    state = new Stare(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance, m_StareTarget);
@@ -143,7 +143,6 @@ public class TPSCamera : MonoBehaviour
     }
 
     HashSet<GameObject> transparentObj = new HashSet<GameObject>();
-    Dictionary<int, (Shader, Color)> materialShader = new Dictionary<int, (Shader, Color)>();
     private void TransparentBlockObject()
     {
         var hitArr = Physics.RaycastAll(this.transform.position, m_FollowTarget.position - this.transform.position, Vector3.Distance(this.transform.position, m_FollowTarget.position));
@@ -182,11 +181,7 @@ public class TPSCamera : MonoBehaviour
 
         for (int i = 0; i < renderer.materials.Length; i++)
         {
-            materialShader.TryGetValue(renderer.materials[i].GetHashCode(), out var tuple);
-            renderer.materials[i].shader = tuple.Item1;
-            renderer.materials[i].SetColor("_Color", tuple.Item2);
-            materialShader.Remove(renderer.materials[i].GetHashCode());
-            Debug.Log(g.name + " is remove in materialShader");
+            renderer.materials[i].SetFloat("_MinDistance", 1);
         }
     }
     private void SetTransparent(GameObject g)
@@ -200,14 +195,8 @@ public class TPSCamera : MonoBehaviour
         }
         for (int i = 0; i < renderer.materials.Length; i++)
         {
-            if (materialShader.ContainsKey(renderer.materials[i].GetHashCode()))
-            {
-                break;
-            }
-
-            materialShader.Add(renderer.materials[i].GetHashCode(), (renderer.materials[i].shader, renderer.materials[i].GetColor("_Color")));
-            renderer.materials[i].shader = Shader.Find("Transparent/Diffuse");
-            renderer.materials[i].SetColor("_Color", new Color(1, 1, 1, 0.3f));
+            float d = Vector3.Distance(g.transform.position, this.transform.position) - 4;
+            renderer.materials[i].SetFloat("_MinDistance", d);
             Debug.Log(g.name + " is add in materialShader");
         }
     }

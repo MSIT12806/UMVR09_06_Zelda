@@ -26,7 +26,6 @@ Shader "Fantasy Forest/StandardNoCulling"
 		struct Input
 		{
 			float2 uv_texcoord;
-            float4 screenPos;
 		};
 
 		uniform float4 _Color;
@@ -59,17 +58,12 @@ Shader "Fantasy Forest/StandardNoCulling"
 			clip( tex2DNode3.a - _Cutoff );
 
 			//value from the dither pattern
-            float2 screenPos = i.screenPos.xy / i.screenPos.w;
-            float2 ditherCoordinate = screenPos * _ScreenParams.xy * _DitherPattern_TexelSize.xy;
-            float ditherValue = tex2D(_DitherPattern, ditherCoordinate).r;
 
             //get relative distance from the camera
 			//如何把整個物件都進行處理？
-            float relDistance = i.screenPos.w;
-            relDistance = relDistance - _MinDistance;
 
             //discard pixels accordingly
-            clip(relDistance - ditherValue);
+            clip(_MinDistance);
 		}
 
 		ENDCG
