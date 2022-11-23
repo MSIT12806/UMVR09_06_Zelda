@@ -53,34 +53,49 @@ public class MainCharacterState : MonoBehaviour
 
         if (animator.IsInTransition(0) == false)
         {
-            if (Input.GetMouseButtonDown(0) && (currentAnimation.IsName("Grounded") || currentAnimation.IsName("Attack01") || currentAnimation.IsName("Attack01 0") || currentAnimation.IsName("Attack01 1") || currentAnimation.IsName("Fast run") ))
-                LeftMouseClick();
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButtonDown(0) && (currentAnimation.IsName("Grounded") || currentAnimation.IsName("Attack01") || currentAnimation.IsName("Attack01 0") || currentAnimation.IsName("Attack01 1") || currentAnimation.IsName("Fast run")))
+            { 
+                LeftMouseClick(); 
+            }
+            if (Input.GetMouseButtonDown(1) && (currentAnimation.IsName("Attack01") || currentAnimation.IsName("Attack01 0") || currentAnimation.IsName("Attack01 1")))
+            { 
                 RightMouseClick();
+            }
         }
 
         if (Input.GetKey(KeyCode.LeftControl))
         {
             fTimer += Time.deltaTime;
+            if (fTimer > 0.4)
+            {
+                Sword.SetActive(false);
+            }
             animator.SetFloat("dodge", fTimer);
         }
-        else
+        if (Input.GetKeyUp(KeyCode.LeftControl))
         {
+            Sword.SetActive(true);
             fTimer = 0f;
             animator.SetFloat("dodge", fTimer);
         }
+        //else
+        //{
+        //    fTimer = 0f;
+        //    animator.SetFloat("dodge", fTimer);
+        //}
 
         var a = this.GetComponent<IKController>();
         if (currentAnimation.IsName("Fast run"))
         {
             a.IkActive = false;
-            Sword.SetActive(false);
+            //Sword.SetActive(false);
         }
-        else
+        if(currentAnimation.IsName("Grounded"))
         {
             a.IkActive = true;
-            Sword.SetActive(true);
+            //Sword.SetActive(true);
         }
+
         if (currentAnimation.IsName("Attack01"))
         {
             //Vector3 ForwardMove = transform.position;
@@ -140,6 +155,13 @@ public class MainCharacterState : MonoBehaviour
         //    //transform.position = transform.position + transform.forward * 10f;
         //    transform.position = Vector3.Lerp(transform.position, transform.position + transform.forward.normalized * 2f, 0.1f);
         //}
+
+
+        for (int i = 0; i <= 55; i += 5)//攻擊範圍
+        {
+            Debug.DrawRay(transform.position + (Vector3.up * 0.6f), Quaternion.Euler(0, i, 0) * transform.forward * 3.2f, Color.red);// 
+            Debug.DrawRay(transform.position + (Vector3.up * 0.6f), Quaternion.Euler(0, -i, 0) * transform.forward * 3.2f, Color.red);
+        }
     }
     public virtual void LeftMouseClick()
     {
@@ -167,6 +189,76 @@ public class MainCharacterState : MonoBehaviour
     {
         animator.SetFloat("attackSpeed",f*1.5f);
         //print(231321213);
+    }
+    public LayerMask LY;
+    public void AttackDetection()//攻擊範圍偵測
+    {
+        print ("Attack");
+        HashSet<Transform> hitInfoList = new HashSet<Transform>();
+        RaycastHit[] hitInfos;
+        for (int i = 0; i <= 55; i += 5)
+        {
+
+            hitInfos = Physics.RaycastAll(transform.position + (Vector3.up * 0.6f), Quaternion.Euler(0, i, 0) * transform.forward , 3.2f ,LY );//1 << LayerMask.NameToLayer("NPC")
+            for (int j = 0; j < hitInfos.Length; j++)
+            {
+                
+                if(hitInfos[j].transform.tag == "Npc")
+                    hitInfoList.Add(hitInfos[j].transform);
+            }
+
+            hitInfos = Physics.RaycastAll(transform.position + (Vector3.up * 0.6f), Quaternion.Euler(0, -i, 0) * transform.forward , 3.2f, LY);
+            for (int j = 0; j < hitInfos.Length; j++)
+            {
+                if (hitInfos[j].transform.tag == "Npc")
+                    hitInfoList.Add(hitInfos[j].transform);
+            }
+
+        }
+        if (hitInfoList.Count > 0)
+        {
+            foreach (Transform i in hitInfoList)
+            {
+                var attackReturn = i.gameObject.GetComponent<Npc>();
+                print(i.transform);
+                attackReturn.GetHurt(new DamageData(transform, 10f, HitType.light));
+            }
+        }
+    }
+    //private void OnDrawGizmos()
+    //{
+    //    for (int i = 0; i <= 55; i += 5)
+    //    {
+    //        if ( Physics.Raycast(transform.position + (Vector3.up * 0.6f), Quaternion.Euler(0, i, 0) * transform.forward * 3.2f,out var info,3.2f, LY)&& info.transform.tag =="Npc")
+    //        {
+    //            Gizmos.color = Color.green;
+    //            Gizmos.DrawLine(transform.position + (Vector3.up * 0.6f), transform.position + (Vector3.up * 0.6f) + Quaternion.Euler(0, i, 0) * transform.forward * 3.2f);
+    //        }
+    //        else
+    //        {
+    //            Gizmos.color = Color.red;
+    //            Gizmos.DrawLine(transform.position + (Vector3.up * 0.6f), transform.position + (Vector3.up * 0.6f) + Quaternion.Euler(0, i, 0) * transform.forward * 3.2f);
+    //        }
+
+    //        if (Physics.Raycast(transform.position + (Vector3.up * 0.6f), Quaternion.Euler(0, -i, 0) * transform.forward * 3.2f, out info,3.2f, LY) && info.transform.tag != "Npc")
+    //        {
+    //            Gizmos.color = Color.green;
+    //            Gizmos.DrawLine(transform.position + (Vector3.up * 0.6f), transform.position + (Vector3.up * 0.6f) + Quaternion.Euler(0, -i, 0) * transform.forward * 3.2f);
+    //        }
+    //        else
+    //        {
+    //            Gizmos.color = Color.red;
+    //            Gizmos.DrawLine(transform.position + (Vector3.up * 0.6f), transform.position + (Vector3.up * 0.6f) + Quaternion.Euler(0, -i, 0) * transform.forward * 3.2f);
+    //        }
+    //    }
+    //}
+    public void SwordAppear()
+    {
+        Sword.SetActive(true);
+    }
+    public void SwordDisappear()
+    {
+        Sword.SetActive(false);
     }
 }
 
