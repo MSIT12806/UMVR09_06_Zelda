@@ -142,7 +142,6 @@ public class MainCharacterState : MonoBehaviour
             time = 0f;
         }
         Debug.DrawLine(transform.position,transform.position+ transform.forward*10f);
-
         var IK = GetComponent<IKController>();
         if (currentAnimation.IsName("Attack01 2") || currentAnimation.IsName("Fast run"))
             IK.IkActive = false;
@@ -190,30 +189,36 @@ public class MainCharacterState : MonoBehaviour
         animator.SetFloat("attackSpeed",f*1.5f);
         //print(231321213);
     }
-    public LayerMask LY;
-    public void AttackDetection()//攻擊範圍偵測
+
+    public void AnimationAttack()
     {
+        AttackDetection(110,3.2f);
+    }
+
+    public LayerMask LY;
+    public void AttackDetection(float angle, float distance)//攻擊範圍偵測
+    {
+
         print ("Attack");
         HashSet<Transform> hitInfoList = new HashSet<Transform>();
         RaycastHit[] hitInfos;
-        for (int i = 0; i <= 55; i += 5)
+        for (int i = 0; i <= angle/2; i += 5)
         {
 
-            hitInfos = Physics.RaycastAll(transform.position + (Vector3.up * 0.6f), Quaternion.Euler(0, i, 0) * transform.forward , 3.2f ,LY );//1 << LayerMask.NameToLayer("NPC")
+            hitInfos = Physics.RaycastAll(transform.position + (Vector3.up * 0.6f), Quaternion.Euler(0, i, 0) * transform.forward , distance, LY );//1 << LayerMask.NameToLayer("NPC")
             for (int j = 0; j < hitInfos.Length; j++)
             {
                 
-                if(hitInfos[j].transform.tag == "Npc")
+                //if(hitInfos[j].transform.tag == "Npc")
                     hitInfoList.Add(hitInfos[j].transform);
             }
 
-            hitInfos = Physics.RaycastAll(transform.position + (Vector3.up * 0.6f), Quaternion.Euler(0, -i, 0) * transform.forward , 3.2f, LY);
+            hitInfos = Physics.RaycastAll(transform.position + (Vector3.up * 0.6f), Quaternion.Euler(0, -i, 0) * transform.forward , distance, LY);
             for (int j = 0; j < hitInfos.Length; j++)
             {
-                if (hitInfos[j].transform.tag == "Npc")
+                //if (hitInfos[j].transform.tag == "Npc")
                     hitInfoList.Add(hitInfos[j].transform);
             }
-
         }
         if (hitInfoList.Count > 0)
         {
