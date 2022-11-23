@@ -34,6 +34,7 @@ Shader "Ultimate 10+ Shaders/Dissolve"
     Properties
     {
         _Color ("Color", Color) = (1,1,1,1)
+        [HDR]_Emission ("Emission", Color) = (1,1,1,1)
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
         _NoiseTex ("Noise", 2D) = "white" {}
 
@@ -66,6 +67,7 @@ Shader "Ultimate 10+ Shaders/Dissolve"
         half _EdgeWidth;
 
         fixed4 _Color;
+        fixed4 _Emission;
         fixed4 _EdgeColor;
 
         struct Input
@@ -85,14 +87,14 @@ Shader "Ultimate 10+ Shaders/Dissolve"
         half cutoff;
         void surf (Input IN, inout SurfaceOutputStandard o)
         {
-            pixel = tex2D (_MainTex, IN.uv_MainTex) * _Color;
-
+            pixel = tex2D (_MainTex, IN.uv_MainTex) * _Color ;
+            
             o.Albedo = pixel.rgb;
 
             noisePixel = tex2D (_NoiseTex, IN.uv_NoiseTex);
 
             clip(noisePixel.r >= _Cutoff ? 1 : -1);
-            o.Emission = noisePixel.r >= (_Cutoff * (_EdgeWidth + 1.0)) ? 0 : _EdgeColor;
+            o.Emission = noisePixel.r >= (_Cutoff * (_EdgeWidth + 1.0)) ? _Emission : _EdgeColor;
         }
         ENDCG
     }

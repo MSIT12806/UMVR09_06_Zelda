@@ -128,7 +128,7 @@ float4 frag( v2f i ) : SV_Target
 ENDCG
 }
 	}
-	Fallback "DIFFUSE"
+	Fallback "Diffuse"
 	CustomEditor "ASEMaterialInspector"
 }
 /*ASEBEGIN

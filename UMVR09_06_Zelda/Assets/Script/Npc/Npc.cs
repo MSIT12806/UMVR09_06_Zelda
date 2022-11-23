@@ -1,54 +1,109 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
+using UnityStandardAssets.Characters.ThirdPerson;
 
-public class Npc : MonoBehaviour
+[RequireComponent(typeof(Collider))]
+public class Npc : MonoBehaviour, IHp
 {
     // Start is called before the first frame update
 
     /*
-     * 1. ¹ï collider ªº¸I¼²°»´ú»P¸I¼²¤ÏÀ³¡C  °O±o°İ¦Ñ®v«ç»ò³B²z npc¸I¼² (raycast? ¨â¨âºâ¶ZÂ÷?)
-     * 1.1 À°¨C­Óª«¥ó³]©w¥b®|¡Aµeraycast
-     * 1.2 ½ü¨µ(®e¾¹¡H)À°¨C­Óª«¥óºâ¶ZÂ÷
+     * 1. å° collider çš„ç¢°æ’åµæ¸¬èˆ‡ç¢°æ’åæ‡‰ã€‚  è¨˜å¾—å•è€å¸«æ€éº¼è™•ç† npcç¢°æ’ (raycast? å…©å…©ç®—è·é›¢?)
+     * 1.1 å¹«æ¯å€‹ç‰©ä»¶è¨­å®šåŠå¾‘ï¼Œç•«raycast
+     * 1.2 è¼ªå·¡(å®¹å™¨ï¼Ÿ)å¹«æ¯å€‹ç‰©ä»¶ç®—è·é›¢
      */
     [SerializeField] LayerMask layerMask;
+    Collider collider;
+    ThirdPersonCharacter tpc;
 
+    Vector3 nextPosition;
+
+    public bool collide;
     void Start()
     {
-
+        nextPosition = this.transform.position;
+        tpc = GetComponent<ThirdPersonCharacter>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        DebugExtension.DebugWireSphere(this.transform.position + new Vector3(0, 1.1f, 0));
-        var hitSomething = Physics.SphereCast(this.transform.position + new Vector3(0, 1.1f, 0), 1f, this.transform.forward, out var result, layerMask);
-        if (hitSomething)
+        collide = StaticCollision();
+        tpc.artistMovement = !collide;
+    }
+    void FixedUpdate()
+    {
+
+
+    }
+    public bool StaticCollision(float radius = 0.23f, float maxDistance = 0.3f)
+    {
+        var hitSomething = Physics.SphereCast(this.transform.position + new Vector3(0, 0.7f, 0), radius,transform.forward, out var hitInfo, maxDistance, layerMask);
+        if (hitSomething && hitInfo.transform != this.transform)
         {
-            //print(result.transform.name);
+            print("hit");
+            var nowPosXZ = transform.position;
+            nowPosXZ.y = 0;
+            var hitPointXZ = hitInfo.point;
+            hitPointXZ.y = 0;
+            var hitObject = hitInfo.transform.gameObject;
+            //Npc ä¹‹é–“ç¢°æ’
+            if (hitObject.tag =="Npc")
+            {
+                var hitObjectPosXZ = hitObject.transform.position;
+                hitObjectPosXZ.y = 0;
+                var backVec = hitObjectPosXZ - hitPointXZ;
+                hitObject.transform.position -= backVec;
+                return false;
+            }
+            else//éœç‰©ç¢°æ’
+            {
+                var concactVec = hitPointXZ - nowPosXZ;
+                nextPosition = transform.position - concactVec;
+                return true;
+            }
+
+
         }
+        return false;
+    }
+    public DamageData Attack()
+    {
+        //è«‹å–„ç”¨ç‹€æ…‹æ©Ÿè™•ç†æ”»æ“Šåˆ¤å®š
+        return DamageData.NoDamage;
+    }
+    public void GetHurt(DamageData damageData)
+    {
+        //æ’­æ”¾å—å‚·åƒµç›´å‹•ç•«
+        //è¨ˆç®—å¾Œé€€ or æ“Šé£›æ–¹å‘ & åŠ›é“
+        this.transform.Translate(damageData.force.point);
+        //åˆ¤å®šæ­»äº¡
     }
 
-    [Range(0.1f, 1f)] public float sphereCastRadius;
-    [Range(0f, 100f)] public float range;
+    public float Hp { get; set; }
+
     private void OnDrawGizmos()
     {
-        var position = this.transform.position + new Vector3(0, 1.1f, 0);
+        //æª¢æŸ¥çƒå°„ç·šæ˜¯å¦æœ‰äº¤é»
+        float sphereCastRadius = 0.23f;
+        float range = 0.3f;
+        var position = this.transform.position + new Vector3(0, 0.7f, 0);
+        var direction = transform.forward;
         Gizmos.DrawWireSphere(position, sphereCastRadius);
 
         RaycastHit hit;
-        if (Physics.SphereCast(position, sphereCastRadius, -transform.up * range, out hit, range, layerMask))
+        if (Physics.SphereCast(position, sphereCastRadius, direction, out hit, range, layerMask) && hit.transform.gameObject.layer != this.gameObject.layer)
         {
             Gizmos.color = Color.green;
-            Vector3 sphereCastMidpoint = transform.position + (transform.forward * hit.distance);
-            Gizmos.DrawWireSphere(sphereCastMidpoint, 0.1f);
             Gizmos.DrawSphere(hit.point, 0.1f);
             //Debug.DrawLine(transform.position, sphereCastMidpoint, Color.green);
         }
         else
         {
             Gizmos.color = Color.red;
-            Vector3 sphereCastMidpoint = position + (transform.forward * (range - sphereCastRadius));
+            Vector3 sphereCastMidpoint = position - direction * sphereCastRadius + direction * range;// + (direction * (range - sphereCastRadius));
             Gizmos.DrawWireSphere(sphereCastMidpoint, sphereCastRadius);
             //Debug.DrawLine(transform.position, sphereCastMidpoint, Color.red);
         }

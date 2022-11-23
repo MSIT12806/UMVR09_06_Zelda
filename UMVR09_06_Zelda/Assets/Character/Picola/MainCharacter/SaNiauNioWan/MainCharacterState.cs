@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.Characters.ThirdPerson;
 
 public class MainCharacterState : MonoBehaviour
 {
@@ -13,11 +14,14 @@ public class MainCharacterState : MonoBehaviour
     bool frontMove = false;
     float time = 0f;
     public Transform newPlace;
+    Npc n;
+    ThirdPersonCharacter tpc;
     // Start is called before the first frame update
     void Start()
     {
         Vector3 newPos = transform.position;
-
+        n = GetComponent<Npc>();
+        tpc = GetComponent<ThirdPersonCharacter>();
     }
 
     // Update is called once per frame
@@ -49,7 +53,7 @@ public class MainCharacterState : MonoBehaviour
 
         if (animator.IsInTransition(0) == false)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && (currentAnimation.IsName("Grounded") || currentAnimation.IsName("Attack01") || currentAnimation.IsName("Attack01 0") || currentAnimation.IsName("Attack01 1") || currentAnimation.IsName("Fast run") ))
                 LeftMouseClick();
             if (Input.GetMouseButtonDown(1))
                 RightMouseClick();
@@ -97,7 +101,7 @@ public class MainCharacterState : MonoBehaviour
         //}
         //Vector3.Lerp(transform.position, newPos, 0.5f);
 
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.LeftControl) && (currentAnimation.IsName("Grounded") || currentAnimation.IsName("Front Dodge")))
         {
             frontMove = true;
         }
@@ -107,8 +111,15 @@ public class MainCharacterState : MonoBehaviour
         }
         if (0f < time && time < 0.21f)
         {
-            print(transform.forward);
-            transform.Translate( new Vector3(0f,0f,1f) * 0.15f);
+            if (!n.collide)
+            {
+                tpc.artistMovement = true;
+                transform.Translate(new Vector3(0f, 0f, 1f) * 0.15f);
+            }
+            else
+            {
+                tpc.artistMovement = false;
+            }
         }
         else if (time > 0.4f)
         {
@@ -154,7 +165,7 @@ public class MainCharacterState : MonoBehaviour
 
     public void AttackSpeedChange(float f)
     {
-        animator.SetFloat("attackSpeed",f);
+        animator.SetFloat("attackSpeed",f*1.5f);
         //print(231321213);
     }
 }
