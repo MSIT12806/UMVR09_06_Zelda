@@ -52,10 +52,11 @@ public class Npc : MonoBehaviour, IHp
             //Npc 之間碰撞
             if (hitObject.tag =="Npc")
             {
+                //移動幅度要縮小
                 var hitObjectPosXZ = hitObject.transform.position;
                 hitObjectPosXZ.y = 0;
                 var backVec = hitObjectPosXZ - hitPointXZ;
-                hitObject.transform.position -= backVec;
+                hitObject.transform.position += backVec;
                 return false;
             }
             else//靜物碰撞
