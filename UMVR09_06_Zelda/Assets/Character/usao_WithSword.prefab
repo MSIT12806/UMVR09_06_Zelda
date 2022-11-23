@@ -3625,6 +3625,7 @@ GameObject:
   - component: {fileID: 2735768440183352091}
   - component: {fileID: 968814401}
   - component: {fileID: 968814398}
+  - component: {fileID: 968814404}
   m_Layer: 0
   m_Name: usao_WithSword
   m_TagString: Npc
@@ -3712,6 +3713,23 @@ MonoBehaviour:
   LookAtWeight: 1
   Weight: 1
   IkActive: 1
+--- !u!114 &968814404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8672976989278694363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9f6c11a6345888498622957e1896247, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  collide: 0
+  OnGround: 0
 --- !u!1 &8758781246023044786
 GameObject:
   m_ObjectHideFlags: 0

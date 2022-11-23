@@ -291,7 +291,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		bool m_Crouching;
 		public LayerMask layerMask;
 		Npc n;
-
+		public bool artistMovement = true;
 		void Start()
 		{
 			m_Animator = GetComponent<Animator>();
@@ -305,13 +305,12 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 			n = GetComponent<Npc>();
 		}
-		public bool artistMovement = true;
 		void OnAnimatorMove()
 		{
 			var n = GetComponent<Npc>();
 
 			Animator animator = GetComponent<Animator>();
-			if (animator && artistMovement)
+			if (animator && !n.collide)
 			{
 				Vector3 newPosition = transform.position;
 				newPosition += animator.deltaPosition;

@@ -16,7 +16,6 @@ public class Npc : MonoBehaviour, IHp
      */
     [SerializeField] LayerMask layerMask;
     Collider collider;
-    ThirdPersonCharacter tpc;
 
     Vector3 nextPosition;
 
@@ -25,14 +24,12 @@ public class Npc : MonoBehaviour, IHp
     void Start()
     {
         nextPosition = this.transform.position;
-        tpc = GetComponent<ThirdPersonCharacter>();
     }
 
     // Update is called once per frame
     void Update()
     {
         collide = StaticCollision();
-        tpc.artistMovement = !collide;
         OnGround = StandOnTerrain();
     }
     void FixedUpdate()
@@ -105,7 +102,6 @@ public class Npc : MonoBehaviour, IHp
             {
                 //transform.Translate(0f, 0.01f,0f);
                 Vector3 vec = transform.position;
-
                 vec.y = hitInfo.point.y;
                 transform.position = vec;
             }
