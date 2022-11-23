@@ -20,12 +20,12 @@ public enum DamageState
 public class DamageData
 {
     public RaycastHit force;
-    public static DamageData NoDamage = new DamageData(new RaycastHit(), 0, HitType.none, DamageStateInfo.NormalAttack);
+    public static DamageData NoDamage = new DamageData(null, 0, HitType.none, DamageStateInfo.NormalAttack);
     public float Damage;
     public HitType hit;
     public IEnumerable<DamageStateInfo> damageStates;
 
-    public DamageData(RaycastHit hitInfo , float damage, HitType hitType, params DamageStateInfo[] hitInfluence)
+    public DamageData(Transform attacker, float damage, HitType hitType, params DamageStateInfo[] hitInfluence)
     {
         Damage = damage;
         hit = hitType;

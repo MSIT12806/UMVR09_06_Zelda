@@ -39,6 +39,7 @@ public class IKController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         avatar = GetComponent<Animator>();
     }
 
@@ -51,7 +52,7 @@ public class IKController : MonoBehaviour
         {
             if (LookAtObj != null)
             {
-                LookAtObj.position = avatar.bodyPosition + avatar.bodyRotation * new Vector3(0, 0.5f, 0);
+                //LookAtObj.position = avatar.bodyPosition + avatar.bodyRotation * new Vector3(0, 0.5f, 0);
             }
             if (BodyObj != null) 
             {
