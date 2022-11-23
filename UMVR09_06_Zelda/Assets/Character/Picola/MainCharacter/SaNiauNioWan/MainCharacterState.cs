@@ -192,16 +192,17 @@ public class MainCharacterState : MonoBehaviour
 
     public void AnimationAttack()
     {
-        AttackDetection(110,5,3.2f);
+        AttackDetection(110,3.2f);
     }
 
     public LayerMask LY;
-    public void AttackDetection(float angle, int density , float distance)//攻擊範圍偵測
+    public void AttackDetection(float angle, float distance)//攻擊範圍偵測
     {
+
         print ("Attack");
         HashSet<Transform> hitInfoList = new HashSet<Transform>();
         RaycastHit[] hitInfos;
-        for (int i = 0; i <= angle/2; i += density)
+        for (int i = 0; i <= angle/2; i += 5)
         {
 
             hitInfos = Physics.RaycastAll(transform.position + (Vector3.up * 0.6f), Quaternion.Euler(0, i, 0) * transform.forward , distance, LY );//1 << LayerMask.NameToLayer("NPC")
