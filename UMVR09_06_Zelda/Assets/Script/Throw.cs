@@ -12,25 +12,57 @@ public class Throw : MonoBehaviour
     private Vector3 resistance;
 
     private Vector3 face;
+    private bool isThrowing = false;
 
-
-    public Transform ThrowItem;
+    private Transform ThrowItem;
     public Transform RightHandThrow_pos;
     public GameObject Sword;
-    public float Speed = 0.1f;
-    public float vertical = 1.0f;
-    public Vector3 Gravity = Physics.gravity;
+    public float Speed = 0.25f;
+    public float vertical = 0.2f;
+    private Vector3 Gravity = new Vector3(0,-1,0);
 
-    // Start is called before the first frame update
-    void Start()
+    // Update is called once per frame
+    void Update()
     {
+        if (isThrowing == true) 
+        {
+            OnThrow();
+        }
+    }
+    public void SwordFalse()
+    {
+        Sword.SetActive(false);
+    }
+
+    public void GetBomb()
+    {
+        Object o = Resources.Load("TranslucentCrystal_Bomb");
+        GameObject go = Instantiate((GameObject)o);
+        go.transform.SetParent(RightHandThrow_pos.transform);
+        go.transform.position = RightHandThrow_pos.position;
+        ThrowItem = go.transform;
+    }
+
+    public void GetIce()
+    {
+        Object o = Resources.Load("TranslucentCrystal_Ice");
+        GameObject go = Instantiate((GameObject)o);
+        go.transform.SetParent(RightHandThrow_pos.transform);
+        go.transform.position = RightHandThrow_pos.position;
+        ThrowItem = go.transform;
+    }
+
+    public void StartThrow() 
+    {
+        isThrowing = true;
+        ThrowItem.transform.parent = null;
+
         face = transform.forward;
 
         //初始位置 = 物件生成位置
         start_pos = ThrowItem.position;
         //當前位置 = 初始位置
         current_pos = start_pos;
-       
 
         //初始速度 = 人物面向 * 速率
         start_vel = face * Speed;
@@ -38,19 +70,14 @@ public class Throw : MonoBehaviour
         //當前速度 = 初始速度
         vel = start_vel;
 
+        Debug.Log(face);
+
         //阻力 = - 初始速度 * 0.X
-        resistance = -(vel) * 1.0f;
+        resistance = -(vel) * 0.05f;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnThrow() 
     {
-        
-    }
-
-     public void OnThrow() 
-    {
-        ThrowItem.transform.parent = null;
         //下一位置 = 當前位置 + 當前速度
         //當前位置 = 下一位置
         current_pos = ThrowItem.position + vel;
@@ -62,16 +89,13 @@ public class Throw : MonoBehaviour
         //當前速度 = 下一速度
         vel = next_vel;
     }
-
-    public void GetBomb() 
+    public void EndThrow()
     {
-        Sword.SetActive(false);
-        Object o = Resources.Load("TranslucentCrystal_Bomb");
-        GameObject go = Instantiate((GameObject)o);
-        go.transform.SetParent(RightHandThrow_pos.transform);
-        go.transform.position = RightHandThrow_pos.position;
-        ThrowItem = go.transform;
+        Destroy(ThrowItem.gameObject);
+        ThrowItem = null;
+        isThrowing = false;
     }
+
 
     /*
     初始位置 = 物件生成位置

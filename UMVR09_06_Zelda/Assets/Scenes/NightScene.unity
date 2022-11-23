@@ -11709,12 +11709,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63aed23344aef734d9afc64f39f1a169, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThrowItem: {fileID: 0}
   RightHandThrow_pos: {fileID: 617701552}
   Sword: {fileID: 638168373}
   Speed: 0.1
   vertical: 1
-  Gravity: {x: 0, y: -10, z: 0}
 --- !u!1001 &1277495260
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14434,12 +14432,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63aed23344aef734d9afc64f39f1a169, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThrowItem: {fileID: 0}
   RightHandThrow_pos: {fileID: 1414263517}
   Sword: {fileID: 1449851502}
-  Speed: 0.1
-  vertical: 1
-  Gravity: {x: 0, y: -1, z: 0}
+  Speed: 0.25
+  vertical: 0.05
 --- !u!1001 &1507125735
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18514,7 +18510,6 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 64
-  getHit: 0
   collide: 0
   OnGround: 0
 --- !u!1001 &1876794570

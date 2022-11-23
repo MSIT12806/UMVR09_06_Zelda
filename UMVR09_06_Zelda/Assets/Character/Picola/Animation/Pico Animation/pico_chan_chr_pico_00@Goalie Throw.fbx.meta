@@ -60,6 +60,13 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
+      - time: 0.1707832
+        functionName: SwordFalse
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.21300714
         functionName: GetBomb
         data: 
@@ -67,8 +74,15 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.43102622
-        functionName: OnThrow
+      - time: 0.42649108
+        functionName: StartThrow
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.5021184
+        functionName: EndThrow
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
