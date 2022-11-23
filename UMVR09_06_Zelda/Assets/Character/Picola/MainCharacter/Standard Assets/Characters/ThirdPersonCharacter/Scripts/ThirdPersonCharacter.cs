@@ -292,8 +292,13 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		public LayerMask layerMask;
 		Npc n;
 		public bool artistMovement = true;
+
+		LayerMask layer;
+		//layer = 1<<LayerMask.NameToLayer("NPC");
+
 		void Start()
 		{
+
 			m_Animator = GetComponent<Animator>();
 			//m_Rigidbody = GetComponent<Rigidbody>();
 			m_Capsule = GetComponent<CapsuleCollider>();
