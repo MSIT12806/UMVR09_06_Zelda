@@ -21,6 +21,7 @@ public class Npc : MonoBehaviour, IHp
     Vector3 nextPosition;
 
     public bool collide;
+    public bool OnGround;
     void Start()
     {
         nextPosition = this.transform.position;
@@ -32,13 +33,32 @@ public class Npc : MonoBehaviour, IHp
     {
         collide = StaticCollision();
         tpc.artistMovement = !collide;
+        OnGround = StandOnTerrain();
     }
     void FixedUpdate()
     {
 
 
     }
-    public bool StaticCollision(float radius = 0.23f, float maxDistance = 0.3f)
+
+
+    public DamageData Attack()
+    {
+        //請善用狀態機處理攻擊判定
+        return DamageData.NoDamage;
+    }
+    public void GetHurt(DamageData damageData)
+    {
+        //播放受傷僵直動畫
+        //計算後退 or 擊飛方向 & 力道
+        this.transform.Translate(damageData.force.point);
+        //判定死亡
+    }
+
+    public float Hp { get; set; }
+
+
+    bool StaticCollision(float radius = 0.23f, float maxDistance = 0.3f)
     {
         var hitSomething = Physics.SphereCast(this.transform.position + new Vector3(0, 0.7f, 0), radius,transform.forward, out var hitInfo, maxDistance, layerMask);
         if (hitSomething && hitInfo.transform != this.transform)
@@ -70,20 +90,41 @@ public class Npc : MonoBehaviour, IHp
         }
         return false;
     }
-    public DamageData Attack()
+
+
+    bool StandOnTerrain()
     {
-        //請善用狀態機處理攻擊判定
-        return DamageData.NoDamage;
-    }
-    public void GetHurt(DamageData damageData)
-    {
-        //播放受傷僵直動畫
-        //計算後退 or 擊飛方向 & 力道
-        this.transform.Translate(damageData.force.point);
-        //判定死亡
+        RaycastHit hitInfo;
+        if (Physics.Raycast(transform.position + (Vector3.up * 1f), Vector3.down, out hitInfo, 5f, layerMask))
+        {
+            //Debug.Log(hitInfo.transform.name);
+            //m_GroundNormal = hitInfo.normal;
+
+           // SetMoveParas(true, true);
+            if (hitInfo.point.y - transform.position.y < 0f)
+            {
+                //transform.Translate(0f, 0.01f,0f);
+                Vector3 vec = transform.position;
+
+                vec.y = hitInfo.point.y;
+                transform.position = vec;
+            }
+            else if (hitInfo.point.y - transform.position.y > 0f)
+            {
+                Vector3 vec = transform.position;
+                vec.y = hitInfo.point.y;
+                transform.position = vec;
+            }
+
+            return true;
+        }
+        else
+        {
+            //SetMoveParas(false, true);
+            return false;
+        }
     }
 
-    public float Hp { get; set; }
 
     private void OnDrawGizmos()
     {

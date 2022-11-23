@@ -290,7 +290,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		CapsuleCollider m_Capsule;
 		bool m_Crouching;
 		public LayerMask layerMask;
-
+		Npc n;
 
 		void Start()
 		{
@@ -302,6 +302,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 			//m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 			m_OrigGroundCheckDistance = m_GroundCheckDistance;
+
+			n = GetComponent<Npc>();
 		}
 		public bool artistMovement = true;
 		void OnAnimatorMove()
@@ -510,44 +512,35 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 		void CheckGroundStatus()
 		{
-			RaycastHit hitInfo;
 #if UNITY_EDITOR
 			// helper to visualise the ground check ray in the scene view
 			Debug.DrawLine(transform.position + (Vector3.up * 0.1f), transform.position + (Vector3.up * 0.1f) + (Vector3.down * m_GroundCheckDistance));
 #endif
 			// 0.1f is a small offset to start the ray from inside the character
 			// it is also good to note that the transform position in the sample assets is at the base of the character
-			if (Physics.Raycast(transform.position + (Vector3.up * 1f), Vector3.down, out hitInfo, 5f, layerMask))
+
+			if (n.OnGround)
 			{
 				//Debug.Log(hitInfo.transform.name);
-				m_GroundNormal = hitInfo.normal;
-				m_IsGrounded = true;
-				m_Animator.applyRootMotion = true;
-				if (hitInfo.point.y - transform.position.y < 0f)
-				{
-					//transform.Translate(0f, 0.01f,0f);
-					Vector3 vec = transform.position;
+				//m_GroundNormal = hitInfo.normal;
 
-					vec.y = hitInfo.point.y;
-					transform.position = vec;
-					//Debug.Log("111111111111111111111");
-				}
-				else if (hitInfo.point.y - transform.position.y > 0f)
-				{
-					Vector3 vec = transform.position;
-					vec.y = hitInfo.point.y;
-					transform.position = vec;
-				}
+				SetMoveParas(true, true);
 			}
 			else
 			{
-				m_IsGrounded = false;
-				m_GroundNormal = Vector3.up;
-				m_Animator.applyRootMotion = true;
+				SetMoveParas(false, true);
 			}
 
 
 		}
+
+		public void SetMoveParas( bool grounded, bool applyRootMotion)
+        {
+			m_IsGrounded = grounded;
+			m_Animator.applyRootMotion = applyRootMotion;
+
+		}
+
 		//public void ForwardMove()
 		//{
 		//	//transform.position = Vector3.Lerp(transform.position, transform.position + transform.forward.normalized*0.2f, 0.5f);`

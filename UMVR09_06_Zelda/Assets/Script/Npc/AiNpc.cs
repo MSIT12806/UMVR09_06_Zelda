@@ -14,7 +14,7 @@ public class AiNpc : ScriptableObject, IHp
 
     public AiNpc(Transform t)
     {
-        state = new Idel();
+        state = new IdelState();
         transform = t;
     }
 }
