@@ -505,7 +505,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Front Dodge
-  m_Speed: 1
+  m_Speed: 1.5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -2648621218802922753}
@@ -519,7 +519,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: 9be47439091cfa443ae0252da4d27542, type: 3}
+  m_Motion: {fileID: 7400000, guid: 6c53184d9a4fe38429cf4aac4a3979d2, type: 3}
   m_Tag: 
   m_SpeedParameter: Forward
   m_MirrorParameter: 
@@ -1013,7 +1013,7 @@ BlendTree:
     m_DirectBlendParameter: 
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 0000872662c8fb241bf2ab6cc00dd461, type: 3}
+    m_Motion: {fileID: 7400000, guid: f8a7c8447d8c15740964c9bfcb761d70, type: 3}
     m_Threshold: 0.7619048
     m_Position: {x: 0, y: 1}
     m_TimeScale: 1
@@ -1776,12 +1776,12 @@ AnimatorStateMachine:
   - {fileID: -3823366208803789328}
   m_EntryTransitions: []
   m_StateMachineTransitions:
-  - first: {fileID: -6293080455162671}
-    second:
-    - {fileID: 5040555078062260010}
   - first: {fileID: -399964401319208778}
     second:
     - {fileID: 5229717429624057738}
+  - first: {fileID: -6293080455162671}
+    second:
+    - {fileID: 5040555078062260010}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 50, y: 20, z: 0}
   m_EntryPosition: {x: 36, y: 108, z: 0}
