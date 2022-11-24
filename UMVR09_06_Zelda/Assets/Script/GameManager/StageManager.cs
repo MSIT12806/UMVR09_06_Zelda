@@ -17,6 +17,9 @@ public class StageManager : MonoBehaviour
     void Update()
     {
         var d = Vector3.Distance(this.transform.position, Pico.position);
-        if (d <= 10) picoState.gameState = (GameState)TriggerType;
+        if (d <= 10)
+        {
+            picoState.gameState = (GameState)TriggerType;
+        }
     }
 }

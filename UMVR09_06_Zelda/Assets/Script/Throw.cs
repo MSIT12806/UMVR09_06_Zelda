@@ -70,7 +70,7 @@ public class Throw : MonoBehaviour
         //當前速度 = 初始速度
         vel = start_vel;
 
-        Debug.Log(face);
+        //Debug.Log(face);
 
         //阻力 = - 初始速度 * 0.X
         resistance = -(vel) * 0.05f;

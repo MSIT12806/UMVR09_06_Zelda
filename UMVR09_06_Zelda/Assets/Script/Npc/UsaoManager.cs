@@ -17,14 +17,14 @@ public class UsaoManager : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        aiState = new IdleState(ObjectManager.MainCharacter, ObjectManager.MainCharacter.GetComponent<PicoState>(), ObjectManager.MainCharacter.GetComponent<Animator>(), transform);
+        aiState = new IdleState(ObjectManager.MainCharacter, ObjectManager.MainCharacter.GetComponent<PicoState>(), transform.GetComponent<Animator>(), transform);
     }
 
     // Update is called once per frame
     void Update()
     {
         aiState.SetAnimation();
-        aiState.SwitchState();
+        aiState = aiState.SwitchState();
     }
 
 }
