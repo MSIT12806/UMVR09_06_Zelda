@@ -1,0 +1,31 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class UsaoManager : MonoBehaviour
+{
+    // Start is called before the first frame update
+    bool idleSwitch;// trigger IdelSwitch
+    bool attack;// trigger attack
+    bool findTarget;
+    bool notReach;
+    int attackWay;
+    Animator animator;
+    //---Ai---//
+    AiState aiState;
+    public Transform mainCharacter;
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+        aiState = new IdleState(mainCharacter, mainCharacter.GetComponent<PicoState>(), mainCharacter.GetComponent<Animator>(), transform);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        aiState.SetAnimation();
+        aiState.SwitchState();
+    }
+
+}
