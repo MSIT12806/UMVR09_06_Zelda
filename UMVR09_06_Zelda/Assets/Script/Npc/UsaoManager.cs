@@ -24,7 +24,7 @@ public class UsaoManager : MonoBehaviour
     void Update()
     {
         aiState.SetAnimation();
-        aiState.SwitchState();
+        aiState = aiState.SwitchState();
     }
 
 }

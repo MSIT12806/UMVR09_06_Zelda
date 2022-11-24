@@ -48,7 +48,7 @@ public class IdleState : AiState
     public override AiState SwitchState()
     {
         var gameState = target.GetComponent<PicoState>().gameState;
-        Debug.Log(gameState);
+        Debug.Log(gameState == switchStage);
         return gameState == switchStage ? new FightState(target, animator, selfTransform) : this;
     }
 
@@ -67,18 +67,22 @@ public class IdleState : AiState
 }
 public class FightState : AiState
 {
-    //1. 總是面對主角
     //2. 可能會轉換
     Transform target;
+
+    Vector3 direction;
     public FightState(Transform t, Animator a, Transform self) : base(a, self)
     {
         target = t;
         target = animator.transform;
+        animator.SetBool("findTarget", true);
     }
     public override AiState SwitchState()
     {
+        var distance = Vector3.Distance(target.position, selfTransform.position);
         int count = GetChasingNpcCount();
-        if (count > 30) return new ChaseState(target, animator, selfTransform);
+        if (distance <= 5 && UnityEngine.Random.value >= 0.75) return new AttackState(animator, selfTransform);
+        if (distance > 5) return new ChaseState(target, animator, selfTransform);
 
         return this;
     }
@@ -90,7 +94,17 @@ public class FightState : AiState
 
     public override void SetAnimation()
     {
-        throw new NotImplementedException();
+        //1. 總是面對主角
+        //最大值 +-1 == 每次轉45度
+        direction = target.position - selfTransform.position;
+        var sign = Math.Sign(Vector3.Dot(direction, selfTransform.right));
+        var degree = sign * Vector3.Angle(selfTransform.forward, direction);
+        animator.SetFloat("Blend", degree / 45);
+
+        if (UnityEngine.Random.value > 0.75)
+        {
+            animator.SetTrigger("taunt");
+        }
     }
 }
 /// <summary>
