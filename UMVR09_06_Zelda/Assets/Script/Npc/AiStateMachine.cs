@@ -119,7 +119,7 @@ public class ChaseState : AiState
     Npc npc;
     Transform alertTarget;
     IKController iK;
-    float attackRange = 2f;
+    float attackRange = 5f;
     Vector3 direction;
     public ChaseState(Transform alertObject, Animator a, Transform self) : base(a, self)
     {
@@ -208,6 +208,7 @@ public class HurtState : AiState
     public HurtState(Animator a, Transform self, DamageData d) : base(a, self)
     {
         damageData = d;
+        animator.SetTrigger("getHit");
     }
 
     public override AiState SwitchState()

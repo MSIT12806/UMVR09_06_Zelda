@@ -26,7 +26,7 @@ public class UsaoManager : MonoBehaviour
         aiState.SetAnimation();
         aiState = aiState.SwitchState();
     }
-    public void GetGurt(DamageData damageData)
+    public void GetHurt(DamageData damageData)
     {
         aiState.getHit = damageData;
     }

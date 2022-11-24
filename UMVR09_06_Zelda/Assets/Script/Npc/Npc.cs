@@ -54,7 +54,7 @@ public class Npc : MonoBehaviour, IHp
         print("GetHit");
 
         var u = transform.GetComponent<UsaoManager>();
-        u.GetGurt(damageData);
+        u.GetHurt(damageData);
         //判定死亡
     }
     [SerializeField] float hp;
