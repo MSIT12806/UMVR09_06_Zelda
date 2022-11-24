@@ -201,6 +201,7 @@ public class AttackState : AiState
 public class HurtState : AiState
 {
     DamageData damageData;
+    Npc NpcData;
     public HurtState(Animator a, Transform self, DamageData d) : base(a, self)
     {
         damageData = d;
@@ -208,7 +209,12 @@ public class HurtState : AiState
 
     public override AiState SwitchState()
     {
-        return new FightState(damageData.Attacker, animator, selfTransform);
+        NpcData = selfTransform.GetComponent<Npc>();
+        if(NpcData.Hp > 0)
+            return new FightState(damageData.Attacker, animator, selfTransform);
+
+        return this;
+
         //判定動畫快播完時，下個動畫的銜接
         //回到 FightState
     }
@@ -216,9 +222,9 @@ public class HurtState : AiState
     public override void SetAnimation()
     {
         // 依照 damageData.hit 決定播放哪個動畫。
-        var a = selfTransform.GetComponent<Npc>();
-        a.Hp -= damageData.Damage;
-        animator.SetFloat("hp", a.Hp);
+        NpcData = selfTransform.GetComponent<Npc>();
+        NpcData.Hp -= damageData.Damage;
+        animator.SetFloat("hp", NpcData.Hp);
 
         if(damageData.Hit == HitType.light)
         {
@@ -227,7 +233,7 @@ public class HurtState : AiState
             animator.SetInteger("playImpactType",random.Next(1, 3));
         }   
 
-        if(a.Hp < 0.0001)
+        if(NpcData.Hp < 0.0001f)
         {
             System.Random random = new System.Random();
             animator.SetInteger("playDeadType", random.Next(1, 3));
