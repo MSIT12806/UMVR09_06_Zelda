@@ -19,18 +19,19 @@ public enum DamageState
 }
 public class DamageData
 {
-    public Transform attacker;
+    public Transform Attacker;
     public static DamageData NoDamage = new DamageData(null, 0, HitType.none, DamageStateInfo.NormalAttack);
     public float Damage;
-    public HitType hit;
-    public IEnumerable<DamageStateInfo> damageStates;
+    public HitType Hit;
+    public IEnumerable<DamageStateInfo> DamageStates;
 
     public DamageData(Transform attacker, float damage, HitType hitType, params DamageStateInfo[] hitInfluence)
     {
+
         Damage = damage;
-        hit = hitType;
-        damageStates = hitInfluence;
-        this.attacker = attacker;
+        Hit = hitType;
+        DamageStates = hitInfluence;
+        Attacker = attacker;
     }
 }
 public class DamageStateInfo

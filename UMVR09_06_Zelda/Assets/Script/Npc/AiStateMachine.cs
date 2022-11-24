@@ -152,7 +152,11 @@ public class ChaseState : AiState
         if (distance >= attackRange) return this;
 
         RemoveChasingNpc();
-        if(distance < attackRange) return new FightState(alertTarget, animator, selfTransform);
+        if (distance < attackRange)
+        {
+            animator.SetBool("notReach", false);
+            return new FightState(alertTarget, animator, selfTransform);
+        }
 
         //3. 如果目標在追擊範圍內，則：(1) 如果追擊沒有滿，就進行追擊。(2) 若追擊已滿，就在外面咆哮。
         return new IdleState(alertTarget, selfTransform.GetComponent<PicoState>(), animator, selfTransform);
@@ -201,9 +205,9 @@ public class HurtState : AiState
 
     public override AiState SwitchState()
     {
+        return new FightState(damageData.Attacker, animator, selfTransform);
         //判定動畫快播完時，下個動畫的銜接
         //回到 FightState
-        throw new NotImplementedException();
     }
 
     public override void SetAnimation()
@@ -213,7 +217,7 @@ public class HurtState : AiState
         a.Hp -= damageData.Damage;
         animator.SetFloat("hp", a.Hp);
 
-        if(damageData.hit == HitType.light)
+        if(damageData.Hit == HitType.light)
         {
             animator.SetTrigger("lightAttack");
             System.Random random = new System.Random();
