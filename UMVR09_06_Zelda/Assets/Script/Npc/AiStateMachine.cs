@@ -49,7 +49,6 @@ public class IdleState : AiState
     public override AiState SwitchState()
     {
         var gameState = target.GetComponent<PicoState>().gameState;
-        Debug.Log(gameState == switchStage);
         return gameState == switchStage ? new FightState(target, animator, selfTransform) : this;
     }
 
@@ -75,7 +74,6 @@ public class FightState : AiState
     public FightState(Transform t, Animator a, Transform self) : base(a, self)
     {
         target = t;
-        target = animator.transform;
         animator.SetBool("findTarget", true);
     }
     public override AiState SwitchState()
@@ -103,7 +101,7 @@ public class FightState : AiState
         direction = target.position - selfTransform.position;
         var sign = Math.Sign(Vector3.Dot(direction, selfTransform.right));
         var degree = sign * Vector3.Angle(selfTransform.forward, direction);
-        Debug.Log(degree);
+        Debug.Log($"{direction}, {selfTransform.forward}");
         animator.SetFloat("Blend", degree / 45);
 
         if (UnityEngine.Random.value > 0.75)
@@ -168,7 +166,6 @@ public class ChaseState : AiState
 
     public override void SetAnimation()
     {
-        throw new NotImplementedException();
     }
 }
 
@@ -190,7 +187,7 @@ public class AttackState : AiState
 
     public override void SetAnimation()
     {
-        throw new NotImplementedException();
+      //  throw new NotImplementedException();
     }
 }
 
