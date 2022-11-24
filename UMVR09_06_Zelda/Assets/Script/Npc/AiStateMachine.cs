@@ -179,7 +179,23 @@ public class HurtState : AiState
     public override void SetAnimation()
     {
         // 依照 damageData.hit 決定播放哪個動畫。
-        throw new NotImplementedException();
+        var a = selfTransform.GetComponent<Npc>();
+        a.Hp -= damageData.Damage;
+        animator.SetFloat("hp", a.Hp);
+
+        if(damageData.hit == HitType.light)
+        {
+            animator.SetTrigger("lightAttack");
+            System.Random random = new System.Random();
+            animator.SetInteger("playImpactType",random.Next(1, 3));
+        }   
+
+        if(a.Hp < 0.0001)
+        {
+            System.Random random = new System.Random();
+            animator.SetInteger("playDeadType", random.Next(1, 3));
+        }
+
     }
 }
 
