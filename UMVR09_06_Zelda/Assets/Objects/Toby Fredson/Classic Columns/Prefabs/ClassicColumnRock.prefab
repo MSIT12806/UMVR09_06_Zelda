@@ -97,7 +97,7 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 6f877d16b769c484095995b8c7e133bf, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 2120387ed3f1ca54a867749cf84b1fac, type: 3}
 --- !u!1 &1000011981058762
 GameObject:
   m_ObjectHideFlags: 0
@@ -109,7 +109,6 @@ GameObject:
   - component: {fileID: 4000011934153786}
   - component: {fileID: 33000011889923312}
   - component: {fileID: 23000011277264808}
-  - component: {fileID: 64000011255019310}
   m_Layer: 6
   m_Name: ClassicColumnRock_LOD3
   m_TagString: Untagged
@@ -182,20 +181,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &64000011255019310
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000011981058762}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 2120387ed3f1ca54a867749cf84b1fac, type: 3}
 --- !u!1 &1000013186099286
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,7 +192,6 @@ GameObject:
   - component: {fileID: 4000013453847632}
   - component: {fileID: 33000010526903262}
   - component: {fileID: 23000011142379166}
-  - component: {fileID: 64000011594481054}
   m_Layer: 6
   m_Name: ClassicColumnRock_LOD2
   m_TagString: Untagged
@@ -280,20 +264,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &64000011594481054
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000013186099286}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: db716d7fb19891e46a7f4734adc70c08, type: 3}
 --- !u!1 &1000013457280276
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,7 +275,6 @@ GameObject:
   - component: {fileID: 4000014289434874}
   - component: {fileID: 33000014248897244}
   - component: {fileID: 23000014202319888}
-  - component: {fileID: 64000011398182896}
   m_Layer: 6
   m_Name: ClassicColumnRock_LOD1
   m_TagString: Untagged
@@ -378,20 +347,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &64000011398182896
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000013457280276}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 8dc5ee8bdb9e7534ca1549e0aeb7913d, type: 3}
 --- !u!1 &1000013588844116
 GameObject:
   m_ObjectHideFlags: 0
@@ -418,7 +373,7 @@ Transform:
   m_GameObject: {fileID: 1000013588844116}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4000011142957254}

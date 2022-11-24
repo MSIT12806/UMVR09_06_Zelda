@@ -26,8 +26,9 @@ public class TPSCamera : MonoBehaviour
     public float m_CameraSensitivity = 1.0f;
 
     //public float m_FollowHeight = 0.0f;
-    public LayerMask m_HitLayers;
-    public float m_HitMoveDistance = 0.1f;
+    public LayerMask avoidLayer;
+    public LayerMask transparentLayer;
+    public float m_HitMoveDistance = 0.1f;    
     //private float horizontalRotateDegree = 0.0f;
     //private float verticalRotateDegree = 0.0f;
     //private Vector3 m_FollowPosition = Vector3.zero;
@@ -135,7 +136,7 @@ public class TPSCamera : MonoBehaviour
         //    transform.position = t;
         //}
 
-        if (Physics.SphereCast(r, 0.5f, out RaycastHit rh, state.GetFollowDistance(this.transform), m_HitLayers))//形成一個圓柱體？
+        if (Physics.SphereCast(r, 0.5f, out RaycastHit rh, state.GetFollowDistance(this.transform), avoidLayer))//形成一個圓柱體？
         {
             Vector3 t = m_LookPoint.position - lookDirection * (rh.distance);// - m_HitMoveDistance
             transform.position = t;
@@ -145,14 +146,14 @@ public class TPSCamera : MonoBehaviour
     HashSet<GameObject> transparentObj = new HashSet<GameObject>();
     private void TransparentBlockObject()
     {
-        var hitArr = Physics.RaycastAll(this.transform.position, m_FollowTarget.position - this.transform.position, Vector3.Distance(this.transform.position, m_FollowTarget.position));
+        var hitArr = Physics.SphereCastAll(this.transform.position, 0.2f, m_FollowTarget.position - this.transform.position, Vector3.Distance(this.transform.position, m_FollowTarget.position), transparentLayer);
         if (hitArr.Length != 0)
         {
             foreach (var hit in hitArr)
             {
                 if (hit.transform.gameObject.name != "MainCharacter" && hit.transform.gameObject.name != "Terrain")
                 {
-                    SetTransparent(hit.transform.gameObject);
+                    SetTransparent(hit.transform.gameObject, Vector3.Distance(this.transform.position, hit.point));
                     transparentObj.Add(hit.transform.gameObject);
                 }
             }
@@ -181,23 +182,22 @@ public class TPSCamera : MonoBehaviour
 
         for (int i = 0; i < renderer.materials.Length; i++)
         {
-            renderer.materials[i].SetFloat("_MinDistance", 1);
+            renderer.materials[i].SetFloat("_MinDistance", 2);
         }
     }
-    private void SetTransparent(GameObject g)
+    private void SetTransparent(GameObject g, float distance)
     {
         for (int i = 0; i < g.transform.childCount; i++)
-            SetTransparent(g.transform.GetChild(i).gameObject);
+            SetTransparent(g.transform.GetChild(i).gameObject, distance);
         var renderer = g.GetComponent<Renderer>();
         if (renderer == null)
         {
             return;
         }
+        float d = distance - 4;
         for (int i = 0; i < renderer.materials.Length; i++)
         {
-            float d = Vector3.Distance(g.transform.position, this.transform.position) - 4;
             renderer.materials[i].SetFloat("_MinDistance", d);
-            Debug.Log(g.name + " is add in materialShader");
         }
     }
     #endregion

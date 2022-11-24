@@ -15,6 +15,7 @@ public class Npc : MonoBehaviour, IHp
      * 1.2 輪巡(容器？)幫每個物件算距離
      */
     [SerializeField] LayerMask layerMask;
+    [SerializeField] LayerMask terrainLayer;
     Collider collider;
 
     Vector3 nextPosition;
@@ -28,9 +29,10 @@ public class Npc : MonoBehaviour, IHp
 
     // Update is called once per frame
     void Update()
-    {
-        collide = StaticCollision();
+    {        
         OnGround = StandOnTerrain();
+        collide = StaticCollision();
+        NpcCollision();
     }
     void FixedUpdate()
     {
@@ -58,47 +60,62 @@ public class Npc : MonoBehaviour, IHp
 
     bool StaticCollision(float radius = 0.23f, float maxDistance = 0.3f)
     {
-        var hitSomething = Physics.SphereCast(this.transform.position + new Vector3(0, 0.7f, 0), radius,transform.forward, out var hitInfo, maxDistance, layerMask);
+        var hitSomething = Physics.SphereCast(this.transform.position + new Vector3(0, 0.7f, 0), radius, transform.forward, out var hitInfo, maxDistance, layerMask);
         if (hitSomething && hitInfo.transform != this.transform)
         {
-            print("hit");
             var nowPosXZ = transform.position;
             nowPosXZ.y = 0;
             var hitPointXZ = hitInfo.point;
             hitPointXZ.y = 0;
             var hitObject = hitInfo.transform.gameObject;
-            //Npc 之間碰撞
-            if (hitObject.tag =="Npc")
-            {
-                //移動幅度要縮小
-                var hitObjectPosXZ = hitObject.transform.position;
-                hitObjectPosXZ.y = 0;
-                var backVec = hitObjectPosXZ - hitPointXZ;
-                hitObject.transform.position += backVec;
-                return false;
-            }
-            else//靜物碰撞
-            {
-                var concactVec = hitPointXZ - nowPosXZ;
-                nextPosition = transform.position - concactVec;
-                return true;
-            }
+            var concactVec = hitPointXZ - nowPosXZ;
+            nextPosition = transform.position - concactVec;
+            return true;
+            ////Npc 之間碰撞
+            //if (hitObject.tag =="Npc")
+            //{
+            //    //移動幅度要縮小
+            //    var hitObjectPosXZ = hitObject.transform.position;
+            //    hitObjectPosXZ.y = 0;
+            //    var backVec = hitObjectPosXZ - hitPointXZ;
+            //    hitObject.transform.position += backVec;
+            //    return false;
+            //}
+            //else//靜物碰撞
+            //{
+            //    var concactVec = hitPointXZ - nowPosXZ;
+            //    nextPosition = transform.position - concactVec;
+            //    return true;
+            //}
 
 
         }
         return false;
     }
 
+    void NpcCollision()
+    {
+        foreach (var item in ObjectManager.Npcs)
+        {
+            if (item == this) continue;
 
+            var distance = Vector3.Distance(this.transform.position, item.transform.position);
+            if (distance > 0.6) continue;
+
+            var direction = (item.transform.position - this.transform.position).normalized;
+            this.transform.position -= direction * 0.03f;
+            item.transform.position += direction * 0.03f;
+        }
+    }
     bool StandOnTerrain()
     {
         RaycastHit hitInfo;
-        if (Physics.Raycast(transform.position + (Vector3.up * 1f), Vector3.down, out hitInfo, 5f, layerMask))
+        if (Physics.Raycast(transform.position + (Vector3.up * 1f), Vector3.down, out hitInfo, 5f, terrainLayer))
         {
             //Debug.Log(hitInfo.transform.name);
             //m_GroundNormal = hitInfo.normal;
 
-           // SetMoveParas(true, true);
+            // SetMoveParas(true, true);
             if (hitInfo.point.y - transform.position.y < 0f)
             {
                 //transform.Translate(0f, 0.01f,0f);
@@ -123,30 +140,30 @@ public class Npc : MonoBehaviour, IHp
     }
 
 
-    private void OnDrawGizmos()
-    {
-        //檢查球射線是否有交點
-        float sphereCastRadius = 0.23f;
-        float range = 0.3f;
-        var position = this.transform.position + new Vector3(0, 0.7f, 0);
-        var direction = transform.forward;
-        Gizmos.DrawWireSphere(position, sphereCastRadius);
+    //private void OnDrawGizmos()
+    //{
+    //    //檢查球射線是否有交點
+    //    float sphereCastRadius = 0.23f;
+    //    float range = 0.3f;
+    //    var position = this.transform.position + new Vector3(0, 0.7f, 0);
+    //    var direction = transform.forward;
+    //    Gizmos.DrawWireSphere(position, sphereCastRadius);
 
-        RaycastHit hit;
-        if (Physics.SphereCast(position, sphereCastRadius, direction, out hit, range, layerMask) && hit.transform.gameObject.layer != this.gameObject.layer)
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawSphere(hit.point, 0.1f);
-            //Debug.DrawLine(transform.position, sphereCastMidpoint, Color.green);
-        }
-        else
-        {
-            Gizmos.color = Color.red;
-            Vector3 sphereCastMidpoint = position - direction * sphereCastRadius + direction * range;// + (direction * (range - sphereCastRadius));
-            Gizmos.DrawWireSphere(sphereCastMidpoint, sphereCastRadius);
-            //Debug.DrawLine(transform.position, sphereCastMidpoint, Color.red);
-        }
-    }
+    //    RaycastHit hit;
+    //    if (Physics.SphereCast(position, sphereCastRadius, direction, out hit, range, layerMask) && hit.transform.gameObject.layer != this.gameObject.layer)
+    //    {
+    //        Gizmos.color = Color.green;
+    //        Gizmos.DrawSphere(hit.point, 0.1f);
+    //        //Debug.DrawLine(transform.position, sphereCastMidpoint, Color.green);
+    //    }
+    //    else
+    //    {
+    //        Gizmos.color = Color.red;
+    //        Vector3 sphereCastMidpoint = position - direction * sphereCastRadius + direction * range;// + (direction * (range - sphereCastRadius));
+    //        Gizmos.DrawWireSphere(sphereCastMidpoint, sphereCastRadius);
+    //        //Debug.DrawLine(transform.position, sphereCastMidpoint, Color.red);
+    //    }
+    //}
 }
 
 
