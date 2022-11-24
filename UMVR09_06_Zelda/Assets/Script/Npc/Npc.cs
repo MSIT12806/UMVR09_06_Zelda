@@ -29,7 +29,7 @@ public class Npc : MonoBehaviour, IHp
 
     // Update is called once per frame
     void Update()
-    {        
+    {
         OnGround = StandOnTerrain();
         collide = StaticCollision();
         NpcCollision();
@@ -54,8 +54,8 @@ public class Npc : MonoBehaviour, IHp
         print("GetHit");
         //判定死亡
     }
-
-    public float Hp { get; set; }
+    [SerializeField] float hp;
+    public float Hp { get { return hp; } set { hp = value; } }
 
 
     bool StaticCollision(float radius = 0.23f, float maxDistance = 0.3f)

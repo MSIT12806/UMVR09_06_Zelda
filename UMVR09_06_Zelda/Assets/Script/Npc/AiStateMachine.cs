@@ -47,15 +47,21 @@ public class IdleState : AiState
     //Idel 應該有個初始位置    
     public override AiState SwitchState()
     {
-        return target.GetComponent<PicoState>().gameState == switchStage ? new FightState(target, animator, selfTransform) : this;
+        var gameState = target.GetComponent<PicoState>().gameState;
+        Debug.Log(gameState);
+        return gameState == switchStage ? new FightState(target, animator, selfTransform) : this;
     }
 
     public override void SetAnimation()
     {
-        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9f)
+        var ai = animator.GetCurrentAnimatorStateInfo(0);
+        var percentage = ai.normalizedTime;
+        if (percentage > 0.9f)
         {
             if (UnityEngine.Random.value >= 0.5f)
+            {
                 animator.SetTrigger("IdelSwitch");
+            }
         }
     }
 }
