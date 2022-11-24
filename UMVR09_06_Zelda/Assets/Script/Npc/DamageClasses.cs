@@ -19,7 +19,7 @@ public enum DamageState
 }
 public class DamageData
 {
-    public RaycastHit force;
+    public Transform attacker;
     public static DamageData NoDamage = new DamageData(null, 0, HitType.none, DamageStateInfo.NormalAttack);
     public float Damage;
     public HitType hit;
@@ -30,7 +30,7 @@ public class DamageData
         Damage = damage;
         hit = hitType;
         damageStates = hitInfluence;
-        this.force = force;
+        this.attacker = attacker;
     }
 }
 public class DamageStateInfo
