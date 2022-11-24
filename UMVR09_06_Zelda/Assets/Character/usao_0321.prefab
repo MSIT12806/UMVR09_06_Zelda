@@ -3496,6 +3496,7 @@ GameObject:
   - component: {fileID: 455430474}
   - component: {fileID: 455430477}
   - component: {fileID: 8819844761034577219}
+  - component: {fileID: 873841137}
   m_Layer: 9
   m_Name: usao_0321
   m_TagString: Npc
@@ -3602,6 +3603,18 @@ MonoBehaviour:
   LookAtWeight: 1
   Weight: 1
   IkActive: 0
+--- !u!114 &873841137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8672976989278694363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24ef9482c19852a449bfc28bee23a5d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8758781246023044786
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,11 +14,10 @@ public class UsaoManager : MonoBehaviour
     Animator animator;
     //---Ai---//
     AiState aiState;
-    public Transform mainCharacter;
     void Start()
     {
         animator = GetComponent<Animator>();
-        aiState = new IdleState(mainCharacter, mainCharacter.GetComponent<PicoState>(), mainCharacter.GetComponent<Animator>(), transform);
+        aiState = new IdleState(ObjectManager.MainCharacter, ObjectManager.MainCharacter.GetComponent<PicoState>(), ObjectManager.MainCharacter.GetComponent<Animator>(), transform);
     }
 
     // Update is called once per frame
