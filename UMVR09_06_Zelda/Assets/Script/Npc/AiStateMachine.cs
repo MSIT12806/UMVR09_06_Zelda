@@ -99,6 +99,7 @@ public class FightState : AiState
         direction = target.position - selfTransform.position;
         var sign = Math.Sign(Vector3.Dot(direction, selfTransform.right));
         var degree = sign * Vector3.Angle(selfTransform.forward, direction);
+        Debug.Log(degree);
         animator.SetFloat("Blend", degree / 45);
 
         if (UnityEngine.Random.value > 0.75)
@@ -137,14 +138,18 @@ public class ChaseState : AiState
 
     public override AiState SwitchState()
     {
-        RemoveChasingNpc();
+
+
 
 
         //1. 如果目標物件消失於視野之外[，進行巡邏後]，回到發呆狀態
 
         //2. 如果目標物件進入攻擊範圍，則切換為攻擊模式
         var distance = Vector3.Distance(alertTarget.position, selfTransform.position);
-        if (distance <= attackRange) return new AttackState(animator, selfTransform);
+        if (distance >= attackRange) return this;
+
+        RemoveChasingNpc();
+        if(distance < attackRange) return new FightState(alertTarget, animator, selfTransform);
 
         //3. 如果目標在追擊範圍內，則：(1) 如果追擊沒有滿，就進行追擊。(2) 若追擊已滿，就在外面咆哮。
         return new IdleState(alertTarget, selfTransform.GetComponent<PicoState>(), animator, selfTransform);
