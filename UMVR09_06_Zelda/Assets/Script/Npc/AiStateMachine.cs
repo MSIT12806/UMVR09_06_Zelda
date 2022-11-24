@@ -101,8 +101,8 @@ public class FightState : AiState
         direction = target.position - selfTransform.position;
         var sign = Math.Sign(Vector3.Dot(direction, selfTransform.right));
         var degree = sign * Vector3.Angle(selfTransform.forward, direction);
-        Debug.Log($"{direction}, {selfTransform.forward}");
-        animator.SetFloat("Blend", degree / 45);
+        if (degree > 5 || degree < -5)
+            selfTransform.Rotate(new Vector3(0, Math.Sign(degree), 0));
 
         if (UnityEngine.Random.value > 0.75)
         {
@@ -120,6 +120,7 @@ public class ChaseState : AiState
     Transform alertTarget;
     IKController iK;
     float attackRange = 2f;
+    Vector3 direction;
     public ChaseState(Transform alertObject, Animator a, Transform self) : base(a, self)
     {
         alertTarget = alertObject;
@@ -170,6 +171,11 @@ public class ChaseState : AiState
 
     public override void SetAnimation()
     {
+        direction = alertTarget.position - selfTransform.position;
+        var sign = Math.Sign(Vector3.Dot(direction, selfTransform.right));
+        var degree = sign * Vector3.Angle(selfTransform.forward, direction);
+        if (degree > 5 || degree < -5)
+            selfTransform.Rotate(new Vector3(0, Math.Sign(degree), 0));
     }
 }
 
