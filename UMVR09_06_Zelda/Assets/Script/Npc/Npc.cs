@@ -52,6 +52,9 @@ public class Npc : MonoBehaviour, IHp
         //計算後退 or 擊飛方向 & 力道
         this.transform.Translate(-damageData.Attacker.position);
         print("GetHit");
+
+        var u = transform.GetComponent<UsaoManager>();
+        u.GetGurt(damageData);
         //判定死亡
     }
     [SerializeField] float hp;

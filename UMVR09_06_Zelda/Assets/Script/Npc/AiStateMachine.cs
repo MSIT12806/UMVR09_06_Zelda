@@ -49,7 +49,6 @@ public class IdleState : AiState
     public override AiState SwitchState()
     {
         var gameState = target.GetComponent<PicoState>().gameState;
-        Debug.Log(gameState == switchStage);
         return gameState == switchStage ? new FightState(target, animator, selfTransform) : this;
     }
 
@@ -75,7 +74,6 @@ public class FightState : AiState
     public FightState(Transform t, Animator a, Transform self) : base(a, self)
     {
         target = t;
-        target = animator.transform;
         animator.SetBool("findTarget", true);
     }
     public override AiState SwitchState()
@@ -103,8 +101,8 @@ public class FightState : AiState
         direction = target.position - selfTransform.position;
         var sign = Math.Sign(Vector3.Dot(direction, selfTransform.right));
         var degree = sign * Vector3.Angle(selfTransform.forward, direction);
-        Debug.Log(degree);
-        animator.SetFloat("Blend", degree / 45);
+        if (degree > 5 || degree < -5)
+            selfTransform.Rotate(new Vector3(0, Math.Sign(degree), 0));
 
         if (UnityEngine.Random.value > 0.75)
         {
@@ -122,6 +120,7 @@ public class ChaseState : AiState
     Transform alertTarget;
     IKController iK;
     float attackRange = 2f;
+    Vector3 direction;
     public ChaseState(Transform alertObject, Animator a, Transform self) : base(a, self)
     {
         alertTarget = alertObject;
@@ -172,7 +171,11 @@ public class ChaseState : AiState
 
     public override void SetAnimation()
     {
-        throw new NotImplementedException();
+        direction = alertTarget.position - selfTransform.position;
+        var sign = Math.Sign(Vector3.Dot(direction, selfTransform.right));
+        var degree = sign * Vector3.Angle(selfTransform.forward, direction);
+        if (degree > 5 || degree < -5)
+            selfTransform.Rotate(new Vector3(0, Math.Sign(degree), 0));
     }
 }
 
@@ -194,7 +197,7 @@ public class AttackState : AiState
 
     public override void SetAnimation()
     {
-        throw new NotImplementedException();
+      //  throw new NotImplementedException();
     }
 }
 
