@@ -23,6 +23,7 @@ public abstract class BasicAi
 }
 public abstract class AiState
 {
+    public DamageData getHit = null;
     protected Animator animator;
     protected Transform selfTransform;
     public AiState(Animator a, Transform self)
@@ -79,6 +80,9 @@ public class FightState : AiState
     }
     public override AiState SwitchState()
     {
+        //0. 如果我被攻擊
+        if (getHit != null) return new HurtState(animator, selfTransform, getHit);
+
         var distance = Vector3.Distance(target.position, selfTransform.position);
         int count = GetChasingNpcCount();
         if (distance <= 5 && UnityEngine.Random.value >= 0.75) return new AttackState(animator, selfTransform);
@@ -139,7 +143,8 @@ public class ChaseState : AiState
     public override AiState SwitchState()
     {
 
-
+        //0. 如果我被攻擊
+        if (getHit != null) return new HurtState(animator, selfTransform, getHit);
 
 
         //1. 如果目標物件消失於視野之外[，進行巡邏後]，回到發呆狀態
@@ -177,7 +182,10 @@ public class AttackState : AiState
     // 2.攻擊
     public override AiState SwitchState()
     {
-        throw new NotImplementedException();
+        //0. 如果我被攻擊
+        if (getHit != null) return new HurtState(animator, selfTransform, getHit);
+
+        return this;
     }
 
     public override void SetAnimation()
