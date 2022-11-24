@@ -50,7 +50,7 @@ public class Npc : MonoBehaviour, IHp
     {
         //播放受傷僵直動畫
         //計算後退 or 擊飛方向 & 力道
-        this.transform.Translate(-damageData.attacker.position);
+        this.transform.Translate(-damageData.Attacker.position);
         print("GetHit");
         //判定死亡
     }
