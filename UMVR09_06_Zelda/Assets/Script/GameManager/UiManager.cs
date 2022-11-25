@@ -17,6 +17,8 @@ public class UiManager : MonoBehaviour
     GameObject heart;
 
     GameObject lastHeart;
+
+    float OneHeartHp = 100;
     void Start()
     {
         HpUi = transform.FindAnyChild<Transform>("MainCharacterHP");
@@ -46,7 +48,7 @@ public class UiManager : MonoBehaviour
     private void InitHp()
     {
         var nowHp = currentHp;
-        var heartCount = (int)Math.Ceiling(currentHp / 100);
+        var heartCount = (int)Math.Ceiling(currentHp / OneHeartHp);
         for (int i = 0; i < heartCount; i++)
         {
             if (nowHp <= 0) break;
@@ -66,17 +68,18 @@ public class UiManager : MonoBehaviour
             var hf = item.transform.FindAnyChild<Image>("HeartFull");
             hf.fillAmount = 0;
         }
-        for (int i = 0; i < nowHp/100; i++)
+        var heartNum = nowHp / OneHeartHp;
+        for (int i = 0; i < heartNum; i++)
         {
             var hf = heartList[i].transform.FindAnyChild<Image>("HeartFull");
-            if (nowHp > 100)
+            if (nowHp > OneHeartHp)
             {
                 hf.fillAmount = 1;
-                nowHp -= 100;
+                nowHp -= OneHeartHp;
             }
             else
             {
-                hf.fillAmount = nowHp / 100;
+                hf.fillAmount = nowHp / OneHeartHp;
             }
         }
     }

@@ -22,8 +22,10 @@ public class BodyRotate : MonoBehaviour
     }
     private void LateUpdate()
     {
+        var stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
         var f = animator.GetFloat("Forward");
-        if (f > 0.25f)
+        if (f > 0.25f && stateInfo.IsName("Grounded")) 
             rotatePart.Rotate(rotatePart.forward, degree);
     }
 }
