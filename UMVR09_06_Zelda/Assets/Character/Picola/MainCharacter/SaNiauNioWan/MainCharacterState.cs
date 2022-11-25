@@ -85,7 +85,13 @@ public class MainCharacterState : MonoBehaviour
         //    animator.SetFloat("dodge", fTimer);
         //}
 
+        //沒用 大概
         var a = this.GetComponent<IKController>();
+        if (currentAnimation.IsName("Attack02 1"))
+        {
+            a.IkActive = false;
+            //Sword.SetActive(false);
+        }
         if (currentAnimation.IsName("Fast run"))
         {
             a.IkActive = false;
@@ -96,6 +102,8 @@ public class MainCharacterState : MonoBehaviour
             a.IkActive = true;
             //Sword.SetActive(true);
         }
+
+
 
         if (currentAnimation.IsName("Attack01"))
         {
@@ -143,8 +151,9 @@ public class MainCharacterState : MonoBehaviour
             time = 0f;
         }
         Debug.DrawLine(transform.position, transform.position + transform.forward * 10f);
+
         var IK = GetComponent<IKController>();
-        if (currentAnimation.IsName("Attack01 2") || currentAnimation.IsName("Fast run"))
+        if (currentAnimation.IsName("Attack01 2") || currentAnimation.IsName("Fast run") || currentAnimation.IsName("Attack02 1"))
             IK.IkActive = false;
         else
             IK.IkActive = true;

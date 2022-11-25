@@ -17,6 +17,6 @@ public class MCAttackAnimationSpeed : MonoBehaviour
     }
     void AnimationSpeedChange(float a)
     {
-        
+        animator.SetFloat("attackSpeed", a);
     }
 }
