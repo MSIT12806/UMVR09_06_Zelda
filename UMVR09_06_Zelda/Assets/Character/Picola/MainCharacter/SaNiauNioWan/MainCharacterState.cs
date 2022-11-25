@@ -41,6 +41,7 @@ public class MainCharacterState : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.H))
         {
             animator.SetTrigger("getHit");
+            n.Hp -= 20;//test
         }
         else
         {
@@ -54,11 +55,11 @@ public class MainCharacterState : MonoBehaviour
         if (animator.IsInTransition(0) == false)
         {
             if (Input.GetMouseButtonDown(0) && (currentAnimation.IsName("Grounded") || currentAnimation.IsName("Attack01") || currentAnimation.IsName("Attack01 0") || currentAnimation.IsName("Attack01 1") || currentAnimation.IsName("Fast run")))
-            { 
-                LeftMouseClick(); 
+            {
+                LeftMouseClick();
             }
             if (Input.GetMouseButtonDown(1) && (currentAnimation.IsName("Attack01") || currentAnimation.IsName("Attack01 0") || currentAnimation.IsName("Attack01 1")))
-            { 
+            {
                 RightMouseClick();
             }
         }
@@ -90,7 +91,7 @@ public class MainCharacterState : MonoBehaviour
             a.IkActive = false;
             //Sword.SetActive(false);
         }
-        if(currentAnimation.IsName("Grounded"))
+        if (currentAnimation.IsName("Grounded"))
         {
             a.IkActive = true;
             //Sword.SetActive(true);
@@ -141,7 +142,7 @@ public class MainCharacterState : MonoBehaviour
             frontMove = false;
             time = 0f;
         }
-        Debug.DrawLine(transform.position,transform.position+ transform.forward*10f);
+        Debug.DrawLine(transform.position, transform.position + transform.forward * 10f);
         var IK = GetComponent<IKController>();
         if (currentAnimation.IsName("Attack01 2") || currentAnimation.IsName("Fast run"))
             IK.IkActive = false;
@@ -169,7 +170,7 @@ public class MainCharacterState : MonoBehaviour
     public virtual void RightMouseClick()
     {
         if (currentAnimation.IsName("Attack01") || currentAnimation.IsName("Attack01 0") || currentAnimation.IsName("Attack01 1") || currentAnimation.IsName("Attack01 2"))
-            animator.SetBool("attack02",true);
+            animator.SetBool("attack02", true);
         else
             animator.SetBool("attack02", false);
     }
@@ -186,38 +187,38 @@ public class MainCharacterState : MonoBehaviour
 
     public void AttackSpeedChange(float f)
     {
-        animator.SetFloat("attackSpeed",f*1.5f);
+        animator.SetFloat("attackSpeed", f * 1.5f);
         //print(231321213);
     }
 
     public void AnimationAttack()
     {
-        AttackDetection(110,3.2f);
+        AttackDetection(110, 3.2f);
     }
 
     public LayerMask LY;
     public void AttackDetection(float angle, float distance)//攻擊範圍偵測
     {
 
-        print ("Attack");
+        print("Attack");
         HashSet<Transform> hitInfoList = new HashSet<Transform>();
         RaycastHit[] hitInfos;
-        for (int i = 0; i <= angle/2; i += 5)
+        for (int i = 0; i <= angle / 2; i += 5)
         {
 
-            hitInfos = Physics.RaycastAll(transform.position + (Vector3.up * 0.6f), Quaternion.Euler(0, i, 0) * transform.forward , distance, LY );//1 << LayerMask.NameToLayer("NPC")
+            hitInfos = Physics.RaycastAll(transform.position + (Vector3.up * 0.6f), Quaternion.Euler(0, i, 0) * transform.forward, distance, LY);//1 << LayerMask.NameToLayer("NPC")
             for (int j = 0; j < hitInfos.Length; j++)
             {
-                
+
                 //if(hitInfos[j].transform.tag == "Npc")
-                    hitInfoList.Add(hitInfos[j].transform);
+                hitInfoList.Add(hitInfos[j].transform);
             }
 
-            hitInfos = Physics.RaycastAll(transform.position + (Vector3.up * 0.6f), Quaternion.Euler(0, -i, 0) * transform.forward , distance, LY);
+            hitInfos = Physics.RaycastAll(transform.position + (Vector3.up * 0.6f), Quaternion.Euler(0, -i, 0) * transform.forward, distance, LY);
             for (int j = 0; j < hitInfos.Length; j++)
             {
                 //if (hitInfos[j].transform.tag == "Npc")
-                    hitInfoList.Add(hitInfos[j].transform);
+                hitInfoList.Add(hitInfos[j].transform);
             }
         }
         if (hitInfoList.Count > 0)
@@ -264,6 +265,11 @@ public class MainCharacterState : MonoBehaviour
     public void SwordDisappear()
     {
         Sword.SetActive(false);
+    }
+
+    private void LateUpdate()
+    {
+        Sword.transform.localPosition = new Vector3(0.076f, 0.019f, 0.041f);
     }
 }
 
