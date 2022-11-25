@@ -23,8 +23,7 @@ public class BodyRotate : MonoBehaviour
     private void LateUpdate()
     {
         var f = animator.GetFloat("Forward");
-
-        //if (f > 0.25f)
-            //rotatePart.Rotate(rotatePart.forward, degree);
+        if (f > 0.25f)
+            rotatePart.Rotate(rotatePart.forward, degree);
     }
 }
