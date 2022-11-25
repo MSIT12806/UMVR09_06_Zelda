@@ -27,6 +27,13 @@ public class IKController : MonoBehaviour
     //右腳
     public Transform RightFootObj = null;
 
+    //左腳目標
+    public Transform LeftFootTarget = null;
+    //右腳目標
+    public Transform RightFootTarget = null;
+    public float LeftFootHeight = 0.0f;
+    public float RightFootHeight = 0.0f;
+
     public float LookAtWeight = 1.0f;
     public float Weight_Up = 1.0f;
     public float Weight_Down = 0.0f;
@@ -45,6 +52,8 @@ public class IKController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        FootUp();
+
         //如果IK沒啟動，則把控制器附上動畫本身的值
 
         if (IkActive == false) 
@@ -167,11 +176,15 @@ public class IKController : MonoBehaviour
             }
             if (LeftFootObj != null)
             {
+                LeftFootTarget.localPosition = new Vector3(LeftFootTarget.localPosition.x, LeftFootHeight, LeftFootTarget.localPosition.z);
+                LeftFootObj.position = LeftFootTarget.position;
                 avatar.SetIKPosition(AvatarIKGoal.LeftFoot, LeftFootObj.position);
                 avatar.SetIKRotation(AvatarIKGoal.LeftFoot, LeftFootObj.rotation);
             }
             if (RightFootObj != null)
             {
+                RightFootTarget.localPosition = new Vector3(RightFootTarget.localPosition.x, RightFootHeight, RightFootTarget.localPosition.z);
+                RightFootObj.position = RightFootTarget.position;
                 avatar.SetIKPosition(AvatarIKGoal.RightFoot, RightFootObj.position);
                 avatar.SetIKRotation(AvatarIKGoal.RightFoot, RightFootObj.rotation);
             }
@@ -200,5 +213,46 @@ public class IKController : MonoBehaviour
 
         }
     }
+    void FootUp()
+    {
+        var stateInfo = avatar.GetCurrentAnimatorStateInfo(0);
+        float t = stateInfo.normalizedTime;
 
+        if (stateInfo.IsName("Grounded"))
+        {
+            Weight_Down = 0.0f;
+            LeftFootHeight = 0.0f;
+            RightFootHeight = 0.0f;
+        }
+        else if (stateInfo.IsName("Attack01"))
+        {
+            float t2 = t - 0.5f;
+            if (t2 < 0) t2 = 0;
+            Weight_Down = Mathf.Lerp(1.0f, 0.0f, t2 * 2);
+            LeftFootHeight = 0.1f;
+            RightFootHeight = 0.1f;
+        }
+        else if (stateInfo.IsName("Attack01 0"))
+        {
+            float t2 = t;
+            Weight_Down = Mathf.Lerp(1.0f, 0.0f, t2);
+            LeftFootHeight = 0.05f;
+            RightFootHeight = -0.15f;
+        }
+        else if (stateInfo.IsName("Attack01 1"))
+        {
+            float t2 = t;
+            Weight_Down = Mathf.Lerp(1.0f, 0.0f, t2);
+            LeftFootHeight = 0.1f;
+            RightFootHeight = 0.1f;
+        }
+        else if (stateInfo.IsName("Attack01 2"))
+        {
+            float t2 = t - 0.5f;
+            if (t2 < 0) t2 = 0;
+            Weight_Down = Mathf.Lerp(1.0f, 0.0f, t2 * 2);
+            LeftFootHeight = 0.1f;
+            RightFootHeight = -0.3f;
+        }
+    }
 }
