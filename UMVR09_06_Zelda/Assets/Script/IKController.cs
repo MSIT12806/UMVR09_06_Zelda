@@ -4,34 +4,34 @@ using UnityEngine;
 
 public class IKController : MonoBehaviour
 {
-    //ÀY
+    //é ­
     public Transform LookAtObj = null;
-    //¨­Åé
+    //èº«é«”
     public Transform BodyObj = null;
 
-    //¥ª¤â¨y
+    //å·¦æ‰‹è‚˜
     public Transform LeftElbowObj = null;
-    //¥k¤â¨y
+    //å³æ‰‹è‚˜
     public Transform RightElbowObj = null;
-    //¥ª¤â
+    //å·¦æ‰‹
     public Transform LeftHandObj = null;
-    //¥k¤â
+    //å³æ‰‹
     public Transform RightHandObj = null;
 
-    //¥ª½¥»\
+    //å·¦è†è“‹
     public Transform LeftKneeObj = null;
-    //¥k½¥»\
+    //å³è†è“‹
     public Transform RightKneeObj = null;
-    //¥ª¸}
+    //å·¦è…³
     public Transform LeftFootObj = null;
-    //¥k¸}
+    //å³è…³
     public Transform RightFootObj = null;
 
     public float LookAtWeight = 1.0f;
     public float Weight_Up = 1.0f;
     public float Weight_Down = 0.0f;
 
-    //¨Ï¥ÎIK
+    //ä½¿ç”¨IK
     public bool IkActive = false;
 
     private Animator avatar;
@@ -45,7 +45,7 @@ public class IKController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //¦pªGIK¨S±Ò°Ê¡A«h§â±±¨î¾¹ªş¤W°Êµe¥»¨­ªº­È
+        //å¦‚æœIKæ²’å•Ÿå‹•ï¼Œå‰‡æŠŠæ§åˆ¶å™¨é™„ä¸Šå‹•ç•«æœ¬èº«çš„å€¼
 
         if (IkActive == false) 
         {
@@ -98,25 +98,25 @@ public class IKController : MonoBehaviour
         }
     }
 
-    //IK°Êµe±±¨î±M¥Î¨ç¼Æ
+    //IKå‹•ç•«æ§åˆ¶å°ˆç”¨å‡½æ•¸
     private void OnAnimatorIK(int layerIndex)
     {
-        //avator¬°ªÅ«hªğ¦^
+        //avatorç‚ºç©ºå‰‡è¿”å›
         if (avatar == null) 
             return;
 
-        //±Ò°ÊIK
-        //1.¦U³¡¦ìÅv­«1.0f
-        //2.¦U³¡¦ì¦ì¸m½á­È
-        //3.³¡¤À±ÛÂà½á­È
+        //å•Ÿå‹•IK
+        //1.å„éƒ¨ä½æ¬Šé‡1.0f
+        //2.å„éƒ¨ä½ä½ç½®è³¦å€¼
+        //3.éƒ¨åˆ†æ—‹è½‰è³¦å€¼
         if (IkActive) 
         {
             avatar.SetLookAtWeight(LookAtWeight, 0.3f, 0.6f, 1.0f, 0.5f);
 
             avatar.SetIKPositionWeight(AvatarIKGoal.LeftHand, Weight_Up);
             avatar.SetIKRotationWeight(AvatarIKGoal.LeftHand, Weight_Up);
-            //avatar.SetIKPositionWeight(AvatarIKGoal.RightHand, Weight_Up);
-            //avatar.SetIKRotationWeight(AvatarIKGoal.RightHand, Weight_Up);
+            avatar.SetIKPositionWeight(AvatarIKGoal.RightHand, Weight_Up);
+            avatar.SetIKRotationWeight(AvatarIKGoal.RightHand, Weight_Up);
 
             avatar.SetIKPositionWeight(AvatarIKGoal.LeftFoot, Weight_Down);
             avatar.SetIKRotationWeight(AvatarIKGoal.LeftFoot, Weight_Down);
@@ -177,7 +177,7 @@ public class IKController : MonoBehaviour
             }
         }
 
-        //¤£±Ò°ÊIK
+        //ä¸å•Ÿå‹•IK
         else 
         {
             avatar.SetLookAtWeight(0.0f);
