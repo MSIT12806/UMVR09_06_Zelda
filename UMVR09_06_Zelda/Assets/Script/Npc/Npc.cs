@@ -63,7 +63,7 @@ public class Npc : MonoBehaviour, IHp
 
     bool StaticCollision(float radius = 0.23f, float maxDistance = 0.3f)
     {
-        var hitSomething = Physics.SphereCast(this.transform.position + new Vector3(0, 0.7f, 0), radius, transform.forward, out var hitInfo, maxDistance, terrainLayer);
+        var hitSomething = Physics.SphereCast(this.transform.position + new Vector3(0, 0.7f, 0), radius, transform.forward, out var hitInfo, maxDistance, layerMask);
         if (hitSomething && hitInfo.transform != this.transform)
         {
             var nowPosXZ = transform.position;
