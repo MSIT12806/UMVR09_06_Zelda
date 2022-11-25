@@ -27,7 +27,6 @@ public class DamageData
 
     public DamageData(Transform attacker, float damage, HitType hitType, params DamageStateInfo[] hitInfluence)
     {
-
         Damage = damage;
         Hit = hitType;
         DamageStates = hitInfluence;

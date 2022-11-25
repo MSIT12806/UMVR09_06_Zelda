@@ -203,19 +203,24 @@ public class AttackState : AiState
 
 public class HurtState : AiState
 {
+    float deadTime;
     DamageData damageData;
     Npc NpcData;
     public HurtState(Animator a, Transform self, DamageData d) : base(a, self)
     {
+        NpcData = selfTransform.GetComponent<Npc>();
         damageData = d;
         animator.SetTrigger("getHit");
+        DoOnce();
     }
 
     public override AiState SwitchState()
     {
-        NpcData = selfTransform.GetComponent<Npc>();
+        //NpcData = selfTransform.GetComponent<Npc>();
         if(NpcData.Hp > 0)
             return new FightState(damageData.Attacker, animator, selfTransform);
+        //if (NpcData.Hp <= 0)
+        //    return new HurtState(animator, selfTransform, getHit);
 
         return this;
 
@@ -225,17 +230,40 @@ public class HurtState : AiState
 
     public override void SetAnimation()
     {
+        if(NpcData.Hp <= 0)
+        {
+            deadTime += Time.deltaTime;
+            if(getHit != null)
+            {
+                deadTime = 0f;
+                animator.SetTrigger("toFlog");
+                getHit = null;
+                Debug.Log("Stop FLOGINGGGGG!!!!!!");
+            }
+        }
+        else
+        {
+            deadTime = 0f;
+        }
+    }
+    private void DoOnce()
+    {
         // 依照 damageData.hit 決定播放哪個動畫。
-        NpcData = selfTransform.GetComponent<Npc>();
         NpcData.Hp -= damageData.Damage;
         animator.SetFloat("hp", NpcData.Hp);
-
-        if(damageData.Hit == HitType.light)
+        //Debug.Log("789");
+        if (damageData.Hit == HitType.light && NpcData.Hp > 0)
         {
             animator.SetTrigger("lightAttack");
             System.Random random = new System.Random();
             animator.SetInteger("playImpactType",random.Next(1, 3));
-        }   
+            //Debug.Log("456");
+        }
+        else //if(damageData.Hit == HitType.Heavy || NpcData.Hp <= 0)
+        {
+            animator.SetTrigger("heavyAttack");
+            //Debug.Log("123");
+        }
 
         if(NpcData.Hp < 0.0001f)
         {
