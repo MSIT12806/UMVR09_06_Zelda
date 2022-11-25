@@ -157,8 +157,8 @@ public class TPSCamera : MonoBehaviour
                     transparentObj.Add(hit.transform.gameObject);
                 }
             }
-            OnRaycastLeave(hitArr);
         }
+        OnRaycastLeave(hitArr);
 
     }
 
@@ -166,6 +166,7 @@ public class TPSCamera : MonoBehaviour
     {
         var item = transparentObj.FirstOrDefault(go => !hitArr.Any(i => i.transform.gameObject == go));
         if (item == null) return;
+        print("recover");
         RecoverTransparentObj(item.transform.gameObject);
         transparentObj.Remove(item.transform.gameObject);
     }
@@ -194,10 +195,9 @@ public class TPSCamera : MonoBehaviour
         {
             return;
         }
-        float d = distance - 4;
         for (int i = 0; i < renderer.materials.Length; i++)
         {
-            renderer.materials[i].SetFloat("_MinDistance", d);
+            renderer.materials[i].SetFloat("_MinDistance", 0.2f);
         }
     }
     #endregion
