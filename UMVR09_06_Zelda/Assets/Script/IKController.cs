@@ -31,8 +31,6 @@ public class IKController : MonoBehaviour
     public Transform LeftFootTarget = null;
     //右腳目標
     public Transform RightFootTarget = null;
-    public float LeftFootHeight = 0.0f;
-    public float RightFootHeight = 0.0f;
 
     public float LookAtWeight = 1.0f;
     public float Weight_Up = 1.0f;
@@ -176,17 +174,21 @@ public class IKController : MonoBehaviour
             }
             if (LeftFootObj != null)
             {
-                LeftFootTarget.localPosition = new Vector3(LeftFootTarget.localPosition.x, LeftFootHeight, LeftFootTarget.localPosition.z);
                 LeftFootObj.position = LeftFootTarget.position;
+                Vector3 vecL = LeftFootObj.localPosition;
+                if (vecL.y < 0.07f) vecL.y = 0.07f;
+                LeftFootObj.localPosition = vecL;
                 avatar.SetIKPosition(AvatarIKGoal.LeftFoot, LeftFootObj.position);
-                avatar.SetIKRotation(AvatarIKGoal.LeftFoot, LeftFootObj.rotation);
+                //avatar.SetIKRotation(AvatarIKGoal.LeftFoot, LeftFootObj.rotation);
             }
             if (RightFootObj != null)
             {
-                RightFootTarget.localPosition = new Vector3(RightFootTarget.localPosition.x, RightFootHeight, RightFootTarget.localPosition.z);
                 RightFootObj.position = RightFootTarget.position;
+                Vector3 vecR = RightFootObj.localPosition;
+                if (vecR.y < 0.07f) vecR.y = 0.07f;
+                RightFootObj.localPosition = vecR;
                 avatar.SetIKPosition(AvatarIKGoal.RightFoot, RightFootObj.position);
-                avatar.SetIKRotation(AvatarIKGoal.RightFoot, RightFootObj.rotation);
+                //avatar.SetIKRotation(AvatarIKGoal.RightFoot, RightFootObj.rotation);
             }
         }
 
@@ -220,39 +222,33 @@ public class IKController : MonoBehaviour
 
         if (stateInfo.IsName("Grounded"))
         {
+            Weight_Up = 1.0f;
             Weight_Down = 0.0f;
-            LeftFootHeight = 0.0f;
-            RightFootHeight = 0.0f;
         }
         else if (stateInfo.IsName("Attack01"))
         {
-            float t2 = t - 0.5f;
-            if (t2 < 0) t2 = 0;
-            Weight_Down = Mathf.Lerp(1.0f, 0.0f, t2 * 2);
-            LeftFootHeight = 0.1f;
-            RightFootHeight = 0.1f;
+            //float t2 = t - 0.5f;
+            //if (t2 < 0) t2 = 0;
+            //Weight_Down = Mathf.Lerp(1.0f, 0.0f, t2 * 2);
+            Weight_Up = 1.0f;
+            Weight_Down = 1.0f;
+
         }
         else if (stateInfo.IsName("Attack01 0"))
         {
-            float t2 = t;
-            Weight_Down = Mathf.Lerp(1.0f, 0.0f, t2);
-            LeftFootHeight = 0.05f;
-            RightFootHeight = -0.15f;
+            Weight_Up = 1.0f;
+            Weight_Down = 1.0f;
+
         }
         else if (stateInfo.IsName("Attack01 1"))
         {
-            float t2 = t;
-            Weight_Down = Mathf.Lerp(1.0f, 0.0f, t2);
-            LeftFootHeight = 0.1f;
-            RightFootHeight = 0.1f;
+            Weight_Up = 1.0f;
+            Weight_Down = 1.0f;
         }
         else if (stateInfo.IsName("Attack01 2"))
         {
-            float t2 = t - 0.5f;
-            if (t2 < 0) t2 = 0;
-            Weight_Down = Mathf.Lerp(1.0f, 0.0f, t2 * 2);
-            LeftFootHeight = 0.1f;
-            RightFootHeight = -0.3f;
+            Weight_Up = 1.0f;
+            Weight_Down = 1.0f;
         }
     }
 }
