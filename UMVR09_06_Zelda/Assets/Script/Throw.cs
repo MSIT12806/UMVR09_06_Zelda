@@ -18,8 +18,8 @@ public class Throw : MonoBehaviour
     private Vector3 vel;
     private Vector3 next_vel;
     private Vector3 resistance;
-
     private Vector3 face;
+
     private bool CanThrow = true;
     private bool isThrowing = false;
     private Item useItem;
@@ -27,12 +27,15 @@ public class Throw : MonoBehaviour
     private Transform ThrowItem;
     public Transform RightHandThrow_pos;
     public GameObject Sword;
+    public GameObject SwordEffect;
     public float Speed = 0.25f;
     public float vertical = 0.2f;
     private Vector3 Gravity = new Vector3(0,-1,0);
 
     Animator animator;
-
+    private float coldTime = 10.0f;
+    private float timer = 0.0f;
+    private bool isStartTime = false;
 
     private void Start()
     {
@@ -44,60 +47,96 @@ public class Throw : MonoBehaviour
     {
         if (CanThrow==true) 
         {
-            GetThrowKeyIn();
-
-            switch (useItem) 
+            if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Alpha4))
             {
-                case Item.TimeStop:
-                    useTimeStop();
-                    break;
-                case Item.Ice:
-                    useIce();
-                    break;
-                case Item.Bomb:
-                    useBomb();
-                    break;
+                GetThrowKeyIn();
+
+                switch (useItem)
+                {
+                    case Item.TimeStop:
+                        UseTimeStop();
+                        break;
+                    case Item.Ice:
+                        UseIce();
+                        break;
+                    case Item.Bomb:
+                        UseBomb();
+                        break;
+                }
             }
         }
-        OnThrow();
+        OnThrow(); //他們在不需要的時候還是一直被CALL？
+        CDTimer();
     }
 
-    void GetThrowKeyIn() 
+    void GetThrowKeyIn()  //按鍵切換enum
     {
         if (Input.GetKeyDown(KeyCode.Alpha2)) useItem = Item.TimeStop;
         else if (Input.GetKeyDown(KeyCode.Alpha3)) useItem = Item.Ice;
         else if (Input.GetKeyDown(KeyCode.Alpha4)) useItem = Item.Bomb;
     }
 
-    void useTimeStop() 
+    void UseTimeStop() //使用時停
     {
+        isStartTime = true;
+        Speed = 0.25f;
+        vertical = 0.2f;
         animator.SetTrigger("ThrowTimeStop");
         CanThrow = false;
     }
 
-    void useIce() 
+    void UseIce() //使用冰
     {
+        isStartTime = true;
+        Speed = 0.25f;
+        vertical = 0.1f;
         animator.SetTrigger("ThrowIce");
         CanThrow = false;
     }
 
-    void useBomb() 
+    void UseBomb() //使用炸彈
     {
+        isStartTime = true;
+        Speed = 0.25f;
+        vertical = 0.2f;
         animator.SetTrigger("ThrowBomb");
         CanThrow = false;
     }
 
-    public void SwordFalse()
+    void CDTimer() //計時器
     {
-        Sword.SetActive(false);
-    }
-    public void SwordTrue()
-    {
-        Sword.SetActive(true);
+        if (isStartTime)
+        {
+            timer += Time.deltaTime;
+            if (timer <coldTime)
+            {
+                CanThrow = false;
+            }
+            else if (timer >= coldTime)
+            {
+                CanThrow = true;
+                timer = 0;
+                isStartTime = false;
+            }
+        }
     }
 
-    public void GetBomb()
+    public void SwordFalse() //讓劍消失（動作事件）
     {
+        SwordEffect.GetComponent<ParticleSystem>().Play();
+        Sword.SetActive(false);
+    }
+    public void SwordTrue() //讓劍出現（動作事件）
+    {
+        Sword.SetActive(true);
+        SwordEffect.GetComponent<ParticleSystem>().Play();
+    }
+
+    public void GetBomb()  //取得炸彈（動作事件）
+    {
+        var IK = this.GetComponent<IKController>();
+        IK.Weight_Up = 0.0f;
+
         Object o = Resources.Load("TranslucentCrystal_Bomb");
         GameObject go = Instantiate((GameObject)o);
         go.transform.SetParent(RightHandThrow_pos.transform);
@@ -105,8 +144,11 @@ public class Throw : MonoBehaviour
         ThrowItem = go.transform;
     }
 
-    public void GetIce()
+    public void GetIce() //取得冰（動作事件）
     {
+        var IK = this.GetComponent<IKController>();
+        IK.Weight_Up = 0.0f;
+
         Object o = Resources.Load("TranslucentCrystal_Ice");
         GameObject go = Instantiate((GameObject)o);
         go.transform.SetParent(RightHandThrow_pos.transform);
@@ -114,8 +156,11 @@ public class Throw : MonoBehaviour
         ThrowItem = go.transform;
     }
 
-    public void GetTimeStop()
+    public void GetTimeStop()  //取得時停（動作事件）
     {
+        var IK = this.GetComponent<IKController>();
+        IK.Weight_Up = 0.0f;
+
         Object o = Resources.Load("TranslucentCrystal_TimeStop");
         GameObject go = Instantiate((GameObject)o);
         go.transform.SetParent(RightHandThrow_pos.transform);
@@ -123,7 +168,7 @@ public class Throw : MonoBehaviour
         ThrowItem = go.transform;
     }
 
-    public void StartThrow() 
+    public void StartThrow() //丟出時物件位置初始化（動作事件）
     {
         ThrowItem.transform.parent = null;
 
@@ -148,7 +193,7 @@ public class Throw : MonoBehaviour
         isThrowing = true;
     }
 
-    public void OnThrow() 
+    public void OnThrow()  //每幀物件運動
     {
         if (isThrowing)
         {
@@ -164,7 +209,7 @@ public class Throw : MonoBehaviour
             vel = next_vel;
         }
     }
-    public void EndThrow()
+    public void EndThrow() //物件刪除
     {
         Destroy(ThrowItem.gameObject);
         ThrowItem = null;
@@ -174,29 +219,25 @@ public class Throw : MonoBehaviour
 
     /*
     
-    if (CanThrow)
-    {
-        switch(按鍵)
-        {
-        case Alpha.2:時停
-        執行時停()
-        case Alpha.3:冰
-        執行冰()
-        case Alpha.2:炸彈
-        執行炸彈()
-        }
-    }
-
-    讀取按鍵()
-    CD計時器()
+    1.動作串聯問題：狀態機
+    2.是否做個全遊戲通用計時器
+    3.補血
+    4.UI
 
     時停()
     {
+    動畫播放
     IK關掉
     道具進入CD
     UI操作
     怪物反應
     }
+
+    特效&判定：
+    1.取得物件最後的位置播放 >> 綁在物件上
+    2.固定在人物前方某處啟動 >> 動畫事件
+
+
      */
 
 }
