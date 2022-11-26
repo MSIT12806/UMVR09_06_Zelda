@@ -256,7 +256,9 @@ public class HurtState : AiState
         {
             animator.SetTrigger("lightAttack");
             System.Random random = new System.Random();
-            animator.SetInteger("playImpactType",random.Next(1, 3));
+            int type = random.Next(1, 3);
+            Debug.Log(type);
+            animator.SetInteger("playImpactType",type);
             //Debug.Log("456");
         }
         else //if(damageData.Hit == HitType.Heavy || NpcData.Hp <= 0)

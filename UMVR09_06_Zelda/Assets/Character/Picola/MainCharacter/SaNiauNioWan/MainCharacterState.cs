@@ -9,7 +9,7 @@ public class MainCharacterState : MonoBehaviour
     public Animator animator;
     public AnimatorStateInfo currentAnimation;
     private float fTimer = 0f;
-
+    bool dodge = false;
     Vector3 newPos;
     bool frontMove = false;
     float time = 0f;
@@ -125,18 +125,20 @@ public class MainCharacterState : MonoBehaviour
         //}
         //Vector3.Lerp(transform.position, newPos, 0.5f);
 
-        if (Input.GetKeyDown(KeyCode.LeftControl) && (currentAnimation.IsName("Grounded") || currentAnimation.IsName("Front Dodge")))
+        if (dodge)//(Input.GetKeyDown(KeyCode.LeftControl) && (currentAnimation.IsName("Grounded") || currentAnimation.IsName("Front Dodge")))
         {
+            print("dodge----------");
             frontMove = true;
         }
         if (frontMove)
         {
             time += Time.deltaTime;
         }
-        if (0f < time && time < 0.21f)
+        if (time > 0f && time < 0.16f)
         {
             if (!n.collide)
             {
+                print("????????");
                 tpc.artistMovement = true;
                 transform.Translate(new Vector3(0f, 0f, 1f) * 0.15f);
             }
@@ -145,9 +147,10 @@ public class MainCharacterState : MonoBehaviour
                 tpc.artistMovement = false;
             }
         }
-        else if (time > 0.4f)
+        else if (time >= 0.17f)
         {
             frontMove = false;
+            dodge = false;
             time = 0f;
         }
         Debug.DrawLine(transform.position, transform.position + transform.forward * 10f);
@@ -186,8 +189,9 @@ public class MainCharacterState : MonoBehaviour
 
     public void ForwardMove()
     {
+        dodge = true;
         //設定true false開關外面主程式來位移------------------------------------------------------------------------------
-        transform.position = Vector3.Lerp(transform.position, transform.position + transform.forward.normalized * 1f, 1f);
+        //transform.position = Vector3.Lerp(transform.position, transform.position + transform.forward.normalized * 1f, 1f);
         //print(transform.position);
         //transform.position = transform.position + transform.forward * 100f;
         //print(transform.position);
@@ -234,11 +238,11 @@ public class MainCharacterState : MonoBehaviour
                 {
                     var attackReturn = nowNpc.gameObject.GetComponent<Npc>();
                     attackReturn.GetHurt(new DamageData(transform, damage, hitType));
-                    print(true);
+                    //print(true);
                 }
-                else print(false);
+                //else print(false);
             }
-            else print(false);
+            //else print(false);
         }
 
         //print("Attack");
