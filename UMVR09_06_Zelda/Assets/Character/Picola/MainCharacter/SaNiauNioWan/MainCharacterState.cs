@@ -153,7 +153,7 @@ public class MainCharacterState : MonoBehaviour
         Debug.DrawLine(transform.position, transform.position + transform.forward * 10f);
 
         var IK = GetComponent<IKController>();
-        if (currentAnimation.IsName("Attack01 2") || currentAnimation.IsName("Fast run") || currentAnimation.IsName("Attack02 1"))
+        if (currentAnimation.IsName("Fast run") || currentAnimation.IsName("Attack02 1"))
             IK.IkActive = false;
         else
             IK.IkActive = true;
