@@ -2187,6 +2187,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4000013211622862, guid: 5c53f487853b326428fc6d8680cb7a5f, type: 3}
   m_PrefabInstance: {fileID: 242172982}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &246191087 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6547270053367928707, guid: 510be0e958e2ffe4bb58cb4fc9c1be5e, type: 3}
+  m_PrefabInstance: {fileID: 1876794570}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &254430422
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12436,6 +12441,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameState: 0
+--- !u!114 &1258422356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1258422331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63aed23344aef734d9afc64f39f1a169, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RightHandThrow_pos: {fileID: 2066026360}
+  Sword: {fileID: 246191087}
+  Speed: 0.25
+  vertical: 0.2
 --- !u!1001 &1261113463
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16829,8 +16850,6 @@ MonoBehaviour:
   RightFootObj: {fileID: 0}
   LeftFootTarget: {fileID: 0}
   RightFootTarget: {fileID: 0}
-  LeftFootHeight: 0
-  RightFootHeight: 0
   LookAtWeight: 1
   Weight_Up: 1
   Weight_Down: 1
@@ -22576,6 +22595,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4000011985447166, guid: 3cc19b7b11b9b7143a7c1db2f77b93a6, type: 3}
   m_PrefabInstance: {fileID: 2064271572}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2066026360 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 617701552, guid: 510be0e958e2ffe4bb58cb4fc9c1be5e, type: 3}
+  m_PrefabInstance: {fileID: 1876794570}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &2069723715 stripped
 Transform:
