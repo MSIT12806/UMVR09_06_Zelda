@@ -159,8 +159,8 @@ public class MainCharacterState : MonoBehaviour
         Debug.DrawLine(transform.position, transform.position + transform.forward * 10f);
 
         var IK = GetComponent<IKController>();
-        if (currentAnimation.IsName("Fast run") || currentAnimation.IsName("Attack02 1"))
-            IK.SetWeight_Up(0);
+        if (currentAnimation.IsName("Fast run") || currentAnimation.IsName("Attack02 1")|| currentAnimation.IsName("Attack02 2"))
+            IK.Weight_Up = 0;
         else
             IK.SetWeight_Up(1);
 
@@ -209,9 +209,9 @@ public class MainCharacterState : MonoBehaviour
 
     public void AnimationAttack(int attackType)
     {
-        if(attackType == 1)
-            AttackDetection(140, 3.2f,10f ,HitType.light);
-        if(attackType == 2)
+        if (attackType == 1)
+            AttackDetection(140, 3.2f, 10f, HitType.light);
+        if (attackType == 2)
             AttackDetection(140, 3.2f, 10f, HitType.Heavy);
     }
 
@@ -220,7 +220,7 @@ public class MainCharacterState : MonoBehaviour
     {
         List<GameObject> npcList = ObjectManager.Npcs;
         Transform nowNpc;
-        for(int i=0; i<npcList.Count; i++)
+        for (int i = 0; i < npcList.Count; i++)
         {
             nowNpc = npcList[i].transform;
 
@@ -237,7 +237,7 @@ public class MainCharacterState : MonoBehaviour
                 float fThetaRadian = Mathf.Acos(fDot);
                 float fThetaDegree = fThetaRadian * Mathf.Rad2Deg;
                 //print(fThetaDegree);
-                if (fThetaDegree <= angle/2)
+                if (fThetaDegree <= angle / 2)
                 {
                     var attackReturn = nowNpc.gameObject.GetComponent<Npc>();
                     attackReturn.GetHurt(new DamageData(transform, damage, hitType));
