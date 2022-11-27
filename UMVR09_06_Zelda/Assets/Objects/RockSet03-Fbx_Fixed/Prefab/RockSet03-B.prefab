@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 96536548817194975}
   - component: {fileID: 2271268442876568356}
   - component: {fileID: 98558347744742946}
+  - component: {fileID: 474073735}
   m_Layer: 0
   m_Name: RockSet03-B
   m_TagString: Untagged
@@ -115,3 +116,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &474073735
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7711744234380071012}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1651716835791700063, guid: 534f8406e55a06148bb4342cb8592fb3, type: 3}
