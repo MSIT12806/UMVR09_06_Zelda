@@ -75,6 +75,7 @@ public class FightState : AiState
     {
         target = t;
         animator.SetBool("findTarget", true);
+        self.GetComponent<IKController>().LookAtObj = target;
     }
     public override AiState SwitchState()
     {
@@ -83,8 +84,8 @@ public class FightState : AiState
 
         var distance = Vector3.Distance(target.position, selfTransform.position);
         int count = GetChasingNpcCount();
-        if (distance <= 5 && UnityEngine.Random.value >= 0.75) return new AttackState(animator, selfTransform);
-        if (distance > 5) return new ChaseState(target, animator, selfTransform);
+        //if (distance <= 5 && UnityEngine.Random.value >= 0.75) return new AttackState(animator, selfTransform);
+        //if (distance > 5) return new ChaseState(target, animator, selfTransform);
 
         return this;
     }
@@ -103,9 +104,17 @@ public class FightState : AiState
         var degree = sign * Vector3.Angle(selfTransform.forward, direction);
         if (degree > 5 || degree < -5)
             selfTransform.Rotate(new Vector3(0, Math.Sign(degree), 0));
+        Taunt();
 
-        if (UnityEngine.Random.value > 0.75)
+    }
+
+    private void Taunt()
+    {
+        var aniInfo = animator.GetCurrentAnimatorStateInfo(0);
+        var r = UnityEngine.Random.value;
+        if (aniInfo.IsName("Fight") && aniInfo.normalizedTime >= 0.9 && r > 0.99)
         {
+            Debug.Log("taunt");
             animator.SetTrigger("taunt");
         }
     }
@@ -196,7 +205,7 @@ public class AttackState : AiState
 
     public override void SetAnimation()
     {
-      //  throw new NotImplementedException();
+        //  throw new NotImplementedException();
     }
 }
 
@@ -216,7 +225,7 @@ public class HurtState : AiState
     public override AiState SwitchState()
     {
         //NpcData = selfTransform.GetComponent<Npc>();
-        if(NpcData.Hp > 0)
+        if (NpcData.Hp > 0)
             return new FightState(damageData.Attacker, animator, selfTransform);
         //if (NpcData.Hp <= 0)
         //    return new HurtState(animator, selfTransform, getHit);
@@ -229,10 +238,10 @@ public class HurtState : AiState
 
     public override void SetAnimation()
     {
-        if(NpcData.Hp <= 0)
+        if (NpcData.Hp <= 0)
         {
             deadTime += Time.deltaTime;
-            if(getHit != null)
+            if (getHit != null)
             {
                 deadTime = 0f;
                 animator.SetTrigger("toFlog");
@@ -257,7 +266,7 @@ public class HurtState : AiState
             System.Random random = new System.Random();
             int type = random.Next(1, 3);
             Debug.Log(type);
-            animator.SetInteger("playImpactType",type);
+            animator.SetInteger("playImpactType", type);
             //Debug.Log("456");
         }
         else //if(damageData.Hit == HitType.Heavy || NpcData.Hp <= 0)
@@ -266,7 +275,7 @@ public class HurtState : AiState
             //Debug.Log("123");
         }
 
-        if(NpcData.Hp < 0.0001f)
+        if (NpcData.Hp < 0.0001f)
         {
             System.Random random = new System.Random();
             animator.SetInteger("playDeadType", random.Next(1, 3));

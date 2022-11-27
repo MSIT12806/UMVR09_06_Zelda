@@ -12,10 +12,10 @@ public enum HitType
 public enum DamageState
 {
     Normal,
-    Burn,
-    Freeze,
-    Fear,
-    Poisoned
+    Bomb,
+    Ice,
+    TimePause,
+
 }
 public class DamageData
 {
