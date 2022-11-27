@@ -1,8 +1,10 @@
+using CombatSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public abstract class BasicAi
 {
@@ -64,6 +66,7 @@ public class IdleState : AiState
             }
         }
     }
+
 }
 public class FightState : AiState
 {
@@ -118,6 +121,7 @@ public class FightState : AiState
             animator.SetTrigger("taunt");
         }
     }
+
 }
 /// <summary>
 /// 朝著角色方向移動
@@ -185,6 +189,7 @@ public class ChaseState : AiState
         if (degree > 5 || degree < -5)
             selfTransform.Rotate(new Vector3(0, Math.Sign(degree), 0));
     }
+
 }
 
 public class AttackState : AiState
@@ -207,33 +212,34 @@ public class AttackState : AiState
     {
         //  throw new NotImplementedException();
     }
+
 }
 
 public class HurtState : AiState
 {
+    Transform target;
     float deadTime;
-    DamageData damageData;
     Npc NpcData;
     public HurtState(Animator a, Transform self, DamageData d) : base(a, self)
     {
         NpcData = selfTransform.GetComponent<Npc>();
-        damageData = d;
+        getHit = d;
+        target = d.Attacker;
         animator.SetTrigger("getHit");
         DoOnce();
+        self.GetComponent<IKController>().LookAtObj = null;
     }
 
     public override AiState SwitchState()
     {
-        //NpcData = selfTransform.GetComponent<Npc>();
-        if (NpcData.Hp > 0)
-            return new FightState(damageData.Attacker, animator, selfTransform);
+        var anInfo = animator.GetCurrentAnimatorStateInfo(0);  //判定動畫快播完時，下個動畫的銜接
+        if (NpcData.Hp > 0 && anInfo.normalizedTime > 0.9f)
+            return new FightState(target, animator, selfTransform);        //回到 FightState
         //if (NpcData.Hp <= 0)
         //    return new HurtState(animator, selfTransform, getHit);
 
         return this;
 
-        //判定動畫快播完時，下個動畫的銜接
-        //回到 FightState
     }
 
     public override void SetAnimation()
@@ -253,34 +259,46 @@ public class HurtState : AiState
         {
             deadTime = 0f;
         }
+        getHit = null;
     }
     private void DoOnce()
     {
         // 依照 damageData.hit 決定播放哪個動畫。
-        NpcData.Hp -= damageData.Damage;
+        NpcData.Hp -= getHit.Damage;
         animator.SetFloat("hp", NpcData.Hp);
-        //Debug.Log("789");
-        if (damageData.Hit == HitType.light && NpcData.Hp > 0)
+        var npc = selfTransform.GetComponent<Npc>();
+        if (getHit.Hit == HitType.light && NpcData.Hp > 0)
         {
             animator.SetTrigger("lightAttack");
-            System.Random random = new System.Random();
-            int type = random.Next(1, 3);
-            Debug.Log(type);
-            animator.SetInteger("playImpactType", type);
-            //Debug.Log("456");
+            //System.Random random = new System.Random();
+            //int type = random.Next(1, 3);
+            //Debug.Log(type);
+            animator.SetInteger("playImpactType", 2);//暫時廢棄 1 的動作
+            npc.nextPosition = selfTransform.position - (getHit.Attacker.position - selfTransform.position).normalized * 0.5f;
+            getHit = null;
+
+            return;
         }
-        else //if(damageData.Hit == HitType.Heavy || NpcData.Hp <= 0)
+        if (getHit.Hit == HitType.Heavy && NpcData.Hp > 0)
         {
             animator.SetTrigger("heavyAttack");
-            //Debug.Log("123");
+            npc.nextPosition = selfTransform.position - (getHit.Attacker.position - selfTransform.position).normalized * 1f;
+            getHit = null;
+            return;
         }
 
+        //死亡
         if (NpcData.Hp < 0.0001f)
         {
             System.Random random = new System.Random();
             animator.SetInteger("playDeadType", random.Next(1, 3));
+            getHit = null;
         }
+    }
 
+    void Translate(Vector3 force)
+    {
+        selfTransform.position += force;
     }
 }
 
