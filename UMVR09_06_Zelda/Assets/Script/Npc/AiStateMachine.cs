@@ -118,7 +118,6 @@ public class ChaseState : AiState
     //要seek 遇到障礙物還要躲開
     Npc npc;
     Transform alertTarget;
-    IKController iK;
     float attackRange = 5f;
     Vector3 direction;
     public ChaseState(Transform alertObject, Animator a, Transform self) : base(a, self)
