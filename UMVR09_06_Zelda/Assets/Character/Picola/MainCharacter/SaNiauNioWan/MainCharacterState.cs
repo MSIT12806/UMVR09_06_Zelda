@@ -5,6 +5,7 @@ using UnityStandardAssets.Characters.ThirdPerson;
 
 public class MainCharacterState : MonoBehaviour
 {
+    public GameObject focusLine;
     public GameObject Sword;
     public Animator animator;
     public AnimatorStateInfo currentAnimation;
@@ -67,14 +68,16 @@ public class MainCharacterState : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftControl))
         {
             fTimer += Time.deltaTime;
-            if (fTimer > 0.4)
+            if (fTimer > 0.3)
             {
                 Sword.SetActive(false);
+                focusLine.SetActive(true);
             }
             animator.SetFloat("dodge", fTimer);
         }
         if (Input.GetKeyUp(KeyCode.LeftControl))
         {
+            focusLine.SetActive(false);
             Sword.SetActive(true);
             fTimer = 0f;
             animator.SetFloat("dodge", fTimer);
