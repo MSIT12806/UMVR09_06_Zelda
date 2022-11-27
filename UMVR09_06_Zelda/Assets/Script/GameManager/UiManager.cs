@@ -33,7 +33,7 @@ public class UiManager : MonoBehaviour
         heart = (GameObject)Resources.Load(heartPath);
         currentHp = mainCharacter.Hp;
         ItemCD = mainCharacter.GetComponent<Throw>().coldTime;
-        currentItemCD = mainCharacter.GetComponent<Throw>().timer;
+        ItemUI.FindAnyChild<Image>("CanLock").fillAmount = 1;
         InitHp();
     }
 
@@ -46,8 +46,11 @@ public class UiManager : MonoBehaviour
             SetHpBar();
         }
 
-
+        currentItemCD = mainCharacter.GetComponent<Throw>().timer;
+        if (currentItemCD != 0)
+        {
             SikaStoneCD();
+        }
 
     }
 
@@ -105,7 +108,9 @@ public class UiManager : MonoBehaviour
     private void SikaStoneCD() 
     {
         var sCD = currentItemCD / ItemCD;
-        ItemUI.FindAnyChild<Image>("CanLock").fillAmount= sCD;
+        ItemUI.FindAnyChild<Image>("CanLock").fillAmount = sCD;
+        ItemUI.FindAnyChild<Image>("CanIce").fillAmount = sCD;
+        ItemUI.FindAnyChild<Image>("CanBomb").fillAmount = sCD;
         // 現在的CD時間/總CD時間 = 道具中cando 的fill amount
     }
 }

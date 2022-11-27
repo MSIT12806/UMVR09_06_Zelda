@@ -74,8 +74,6 @@ public class Throw : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha2)) useItem = Item.TimeStop;
         else if (Input.GetKeyDown(KeyCode.Alpha3)) useItem = Item.Ice;
         else if (Input.GetKeyDown(KeyCode.Alpha4)) useItem = Item.Bomb;
-
-        Debug.Log(useItem);
     }
 
     void UseTimeStop() //¨Ï¥Î®É°±
