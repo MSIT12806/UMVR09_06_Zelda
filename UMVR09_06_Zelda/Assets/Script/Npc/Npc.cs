@@ -61,14 +61,8 @@ public class Npc : MonoBehaviour, IHp
     }
     public void GetHurt(DamageData damageData)
     {
-        //播放受傷僵直動畫
-        //計算後退 or 擊飛方向 & 力道
-        this.transform.Translate(-damageData.Attacker.position);
-        print("GetHit");
-
         var u = transform.GetComponent<UsaoManager>();
         u.GetHurt(damageData);
-        //判定死亡
     }
     [SerializeField] float hp;
     public float Hp { get { return hp; } set { hp = value; } }
