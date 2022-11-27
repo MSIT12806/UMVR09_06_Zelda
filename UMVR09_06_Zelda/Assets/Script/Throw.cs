@@ -33,7 +33,7 @@ public class Throw : MonoBehaviour
     private Vector3 Gravity = new Vector3(0,-1,0);
 
     Animator animator;
-    private float coldTime = 10.0f;
+    public float coldTime = 10.0f;
     private float timer = 0.0f;
     private bool isStartTime = false;
 

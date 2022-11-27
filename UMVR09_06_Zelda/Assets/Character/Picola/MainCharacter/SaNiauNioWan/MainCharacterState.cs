@@ -89,22 +89,22 @@ public class MainCharacterState : MonoBehaviour
         //}
 
         //沒用 大概
-        var a = this.GetComponent<IKController>();
-        if (currentAnimation.IsName("Attack02 1"))
-        {
-            a.IkActive = false;
-            //Sword.SetActive(false);
-        }
-        if (currentAnimation.IsName("Fast run"))
-        {
-            a.IkActive = false;
-            //Sword.SetActive(false);
-        }
-        if (currentAnimation.IsName("Grounded"))
-        {
-            a.IkActive = true;
-            //Sword.SetActive(true);
-        }
+        //var a = this.GetComponent<IKController>();
+        //if (currentAnimation.IsName("Attack02 1"))
+        //{
+        //    a.IkActive = false;
+        //    //Sword.SetActive(false);
+        //}
+        //if (currentAnimation.IsName("Fast run"))
+        //{
+        //    a.IkActive = false;
+        //    //Sword.SetActive(false);
+        //}
+        //if (currentAnimation.IsName("Grounded"))
+        //{
+        //    a.IkActive = true;
+        //    //Sword.SetActive(true);
+        //}
 
 
 
@@ -160,9 +160,9 @@ public class MainCharacterState : MonoBehaviour
 
         var IK = GetComponent<IKController>();
         if (currentAnimation.IsName("Fast run") || currentAnimation.IsName("Attack02 1"))
-            IK.IkActive = false;
+            IK.SetWeight_Up(0);
         else
-            IK.IkActive = true;
+            IK.SetWeight_Up(1);
 
 
         //if (Input.GetMouseButtonDown(0))

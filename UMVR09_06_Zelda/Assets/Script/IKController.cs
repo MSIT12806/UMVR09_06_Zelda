@@ -54,13 +54,13 @@ public class IKController : MonoBehaviour
 
         //如果IK沒啟動，則把控制器附上動畫本身的值
 
-        if (IkActive == false) 
+        if (IkActive == false)
         {
             if (LookAtObj != null)
             {
                 //LookAtObj.position = avatar.bodyPosition + avatar.bodyRotation * new Vector3(0, 0.5f, 0);
             }
-            if (BodyObj != null) 
+            if (BodyObj != null)
             {
                 BodyObj.position = avatar.bodyPosition;
                 BodyObj.rotation = avatar.bodyRotation;
@@ -109,14 +109,14 @@ public class IKController : MonoBehaviour
     private void OnAnimatorIK(int layerIndex)
     {
         //avator為空則返回
-        if (avatar == null) 
+        if (avatar == null)
             return;
 
         //啟動IK
         //1.各部位權重1.0f
         //2.各部位位置賦值
         //3.部分旋轉賦值
-        if (IkActive) 
+        if (IkActive)
         {
             avatar.SetLookAtWeight(LookAtWeight, 0.3f, 0.6f, 1.0f, 0.5f);
 
@@ -135,17 +135,17 @@ public class IKController : MonoBehaviour
             avatar.SetIKHintPositionWeight(AvatarIKHint.LeftKnee, Weight_Down);
             avatar.SetIKHintPositionWeight(AvatarIKHint.RightKnee, Weight_Down);
 
-            if (LookAtObj != null) 
+            if (LookAtObj != null)
             {
                 avatar.SetLookAtPosition(LookAtObj.position);
             }
 
-            if(BodyObj != null)
+            if (BodyObj != null)
             {
                 avatar.bodyPosition = BodyObj.position;
                 avatar.bodyRotation = BodyObj.rotation;
             }
-            if (LeftElbowObj != null) 
+            if (LeftElbowObj != null)
             {
                 avatar.SetIKHintPosition(AvatarIKHint.LeftElbow, LeftElbowObj.position);
             }
@@ -153,7 +153,7 @@ public class IKController : MonoBehaviour
             {
                 avatar.SetIKHintPosition(AvatarIKHint.RightElbow, RightElbowObj.position);
             }
-            if (LeftHandObj != null) 
+            if (LeftHandObj != null)
             {
                 avatar.SetIKPosition(AvatarIKGoal.LeftHand, LeftHandObj.position);
                 avatar.SetIKRotation(AvatarIKGoal.LeftHand, LeftHandObj.rotation);
@@ -193,7 +193,7 @@ public class IKController : MonoBehaviour
         }
 
         //不啟動IK
-        else 
+        else
         {
             avatar.SetLookAtWeight(0.0f);
 
@@ -222,33 +222,39 @@ public class IKController : MonoBehaviour
 
         if (stateInfo.IsName("Grounded"))
         {
-            Weight_Up = 1.0f;
-            Weight_Down = 0.0f;
+            SetWeight_Up(1);
+            SetWeight_Down(0); 
         }
         else if (stateInfo.IsName("Attack01"))
         {
-            //float t2 = t - 0.5f;
-            //if (t2 < 0) t2 = 0;
-            //Weight_Down = Mathf.Lerp(1.0f, 0.0f, t2 * 2);
-            Weight_Up = 1.0f;
-            Weight_Down = 1.0f;
+            SetWeight_Up(1);
+            SetWeight_Down(1);
 
         }
         else if (stateInfo.IsName("Attack01 0"))
         {
-            Weight_Up = 1.0f;
-            Weight_Down = 1.0f;
+            SetWeight_Up(1);
+            SetWeight_Down(1);
 
         }
         else if (stateInfo.IsName("Attack01 1"))
         {
-            Weight_Up = 1.0f;
-            Weight_Down = 1.0f;
+            SetWeight_Up(1);
+            SetWeight_Down(1);
         }
         else if (stateInfo.IsName("Attack01 2"))
         {
-            Weight_Up = 1.0f;
-            Weight_Down = 1.0f;
+            SetWeight_Up(1);
+            SetWeight_Down(1);
         }
+    }
+
+    public void SetWeight_Up( float val)
+    {
+        Weight_Up = Mathf.Lerp(Weight_Up, val, 0.05f).AlmostEqual(val, 0.01f);
+    }
+    public void SetWeight_Down( float val)
+    {
+        Weight_Down = Mathf.Lerp(Weight_Down, val, 0.05f).AlmostEqual(val, 0.01f);
     }
 }
