@@ -82,7 +82,7 @@ public class Throw : MonoBehaviour
     {
         isStartTime = true;
         Speed = 0.25f;
-        vertical = 0.2f;
+        vertical = 0.15f;
         animator.SetTrigger("ThrowTimeStop");
         CanThrow = false;
     }
@@ -100,7 +100,7 @@ public class Throw : MonoBehaviour
     {
         isStartTime = true;
         Speed = 0.25f;
-        vertical = 0.2f;
+        vertical = 0.15f;
         animator.SetTrigger("ThrowBomb");
         CanThrow = false;
     }
