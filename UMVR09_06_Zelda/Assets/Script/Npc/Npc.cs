@@ -17,7 +17,7 @@ public class Npc : MonoBehaviour, IHp
     [SerializeField] LayerMask terrainLayer;
     Collider collider;
 
-    Vector3 nextPosition;
+    public Vector3 nextPosition;
 
     public bool collide;
     public bool OnGround;
@@ -32,13 +32,27 @@ public class Npc : MonoBehaviour, IHp
         OnGround = StandOnTerrain();
         collide = StaticCollision();
         NpcCollision();
+        LerpToNextPosition();
     }
     void FixedUpdate()
     {
 
 
     }
-
+    private void LerpToNextPosition()
+    {
+        if (nextPosition != default(Vector3))
+        {
+            if (transform.position.WithoutY().AlmostEqual(nextPosition, 0.03f) == nextPosition.WithoutY())
+            {
+                nextPosition = default(Vector3);
+            }
+            else
+            {
+                transform.position = Vector3.Lerp(transform.position, nextPosition, 0.1f).AlmostEqual(nextPosition, 0.2f);
+            }
+        }
+    }
 
     public DamageData Attack()
     {
@@ -65,14 +79,14 @@ public class Npc : MonoBehaviour, IHp
         var hitSomething = Physics.SphereCast(this.transform.position + new Vector3(0, 0.7f, 0), radius, transform.forward, out var hitInfo, maxDistance, layerMask);
         if (hitSomething && hitInfo.transform != this.transform)
         {
-            var nowPosXZ = transform.position;
-            nowPosXZ.y = 0;
-            var hitPointXZ = hitInfo.point;
-            hitPointXZ.y = 0;
-            var hitObject = hitInfo.transform.gameObject;
-            var concactVec = hitPointXZ - nowPosXZ;
-            nextPosition = transform.position - concactVec;
-            print(hitInfo.transform.name);
+            //var nowPosXZ = transform.position;
+            //nowPosXZ.y = 0;
+            //var hitPointXZ = hitInfo.point;
+            //hitPointXZ.y = 0;
+            //var hitObject = hitInfo.transform.gameObject;
+            //var concactVec = hitPointXZ - nowPosXZ;
+            //nextPosition = transform.position - concactVec;
+            //print(hitInfo.transform.name);
             return true;
             ////Npc 之間碰撞
             //if (hitObject.tag =="Npc")

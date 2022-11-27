@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 using UnityStandardAssets.Characters.ThirdPerson;
 
@@ -210,13 +211,13 @@ public class MainCharacterState : MonoBehaviour
     public void AnimationAttack(int attackType)
     {
         if (attackType == 1)
-            AttackDetection(140, 3.2f, 10f, HitType.light);
+            AttackDetection(transform, 140, 3.2f, 10f, HitType.light);
         if (attackType == 2)
-            AttackDetection(140, 3.2f, 10f, HitType.Heavy);
+            AttackDetection(transform, 140, 3.2f, 10f, HitType.Heavy);
     }
 
     public LayerMask LY;
-    public void AttackDetection(float angle, float distance, float damage, HitType hitType)//攻擊範圍偵測
+    public void AttackDetection(Transform attackObj, float angle, float distance, float damage, HitType hitType)//攻擊範圍偵測
     {
         List<GameObject> npcList = ObjectManager.Npcs;
         Transform nowNpc;
@@ -230,7 +231,7 @@ public class MainCharacterState : MonoBehaviour
             if (distance > Mathf.Sqrt(Mathf.Pow(vec.x, 2) + Mathf.Pow(vec.z, 2)))
             {
                 vec.Normalize();
-                float fDot = Vector3.Dot(transform.forward, vec);
+                float fDot = Vector3.Dot(attackObj.forward, vec);
                 if (fDot > 1) fDot = 1;
                 if (fDot < -1) fDot = -1;
 
