@@ -34,7 +34,7 @@ public class Throw : MonoBehaviour
 
     Animator animator;
     public float coldTime = 10.0f;
-    private float timer = 0.0f;
+    public float timer = 0.0f;
     private bool isStartTime = false;
 
     private void Start()
@@ -105,7 +105,7 @@ public class Throw : MonoBehaviour
         CanThrow = false;
     }
 
-    void CDTimer() //計時器
+    public void CDTimer() //計時器
     {
         if (isStartTime)
         {

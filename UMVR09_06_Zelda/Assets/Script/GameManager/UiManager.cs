@@ -19,12 +19,18 @@ public class UiManager : MonoBehaviour
     GameObject lastHeart;
 
     float OneHeartHp = 100;
+
+    private Transform ItemUI;
+    float currentItemCD;
+
     void Start()
     {
         HpUi = transform.FindAnyChild<Transform>("MainCharacterHP");
+        ItemUI = transform.FindAnyChild<Transform>("SiKaStone");
         mainCharacter = ObjectManager.MainCharacter.GetComponent<Npc>();
         heart = (GameObject)Resources.Load(heartPath);
         currentHp = mainCharacter.Hp;
+        currentItemCD = mainCharacter.GetComponent<Throw>().timer;
         InitHp();
     }
 
@@ -85,6 +91,11 @@ public class UiManager : MonoBehaviour
     }
 
     void SetFeverBar()
+    {
+
+    }
+
+    private void LockCD() 
     {
 
     }
