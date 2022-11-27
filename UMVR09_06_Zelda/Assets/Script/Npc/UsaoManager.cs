@@ -28,6 +28,6 @@ public class UsaoManager : MonoBehaviour
     }
     public void GetHurt(DamageData damageData)
     {
-        aiState.getHit = damageData;
+        aiState = new HurtState(transform.GetComponent<Animator>(), transform, damageData);
     }
 }
