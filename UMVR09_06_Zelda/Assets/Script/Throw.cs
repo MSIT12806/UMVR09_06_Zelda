@@ -28,8 +28,8 @@ public class Throw : MonoBehaviour
     public Transform RightHandThrow_pos;
     public GameObject Sword;
     public GameObject SwordEffect;
-    public float Speed = 0.25f;
-    public float vertical = 0.2f;
+    private float Speed =0.25f;
+    private float vertical =0.2f;
     private Vector3 Gravity = new Vector3(0,-1,0);
 
     Animator animator;
@@ -74,6 +74,8 @@ public class Throw : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha2)) useItem = Item.TimeStop;
         else if (Input.GetKeyDown(KeyCode.Alpha3)) useItem = Item.Ice;
         else if (Input.GetKeyDown(KeyCode.Alpha4)) useItem = Item.Bomb;
+
+        Debug.Log(useItem);
     }
 
     void UseTimeStop() //¨Ï¥Î®É°±
@@ -89,7 +91,7 @@ public class Throw : MonoBehaviour
     {
         isStartTime = true;
         Speed = 0.25f;
-        vertical = 0.1f;
+        vertical = 0.0f;
         animator.SetTrigger("ThrowIce");
         CanThrow = false;
     }
