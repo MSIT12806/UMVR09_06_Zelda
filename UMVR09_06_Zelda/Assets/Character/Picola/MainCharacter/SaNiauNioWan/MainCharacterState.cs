@@ -322,14 +322,15 @@ public class MainCharacterState : MonoBehaviour
     //}
     public void AttackMoveOn(float dis)
     {
-        bAttackMove = true;
-        attackMoveDis = dis;
-        print("open");
+        if (!n.collide)
+        {
+            bAttackMove = true;
+            attackMoveDis = dis;
+        }
     }
     public void AttackMoveOff()
     {
         bAttackMove = false;
-        print(false);
     }
 }
 

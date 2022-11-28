@@ -1,19 +1,19 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UsaoManager : MonoBehaviour
+public class DragonManager : MonoBehaviour
 {
-    //---Ai---//
     AiState aiState;
+    // Start is called before the first frame update
     void Start()
     {
-        aiState = new UsaoIdleState(ObjectManager.MainCharacter, ObjectManager.MainCharacter.GetComponent<PicoState>(), transform.GetComponent<Animator>(), transform);
+        aiState = new DragonIdleState(ObjectManager.MainCharacter, ObjectManager.MainCharacter.GetComponent<PicoState>(), transform.GetComponent<Animator>(), transform);
+        
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         aiState.SetAnimation();
         aiState = aiState.SwitchState();
