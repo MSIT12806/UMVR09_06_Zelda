@@ -8661,8 +8661,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 502314728117733898, guid: 5752f796e3e1390418365a49a0e90a84,
-        type: 3}
+    - target: {fileID: 450438520957745742, guid: 5752f796e3e1390418365a49a0e90a84, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: e0e87767d5aeb564da4f82788b46ddd8, type: 2}
+    - target: {fileID: 502314728117733898, guid: 5752f796e3e1390418365a49a0e90a84, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
@@ -8969,6 +8972,48 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 599379494061301584, guid: dd429fa777638ef429ae03b5efdbf847, type: 3}
+--- !u!1 &812130045 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 509284550586355046, guid: 5752f796e3e1390418365a49a0e90a84, type: 3}
+  m_PrefabInstance: {fileID: 761415170}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &812130047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 812130045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9f6c11a6345888498622957e1896247, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  terrainLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  nextPosition: {x: 0, y: 0, z: 0}
+  collide: 0
+  OnGround: 0
+  hp: 0
+  Fever: 0
+  FeverTimes: 0
+--- !u!65 &812130048
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 812130045}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.8, y: 4.1, z: 2.85}
+  m_Center: {x: 0, y: 2.05, z: 0.22}
 --- !u!1001 &814105232
 PrefabInstance:
   m_ObjectHideFlags: 0
