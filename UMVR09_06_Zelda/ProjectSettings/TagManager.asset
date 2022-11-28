@@ -4,24 +4,19 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Fire
-  - Terrain
-  - FxTemporaire
-  - Npc
-  - Static
-  - Manage
+  - Shootable
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - postprecess
+  - 
   - Water
   - UI
-  - Terrain
-  - Player
-  - MiniMap
-  - NPC
   - 
+  - 
+  - Lighting
+  - Ground
+  - Postprocessing
   - 
   - 
   - 
@@ -44,6 +39,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Fire
+    uniqueID: 3804908061
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
