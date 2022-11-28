@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 8997627446758184518}
   - component: {fileID: 8275303532959191813}
   - component: {fileID: 5528598668886907069}
-  m_Layer: 0
+  - component: {fileID: 1595502361}
+  m_Layer: 6
   m_Name: obelisk_plate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,6 +29,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2183710516522777639}
   m_RootOrder: 1
@@ -51,6 +53,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -81,6 +84,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1595502361
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 764871767955319986}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5960382256196242765, guid: dd429fa777638ef429ae03b5efdbf847, type: 3}
 --- !u!1 &1514838442195789469
 GameObject:
   m_ObjectHideFlags: 0
@@ -106,7 +123,8 @@ Transform:
   m_GameObject: {fileID: 1514838442195789469}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2399352660026973734}
   - {fileID: 8997627446758184518}
@@ -126,7 +144,8 @@ GameObject:
   - component: {fileID: 2958340227487425243}
   - component: {fileID: 881997242303287840}
   - component: {fileID: 8327626095128621763}
-  m_Layer: 0
+  - component: {fileID: 806059246}
+  m_Layer: 6
   m_Name: obelisk_plate_side
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -143,6 +162,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2183710516522777639}
   m_RootOrder: 2
@@ -166,6 +186,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -196,6 +217,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &806059246
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2072005146838210861}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 599379494061301584, guid: dd429fa777638ef429ae03b5efdbf847, type: 3}
 --- !u!1 &8233156990480976356
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,6 +242,7 @@ GameObject:
   - component: {fileID: 2399352660026973734}
   - component: {fileID: 18246142228171260}
   - component: {fileID: 6819180917013648682}
+  - component: {fileID: 620546328}
   m_Layer: 0
   m_Name: obelisk_main
   m_TagString: Untagged
@@ -224,6 +260,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2183710516522777639}
   m_RootOrder: 0
@@ -247,6 +284,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -277,6 +315,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &620546328
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8233156990480976356}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.3397512, y: 14.345584, z: 3.3397512}
+  m_Center: {x: 0, y: 6.190944, z: 0}
 --- !u!1 &9191193100930100450
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,6 +339,7 @@ GameObject:
   - component: {fileID: 7217041297222056461}
   - component: {fileID: 4309268096639938502}
   - component: {fileID: 7848478916152045112}
+  - component: {fileID: 1871788871}
   m_Layer: 0
   m_Name: obelisk_side
   m_TagString: Untagged
@@ -305,6 +357,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2183710516522777639}
   m_RootOrder: 3
@@ -328,6 +381,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -358,3 +412,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1871788871
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9191193100930100450}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 3329674212930220310, guid: dd429fa777638ef429ae03b5efdbf847, type: 3}
