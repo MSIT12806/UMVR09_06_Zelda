@@ -6,6 +6,9 @@ using UnityStandardAssets.Characters.ThirdPerson;
 
 public class MainCharacterState : MonoBehaviour
 {
+    public float attackMoveDis;
+    public bool bAttackMove = false;
+
     public GameObject focusLine;
     public GameObject Sword;
     public Animator animator;
@@ -60,7 +63,7 @@ public class MainCharacterState : MonoBehaviour
             {
                 LeftMouseClick();
             }
-            if (Input.GetMouseButtonDown(1) && (currentAnimation.IsName("Attack01") || currentAnimation.IsName("Attack01 0") || currentAnimation.IsName("Attack01 1")))
+            if (Input.GetMouseButtonDown(1) && (currentAnimation.IsName("Attack01") || currentAnimation.IsName("Attack01 0") || currentAnimation.IsName("Attack01 1") || currentAnimation.IsName("Attack01 2")))
             {
                 RightMouseClick();
             }
@@ -107,7 +110,15 @@ public class MainCharacterState : MonoBehaviour
         //    //Sword.SetActive(true);
         //}
 
-
+        //攻擊位移
+        if (bAttackMove )// && (currentAnimation.IsName("Attack01"))
+        {
+            transform.Translate(new Vector3(0, 0, 1)*0.15f  );
+        }
+        else
+        {
+            bAttackMove = false;
+        }
 
         if (currentAnimation.IsName("Attack01"))
         {
@@ -204,7 +215,7 @@ public class MainCharacterState : MonoBehaviour
 
     public void AttackSpeedChange(float f)
     {
-        animator.SetFloat("attackSpeed", f * 1.5f);
+        animator.SetFloat("attackSpeed", f * 1.5f *1.5f);
         //print(231321213);
     }
 
@@ -248,6 +259,8 @@ public class MainCharacterState : MonoBehaviour
             }
             //else print(false);
         }
+
+        
 
         //print("Attack");
         //HashSet<Transform> hitInfoList = new HashSet<Transform>();
@@ -307,5 +320,16 @@ public class MainCharacterState : MonoBehaviour
     //        }
     //    }
     //}
+    public void AttackMoveOn(float dis)
+    {
+        bAttackMove = true;
+        attackMoveDis = dis;
+        print("open");
+    }
+    public void AttackMoveOff()
+    {
+        bAttackMove = false;
+        print(false);
+    }
 }
 
