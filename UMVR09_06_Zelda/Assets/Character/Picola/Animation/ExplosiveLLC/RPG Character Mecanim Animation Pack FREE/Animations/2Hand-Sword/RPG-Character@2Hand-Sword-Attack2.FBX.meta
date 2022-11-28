@@ -781,6 +781,20 @@ ModelImporter:
         floatParameter: 0
         intParameter: 1
         messageOptions: 0
+      - time: 0.22222222
+        functionName: AttackMoveOn
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 18c9139d34b25594188c45080c29c25d, type: 3}
+        floatParameter: 0
+        intParameter: 1
+        messageOptions: 0
+      - time: 0.43333334
+        functionName: AttackMoveOff
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 18c9139d34b25594188c45080c29c25d, type: 3}
+        floatParameter: 0
+        intParameter: 1
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {fileID: 101100000, guid: 4ebc95c8618479f4d8251c7dafa10029, type: 2}
