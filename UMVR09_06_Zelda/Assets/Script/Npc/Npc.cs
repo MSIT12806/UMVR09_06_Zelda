@@ -182,20 +182,3 @@ public class Npc : MonoBehaviour, IHp
     //    }
     //}
 }
-
-
-
-/*拋物線*/
-
-public class Throweeee
-{
-    public void Go()
-    {
-        //拋物線速度公式：Vt = V0 + Gt 
-        //先求 V0
-
-        //Gt
-        //Vt
-        //拋物線位移 S = S0 + Vt
-    }
-}

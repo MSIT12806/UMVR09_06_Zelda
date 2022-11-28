@@ -275,11 +275,10 @@ public class UsaoHurtState : AiState
             ////int type = random.Next(1, 3);
             //animator.SetInteger("playImpactType", 2);//暫時廢棄 1 的動作
 
-            animator.Play("GetHit.SwordAndShieldImpact02", 0);
-            Debug.Log(getHit.Attacker.name);
-            Debug.Log(getHit.Attacker.position);
-            Debug.Log(selfTransform.name);
-            Debug.Log(selfTransform.position);
+            if (UnityEngine.Random.value >= 0.5f)
+                animator.Play("GetHit.SwordAndShieldImpact02", 0);
+            else
+                animator.Play("GetHit.SwordAndShieldImpact01", 0);
             NpcData.nextPosition = selfTransform.position - (getHit.Attacker.position - selfTransform.position).normalized * 0.5f;
             getHit = null;
 
@@ -293,13 +292,13 @@ public class UsaoHurtState : AiState
             return;
         }
 
-        //死亡
-        if (NpcData.Hp < 0.0001f)
-        {
-            System.Random random = new System.Random();
-            animator.SetInteger("playDeadType", random.Next(1, 3));
-            getHit = null;
-        }
+        ////死亡
+        //if (NpcData.Hp < 0.0001f)
+        //{
+        //    System.Random random = new System.Random();
+        //    animator.SetInteger("playDeadType", random.Next(1, 3));
+        //    getHit = null;
+        //}
     }
 
 }
@@ -309,13 +308,16 @@ public class UsaoDeathState : AiState
     int deathTime;
     public UsaoDeathState(Animator a, Transform self) : base(a, self)
     {
-        a.Play("GetHit.Standing React Death Right");
+        if (UnityEngine.Random.value >= 0.5f)
+            a.Play("GetHit.Standing React Death Right");
+        else
+            a.Play("GetHit.Standing React Death Left");
         deathTime = Time.frameCount;
     }
 
     public override void SetAnimation()
     {
-        if(Time.frameCount> deathTime + 60)
+        if (Time.frameCount > deathTime + 60)
         {
             selfTransform.gameObject.SetActive(false);
         }
