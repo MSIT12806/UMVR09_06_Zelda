@@ -307,18 +307,5 @@ public class MainCharacterState : MonoBehaviour
     //        }
     //    }
     //}
-    public void SwordAppear()
-    {
-        Sword.SetActive(true);
-    }
-    public void SwordDisappear()
-    {
-        Sword.SetActive(false);
-    }
-
-    private void LateUpdate()
-    {
-        Sword.transform.localPosition = new Vector3(0.076f, 0.019f, 0.041f);
-    }
 }
 
