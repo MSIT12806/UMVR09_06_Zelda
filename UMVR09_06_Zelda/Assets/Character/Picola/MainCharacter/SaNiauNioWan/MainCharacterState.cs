@@ -111,9 +111,9 @@ public class MainCharacterState : MonoBehaviour
         //}
 
         //攻擊位移
-        if (bAttackMove )// && (currentAnimation.IsName("Attack01"))
+        if (bAttackMove)// && (currentAnimation.IsName("Attack01"))
         {
-            transform.Translate(new Vector3(0, 0, 1)*0.15f  );
+            transform.Translate(new Vector3(0, 0, 1)*0.15f);
         }
         else
         {
@@ -142,7 +142,7 @@ public class MainCharacterState : MonoBehaviour
 
         if (dodge)//(Input.GetKeyDown(KeyCode.LeftControl) && (currentAnimation.IsName("Grounded") || currentAnimation.IsName("Front Dodge")))
         {
-            print("dodge----------");
+            //print("dodge----------");
             frontMove = true;
         }
         if (frontMove)
@@ -153,7 +153,7 @@ public class MainCharacterState : MonoBehaviour
         {
             if (!n.collide)
             {
-                print("????????");
+                //print("????????");
                 tpc.artistMovement = true;
                 transform.Translate(new Vector3(0f, 0f, 1f) * 0.15f);
             }
@@ -184,7 +184,7 @@ public class MainCharacterState : MonoBehaviour
         //}
 
 
-        for (int i = 0; i <= 55; i += 5)//攻擊範圍
+        for (int i = 0; i <= 70; i += 5)//攻擊範圍
         {
             Debug.DrawRay(transform.position + (Vector3.up * 0.6f), Quaternion.Euler(0, i, 0) * transform.forward * 3.2f, Color.red);// 
             Debug.DrawRay(transform.position + (Vector3.up * 0.6f), Quaternion.Euler(0, -i, 0) * transform.forward * 3.2f, Color.red);
