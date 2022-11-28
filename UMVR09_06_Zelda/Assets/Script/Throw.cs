@@ -65,18 +65,18 @@ public class Throw : MonoBehaviour
                 }
             }
         }
-        OnThrow(); //¥L­Ì¦b¤£»İ­nªº®É­ÔÁÙ¬O¤@ª½³QCALL¡H
+        OnThrow(); //ä»–å€‘åœ¨ä¸éœ€è¦çš„æ™‚å€™é‚„æ˜¯ä¸€ç›´è¢«CALLï¼Ÿ
         CDTimer();
     }
 
-    void GetThrowKeyIn()  //«öÁä¤Á´«enum
+    void GetThrowKeyIn()  //æŒ‰éµåˆ‡æ›enum
     {
         if (Input.GetKeyDown(KeyCode.Alpha2)) useItem = Item.TimeStop;
         else if (Input.GetKeyDown(KeyCode.Alpha3)) useItem = Item.Ice;
         else if (Input.GetKeyDown(KeyCode.Alpha4)) useItem = Item.Bomb;
     }
 
-    void UseTimeStop() //¨Ï¥Î®É°±
+    void UseTimeStop() //ä½¿ç”¨æ™‚åœ
     {
         isStartTime = true;
         Speed = 0.25f;
@@ -85,7 +85,7 @@ public class Throw : MonoBehaviour
         CanThrow = false;
     }
 
-    void UseIce() //¨Ï¥Î¦B
+    void UseIce() //ä½¿ç”¨å†°
     {
         isStartTime = true;
         Speed = 0.25f;
@@ -94,7 +94,7 @@ public class Throw : MonoBehaviour
         CanThrow = false;
     }
 
-    void UseBomb() //¨Ï¥Î¬µ¼u
+    void UseBomb() //ä½¿ç”¨ç‚¸å½ˆ
     {
         isStartTime = true;
         Speed = 0.25f;
@@ -103,7 +103,7 @@ public class Throw : MonoBehaviour
         CanThrow = false;
     }
 
-    public void CDTimer() //­p®É¾¹
+    public void CDTimer() //è¨ˆæ™‚å™¨
     {
         if (isStartTime)
         {
@@ -121,18 +121,18 @@ public class Throw : MonoBehaviour
         }
     }
 
-    public void SwordFalse() //Åı¼C®ø¥¢¡]°Ê§@¨Æ¥ó¡^
+    public void SwordFalse() //è®“åŠæ¶ˆå¤±ï¼ˆå‹•ä½œäº‹ä»¶ï¼‰
     {
         SwordEffect.GetComponent<ParticleSystem>().Play();
         Sword.SetActive(false);
     }
-    public void SwordTrue() //Åı¼C¥X²{¡]°Ê§@¨Æ¥ó¡^
+    public void SwordTrue() //è®“åŠå‡ºç¾ï¼ˆå‹•ä½œäº‹ä»¶ï¼‰
     {
         Sword.SetActive(true);
         SwordEffect.GetComponent<ParticleSystem>().Play();
     }
 
-    public void GetBomb()  //¨ú±o¬µ¼u¡]°Ê§@¨Æ¥ó¡^
+    public void GetBomb()  //å–å¾—ç‚¸å½ˆï¼ˆå‹•ä½œäº‹ä»¶ï¼‰
     {
         var IK = this.GetComponent<IKController>();
         IK.Weight_Up = 0.0f;
@@ -144,7 +144,7 @@ public class Throw : MonoBehaviour
         ThrowItem = go.transform;
     }
 
-    public void GetIce() //¨ú±o¦B¡]°Ê§@¨Æ¥ó¡^
+    public void GetIce() //å–å¾—å†°ï¼ˆå‹•ä½œäº‹ä»¶ï¼‰
     {
         var IK = this.GetComponent<IKController>();
         IK.Weight_Up = 0.0f;
@@ -156,7 +156,7 @@ public class Throw : MonoBehaviour
         ThrowItem = go.transform;
     }
 
-    public void GetTimeStop()  //¨ú±o®É°±¡]°Ê§@¨Æ¥ó¡^
+    public void GetTimeStop()  //å–å¾—æ™‚åœï¼ˆå‹•ä½œäº‹ä»¶ï¼‰
     {
         var IK = this.GetComponent<IKController>();
         IK.Weight_Up = 0.0f;
@@ -168,48 +168,48 @@ public class Throw : MonoBehaviour
         ThrowItem = go.transform;
     }
 
-    public void StartThrow() //¥á¥X®Éª«¥ó¦ì¸mªì©l¤Æ¡]°Ê§@¨Æ¥ó¡^
+    public void StartThrow() //ä¸Ÿå‡ºæ™‚ç‰©ä»¶ä½ç½®åˆå§‹åŒ–ï¼ˆå‹•ä½œäº‹ä»¶ï¼‰
     {
         ThrowItem.transform.parent = null;
 
         face = transform.forward;
 
-        //ªì©l¦ì¸m = ª«¥ó¥Í¦¨¦ì¸m
+        //åˆå§‹ä½ç½® = ç‰©ä»¶ç”Ÿæˆä½ç½®
         start_pos = ThrowItem.position;
-        //·í«e¦ì¸m = ªì©l¦ì¸m
+        //ç•¶å‰ä½ç½® = åˆå§‹ä½ç½®
         current_pos = start_pos;
 
-        //ªì©l³t«× = ¤Hª«­±¦V * ³t²v
+        //åˆå§‹é€Ÿåº¦ = äººç‰©é¢å‘ * é€Ÿç‡
         start_vel = face * Speed;
         start_vel.y += vertical;
-        //·í«e³t«× = ªì©l³t«×
+        //ç•¶å‰é€Ÿåº¦ = åˆå§‹é€Ÿåº¦
         vel = start_vel;
 
         //Debug.Log(face);
 
-        //ªı¤O = - ªì©l³t«× * 0.X
+        //é˜»åŠ› = - åˆå§‹é€Ÿåº¦ * 0.X
         resistance = -(vel) * 0.05f;
 
         isThrowing = true;
     }
 
-    public void OnThrow()  //¨C´Vª«¥ó¹B°Ê
+    public void OnThrow()  //æ¯å¹€ç‰©ä»¶é‹å‹•
     {
         if (isThrowing)
         {
-            //¤U¤@¦ì¸m = ·í«e¦ì¸m + ·í«e³t«×
-            //·í«e¦ì¸m = ¤U¤@¦ì¸m
+            //ä¸‹ä¸€ä½ç½® = ç•¶å‰ä½ç½® + ç•¶å‰é€Ÿåº¦
+            //ç•¶å‰ä½ç½® = ä¸‹ä¸€ä½ç½®
             current_pos = ThrowItem.position + vel;
-            //ª«Åé²¾°Ê¨ì·í«e¦ì¸m
+            //ç‰©é«”ç§»å‹•åˆ°ç•¶å‰ä½ç½®
             ThrowItem.position = current_pos;
 
-            //¤U¤@³t«× = ·í«e³t«× + ­«¤O * Time.Deltatime + ªı¤O * Time.Deltatime
+            //ä¸‹ä¸€é€Ÿåº¦ = ç•¶å‰é€Ÿåº¦ + é‡åŠ› * Time.Deltatime + é˜»åŠ› * Time.Deltatime
             next_vel = vel + Gravity * Time.deltaTime + resistance * Time.deltaTime;
-            //·í«e³t«× = ¤U¤@³t«×
+            //ç•¶å‰é€Ÿåº¦ = ä¸‹ä¸€é€Ÿåº¦
             vel = next_vel;
         }
     }
-    public void EndThrow() //ª«¥ó§R°£
+    public void EndThrow() //ç‰©ä»¶åˆªé™¤
     {
         Destroy(ThrowItem.gameObject);
         ThrowItem = null;
@@ -219,23 +219,23 @@ public class Throw : MonoBehaviour
 
     /*
     
-    1.°Ê§@¦êÁp°İÃD¡Gª¬ºA¾÷
-    2.¬O§_°µ­Ó¥ş¹CÀ¸³q¥Î­p®É¾¹
-    3.¸É¦å
+    1.å‹•ä½œä¸²è¯å•é¡Œï¼šç‹€æ…‹æ©Ÿ
+    2.æ˜¯å¦åšå€‹å…¨éŠæˆ²é€šç”¨è¨ˆæ™‚å™¨
+    3.è£œè¡€
     4.UI
 
-    ®É°±()
+    æ™‚åœ()
     {
-    °Êµe¼½©ñ
-    IKÃö±¼
-    ¹D¨ã¶i¤JCD
-    UI¾Ş§@
-    ©Çª«¤ÏÀ³
+    å‹•ç•«æ’­æ”¾
+    IKé—œæ‰
+    é“å…·é€²å…¥CD
+    UIæ“ä½œ
+    æ€ªç‰©åæ‡‰
     }
 
-    ¯S®Ä&§P©w¡G
-    1.¨ú±oª«¥ó³Ì«áªº¦ì¸m¼½©ñ >> ¸j¦bª«¥ó¤W
-    2.©T©w¦b¤Hª««e¤è¬Y³B±Ò°Ê >> °Êµe¨Æ¥ó
+    ç‰¹æ•ˆ&åˆ¤å®šï¼š
+    1.å–å¾—ç‰©ä»¶æœ€å¾Œçš„ä½ç½®æ’­æ”¾ >> ç¶åœ¨ç‰©ä»¶ä¸Š
+    2.å›ºå®šåœ¨äººç‰©å‰æ–¹æŸè™•å•Ÿå‹• >> å‹•ç•«äº‹ä»¶
 
 
      */

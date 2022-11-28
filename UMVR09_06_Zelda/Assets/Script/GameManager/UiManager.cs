@@ -111,6 +111,6 @@ public class UiManager : MonoBehaviour
         ItemUI.FindAnyChild<Image>("CanLock").fillAmount = sCD;
         ItemUI.FindAnyChild<Image>("CanIce").fillAmount = sCD;
         ItemUI.FindAnyChild<Image>("CanBomb").fillAmount = sCD;
-        // ²{¦bªºCD®É¶¡/Á`CD®É¶¡ = ¹D¨ã¤¤cando ªºfill amount
+        // ç¾åœ¨çš„CDæ™‚é–“/ç¸½CDæ™‚é–“ = é“å…·ä¸­cando çš„fill amount
     }
 }

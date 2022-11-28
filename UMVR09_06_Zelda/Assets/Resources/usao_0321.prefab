@@ -3512,7 +3512,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8672976989278694363}
   m_LocalRotation: {x: 0, y: 0.43247917, z: 0, w: 0.90164393}
-  m_LocalPosition: {x: 21.834648, y: 0.00000071525574, z: 9.613733}
+  m_LocalPosition: {x: 4.0508795, y: 1.843914, z: 62.273914}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -3576,8 +3576,10 @@ MonoBehaviour:
   terrainLayer:
     serializedVersion: 2
     m_Bits: 64
+  nextPosition: {x: 0, y: 0, z: 0}
   collide: 0
   OnGround: 0
+  hp: 50
 --- !u!114 &8819844761034577219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3600,8 +3602,11 @@ MonoBehaviour:
   RightKneeObj: {fileID: 0}
   LeftFootObj: {fileID: 0}
   RightFootObj: {fileID: 0}
+  LeftFootTarget: {fileID: 0}
+  RightFootTarget: {fileID: 0}
   LookAtWeight: 1
-  Weight: 1
+  Weight_Up: 1
+  Weight_Down: 0
   IkActive: 0
 --- !u!114 &873841137
 MonoBehaviour:
