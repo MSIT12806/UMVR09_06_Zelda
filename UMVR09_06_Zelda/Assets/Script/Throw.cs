@@ -28,6 +28,8 @@ public class Throw : MonoBehaviour
     public Transform RightHandThrow_pos;
     public GameObject Sword;
     public GameObject SwordEffect;
+    private Vector3 itemEffect_pos;
+    public GameObject ItemEffect_obj;
     private float Speed =0.25f;
     private float vertical =0.2f;
     private Vector3 Gravity = new Vector3(0,-1,0);
@@ -65,8 +67,17 @@ public class Throw : MonoBehaviour
                 }
             }
         }
-        OnThrow(); //他們在不需要的時候還是一直被CALL？
-        CDTimer();
+        if (isStartTime) 
+        {
+            OnThrow();
+            CDTimer();
+        }
+        
+        if (ItemEffect_obj != null)
+        {
+            if(useItem == Item.Ice) DestroyItem(3.5f, "CFXR3 Hit Ice B (Air)");
+        }
+
     }
 
     void GetThrowKeyIn()  //按鍵切換enum
@@ -105,19 +116,16 @@ public class Throw : MonoBehaviour
 
     public void CDTimer() //計時器
     {
-        if (isStartTime)
+        timer += Time.deltaTime;
+        if (timer < coldTime)
         {
-            timer += Time.deltaTime;
-            if (timer <coldTime)
-            {
-                CanThrow = false;
-            }
-            else if (timer >= coldTime)
-            {
-                CanThrow = true;
-                timer = 0;
-                isStartTime = false;
-            }
+            CanThrow = false;
+        }
+        else if (timer >= coldTime)
+        {
+            CanThrow = true;
+            timer = 0;
+            isStartTime = false;
         }
     }
 
@@ -211,14 +219,44 @@ public class Throw : MonoBehaviour
     }
     public void EndThrow() //物件刪除
     {
+        itemEffect_pos = ThrowItem.position;
         Destroy(ThrowItem.gameObject);
         ThrowItem = null;
         isThrowing = false;
     }
 
+    public void ItemExplode(string Explode)  //物件效果（動作事件）
+    {
+        Object o = Resources.Load(Explode);
+        ItemEffect_obj = Instantiate((GameObject)o);
+
+        if (ItemEffect_obj.name == "Obj_Ice(Clone)") 
+        {
+            Vector3 vec = itemEffect_pos;
+            vec.y = 0;
+            ItemEffect_obj.transform.position = vec;
+        }
+        else 
+        {
+            ItemEffect_obj.transform.position = itemEffect_pos;
+        }
+    }
+
+    void DestroyItem(float t,string destroyEffect) 
+    {
+        if (timer > t)
+        {
+            Destroy(ItemEffect_obj);
+            Object o = Resources.Load(destroyEffect);
+            GameObject go = Instantiate((GameObject)o);
+            go.transform.position = itemEffect_pos;
+        }
+    }
 
     /*
     
+    >>> 應該讓拔剌撞到terrain就不能動 <<<
+
     1.動作串聯問題：狀態機
     2.是否做個全遊戲通用計時器
     3.補血
