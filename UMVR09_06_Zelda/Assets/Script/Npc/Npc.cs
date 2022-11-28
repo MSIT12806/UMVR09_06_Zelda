@@ -70,7 +70,9 @@ public class Npc : MonoBehaviour, IHp
 
     bool StaticCollision(float radius = 0.23f, float maxDistance = 0.3f)
     {
-        var hitSomething = Physics.SphereCast(this.transform.position + new Vector3(0, 0.7f, 0), radius, transform.forward, out var hitInfo, maxDistance, layerMask);
+        var hitSomethingWhenMoving = Physics.SphereCast(this.transform.position + new Vector3(0, 0.7f, 0), radius, transform.forward, out var hitInfo, maxDistance, layerMask);
+
+        var hitSomething = hitSomethingWhenMoving || Physics.SphereCast(this.transform.position + new Vector3(0, 0.7f, 0), radius, -transform.forward, out hitInfo, maxDistance, layerMask) || Physics.SphereCast(this.transform.position + new Vector3(0, 0.7f, 0), radius, -transform.right, out hitInfo, maxDistance, layerMask) || Physics.SphereCast(this.transform.position + new Vector3(0, 0.7f, 0), radius, transform.right, out hitInfo, maxDistance, layerMask);
         if (hitSomething && hitInfo.transform != this.transform)
         {
             //var nowPosXZ = transform.position;
@@ -81,7 +83,8 @@ public class Npc : MonoBehaviour, IHp
             //var concactVec = hitPointXZ - nowPosXZ;
             //nextPosition = transform.position - concactVec;
             //print(hitInfo.transform.name);
-            return true;
+            nextPosition = transform.position;//取消程式位移
+            return hitSomethingWhenMoving;//回報碰撞，取消美術位移
             ////Npc 之間碰撞
             //if (hitObject.tag =="Npc")
             //{
