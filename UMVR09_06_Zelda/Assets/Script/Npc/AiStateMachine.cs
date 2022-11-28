@@ -1,9 +1,11 @@
 using CombatSystem;
+using Ron;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Animations;
 using static UnityEngine.GraphicsBuffer;
 
 public abstract class BasicAi
@@ -36,22 +38,22 @@ public abstract class AiState
     public abstract AiState SwitchState();
     public abstract void SetAnimation();
 }
-public class IdleState : AiState
+
+#region Usao State Machine
+public class UsaoIdleState : AiState
 {
     Transform target;
-    bool findTarget;
-    public IdleState(Transform t, PicoState state, Animator a, Transform self) : base(a, self)
+    public UsaoIdleState(Transform t, PicoState state, Animator a, Transform self) : base(a, self)
     {
         target = t;
     }
-    Vector3 originPosition;
     GameState switchStage = GameState.FirstStage;
     //Idle的啟動要是固定範圍 -- 要一直跟主角量距離
     //Idel 應該有個初始位置    
     public override AiState SwitchState()
     {
         var gameState = target.GetComponent<PicoState>().gameState;
-        return gameState == switchStage ? new FightState(target, animator, selfTransform) : this;
+        return gameState == switchStage ? new UsaoFightState(target, animator, selfTransform) : this;
     }
 
     public override void SetAnimation()
@@ -68,13 +70,13 @@ public class IdleState : AiState
     }
 
 }
-public class FightState : AiState
+public class UsaoFightState : AiState
 {
     //2. 可能會轉換
     Transform target;
 
     Vector3 direction;
-    public FightState(Transform t, Animator a, Transform self) : base(a, self)
+    public UsaoFightState(Transform t, Animator a, Transform self) : base(a, self)
     {
         target = t;
         animator.SetBool("findTarget", true);
@@ -84,8 +86,8 @@ public class FightState : AiState
     {
         //0. 如果我被攻擊
         var npc = selfTransform.GetComponent<Npc>();
-        if (npc.Hp <= 0) return new Death(animator, selfTransform);
-        if (getHit != null) return new HurtState(animator, selfTransform, getHit);
+        if (npc.Hp <= 0) return new UsaoDeathState(animator, selfTransform);
+        if (getHit != null) return new UsaoHurtState(animator, selfTransform, getHit);
 
         var distance = Vector3.Distance(target.position, selfTransform.position);
         int count = GetChasingNpcCount();
@@ -127,14 +129,14 @@ public class FightState : AiState
 /// <summary>
 /// 朝著角色方向移動
 /// </summary>
-public class ChaseState : AiState
+public class UsaoChaseState : AiState
 {
     //要seek 遇到障礙物還要躲開
     Npc npc;
     Transform alertTarget;
     float attackRange = 5f;
     Vector3 direction;
-    public ChaseState(Transform alertObject, Animator a, Transform self) : base(a, self)
+    public UsaoChaseState(Transform alertObject, Animator a, Transform self) : base(a, self)
     {
         alertTarget = alertObject;
         animator.SetBool("notReach", true);
@@ -156,7 +158,7 @@ public class ChaseState : AiState
     {
 
         //0. 如果我被攻擊
-        if (getHit != null) return new HurtState(animator, selfTransform, getHit);
+        if (getHit != null) return new UsaoHurtState(animator, selfTransform, getHit);
 
 
         //1. 如果目標物件消失於視野之外[，進行巡邏後]，回到發呆狀態
@@ -169,11 +171,11 @@ public class ChaseState : AiState
         if (distance < attackRange)
         {
             animator.SetBool("notReach", false);
-            return new FightState(alertTarget, animator, selfTransform);
+            return new UsaoFightState(alertTarget, animator, selfTransform);
         }
 
         //3. 如果目標在追擊範圍內，則：(1) 如果追擊沒有滿，就進行追擊。(2) 若追擊已滿，就在外面咆哮。
-        return new IdleState(alertTarget, selfTransform.GetComponent<PicoState>(), animator, selfTransform);
+        return new UsaoIdleState(alertTarget, selfTransform.GetComponent<PicoState>(), animator, selfTransform);
     }
     public void AroundOrClose()
     {
@@ -193,9 +195,9 @@ public class ChaseState : AiState
 
 }
 
-public class AttackState : AiState
+public class UsaoAttackState : AiState
 {
-    public AttackState(Animator a, Transform self) : base(a, self)
+    public UsaoAttackState(Animator a, Transform self) : base(a, self)
     {
     }
 
@@ -204,7 +206,7 @@ public class AttackState : AiState
     public override AiState SwitchState()
     {
         //0. 如果我被攻擊
-        if (getHit != null) return new HurtState(animator, selfTransform, getHit);
+        if (getHit != null) return new UsaoHurtState(animator, selfTransform, getHit);
 
         return this;
     }
@@ -216,12 +218,12 @@ public class AttackState : AiState
 
 }
 
-public class HurtState : AiState
+public class UsaoHurtState : AiState
 {
     Transform target;
     float deadTime;
     Npc NpcData;
-    public HurtState(Animator a, Transform self, DamageData d) : base(a, self)
+    public UsaoHurtState(Animator a, Transform self, DamageData d) : base(a, self)
     {
         NpcData = selfTransform.GetComponent<Npc>();
         getHit = d;
@@ -234,9 +236,9 @@ public class HurtState : AiState
     {
         var anInfo = animator.GetCurrentAnimatorStateInfo(0);  //判定動畫快播完時，下個動畫的銜接
         if (NpcData.Hp > 0 && anInfo.normalizedTime > 0.9f)
-            return new FightState(target, animator, selfTransform);        //回到 FightState
+            return new UsaoFightState(target, animator, selfTransform);        //回到 FightState
         if (NpcData.Hp <= 0)
-            return new Death(animator, selfTransform);
+            return new UsaoDeathState(animator, selfTransform);
 
         return this;
 
@@ -302,16 +304,21 @@ public class HurtState : AiState
 
 }
 
-public class Death : AiState
+public class UsaoDeathState : AiState
 {
-    public Death(Animator a, Transform self) : base(a, self)
+    int deathTime;
+    public UsaoDeathState(Animator a, Transform self) : base(a, self)
     {
-        Debug.Log("Death");
         a.Play("GetHit.Standing React Death Right");
+        deathTime = Time.frameCount;
     }
 
     public override void SetAnimation()
     {
+        if(Time.frameCount> deathTime + 60)
+        {
+            selfTransform.gameObject.SetActive(false);
+        }
     }
 
     public override AiState SwitchState()
@@ -319,7 +326,43 @@ public class Death : AiState
         return this;
     }
 }
+#endregion
 
+#region Dragon State Machine
+
+public class DragonIdleState : AiState
+{
+    Transform target;
+    Transform head;
+    public DragonIdleState(Transform t, PicoState state, Animator a, Transform self) : base(a, self)
+    {
+        target = t;
+        head = self.FindAnyChild<Transform>("Head");
+    }
+
+    public override void SetAnimation()
+    {
+        DragonStateCommon.Stare(selfTransform, head, target);
+    }
+
+    public override AiState SwitchState()
+    {
+        return this;
+    }
+}
+public static class DragonStateCommon
+{
+    public static void Stare(Transform selfBody, Transform selfHead, Transform target)
+    {
+        //1. 身體面對對方
+        var bodyFaceDirection = target.position;
+        bodyFaceDirection.y = selfBody.position.y;
+        selfBody.LookAt(bodyFaceDirection.WithoutY(0.75f));
+        //2. 看向對方
+        selfHead.LookAt(target);
+    }
+}
+#endregion
 
 
 

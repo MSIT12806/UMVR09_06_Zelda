@@ -12652,6 +12652,7 @@ MonoBehaviour:
   RightHandThrow_pos: {fileID: 2066026360}
   Sword: {fileID: 246191087}
   SwordEffect: {fileID: 1492339206}
+  ItemEffect_obj: {fileID: 0}
   coldTime: 4
   timer: 0
 --- !u!1001 &1261113463
@@ -12726,6 +12727,10 @@ PrefabInstance:
     - target: {fileID: 2564453279718341643, guid: e344ba4e5a1508a4a9133612aa1c3172, type: 3}
       propertyPath: m_Name
       value: Blue Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 2564453279718341643, guid: e344ba4e5a1508a4a9133612aa1c3172, type: 3}
+      propertyPath: m_TagString
+      value: Npc
       objectReference: {fileID: 0}
     - target: {fileID: 2564453279718443991, guid: e344ba4e5a1508a4a9133612aa1c3172, type: 3}
       propertyPath: m_LocalRotation.x
@@ -15848,6 +15853,60 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4279449019447086, guid: eded051879df4c147b9010199d240258, type: 3}
   m_PrefabInstance: {fileID: 1526067141}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1533247703 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2564453279718341643, guid: e344ba4e5a1508a4a9133612aa1c3172, type: 3}
+  m_PrefabInstance: {fileID: 1277495260}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1533247706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1533247703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b11601d3f25612d46902453df527e4e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &1533247707
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1533247703}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.6620014, y: 3.7150111, z: 7.5641394}
+  m_Center: {x: -0.1289033, y: 1.8491514, z: -0.9725213}
+--- !u!114 &1533247708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1533247703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9f6c11a6345888498622957e1896247, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  terrainLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  nextPosition: {x: 0, y: 0, z: 0}
+  collide: 0
+  OnGround: 0
+  hp: 0
+  Fever: 0
+  FeverTimes: 0
 --- !u!1001 &1543219402
 PrefabInstance:
   m_ObjectHideFlags: 0

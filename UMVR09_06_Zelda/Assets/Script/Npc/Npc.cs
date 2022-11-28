@@ -67,6 +67,9 @@ public class Npc : MonoBehaviour, IHp
     [SerializeField] float hp;
     public float Hp { get { return hp; } set { hp = value; } }
 
+    public float Fever;
+    public int FeverTimes;
+
 
     bool StaticCollision(float radius = 0.23f, float maxDistance = 0.3f)
     {
