@@ -335,8 +335,33 @@ public class UsaoDeathState : AiState
 public class DragonIdleState : AiState
 {
     Transform target;
+    public DragonIdleState(Transform t, Animator a, Transform self) : base(a, self)
+    {
+        target = t;
+    }
+
+    public override void SetAnimation()
+    {
+    }
+
+    public override AiState SwitchState()
+    {
+        //如果pico 走進該區域， return new DragonFightState();
+        var stage = target.GetComponent<PicoState>();
+
+        if ((int)stage.gameState == 3)
+            return new DragonFightState(target, animator, selfTransform);
+
+
+        return this;
+    }
+}
+
+public class DragonFightState : AiState
+{
+    Transform target;
     Transform head;
-    public DragonIdleState(Transform t, PicoState state, Animator a, Transform self) : base(a, self)
+    public DragonFightState(Transform t, Animator a, Transform self) : base(a, self)
     {
         target = t;
         head = self.FindAnyChild<Transform>("Head");
@@ -345,25 +370,6 @@ public class DragonIdleState : AiState
     public override void SetAnimation()
     {
         DragonStateCommon.Stare(selfTransform, head, target);
-    }
-
-    public override AiState SwitchState()
-    {
-        //如果pico 走進該區域， return new DragonFightState();
-        return this;
-    }
-}
-
-public class DragonFightState : AiState
-{
-    public DragonFightState(Animator a, Transform self) : base(a, self)
-    {
-        //看向 pico 
-    }
-
-    public override void SetAnimation()
-    {
-        throw new NotImplementedException();
     }
 
     public override AiState SwitchState()

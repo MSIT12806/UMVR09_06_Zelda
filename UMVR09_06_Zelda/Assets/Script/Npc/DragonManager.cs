@@ -8,7 +8,7 @@ public class DragonManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        aiState = new DragonIdleState(ObjectManager.MainCharacter, ObjectManager.MainCharacter.GetComponent<PicoState>(), transform.GetComponent<Animator>(), transform);
+        aiState = new DragonIdleState(ObjectManager.MainCharacter, transform.GetComponent<Animator>(), transform);
         
     }
 
