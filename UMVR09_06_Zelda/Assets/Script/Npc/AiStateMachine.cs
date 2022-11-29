@@ -90,13 +90,13 @@ public class UsaoFightState : AiState
     {
         //0. 如果我被攻擊
         var npc = selfTransform.GetComponent<Npc>();
-        if (npc.Hp <= 0) return new UsaoDeathState(animator, selfTransform);
         if (getHit != null) return new UsaoHurtState(animator, selfTransform, getHit, this);
+        if (npc.Hp <= 0) return new UsaoDeathState(animator, selfTransform);
 
         var distance = Vector3.Distance(target.position, selfTransform.position);
         int count = GetChasingNpcCount();
         //if (distance <= 5 && UnityEngine.Random.value >= 0.75) return new AttackState(animator, selfTransform);
-        //if (distance > 5) return new ChaseState(target, animator, selfTransform);
+        if (distance > 5) return new UsaoChaseState(target, animator, selfTransform, this);
 
         return this;
     }
@@ -147,6 +147,7 @@ public class UsaoChaseState : AiState
         animator.SetBool("notReach", true);
         AddChasingNpc();
         this.fightState = fightState;
+        npc = selfTransform.GetComponent<Npc>();
     }
 
     private void AddChasingNpc()
@@ -196,6 +197,12 @@ public class UsaoChaseState : AiState
         var degree = sign * Vector3.Angle(selfTransform.forward, direction);
         if (degree > 5 || degree < -5)
             selfTransform.Rotate(new Vector3(0, Math.Sign(degree), 0));
+
+        var f = animator.GetFloat("forward");
+        f = Math.Min(f + 0.02f, 1);
+        animator.SetFloat("forward", f);
+        if (npc.nextPosition != Vector3.zero)
+            npc.nextPosition += direction * 0.001f;
     }
 
 }
@@ -276,7 +283,7 @@ public class UsaoHurtState : AiState
         // 依照 damageData.hit 決定播放哪個動畫。
         npc.Hp -= getHit.Damage;
         animator.SetFloat("hp", npc.Hp);
-        if (getHit.Hit == HitType.light && npc.Hp > 0)
+        if (getHit.Hit == HitType.light)
         {
 
             if (UnityEngine.Random.value >= 0.5f)
@@ -287,9 +294,8 @@ public class UsaoHurtState : AiState
             getHit = null;
 
             return;
-            ////死亡
         }
-        if (getHit.Hit == HitType.Heavy && npc.Hp > 0)
+        if (getHit.Hit == HitType.Heavy)
         {
             animator.Play("GetHit.Flying Back Death", 0);
             animator.SetBool("Grounded", false);
@@ -313,6 +319,8 @@ public class UsaoDeathState : AiState
     int deathTime;
     public UsaoDeathState(Animator a, Transform self) : base(a, self)
     {
+        var currentInfo = animator.GetCurrentAnimatorStateInfo(0);
+        if (currentInfo.IsName("GetHit.Flying Back Death")) return;
         if (UnityEngine.Random.value >= 0.5f)
             a.Play("GetHit.Standing React Death Right");
         else

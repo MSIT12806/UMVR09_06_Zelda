@@ -4,20 +4,22 @@ using UnityEngine;
 
 public static class NpcCommon
 {
-    public static void AttackDetection(Vector3 attackCenter, Vector3 attackForward, float repelDistance, float angle, float distance, float damage, HitType hitType)//攻擊範圍偵測
+    public static void AttackDetection(Vector3 attackCenter, Vector3 attackForward, float repelDistance, float angle, float distance, float damage, HitType hitType, Vector3 force = default(Vector3))//攻擊範圍偵測
     {
         List<GameObject> npcList = ObjectManager.Npcs;
         for (int i = 0; i < npcList.Count; i++)
         {
             Transform nowNpc = npcList[i].transform;
 
-
-            Vector3 vec = nowNpc.position - attackCenter;
-            vec.y = 0;
+            if (force == default(Vector3))
+            {
+                force = nowNpc.position - attackCenter;
+            }
+            force.y = 0;
             if (distance > Vector3.Distance(nowNpc.position.WithoutY(), attackCenter.WithoutY()))
             {
-                vec.Normalize();
-                float fDot = Vector3.Dot(attackForward, vec);
+                force.Normalize();
+                float fDot = Vector3.Dot(attackForward, force);
                 if (fDot > 1) fDot = 1;
                 if (fDot < -1) fDot = -1;
 
@@ -26,7 +28,7 @@ public static class NpcCommon
                 if (fThetaDegree <= angle / 2)
                 {
                     var attackReturn = nowNpc.gameObject.GetComponent<Npc>();
-                    attackReturn.GetHurt(new DamageData(damage, vec * repelDistance, hitType));
+                    attackReturn.GetHurt(new DamageData(damage, force * repelDistance, hitType));
                 }
             }
         }
