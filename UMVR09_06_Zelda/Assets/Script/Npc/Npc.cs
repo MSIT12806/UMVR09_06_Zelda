@@ -60,9 +60,12 @@ public class Npc : MonoBehaviour, IHp
         return DamageData.NoDamage;
     }
     public void GetHurt(DamageData damageData)
-    {
+    { 
         var u = transform.GetComponent<UsaoManager>();
         u.GetHurt(damageData);
+
+        var golem = transform.GetComponent<GolemManager>();
+        golem.GetHurt(damageData);
     }
     [SerializeField] float hp;
     public float Hp { get { return hp; } set { hp = value; } }
