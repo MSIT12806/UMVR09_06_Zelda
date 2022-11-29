@@ -1438,6 +1438,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3561932149226270939, guid: 7db2009ba08ec9349a264c49e446d41f,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1291118667, guid: 6551248d31209874da323c7173278226,
+        type: 3}
+    - target: {fileID: 6682107214183546747, guid: 7db2009ba08ec9349a264c49e446d41f,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 44.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6682107214183546747, guid: 7db2009ba08ec9349a264c49e446d41f,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 44.600002
+      objectReference: {fileID: 0}
+    - target: {fileID: 6682107214183546747, guid: 7db2009ba08ec9349a264c49e446d41f,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6682107214183546747, guid: 7db2009ba08ec9349a264c49e446d41f,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6682107214183546747, guid: 7db2009ba08ec9349a264c49e446d41f,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7db2009ba08ec9349a264c49e446d41f, type: 3}
 --- !u!224 &147682297 stripped
@@ -19974,7 +20005,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1734996675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21797,7 +21828,7 @@ PrefabInstance:
     - target: {fileID: 2046102329827991577, guid: 510be0e958e2ffe4bb58cb4fc9c1be5e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.278
+      value: 0.013
       objectReference: {fileID: 0}
     - target: {fileID: 2046102329827991577, guid: 510be0e958e2ffe4bb58cb4fc9c1be5e,
         type: 3}
@@ -24230,6 +24261,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SwordLightAttack01
       objectReference: {fileID: 0}
+    - target: {fileID: 4941351232158652098, guid: f5c2186e81c05124a810f3f70ddc18b7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f5c2186e81c05124a810f3f70ddc18b7, type: 3}
 --- !u!1001 &2048299510
@@ -25312,6 +25348,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SwordHeavyAttack04
       objectReference: {fileID: 0}
+    - target: {fileID: 3645647062528592169, guid: a2eb960b6e3f20f428c248564a0135bb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3645647062528592170, guid: a2eb960b6e3f20f428c248564a0135bb,
         type: 3}
       propertyPath: m_RootOrder
@@ -25436,6 +25477,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SwordLightAttack04
       objectReference: {fileID: 0}
+    - target: {fileID: 1169278036667900302, guid: d8c63d88c09c6cc47b0eef07f678912b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8c63d88c09c6cc47b0eef07f678912b, type: 3}
 --- !u!1001 &4168285908684157086
@@ -25449,6 +25495,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SwordHeavyAttack02
+      objectReference: {fileID: 0}
+    - target: {fileID: 333071737718472744, guid: 607188948e47c62448d4aef6d9c6c6f7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 333071737718472747, guid: 607188948e47c62448d4aef6d9c6c6f7,
         type: 3}
@@ -25561,6 +25612,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SwordHeavyAttack01
       objectReference: {fileID: 0}
+    - target: {fileID: 8302823508799432789, guid: 00fd273f0d9613d488592fe96ee0a4f7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8302823508799432790, guid: 00fd273f0d9613d488592fe96ee0a4f7,
         type: 3}
       propertyPath: m_RootOrder
@@ -25629,6 +25685,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SwordLightAttack03
+      objectReference: {fileID: 0}
+    - target: {fileID: 7702170732276949933, guid: 543c46c72f689374ca77125d67890919,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7702170732276949934, guid: 543c46c72f689374ca77125d67890919,
         type: 3}
@@ -25754,6 +25815,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SwordLightAttack02
       objectReference: {fileID: 0}
+    - target: {fileID: 6756456057993691019, guid: be7d1bea8d888284daf04a89d4ff4e9b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be7d1bea8d888284daf04a89d4ff4e9b, type: 3}
 --- !u!1001 &6993945427309638219
@@ -25822,6 +25888,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SwordHeavyAttack03
+      objectReference: {fileID: 0}
+    - target: {fileID: 6649717989558126062, guid: 8e97cefdaa0931d46a25472e67ed64a9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e97cefdaa0931d46a25472e67ed64a9, type: 3}
