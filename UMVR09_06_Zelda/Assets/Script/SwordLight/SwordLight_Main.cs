@@ -23,7 +23,11 @@ public class SwordLight_Main : MonoBehaviour
 
         if(stateInfo.IsName("Attack01") && stateInfo.normalizedTime < 0.5f)
         {
-                AttackEffect01.GetComponent<ParticleSystem>().Play();
+                AttackEffect01.SetActive(true);
+        }
+        else if(stateInfo.IsName("Attack01") == false)
+        {
+            AttackEffect01.SetActive(false);
         }
     }
 }
