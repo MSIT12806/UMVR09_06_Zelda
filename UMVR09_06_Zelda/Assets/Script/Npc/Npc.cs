@@ -45,11 +45,12 @@ public class Npc : MonoBehaviour
     }
     private void LerpToNextPosition()
     {
-        if (nextPosition != default(Vector3))
+        if (nextPosition != Vector3.zero)
         {
             if (transform.position.WithoutY().AlmostEqual(nextPosition, 0.03f) == nextPosition.WithoutY())
             {
-                nextPosition = default(Vector3);
+                transform.position = nextPosition;
+                nextPosition = Vector3.zero;
             }
             else
             {
