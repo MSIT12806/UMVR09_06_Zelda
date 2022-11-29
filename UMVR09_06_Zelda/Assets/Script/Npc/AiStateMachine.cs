@@ -349,7 +349,130 @@ public class DragonIdleState : AiState
 
     public override AiState SwitchState()
     {
+        //如果pico 走進該區域， return new DragonFightState();
         return this;
+    }
+}
+
+public class DragonFightState : AiState
+{
+    public DragonFightState(Animator a, Transform self) : base(a, self)
+    {
+        //看向 pico 
+    }
+
+    public override void SetAnimation()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override AiState SwitchState()
+    {
+        //1. 距離較遠 -> 吐火球  Fireball Shoot
+        //2. 距離較近 -> 鋼鐵尾巴 
+        //3. 距離太遠 -> return new DragonChaseState();
+        //4. 血量低於某數值以下 -> 起飛
+        throw new NotImplementedException();
+    }
+}
+public class DragonFlyState : AiState
+{
+    public DragonFlyState(Animator a, Transform self) : base(a, self)
+    {
+        //不再受到任何攻擊，除非將其擊落(丟炸彈)
+        //一直噴火球兒
+    }
+
+    public override void SetAnimation()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override AiState SwitchState()
+    {
+        throw new NotImplementedException();
+    }
+}
+public class DragonChaseState : AiState
+{
+    public DragonChaseState(Animator a, Transform self) : base(a, self)
+    {
+    }
+
+    public override void SetAnimation()
+    {
+        //面向 pico
+        //朝著 pico 用 aStar 做 seek ，直到攻擊範圍內
+        throw new NotImplementedException();
+    }
+
+    public override AiState SwitchState()
+    {
+        throw new NotImplementedException();
+    }
+}
+public class DragonFireBallAttackState : AiState
+{
+    public DragonFireBallAttackState(Animator a, Transform self) : base(a, self)
+    {
+    }
+
+    public override void SetAnimation()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override AiState SwitchState()
+    {
+        throw new NotImplementedException();
+    }
+}
+public class DragonTailAttackState : AiState
+{
+    public DragonTailAttackState(Animator a, Transform self) : base(a, self)
+    {
+    }
+
+    public override void SetAnimation()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override AiState SwitchState()
+    {
+        throw new NotImplementedException();
+    }
+}
+public class DragonDizzyState : AiState
+{
+    public DragonDizzyState(Animator a, Transform self) : base(a, self)
+    {
+    }
+
+    public override void SetAnimation()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override AiState SwitchState()
+    {
+        throw new NotImplementedException();
+    }
+}
+public class DragonDeathState : AiState
+{
+    public DragonDeathState(Animator a, Transform self) : base(a, self)
+    {
+    }
+
+    public override void SetAnimation()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override AiState SwitchState()
+    {
+        throw new NotImplementedException();
     }
 }
 public static class DragonStateCommon
