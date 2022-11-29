@@ -2353,10 +2353,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 455430477, guid: b2b93fd3dcacb8c43ae42ff8a24cc91b, type: 3}
-      propertyPath: hp
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 8293178818871931233, guid: b2b93fd3dcacb8c43ae42ff8a24cc91b,
         type: 3}
       propertyPath: m_RootOrder
@@ -2416,11 +2412,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: usao_0321
-      objectReference: {fileID: 0}
-    - target: {fileID: 8819844761034577219, guid: b2b93fd3dcacb8c43ae42ff8a24cc91b,
-        type: 3}
-      propertyPath: IkActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2b93fd3dcacb8c43ae42ff8a24cc91b, type: 3}
@@ -5518,18 +5509,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 968814398, guid: 69e0abd36a8324842835ff1afd552884, type: 3}
-      propertyPath: IkActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 968814398, guid: 69e0abd36a8324842835ff1afd552884, type: 3}
-      propertyPath: LookAtObj
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 968814404, guid: 69e0abd36a8324842835ff1afd552884, type: 3}
-      propertyPath: hp
-      value: 500
-      objectReference: {fileID: 0}
     - target: {fileID: 8293178818871931233, guid: 69e0abd36a8324842835ff1afd552884,
         type: 3}
       propertyPath: m_RootOrder
@@ -5592,24 +5571,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69e0abd36a8324842835ff1afd552884, type: 3}
---- !u!1 &532141070 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8672976989278694363, guid: 69e0abd36a8324842835ff1afd552884,
-    type: 3}
-  m_PrefabInstance: {fileID: 532141069}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &532141071
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 532141070}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24ef9482c19852a449bfc28bee23a5d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &540453671
 GameObject:
   m_ObjectHideFlags: 0
@@ -9114,9 +9075,11 @@ MonoBehaviour:
   nextPosition: {x: 0, y: 0, z: 0}
   collide: 0
   OnGround: 0
-  hp: 0
+  Hp: 0
   Fever: 0
   FeverTimes: 0
+  initVel: {x: 0, y: 0, z: 0}
+  grounded: 0
 --- !u!65 &812130048
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17197,9 +17160,11 @@ MonoBehaviour:
   nextPosition: {x: 0, y: 0, z: 0}
   collide: 0
   OnGround: 0
-  hp: 2000
+  Hp: 0
   Fever: 0
   FeverTimes: 0
+  initVel: {x: 0, y: 0, z: 0}
+  grounded: 0
 --- !u!1001 &1543219402
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -9,6 +9,7 @@ public class ObjectManager : MonoBehaviour
 {
     public static List<GameObject> Npcs;
     public static List<GameObject> Statics;
+    public static Dictionary<int, IHp> StateManagers = new Dictionary<int, IHp>();
     public static HashSet<AiState> ChasingNpc;
     public static Transform MainCharacter;
     public Transform MyCharacter;
