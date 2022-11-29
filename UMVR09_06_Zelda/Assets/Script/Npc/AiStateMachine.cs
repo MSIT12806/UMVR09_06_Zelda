@@ -52,6 +52,10 @@ public abstract class AiState
     public abstract void SetAnimation();
 }
 
+#region Pico Machine
+
+#endregion
+
 #region Usao State Machine
 public class UsaoIdleState : AiState
 {
@@ -100,7 +104,7 @@ public class UsaoFightState : AiState
         //0. 如果我被攻擊
         var npc = selfTransform.GetComponent<Npc>();
         if (npc.Hp <= 0) return new UsaoDeathState(animator, selfTransform);
-        if (getHit != null) return new UsaoHurtState(animator, selfTransform, getHit);
+        if (getHit != null) return new UsaoHurtState(animator, selfTransform, getHit, this);
 
         var distance = Vector3.Distance(target.position, selfTransform.position);
         int count = GetChasingNpcCount();
@@ -149,12 +153,13 @@ public class UsaoChaseState : AiState
     Transform alertTarget;
     float attackRange = 5f;
     Vector3 direction;
-    public UsaoChaseState(Transform alertObject, Animator a, Transform self) : base(a, self)
+    AiState fightState;
+    public UsaoChaseState(Transform alertObject, Animator a, Transform self, AiState fightState) : base(a, self)
     {
         alertTarget = alertObject;
         animator.SetBool("notReach", true);
         AddChasingNpc();
-
+        this.fightState = fightState;
     }
 
     private void AddChasingNpc()
@@ -171,7 +176,7 @@ public class UsaoChaseState : AiState
     {
 
         //0. 如果我被攻擊
-        if (getHit != null) return new UsaoHurtState(animator, selfTransform, getHit);
+        if (getHit != null) return new UsaoHurtState(animator, selfTransform, getHit, fightState);
 
 
         //1. 如果目標物件消失於視野之外[，進行巡邏後]，回到發呆狀態
@@ -210,8 +215,10 @@ public class UsaoChaseState : AiState
 
 public class UsaoAttackState : AiState
 {
-    public UsaoAttackState(Animator a, Transform self) : base(a, self)
+    AiState fightState;
+    public UsaoAttackState(Animator a, Transform self, AiState fightState) : base(a, self)
     {
+        this.fightState = fightState;
     }
 
     // 1.等待(CD時間)
@@ -219,7 +226,7 @@ public class UsaoAttackState : AiState
     public override AiState SwitchState()
     {
         //0. 如果我被攻擊
-        if (getHit != null) return new UsaoHurtState(animator, selfTransform, getHit);
+        if (getHit != null) return new UsaoHurtState(animator, selfTransform, getHit, fightState);
 
         return this;
     }
@@ -233,24 +240,25 @@ public class UsaoAttackState : AiState
 
 public class UsaoHurtState : AiState
 {
-    Transform target;
+    AiState fightState;
     float deadTime;
-    Npc NpcData;
-    public UsaoHurtState(Animator a, Transform self, DamageData d) : base(a, self)
+    Npc npc;
+
+    public UsaoHurtState(Animator a, Transform self, DamageData d, AiState fight) : base(a, self)
     {
-        NpcData = selfTransform.GetComponent<Npc>();
+        npc = selfTransform.GetComponent<Npc>();
         getHit = d;
-        target = d.Attacker;
         DoOnce();
         self.GetComponent<IKController>().LookAtObj = null;
+        fightState = fight;
     }
 
     public override AiState SwitchState()
     {
         var anInfo = animator.GetCurrentAnimatorStateInfo(0);  //判定動畫快播完時，下個動畫的銜接
-        if (NpcData.Hp > 0 && anInfo.normalizedTime > 0.9f)
-            return new UsaoFightState(target, animator, selfTransform);        //回到 FightState
-        if (NpcData.Hp <= 0)
+        if (npc.Hp > 0 && anInfo.normalizedTime > 0.9f)
+            return fightState;        //回到 FightState
+        if (npc.Hp <= 0)
             return new UsaoDeathState(animator, selfTransform);
 
         return this;
@@ -259,7 +267,7 @@ public class UsaoHurtState : AiState
 
     public override void SetAnimation()
     {
-        if (NpcData.Hp <= 0)
+        if (npc.Hp <= 0)
         {
             deadTime += Time.deltaTime;
             if (getHit != null)
@@ -279,33 +287,30 @@ public class UsaoHurtState : AiState
     private void DoOnce()
     {
         // 依照 damageData.hit 決定播放哪個動畫。
-        NpcData.Hp -= getHit.Damage;
-        animator.SetFloat("hp", NpcData.Hp);
-        if (getHit.Hit == HitType.light && NpcData.Hp > 0)
+        npc.Hp -= getHit.Damage;
+        animator.SetFloat("hp", npc.Hp);
+        if (getHit.Hit == HitType.light && npc.Hp > 0)
         {
-            //animator.SetTrigger("lightAttack");
-            ////System.Random random = new System.Random();
-            ////int type = random.Next(1, 3);
-            //animator.SetInteger("playImpactType", 2);//暫時廢棄 1 的動作
 
             if (UnityEngine.Random.value >= 0.5f)
                 animator.Play("GetHit.SwordAndShieldImpact02", 0);
             else
                 animator.Play("GetHit.SwordAndShieldImpact01", 0);
-            NpcData.nextPosition = selfTransform.position - (getHit.Attacker.position - selfTransform.position).normalized * 0.5f;
+            npc.nextPosition = selfTransform.position + getHit.Force;
             getHit = null;
 
             return;
+            ////死亡
         }
-        if (getHit.Hit == HitType.Heavy && NpcData.Hp > 0)
+        if (getHit.Hit == HitType.Heavy && npc.Hp > 0)
         {
             animator.Play("GetHit.Flying Back Death", 0);
-            NpcData.nextPosition = selfTransform.position - (getHit.Attacker.position - selfTransform.position).normalized * 1f;
-            getHit = null;
-            return;
+            animator.SetBool("Grounded", false);
+            npc.grounded = false;
+            npc.initVel = getHit.Force * 0.2f;
+            npc.initVel.y = UnityEngine.Random.Range(1, 3);
         }
 
-        ////死亡
         //if (NpcData.Hp < 0.0001f)
         //{
         //    System.Random random = new System.Random();
@@ -374,10 +379,15 @@ public class DragonFightState : AiState
 {
     Transform target;
     Transform head;
+    float flyHpLimit;
+    Npc npc;
+    float attackWait = DragonStateCommon.RandonAttackScale();
     public DragonFightState(Transform t, Animator a, Transform self) : base(a, self)
     {
         target = t;
         head = self.FindAnyChild<Transform>("Head");
+        flyHpLimit = 1000;
+        npc = selfTransform.GetComponent<Npc>();
     }
 
     public override void SetAnimation()
@@ -387,11 +397,31 @@ public class DragonFightState : AiState
 
     public override AiState SwitchState()
     {
-        //1. 距離較遠 -> 吐火球  Fireball Shoot
-        //2. 距離較近 -> 鋼鐵尾巴 
-        //3. 距離太遠 -> return new DragonChaseState();
-        //4. 血量低於某數值以下 -> 起飛
-        throw new NotImplementedException();
+
+        if (npc.Hp < flyHpLimit)
+        {
+            return new DragonFlyState(animator, selfTransform);
+        }
+        if (attackWait > 0)
+        {
+            attackWait -= Time.deltaTime;
+            return this;
+        }
+        // do attack
+        var distance = Vector3.Distance(target.position, selfTransform.position);
+        if (distance <= 3f)
+        {
+            return new DragonAttackState(target, "TailHit", animator, selfTransform);
+        }
+        if (distance <= 8f)
+        {
+            return new DragonAttackState(target, "FireHit", animator, selfTransform);
+        }
+        else
+        {
+            return new DragonChaseState(target, animator, selfTransform);
+        }
+
     }
 }
 public class DragonFlyState : AiState
@@ -399,12 +429,12 @@ public class DragonFlyState : AiState
     public DragonFlyState(Animator a, Transform self) : base(a, self)
     {
         //不再受到任何攻擊，除非將其擊落(丟炸彈)
+        animator.SetBool("Fly", true);
         //一直噴火球兒
     }
 
     public override void SetAnimation()
     {
-        throw new NotImplementedException();
     }
 
     public override AiState SwitchState()
@@ -414,8 +444,10 @@ public class DragonFlyState : AiState
 }
 public class DragonChaseState : AiState
 {
-    public DragonChaseState(Animator a, Transform self) : base(a, self)
+    Transform target;
+    public DragonChaseState(Transform t, Animator a, Transform self) : base(a, self)
     {
+        target = t;
     }
 
     public override void SetAnimation()
@@ -430,36 +462,28 @@ public class DragonChaseState : AiState
         throw new NotImplementedException();
     }
 }
-public class DragonFireBallAttackState : AiState
+public class DragonAttackState : AiState
 {
-    public DragonFireBallAttackState(Animator a, Transform self) : base(a, self)
+    bool attack;
+    string triggerName;
+    Transform target;
+    public DragonAttackState(Transform transform, string trigger, Animator a, Transform self) : base(a, self)
     {
+        this.triggerName = trigger;
+        this.target = transform;
     }
-
     public override void SetAnimation()
     {
-        throw new NotImplementedException();
+        animator.SetTrigger(triggerName);
+        attack = true;
     }
-
     public override AiState SwitchState()
     {
-        throw new NotImplementedException();
-    }
-}
-public class DragonTailAttackState : AiState
-{
-    public DragonTailAttackState(Animator a, Transform self) : base(a, self)
-    {
-    }
+        if (attack)
+            return new DragonFightState(target, animator, selfTransform);
 
-    public override void SetAnimation()
-    {
-        throw new NotImplementedException();
-    }
 
-    public override AiState SwitchState()
-    {
-        throw new NotImplementedException();
+        return this;
     }
 }
 public class DragonDizzyState : AiState
@@ -504,6 +528,11 @@ public static class DragonStateCommon
         selfBody.LookAt(bodyFaceDirection.WithoutY(0.75f));
         //2. 看向對方
         selfHead.LookAt(target);
+    }
+
+    public static float RandonAttackScale()
+    {
+        return UnityEngine.Random.Range(3f, 10f);
     }
 }
 #endregion

@@ -20,6 +20,6 @@ public class DragonManager : MonoBehaviour
     }
     public void GetHurt(DamageData damageData)
     {
-        aiState = new UsaoHurtState(transform.GetComponent<Animator>(), transform, damageData);
+        //aiState = new UsaoHurtState(transform.GetComponent<Animator>(), transform, damageData);
     }
 }

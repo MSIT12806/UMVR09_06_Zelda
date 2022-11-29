@@ -113,7 +113,7 @@ public class MainCharacterState : MonoBehaviour
         //攻擊位移
         if (bAttackMove)// && (currentAnimation.IsName("Attack01"))
         {
-            transform.Translate(new Vector3(0, 0, 1)*0.15f);
+            transform.Translate(new Vector3(0, 0, 1) * 0.15f);
         }
         else
         {
@@ -171,7 +171,7 @@ public class MainCharacterState : MonoBehaviour
         Debug.DrawLine(transform.position, transform.position + transform.forward * 10f);
 
         var IK = GetComponent<IKController>();
-        if (currentAnimation.IsName("Fast run") || currentAnimation.IsName("Attack02 1")|| currentAnimation.IsName("Attack02 2"))
+        if (currentAnimation.IsName("Fast run") || currentAnimation.IsName("Attack02 1") || currentAnimation.IsName("Attack02 2"))
             IK.Weight_Up = 0;
         else
             IK.SetWeight_Up(1);
@@ -215,84 +215,19 @@ public class MainCharacterState : MonoBehaviour
 
     public void AttackSpeedChange(float f)
     {
-        animator.SetFloat("attackSpeed", f * 1.5f *1.5f);
+        animator.SetFloat("attackSpeed", f * 1.5f * 1.5f);
         //print(231321213);
     }
 
     public void AnimationAttack(int attackType)
     {
         if (attackType == 1)
-            AttackDetection(transform, 140, 3.2f, 10f, HitType.light);
+            NpcCommon.AttackDetection(transform.position, transform.forward, 0.5f, 140, 3.2f, 10f, HitType.light);
         if (attackType == 2)
-            AttackDetection(transform, 140, 3.2f, 10f, HitType.Heavy);
+            NpcCommon.AttackDetection(transform.position, transform.forward, 1.0f, 140, 3.2f, 10f, HitType.Heavy);
     }
 
     public LayerMask LY;
-    public void AttackDetection(Transform attackObj, float angle, float distance, float damage, HitType hitType)//攻擊範圍偵測
-    {
-        List<GameObject> npcList = ObjectManager.Npcs;
-        Transform nowNpc;
-        for (int i = 0; i < npcList.Count; i++)
-        {
-            nowNpc = npcList[i].transform;
-
-
-            Vector3 vec = nowNpc.position - transform.position;
-            vec.y = 0;
-            if (distance > Mathf.Sqrt(Mathf.Pow(vec.x, 2) + Mathf.Pow(vec.z, 2)))
-            {
-                vec.Normalize();
-                float fDot = Vector3.Dot(attackObj.forward, vec);
-                if (fDot > 1) fDot = 1;
-                if (fDot < -1) fDot = -1;
-
-                float fThetaRadian = Mathf.Acos(fDot);
-                float fThetaDegree = fThetaRadian * Mathf.Rad2Deg;
-                //print(fThetaDegree);
-                if (fThetaDegree <= angle / 2)
-                {
-                    var attackReturn = nowNpc.gameObject.GetComponent<Npc>();
-                    attackReturn.GetHurt(new DamageData(transform, damage, hitType));
-                    //print(true);
-                }
-                //else print(false);
-            }
-            //else print(false);
-        }
-
-        
-
-        //print("Attack");
-        //HashSet<Transform> hitInfoList = new HashSet<Transform>();
-        //RaycastHit[] hitInfos;
-        //for (int i = 0; i <= angle / 2; i += 5)
-        //{
-
-        //    hitInfos = Physics.RaycastAll(transform.position + (Vector3.up * 0.6f), Quaternion.Euler(0, i, 0) * transform.forward, distance, LY);//1 << LayerMask.NameToLayer("NPC")
-        //    for (int j = 0; j < hitInfos.Length; j++)
-        //    {
-
-        //        //if(hitInfos[j].transform.tag == "Npc")
-        //        hitInfoList.Add(hitInfos[j].transform);
-        //    }
-
-        //    hitInfos = Physics.RaycastAll(transform.position + (Vector3.up * 0.6f), Quaternion.Euler(0, -i, 0) * transform.forward, distance, LY);
-        //    for (int j = 0; j < hitInfos.Length; j++)
-        //    {
-        //        //if (hitInfos[j].transform.tag == "Npc")
-        //        hitInfoList.Add(hitInfos[j].transform);
-        //    }
-        //}
-        //if (hitInfoList.Count > 0)
-        //{
-        //    foreach (Transform i in hitInfoList)
-        //    {
-        //        var attackReturn = i.gameObject.GetComponent<Npc>();
-        //        print(i.transform);
-        //        attackReturn.GetHurt(new DamageData(transform, 10f, HitType.light));
-        //    }
-        //}
-    }
     //private void OnDrawGizmos()
     //{
     //    for (int i = 0; i <= 55; i += 5)

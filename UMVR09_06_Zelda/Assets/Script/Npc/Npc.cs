@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.Characters.ThirdPerson;
 
 [RequireComponent(typeof(Collider))]
-public class Npc : MonoBehaviour, IHp
+public class Npc : MonoBehaviour
 {
     // Start is called before the first frame update
 
@@ -21,9 +22,11 @@ public class Npc : MonoBehaviour, IHp
 
     public bool collide;
     public bool OnGround;
+    IHp stateManager;
     void Start()
     {
         nextPosition = this.transform.position;
+        stateManager = ObjectManager.StateManagers[this.gameObject.GetInstanceID()];
     }
 
     // Update is called once per frame
@@ -33,6 +36,7 @@ public class Npc : MonoBehaviour, IHp
         collide = StaticCollision();
         NpcCollision();
         LerpToNextPosition();
+        FreeFall();
     }
     void FixedUpdate()
     {
@@ -60,16 +64,10 @@ public class Npc : MonoBehaviour, IHp
         return DamageData.NoDamage;
     }
     public void GetHurt(DamageData damageData)
-    { 
-        var u = transform.GetComponent<UsaoManager>();
-        u.GetHurt(damageData);
-
-        var golem = transform.GetComponent<GolemManager>();
-        golem.GetHurt(damageData);
+    {
+        stateManager.GetHurt(damageData);
     }
-    [SerializeField] float hp;
-    public float Hp { get { return hp; } set { hp = value; } }
-
+    public float Hp;
     public float Fever;
     public int FeverTimes;
 
@@ -158,8 +156,40 @@ public class Npc : MonoBehaviour, IHp
             return false;
         }
     }
+    public Vector3 initVel;
+    float terrainHeight = float.MinValue;
+    public bool grounded;
+    void FreeFall()
+    {
+        terrainHeight = TerrainY();
+        if (!grounded)
+        {
+            grounded = !EasyFalling.Fall(transform, ref initVel, EndingYValue: terrainHeight);
+            nextPosition = transform.position;
+        }
 
+        SetAnimationGroundedParameter();
+    }
 
+    private void SetAnimationGroundedParameter()
+    {
+        var a = transform.GetComponent<Animator>();
+        if (grounded && !a.GetBool("Grounded"))
+        {
+            a.SetBool("Grounded", UnityEngine.Random.value * UnityEngine.Random.value > 0.8f);
+        }
+    }
+
+    float TerrainY()
+    {
+        RaycastHit hitInfo;
+        if (Physics.Raycast(transform.position + (Vector3.up * 1f), Vector3.down, out hitInfo, 5f, terrainLayer))
+        {
+            return hitInfo.point.y;
+        }
+
+        return float.MinValue;
+    }
     //private void OnDrawGizmos()
     //{
     //    //檢查球射線是否有交點
