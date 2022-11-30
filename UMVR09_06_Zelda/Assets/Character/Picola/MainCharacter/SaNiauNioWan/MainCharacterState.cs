@@ -222,9 +222,9 @@ public class MainCharacterState : MonoBehaviour
     public void AnimationAttack(int attackType)
     {
         if (attackType == 1)
-            NpcCommon.AttackDetection(transform.position, transform.forward, 0.5f, 140, 3.2f, 10f, HitType.light, transform.forward);
+            NpcCommon.AttackDetection(transform.position, transform.forward, 140, 3.2f, new DamageData(10f, transform.forward, HitType.light, DamageStateInfo.NormalAttack));
         if (attackType == 2)
-            NpcCommon.AttackDetection(transform.position, transform.forward, 1.0f, 140, 3.2f, 10f, HitType.Heavy, transform.forward);
+            NpcCommon.AttackDetection(transform.position, transform.forward, 140, 3.2f, new DamageData(10f, transform.forward, HitType.Heavy, DamageStateInfo.NormalAttack));
     }
 
     public LayerMask LY;

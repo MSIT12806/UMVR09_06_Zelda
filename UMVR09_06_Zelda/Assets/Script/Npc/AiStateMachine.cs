@@ -534,23 +534,24 @@ public abstract class GolemBaseState : AiState
         animator = a;
         selfTransform = self;
         armor = max_armor;
-        npcData = selfTransform.GetComponent<Npc>();    }
+        npcData = selfTransform.GetComponent<Npc>();
+    }
 }
 public class GolemIdleState : GolemBaseState
 {
     float attackDistance = 5f;
-    Npc npcData;
+    //Npc npcData;
     Transform target;
     public GolemIdleState(Transform t, Animator a, Transform self, float armor, NpcHelper nh) : base(a, self, armor, nh)
     {
         target = t;
-        npcData = selfTransform.GetComponent<Npc>();
+        //npcData = selfTransform.GetComponent<Npc>();
     }
     public override void SetAnimation()
     {
         if (getHit != null)
         {
-                        Debug.Log($"before {npcData.Hp}");
+            Debug.Log($"before {npcData.Hp}");
             npcData.Hp -= getHit.Damage / 10;
             Debug.Log($"after {npcData.Hp}");
             getHit = null;
@@ -622,7 +623,7 @@ public class GolemChaseState : GolemBaseState
     {
         if (getHit != null)
         {
-            npcData.Hp -= GolemDamageData.Damage / 10;
+            npcData.Hp -= getHit.Damage / 10;
             getHit = null;
         }
     }
@@ -666,7 +667,7 @@ public class GolemWeakState : GolemBaseState
 
         if (getHit != null)
         {
-            npcData.Hp -= GolemDamageData.Damage / 10;
+            npcData.Hp -= getHit.Damage / 10;
             armor -= 1;
             getHit = null;
         }
@@ -698,7 +699,7 @@ public class GolemArmorBreakState : GolemBaseState
     Transform target;
     float time;
 
-    //Npc npcData;
+    Npc npcData;
     public GolemArmorBreakState(Transform t, Animator a, Transform self, NpcHelper nh) : base(a, self, 0, nh)
     {
         target = t;
@@ -712,7 +713,7 @@ public class GolemArmorBreakState : GolemBaseState
         if (getHit != null)
         {
             animator.SetTrigger("getHit");
-            npcData.Hp -= GolemDamageData.Damage;
+            npcData.Hp -= getHit.Damage;
             getHit = null;
         }
 
@@ -737,7 +738,7 @@ public class GolemArmorBreakState : GolemBaseState
 public class GolemAttackState : GolemBaseState
 {
     Transform target;
-    //Npc npcData;
+    Npc npcData;
     public GolemAttackState(Transform t, Animator a, Transform self, float armor, NpcHelper npcHelper) : base(a, self, armor, npcHelper)
     {
         target = t;
@@ -773,10 +774,10 @@ public class GolemAttackState : GolemBaseState
 public class GolemSkillState : GolemBaseState
 {
     Transform target;
-    //Npc npcData;
+    Npc npcData;
     public GolemSkillState(Transform t, Animator a, Transform self, NpcHelper nh) : base(a, self, 0, nh)
     {
-       //npcData = selfTransform.GetComponent<Npc>();
+        //npcData = selfTransform.GetComponent<Npc>();
         target = t;
     }
 
