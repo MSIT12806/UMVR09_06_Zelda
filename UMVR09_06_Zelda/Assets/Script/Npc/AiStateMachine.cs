@@ -85,7 +85,7 @@ public class UsaoFightState : AiState
         int count = GetChasingNpcCount();
         //if (distance <= 5 && UnityEngine.Random.value >= 0.75) return new AttackState(animator, selfTransform);
         if (distance > 5) return new UsaoChaseState(target, animator, selfTransform, this, npcHelper);
-
+        else if (distance <= 2 && UnityEngine.Random.value > 0.9) return new UsaoAttackState(animator, selfTransform, this, npcHelper);
         return this;
     }
 
@@ -210,11 +210,12 @@ public class UsaoAttackState : AiState
         //0. 如果我被攻擊
         if (getHit != null) return new UsaoHurtState(animator, selfTransform, getHit, fightState, npcHelper);
 
-        return this;
+        return fightState;
     }
 
     public override void SetAnimation()
     {
+        animator.SetTrigger("attack");
         //  throw new NotImplementedException();
     }
 
