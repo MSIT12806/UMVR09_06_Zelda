@@ -10,7 +10,7 @@ public class ObjectManager : MonoBehaviour
     public static Dictionary<int, GameObject> NpcsAlive;//碰撞偵測、攻擊判定用。
     public static Dictionary<int, GameObject> NpcsDead;
     public static List<GameObject> Statics;
-    public static Dictionary<int, IHp> StateManagers = new Dictionary<int, IHp>();
+    public static Dictionary<int, NpcHelper> StateManagers = new Dictionary<int, NpcHelper>();
     public static HashSet<AiState> ChasingNpc;
     public static Transform MainCharacter;
     public Transform MyCharacter;

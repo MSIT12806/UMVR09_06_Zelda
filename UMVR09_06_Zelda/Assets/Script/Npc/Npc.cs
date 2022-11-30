@@ -22,8 +22,7 @@ public class Npc : MonoBehaviour
 
     public bool collide { get; set; }
     public bool OnGround;
-    IHp stateManager;
-    NpcHelper npcHelper;
+    NpcHelper stateManager;
     public float Hp;
     public float Fever;
     public int FeverTimes;

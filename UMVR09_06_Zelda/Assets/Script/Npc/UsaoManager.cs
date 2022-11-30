@@ -9,16 +9,32 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
     AiState aiState;
     Npc npc;
     Animator animator;
+
+    #region all aistate
+    public UsaoIdleState usaoIdleState;
+    public UsaoFightState usaoFightState;
+    public UsaoChaseState usaoChaseState;
+    public UsaoAttackState usaoAttackState;
+    public UsaoHurtState usaoHurtState;
+    public UsaoDeathState usaoDeathState;
+    #endregion
     public float Hp { get => npc.Hp; set => npc.Hp = value; }
     void Awake()
     {
-        print(GetInstanceID());
         ObjectManager.StateManagers.Add(this.gameObject.GetInstanceID(), this);
         animator = transform.GetComponent<Animator>();
     }
     void Start()
     {
-        aiState = new UsaoIdleState(ObjectManager.MainCharacter, ObjectManager.MainCharacter.GetComponent<PicoState>(), animator, transform);
+        var picoState = ObjectManager.MainCharacter.GetComponent<PicoState>();
+        usaoIdleState = new UsaoIdleState(ObjectManager.MainCharacter, picoState, animator, transform, this);
+        usaoFightState = new UsaoFightState(ObjectManager.MainCharacter, animator, transform, this);
+        //usaoChaseState = 
+        //    usaoAttackState
+        //    usaoHurtState
+        //    usaoDeathState
+
+        aiState = usaoIdleState;
         npc = transform.GetComponent<Npc>();
     }
 
@@ -31,8 +47,7 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
     }
     public void GetHurt(DamageData damageData)
     {
-        var f = new UsaoFightState(ObjectManager.MainCharacter, animator, transform);
-        aiState = new UsaoHurtState(animator, transform, damageData, f);
+        aiState = new UsaoHurtState(animator, transform, damageData, usaoFightState, this);
     }
     public float forward;
     public Vector3 trunDirection;
