@@ -33,6 +33,7 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
     }
     void Start()
     {
+        npc = transform.GetComponent<Npc>();
         var picoState = ObjectManager.MainCharacter.GetComponent<PicoState>();
         usaoIdleState = new UsaoIdleState(ObjectManager.MainCharacter, picoState, animator, transform, this);
         usaoFightState = new UsaoFightState(ObjectManager.MainCharacter, animator, transform, this);
@@ -42,7 +43,6 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
         //    usaoDeathState
 
         aiState = usaoIdleState;
-        npc = transform.GetComponent<Npc>();
     }
 
     // Update is called once per frame
@@ -78,7 +78,7 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
     public Vector3 trunDirection;
     public void Move()
     {
-        animator.SetFloat("forward", forward);
+        //animator.SetFloat("forward", forward);
     }
 
     public void Turn()
