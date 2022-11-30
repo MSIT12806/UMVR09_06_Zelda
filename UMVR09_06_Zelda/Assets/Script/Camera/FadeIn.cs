@@ -20,7 +20,7 @@ public class FadeIn : MonoBehaviour
         time += Time.deltaTime;
         if (time > 1)
         {
-            newAlpha = fadeImage.color.a - 0.01f;
+            newAlpha = fadeImage.color.a - 0.05f;
             fadeImage.color = new Color(fadeImage.color.r, fadeImage.color.g, fadeImage.color.b, newAlpha);
         }
     }

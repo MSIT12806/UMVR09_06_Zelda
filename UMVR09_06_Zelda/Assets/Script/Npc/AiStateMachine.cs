@@ -79,13 +79,13 @@ public class UsaoFightState : AiState
         //0. 如果我被攻擊
         var npc = selfTransform.GetComponent<Npc>();
         if (getHit != null) return new UsaoHurtState(animator, selfTransform, getHit, this, npcHelper);
-        if (npc.Hp <= 0) return new UsaoDeathState(animator, selfTransform, npcHelper);
+        if (npc.Hp <= 0) return new UsaoDeathState(animator, selfTransform, npcHelper, getHit);
 
         var distance = Vector3.Distance(target.position, selfTransform.position);
         int count = GetChasingNpcCount();
         //if (distance <= 5 && UnityEngine.Random.value >= 0.75) return new AttackState(animator, selfTransform);
         if (distance > 5) return new UsaoChaseState(target, animator, selfTransform, this, npcHelper);
-
+        else if (distance <= 2 && UnityEngine.Random.value > 0.9) return new UsaoAttackState(animator, selfTransform, this, npcHelper);
         return this;
     }
 
@@ -129,7 +129,7 @@ public class UsaoChaseState : AiState
     float attackRange = 5f;
     Vector3 direction;
     AiState fightState;
-    public UsaoChaseState(Transform alertObject, Animator a, Transform self, AiState fightStat, NpcHelper nh) : base(a, self, nh)
+    public UsaoChaseState(Transform alertObject, Animator a, Transform self, AiState fightState, NpcHelper nh) : base(a, self, nh)
     {
         alertTarget = alertObject;
         animator.SetBool("notReach", true);
@@ -210,11 +210,12 @@ public class UsaoAttackState : AiState
         //0. 如果我被攻擊
         if (getHit != null) return new UsaoHurtState(animator, selfTransform, getHit, fightState, npcHelper);
 
-        return this;
+        return fightState;
     }
 
     public override void SetAnimation()
     {
+        animator.SetTrigger("attack");
         //  throw new NotImplementedException();
     }
 
@@ -241,8 +242,9 @@ public class UsaoHurtState : AiState
         if (npc.Hp > 0 && anInfo.normalizedTime > 0.9f)
             return fightState;        //回到 FightState
         if (npc.Hp <= 0)
-            return new UsaoDeathState(animator, selfTransform, npcHelper);
+            return new UsaoDeathState(animator, selfTransform, npcHelper, getHit);
 
+        getHit = null;
         return this;
 
     }
@@ -256,7 +258,6 @@ public class UsaoHurtState : AiState
             {
                 deadTime = 0f;
                 animator.SetTrigger("toFlog");
-                getHit = null;
                 Debug.Log("Stop FLOGINGGGGG!!!!!!");
             }
         }
@@ -264,7 +265,6 @@ public class UsaoHurtState : AiState
         {
             deadTime = 0f;
         }
-        getHit = null;
     }
     private void DoOnce()
     {
@@ -279,17 +279,23 @@ public class UsaoHurtState : AiState
             else
                 animator.Play("GetHit.SwordAndShieldImpact01", 0);
             npc.nextPosition = selfTransform.position + getHit.Force;
-            getHit = null;
 
             return;
         }
         if (getHit.Hit == HitType.Heavy)
         {
-            animator.Play("GetHit.Flying Back Death", 0);
+            if (UnityEngine.Random.value >= 0.5)
+            {
+                animator.CrossFade("GetHit.Die01_SwordAndShield", 0.2f, 0);
+            }
+            else
+            {
+                animator.Play("GetHit.Flying Back Death", 0);
+                getHit.Force.y = 0.75f;
+            }
             animator.SetBool("Grounded", false);
             npc.grounded = false;
-            npc.initVel = getHit.Force * 0.2f;
-            npc.initVel.y = UnityEngine.Random.Range(0.3f, 0.8f);
+            npc.initVel = getHit.Force;
         }
 
         //if (NpcData.Hp < 0.0001f)
@@ -305,20 +311,20 @@ public class UsaoHurtState : AiState
 public class UsaoDeathState : AiState
 {
     int deathTime;
-    public UsaoDeathState(Animator a, Transform self, NpcHelper nh) : base(a, self, nh)
+    public UsaoDeathState(Animator a, Transform self, NpcHelper nh, DamageData damageData) : base(a, self, nh)
     {
-        var currentInfo = animator.GetCurrentAnimatorStateInfo(0);
-        if (currentInfo.IsName("GetHit.Flying Back Death")) return;
+
+        deathTime = Time.frameCount;
+        if (damageData.Hit == HitType.Heavy) return;
         if (UnityEngine.Random.value >= 0.5f)
             a.Play("GetHit.Standing React Death Right");
         else
             a.Play("GetHit.Standing React Death Left");
-        deathTime = Time.frameCount;
     }
 
     public override void SetAnimation()
     {
-        if (Time.frameCount > deathTime + 60)
+        if (Time.frameCount > deathTime + 180)
         {
             selfTransform.gameObject.SetActive(false);
         }
@@ -456,6 +462,14 @@ public class DragonAttackState : AiState
     {
         animator.SetTrigger(triggerName);
         attack = true;
+        //if (getHit != null)
+        //{
+        //    if (npcHelper.Hp <= 0)
+        //    {
+        //        animator.Play("Die");
+        //    }
+        //}
+
     }
     public override AiState SwitchState()
     {
@@ -537,7 +551,7 @@ public abstract class GolemBaseState : AiState
         animator = a;
         selfTransform = self;
         armor = max_armor;
-        npcData = selfTransform.GetComponent<Npc>();    
+        npcData = selfTransform.GetComponent<Npc>();
     }
 }
 public class GolemIdleState : GolemBaseState
@@ -599,7 +613,7 @@ public class GolemIdleState : GolemBaseState
             return new GolemRoarState(target, animator, selfTransform, npcHelper);
         }
         //切至Dead (血量歸0
-        if(npcData.Hp < 0.0001f)
+        if (npcData.Hp < 0.0001f)
         {
             animator.SetTrigger("Dead");
             return new GolemDeadState(target, animator, selfTransform, npcHelper);
@@ -696,7 +710,7 @@ public class GolemWeakState : GolemBaseState
         if (showWeaknessTime > WeakTime)
         {
             animator.SetBool("ShowWeakness", false);
-            return new GolemIdleState(target, animator, selfTransform, armor ,npcHelper);
+            return new GolemIdleState(target, animator, selfTransform, armor, npcHelper);
         }
         //Armor被擊破 切至ArmorBreak
         if (armor <= 0)
@@ -883,7 +897,7 @@ public class GolemRoarState : GolemBaseState
         if (finish)
         {
             Debug.Log("back to idle");
-            
+
             return new GolemIdleState(target, animator, selfTransform, armor, npcHelper);
         }
         throw new NotImplementedException();
