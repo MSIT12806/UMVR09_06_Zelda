@@ -5,15 +5,15 @@ using UnityEngine;
 public class GolemManager : MonoBehaviour, NpcHelper
 {
     AiState aiState;
-
-    public float Hp { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-
+    Npc npc;
+    public float Hp { get => npc.Hp; set => npc.Hp = value; }
     // Start is called before the first frame update
     Animator animator;
     void Awake()
     {
         ObjectManager.StateManagers.Add(this.gameObject.GetInstanceID(), this);
         animator = transform.GetComponent<Animator>();
+        npc = transform.GetComponent<Npc>();
     }
     void Start()
     {
