@@ -12,6 +12,9 @@ public class Throw : MonoBehaviour
         Bomb,
     }
 
+    [SerializeField] LayerMask terrainLayer;
+    DamageData SiKaStone;
+
     private Vector3 start_pos;
     private Vector3 current_pos;
     private Vector3 start_vel;
@@ -30,9 +33,9 @@ public class Throw : MonoBehaviour
     public GameObject SwordEffect;
     private Vector3 itemEffect_pos;
     public GameObject ItemEffect_obj;
-    private float Speed =0.25f;
-    private float vertical =0.2f;
-    private Vector3 Gravity = new Vector3(0,-1,0);
+    public float Speed =0.25f;
+    public float vertical =0.2f;
+    //private Vector3 Gravity = new Vector3(0,-1,0);
 
     Animator animator;
     public float coldTime = 10.0f;
@@ -193,7 +196,7 @@ public class Throw : MonoBehaviour
         //當前速度 = 初始速度
         vel = start_vel;
 
-        //Debug.Log(face);
+        initVel = vel;
 
         //阻力 = - 初始速度 * 0.X
         resistance = -(vel) * 0.05f;
@@ -207,14 +210,16 @@ public class Throw : MonoBehaviour
         {
             //下一位置 = 當前位置 + 當前速度
             //當前位置 = 下一位置
-            current_pos = ThrowItem.position + vel;
+            //current_pos = ThrowItem.position + vel;
             //物體移動到當前位置
-            ThrowItem.position = current_pos;
+            //ThrowItem.position = current_pos;
 
             //下一速度 = 當前速度 + 重力 * Time.Deltatime + 阻力 * Time.Deltatime
-            next_vel = vel + Gravity * Time.deltaTime + resistance * Time.deltaTime;
+            //next_vel = vel + Gravity * Time.deltaTime + resistance * Time.deltaTime;
             //當前速度 = 下一速度
-            vel = next_vel;
+            //vel = next_vel;
+
+            FreeFall();
         }
     }
     public void EndThrow() //物件刪除
@@ -230,18 +235,25 @@ public class Throw : MonoBehaviour
         Object o = Resources.Load(Explode);
         ItemEffect_obj = Instantiate((GameObject)o);
 
-        if (ItemEffect_obj.name == "Obj_Ice(Clone)") 
-        {
-            Vector3 vec = itemEffect_pos;
-            vec.y = 0;
-            ItemEffect_obj.transform.position = vec;
-        }
-        else 
-        {
+        //if (ItemEffect_obj.name == "Obj_Ice(Clone)") 
+        //{
+        //    Vector3 vec = itemEffect_pos;
+        //    vec.y = 0;
+        //    ItemEffect_obj.transform.position = vec;
+        //}
+        //else 
+        //{
             ItemEffect_obj.transform.position = itemEffect_pos;
-        }
+        //}
+
+        NpcCommon.AttackDetection(itemEffect_pos, ItemEffect_obj.transform.forward, 360.0f, 2.7f, SiKaStone);
     }
 
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.green;
+    //    Gizmos.DrawWireSphere(itemEffect_pos, 2.7f);
+    //}
     void DestroyItem(float t,string destroyEffect) 
     {
         if (timer > t)
@@ -251,6 +263,29 @@ public class Throw : MonoBehaviour
             GameObject go = Instantiate((GameObject)o);
             go.transform.position = itemEffect_pos;
         }
+    }
+
+    public Vector3 initVel;
+    float terrainHeight = float.MinValue;
+    public bool grounded;
+    void FreeFall()
+    {
+        terrainHeight = TerrainY();
+        if (!grounded)
+        {
+            grounded = !EasyFalling.Fall(ThrowItem, ref initVel, EndingYValue: terrainHeight);
+        }
+    }
+
+    float TerrainY()
+    {
+        RaycastHit hitInfo;
+        if (Physics.Raycast(ThrowItem.position + (Vector3.up * 1f), Vector3.down, out hitInfo, 5f, terrainLayer))
+        {
+            return hitInfo.point.y;
+        }
+
+        return float.MinValue;
     }
 
     /*
