@@ -17,7 +17,7 @@ public class GolemManager : MonoBehaviour, NpcHelper
     }
     void Start()
     {
-        aiState = new GolemIdleState(ObjectManager.MainCharacter, transform.GetComponent<Animator>(), transform, 50f, this);
+        aiState = new GolemIdleState(ObjectManager.MainCharacter, animator, transform, 50f, this);
     }
 
     // Update is called once per frame
@@ -28,8 +28,7 @@ public class GolemManager : MonoBehaviour, NpcHelper
     }
     public void GetHurt(DamageData damageData)
     {
-        var send = GetComponent<AiState>();
-        send.getHit = damageData;
+        aiState.getHit = damageData;
         //aiState = new UsaoHurtState(transform.GetComponent<Animator>(), transform, damageData);
     }
 
