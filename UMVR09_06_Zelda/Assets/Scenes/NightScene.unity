@@ -8957,6 +8957,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   nextPosition: {x: 0, y: 0, z: 0}
+  gameState: 0
   OnGround: 0
   Hp: 50
   Fever: 0
@@ -13476,7 +13477,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   terrainLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   RightHandThrow_pos: {fileID: 2066026360}
   Sword: {fileID: 246191087}
   SwordEffect: {fileID: 8771972551907702446}

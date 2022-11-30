@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Throw : MonoBehaviour
 {
-    private enum Item 
+    private enum Item
     {
         Apple,
         TimeStop,
@@ -33,8 +33,8 @@ public class Throw : MonoBehaviour
     public GameObject SwordEffect;
     private Vector3 itemEffect_pos;
     public GameObject ItemEffect_obj;
-    public float Speed =0.25f;
-    public float vertical =0.2f;
+    public float Speed = 0.25f;
+    public float vertical = 0.2f;
     //private Vector3 Gravity = new Vector3(0,-1,0);
 
     Animator animator;
@@ -50,7 +50,7 @@ public class Throw : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (CanThrow==true) 
+        if (CanThrow == true)
         {
             if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Alpha4))
             {
@@ -70,15 +70,15 @@ public class Throw : MonoBehaviour
                 }
             }
         }
-        if (isStartTime) 
+        if (isStartTime)
         {
             OnThrow();
             CDTimer();
         }
-        
+
         if (ItemEffect_obj != null)
         {
-            if(useItem == Item.Ice) DestroyItem(3.5f, "CFXR3 Hit Ice B (Air)");
+            if (useItem == Item.Ice) DestroyItem(3.5f, "CFXR3 Hit Ice B (Air)");
         }
 
     }
@@ -197,11 +197,12 @@ public class Throw : MonoBehaviour
         vel = start_vel;
 
         initVel = vel;
-
+        print(initVel);
         //阻力 = - 初始速度 * 0.X
         resistance = -(vel) * 0.05f;
 
         isThrowing = true;
+        grounded = false;
     }
 
     public void OnThrow()  //每幀物件運動
@@ -243,10 +244,10 @@ public class Throw : MonoBehaviour
         //}
         //else 
         //{
-            ItemEffect_obj.transform.position = itemEffect_pos;
+        ItemEffect_obj.transform.position = itemEffect_pos;
         //}
 
-        NpcCommon.AttackDetection(itemEffect_pos, ItemEffect_obj.transform.forward, 360.0f, 2.7f, SiKaStone);
+        NpcCommon.AttackDetection(itemEffect_pos, ItemEffect_obj.transform.forward, 360.0f, 2.7f, false, new DamageData(10, Vector3.zero, HitType.Heavy, new DamageStateInfo(DamageState.Ice, 3)));
     }
 
     //private void OnDrawGizmos()
@@ -254,7 +255,7 @@ public class Throw : MonoBehaviour
     //    Gizmos.color = Color.green;
     //    Gizmos.DrawWireSphere(itemEffect_pos, 2.7f);
     //}
-    void DestroyItem(float t,string destroyEffect) 
+    void DestroyItem(float t, string destroyEffect)
     {
         if (timer > t)
         {
