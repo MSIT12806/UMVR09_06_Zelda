@@ -314,7 +314,7 @@ public class UsaoHurtState : AiState
             animator.SetBool("Grounded", false);
             npc.grounded = false;
             npc.initVel = getHit.Force * 0.2f;
-            npc.initVel.y = UnityEngine.Random.Range(1, 3);
+            npc.initVel.y = UnityEngine.Random.Range(0.3f, 0.8f);
         }
 
         //if (NpcData.Hp < 0.0001f)

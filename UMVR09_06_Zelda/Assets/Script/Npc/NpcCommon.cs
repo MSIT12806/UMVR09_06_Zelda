@@ -6,10 +6,9 @@ public static class NpcCommon
 {
     public static void AttackDetection(Vector3 attackCenter, Vector3 attackForward, float repelDistance, float angle, float distance, float damage, HitType hitType, Vector3 force = default(Vector3))//攻擊範圍偵測
     {
-        List<GameObject> npcList = ObjectManager.Npcs;
-        for (int i = 0; i < npcList.Count; i++)
+        foreach (var item in ObjectManager.NpcsAlive.Values)
         {
-            Transform nowNpc = npcList[i].transform;
+            Transform nowNpc = item.transform;
 
             if (force == default(Vector3))
             {

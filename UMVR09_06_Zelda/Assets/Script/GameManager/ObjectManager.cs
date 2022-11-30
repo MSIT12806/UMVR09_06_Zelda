@@ -7,7 +7,8 @@ using UnityEngine;
 
 public class ObjectManager : MonoBehaviour
 {
-    public static List<GameObject> Npcs;
+    public static Dictionary<int, GameObject> NpcsAlive;//碰撞偵測、攻擊判定用。
+    public static Dictionary<int, GameObject> NpcsDead;
     public static List<GameObject> Statics;
     public static Dictionary<int, IHp> StateManagers = new Dictionary<int, IHp>();
     public static HashSet<AiState> ChasingNpc;
@@ -21,15 +22,15 @@ public class ObjectManager : MonoBehaviour
         stageOneSpawnPoint = transform.FindAnyChild<Transform>("StageOneSpawnPoint");
         print(stageOneSpawnPoint.position);
         GenUsao(stageOneSpawnPoint.position, 10, 50);
-        Npcs = GameObject.FindGameObjectsWithTag("Npc").ToList();
-        Npcs.AddRange(GameObject.FindGameObjectsWithTag("Player"));
+        NpcsAlive = GameObject.FindGameObjectsWithTag("Npc").ToDictionary(i => i.GetInstanceID());
+        GameObject.FindGameObjectsWithTag("Player").ToList().ForEach(i => NpcsAlive.Add(i.GetInstanceID(), i));
 
         Statics = GameObject.FindGameObjectsWithTag("Terrain").ToList();
         ChasingNpc = new HashSet<AiState>();
 
         MainCharacter = MyCharacter;
         //    UsaoResources = new List<GameObject>(300);
-
+        NpcsDead = new Dictionary<int, GameObject>();
 
     }
     Transform stageOneSpawnPoint;

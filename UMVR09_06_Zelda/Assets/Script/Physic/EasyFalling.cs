@@ -7,7 +7,7 @@ public static class EasyFalling
     public static bool Fall(Transform transform, ref Vector3 initialVelocityPerFrame, int framePerSecond = 30, float EndingYValue = 0)
     {
         //float gPerFrame = 9.8f / framePerSecond;
-        float gPerFrame = 5f / framePerSecond;
+        float gPerFrame = 1f / framePerSecond;
         initialVelocityPerFrame.y -= gPerFrame;
 
         transform.position += initialVelocityPerFrame;
