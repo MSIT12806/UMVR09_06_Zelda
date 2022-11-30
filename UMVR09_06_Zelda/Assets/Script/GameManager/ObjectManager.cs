@@ -32,6 +32,12 @@ public class ObjectManager : MonoBehaviour
         //    UsaoResources = new List<GameObject>(300);
         NpcsDead = new Dictionary<int, GameObject>();
 
+        var meshs = transform.GetComponentsInChildren<MeshRenderer>();
+        foreach (var item in meshs)
+        {
+            item.enabled = false;
+        }
+
     }
     Transform stageOneSpawnPoint;
     public void GenUsao(Vector3 position, float range, int normalNumber)
