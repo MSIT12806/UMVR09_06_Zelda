@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class NpcCommon
 {
-    public static void AttackDetection(Vector3 attackCenter, Vector3 attackForward, float angle, float distance, DamageData damageData)//攻擊範圍偵測
+    public static void AttackDetection(Vector3 attackCenter, Vector3 attackForward, float angle, float distance,bool repelDirection, DamageData damageData)//攻擊範圍偵測
     {
         foreach (var item in ObjectManager.NpcsAlive.Values)
         {
@@ -13,11 +13,11 @@ public static class NpcCommon
 
 
             var vec = nowNpc.position - attackCenter;
-            vec.y = 0;
+
             if (distance > Vector3.Distance(nowNpc.position.WithoutY(), attackCenter.WithoutY()))
             {
                 vec.Normalize();
-                float fDot = Vector3.Dot(attackForward, vec);
+                float fDot = Vector3.Dot(attackForward, vec.WithoutY());
                 if (fDot > 1) fDot = 1;
                 if (fDot < -1) fDot = -1;
 
@@ -25,6 +25,10 @@ public static class NpcCommon
                 float fThetaDegree = fThetaRadian * Mathf.Rad2Deg;
                 if (fThetaDegree <= angle / 2)
                 {
+                    if (!repelDirection)
+                    {
+                        damageData.Force = vec.normalized * 0.15f;
+                    }
                     var attackReturn = nowNpc.gameObject.GetComponent<Npc>();
                     attackReturn.GetHurt(damageData);
                 }

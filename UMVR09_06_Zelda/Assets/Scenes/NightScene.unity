@@ -7959,7 +7959,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &682616426
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13494,7 +13494,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   terrainLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   RightHandThrow_pos: {fileID: 2066026360}
   Sword: {fileID: 246191087}
   SwordEffect: {fileID: 8771972551907702446}
@@ -19472,7 +19472,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1734996675
 MonoBehaviour:
   m_ObjectHideFlags: 0
