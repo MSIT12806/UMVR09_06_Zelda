@@ -20,12 +20,16 @@ public class Npc : MonoBehaviour
 
     public Vector3 nextPosition;
 
-    public bool collide;
+    public bool collide { get; set; }
     public bool OnGround;
     IHp stateManager;
+    NpcHelper npcHelper;
+    public float Hp;
+    public float Fever;
+    public int FeverTimes;
     void Start()
     {
-        nextPosition = this.transform.position;
+        nextPosition = Vector3.zero;
         stateManager = ObjectManager.StateManagers[this.gameObject.GetInstanceID()];
     }
 
@@ -37,11 +41,6 @@ public class Npc : MonoBehaviour
         NpcCollision();
         LerpToNextPosition();
         FreeFall();
-    }
-    void FixedUpdate()
-    {
-
-
     }
     private void LerpToNextPosition()
     {
@@ -68,9 +67,6 @@ public class Npc : MonoBehaviour
     {
         stateManager.GetHurt(damageData);
     }
-    public float Hp;
-    public float Fever;
-    public int FeverTimes;
 
 
     bool StaticCollision(float radius = 0.23f, float maxDistance = 0.3f)
@@ -88,7 +84,7 @@ public class Npc : MonoBehaviour
             //var concactVec = hitPointXZ - nowPosXZ;
             //nextPosition = transform.position - concactVec;
             //print(hitInfo.transform.name);
-            nextPosition = transform.position;//取消程式位移
+            nextPosition = Vector3.zero;//取消程式位移
             return hitSomethingWhenMoving;//回報碰撞，取消美術位移
             ////Npc 之間碰撞
             //if (hitObject.tag =="Npc")
@@ -166,7 +162,7 @@ public class Npc : MonoBehaviour
         if (!grounded)
         {
             grounded = !EasyFalling.Fall(transform, ref initVel, EndingYValue: terrainHeight);
-            nextPosition = transform.position;
+            nextPosition = Vector3.zero;
         }
 
         SetAnimationGroundedParameter();

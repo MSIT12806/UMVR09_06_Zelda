@@ -29,7 +29,6 @@ public class GolemManager : MonoBehaviour,IHp
     public void GetHurt(DamageData damageData)
     {
         var send = GetComponent<AiState>();
-        send.GolemDamageData = damageData;
         send.getHit = damageData;
         //aiState = new UsaoHurtState(transform.GetComponent<Animator>(), transform, damageData);
     }
