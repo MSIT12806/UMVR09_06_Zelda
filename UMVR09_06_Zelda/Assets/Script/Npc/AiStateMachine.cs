@@ -570,7 +570,7 @@ public class GolemIdleState : GolemBaseState
         //Debug.Log("111111");
         if (getHit != null)
         {
-            //Debug.Log($"before {npcData.Hp}");
+            Debug.Log($"before {npcData.Hp}");
             npcData.Hp -= getHit.Damage / 10;
             getHit = null;
         }

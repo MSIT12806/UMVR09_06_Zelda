@@ -8640,6 +8640,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PBR_Golem (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 509284550586355046, guid: 5752f796e3e1390418365a49a0e90a84,
+        type: 3}
+      propertyPath: m_TagString
+      value: Npc
+      objectReference: {fileID: 0}
     - target: {fileID: 512624819460519044, guid: 5752f796e3e1390418365a49a0e90a84,
         type: 3}
       propertyPath: m_RootOrder
@@ -8957,8 +8962,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   nextPosition: {x: 0, y: 0, z: 0}
+  gameState: 0
   OnGround: 0
-  Hp: 50
+  Hp: 20
   Fever: 0
   FeverTimes: 0
   initVel: {x: 0, y: 0, z: 0}
@@ -8976,6 +8982,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.8, y: 4.1, z: 2.85}
   m_Center: {x: 0, y: 2.05, z: 0.22}
+--- !u!114 &812130049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 812130045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9693cf64279264240938d0f3206ee1b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &814105232
 PrefabInstance:
   m_ObjectHideFlags: 0
