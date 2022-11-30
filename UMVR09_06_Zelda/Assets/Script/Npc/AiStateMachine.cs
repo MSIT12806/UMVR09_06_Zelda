@@ -292,11 +292,11 @@ public class UsaoHurtState : AiState
             else
             {
                 animator.Play("GetHit.Flying Back Death", 0);
+                getHit.Force.y = 0.75f;
             }
             animator.SetBool("Grounded", false);
             npc.grounded = false;
-            npc.initVel = getHit.Force * 0.1f;
-            npc.initVel.y = UnityEngine.Random.Range(0.3f, 2f);
+            npc.initVel = getHit.Force ;
         }
 
         //if (NpcData.Hp < 0.0001f)
