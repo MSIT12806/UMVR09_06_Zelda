@@ -19,7 +19,7 @@ public class Npc : MonoBehaviour
     Collider collider;
 
     public Vector3 nextPosition;
-
+    public GameState gameState;
     public bool collide { get; set; }
     public bool OnGround;
     NpcHelper stateManager;

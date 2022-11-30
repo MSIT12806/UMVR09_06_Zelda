@@ -129,7 +129,7 @@ public class UsaoChaseState : AiState
     float attackRange = 5f;
     Vector3 direction;
     AiState fightState;
-    public UsaoChaseState(Transform alertObject, Animator a, Transform self, AiState fightStat, NpcHelper nh) : base(a, self, nh)
+    public UsaoChaseState(Transform alertObject, Animator a, Transform self, AiState fightState, NpcHelper nh) : base(a, self, nh)
     {
         alertTarget = alertObject;
         animator.SetBool("notReach", true);
@@ -285,11 +285,18 @@ public class UsaoHurtState : AiState
         }
         if (getHit.Hit == HitType.Heavy)
         {
-            animator.Play("GetHit.Flying Back Death", 0);
+            if (UnityEngine.Random.value >= 0.5)
+            {
+                animator.Play("GetHit.Die01_SwordAndShield", 0);
+            }
+            else
+            {
+                animator.Play("GetHit.Flying Back Death", 0);
+            }
             animator.SetBool("Grounded", false);
             npc.grounded = false;
-            npc.initVel = getHit.Force * 0.2f;
-            npc.initVel.y = UnityEngine.Random.Range(0.3f, 0.8f);
+            npc.initVel = getHit.Force * 0.1f;
+            npc.initVel.y = UnityEngine.Random.Range(0.3f, 2f);
         }
 
         //if (NpcData.Hp < 0.0001f)
@@ -457,6 +464,14 @@ public class DragonAttackState : AiState
     {
         animator.SetTrigger(triggerName);
         attack = true;
+        //if (getHit != null)
+        //{
+        //    if (npcHelper.Hp <= 0)
+        //    {
+        //        animator.Play("Die");
+        //    }
+        //}
+
     }
     public override AiState SwitchState()
     {
@@ -679,7 +694,7 @@ public class GolemWeakState : GolemBaseState
         if (showWeaknessTime > WeakTime)
         {
             animator.SetBool("ShowWeakness", false);
-            return new GolemIdleState(target, animator, selfTransform, armor ,npcHelper);
+            return new GolemIdleState(target, animator, selfTransform, armor, npcHelper);
         }
         //Armor被擊破 切至ArmorBreak
         if (armor <= 0)

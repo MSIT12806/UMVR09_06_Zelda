@@ -17,11 +17,17 @@ public class ObjectManager : MonoBehaviour
     //    public static List<GameObject> UsaoResources;
     //處理 npc 碰撞、偵測、迴避、群體運動等行為。
     //chase: 檢查目前會攻擊玩家的角色有幾人，並適時切換 npc 狀態為 around or close。
+    Transform stageOneSpawnPoint;
+    Transform stageTwoSpawnPoint;
+    Transform stageThreeSpawnPoint;
+    Transform stageFourSpawnPoint;
     private void Awake()
     {
         stageOneSpawnPoint = transform.FindAnyChild<Transform>("StageOneSpawnPoint");
-        print(stageOneSpawnPoint.position);
-        GenUsao(stageOneSpawnPoint.position, 10, 50);
+        stageTwoSpawnPoint = transform.FindAnyChild<Transform>("StageTwoSpawnPoint");
+        stageThreeSpawnPoint = transform.FindAnyChild<Transform>("StageThreeSpawnPoint");
+        stageFourSpawnPoint = transform.FindAnyChild<Transform>("StageFourSpawnPoint");
+        
         NpcsAlive = GameObject.FindGameObjectsWithTag("Npc").ToDictionary(i => i.GetInstanceID());
         GameObject.FindGameObjectsWithTag("Player").ToList().ForEach(i => NpcsAlive.Add(i.GetInstanceID(), i));
 
@@ -32,9 +38,24 @@ public class ObjectManager : MonoBehaviour
         //    UsaoResources = new List<GameObject>(300);
         NpcsDead = new Dictionary<int, GameObject>();
 
+        Stage(1);
+
     }
-    Transform stageOneSpawnPoint;
-    public void GenUsao(Vector3 position, float range, int normalNumber)
+    public void Stage(int stage)
+    {
+        switch (stage)
+        {
+            case 1:
+                GenUsao(stageOneSpawnPoint.position, 10, 50, stage);
+                return;
+            case 2:
+                GenUsao(stageTwoSpawnPoint.position, 10, 50, stage);
+                return;
+            default:
+                return;
+        }
+    }
+    public void GenUsao(Vector3 position, float range, int normalNumber, int stage)
     {
         for (int i = 0; i < normalNumber; i++)
         {
@@ -42,6 +63,7 @@ public class ObjectManager : MonoBehaviour
             usao.transform.position = position + new Vector3(UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1), 1, UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1));
             var npc = usao.GetComponent<Npc>();
             npc.Hp = 50;
+            npc.gameState = (GameState)stage;
             Instantiate(usao);
         }
     }
