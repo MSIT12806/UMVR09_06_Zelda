@@ -118,7 +118,6 @@ public class SwordLight_Main : MonoBehaviour
     {
         if (stateInfo.IsName("Attack02 1") && stateInfo.normalizedTime > 0.4f)
         {
-            Debug.Log(stateInfo.normalizedTime);
             AttackEffectHeavy03.SetActive(true);
         }
         else if (stateInfo.IsName("Attack02 1") == false)

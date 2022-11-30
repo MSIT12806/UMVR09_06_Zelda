@@ -5,8 +5,8 @@ using UnityEngine;
 public class DragonManager : MonoBehaviour, NpcHelper
 {
     AiState aiState;
-
-    public float Hp { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    Npc npc;
+    public float Hp { get => npc.Hp; set => npc.Hp = value; }
 
     // Start is called before the first frame update
     Animator animator;
@@ -14,6 +14,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
     {
         ObjectManager.StateManagers.Add(this.gameObject.GetInstanceID(), this);
         animator = transform.GetComponent<Animator>();
+        npc = transform.GetComponent<Npc>();
     }
     void Start()
     {
@@ -29,6 +30,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
     }
     public void GetHurt(DamageData damageData)
     {
+        Hp -= damageData.Damage;
         //aiState = new UsaoHurtState(transform.GetComponent<Animator>(), transform, damageData);
     }
 
