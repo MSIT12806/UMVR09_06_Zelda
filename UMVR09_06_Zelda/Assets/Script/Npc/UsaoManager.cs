@@ -5,6 +5,13 @@ using UnityEngine;
 
 public class UsaoManager : MonoBehaviour, IHp, NpcHelper
 {
+
+    //test
+    //public float flyTime = 0;
+    //public bool knock = false;
+    //public float flyHigh = 0;
+    //public float flyDis = 0;
+
     //---Ai---//
     AiState aiState;
     Npc npc;
@@ -44,7 +51,25 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
         aiState.SetAnimation();
         aiState = aiState.SwitchState();
         Move();
+        //-------------------
+        //if (knock)
+        //{
+        //    flyTime += Time.deltaTime;
+        //    if(flyTime >= 0.3) knock = false;
+        //    if (flyTime <= 0.15) flyHigh = flyHigh * 2;
+        //    else flyHigh = flyHigh / 2;
+
+        //    transform.Translate(0, flyHigh, -0.2f);
+        //}
+        //--------------------
     }
+
+    //public void ToKnock(float a)//test
+    //{
+    //    flyHigh = a;
+    //    knock = true;
+    //}
+
     public void GetHurt(DamageData damageData)
     {
         aiState = new UsaoHurtState(animator, transform, damageData, usaoFightState, this);
