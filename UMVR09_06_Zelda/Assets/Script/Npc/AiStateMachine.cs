@@ -287,7 +287,7 @@ public class UsaoHurtState : AiState
         {
             if (UnityEngine.Random.value >= 0.5)
             {
-                animator.Play("GetHit.Die01_SwordAndShield", 0);
+                animator.CrossFade("GetHit.Die01_SwordAndShield",0.2f, 0);
             }
             else
             {
