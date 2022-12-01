@@ -247,7 +247,7 @@ public class Throw : MonoBehaviour
         ItemEffect_obj.transform.position = itemEffect_pos;
         //}
 
-        NpcCommon.AttackDetection(itemEffect_pos, ItemEffect_obj.transform.forward, 360.0f, 2.7f, false, new DamageData(10, Vector3.zero, HitType.Heavy, new DamageStateInfo(DamageState.Ice, 3)));
+        NpcCommon.AttackDetection(itemEffect_pos, ItemEffect_obj.transform.forward, 360.0f, 2.7f, false, new DamageData(10, Vector3.zero, HitType.Heavy, new DamageStateInfo(DamageState.Ice, 3)), "Npc");
     }
 
     //private void OnDrawGizmos()

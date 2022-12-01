@@ -229,6 +229,7 @@ public class UsaoAttackState : AiState
     public override void SetAnimation()
     {
         animator.SetTrigger("attack");
+        NpcCommon.AttackDetection(selfTransform.position, selfTransform.forward, 5f, 2f, false, new DamageData(5, Vector3.zero, HitType.light), "Player");
     }
 
 }
@@ -293,12 +294,13 @@ public class UsaoHurtState : AiState
                 animator.Play("GetHit.SwordAndShieldImpact02", 0);
             else
                 animator.Play("GetHit.SwordAndShieldImpact01", 0);
-            npc.nextPosition = selfTransform.position + getHit.Force;
 
+            npc.nextPosition = selfTransform.position + getHit.Force;
             return;
         }
         if (getHit.Hit == HitType.Heavy)
         {
+
             if (UnityEngine.Random.value >= 0.5)
             {
                 animator.CrossFade("GetHit.Die01_SwordAndShield", 0.2f, 0);
@@ -308,9 +310,8 @@ public class UsaoHurtState : AiState
                 animator.Play("GetHit.Flying Back Death", 0);
                 getHit.Force.y = 0.75f;
             }
-            animator.SetBool("Grounded", false);
-            npc.grounded = false;
-            npc.initVel = getHit.Force;
+            Debug.Log(getHit.Force);
+            npc.KnockOff(getHit.Force);
         }
 
         //if (NpcData.Hp < 0.0001f)
@@ -440,8 +441,10 @@ public class DragonFlyState : AiState
 {
     Transform target;
     float dazeSeconds;
-    public DragonFlyState(Transform target , Animator a, Transform self, NpcHelper nh) : base(a, self, nh)
+    Transform head;
+    public DragonFlyState(Transform target, Animator a, Transform self, NpcHelper nh) : base(a, self, nh)
     {
+        head = self.FindAnyChild<Transform>("Head");
         this.target = target;
         //不再受到任何攻擊，除非將其擊落(丟炸彈)
         animator.SetBool("Fly", true);
@@ -454,10 +457,18 @@ public class DragonFlyState : AiState
     }
     public override void SetAnimation()
     {
+        DragonStateCommon.Stare(selfTransform, head, target);
     }
 
     public override AiState SwitchState()
     {
+        dazeSeconds -= Time.deltaTime;
+        // 距離 >10 || <5 追
+        // 發呆完吐火球
+        if (dazeSeconds <= 0)
+        {
+            animator.SetTrigger("FireHit");
+        }
         RefreshDazeTime();
         return this;
     }
@@ -468,22 +479,6 @@ public class DragonFlyChaseState : AiState
 * 1. 保持 5~10公尺的距離， 太遠或太近就使用這個狀態來移動。
 */
     public DragonFlyChaseState(Animator a, Transform self, NpcHelper nh) : base(a, self, nh)
-    {
-    }
-
-    public override void SetAnimation()
-    {
-        throw new NotImplementedException();
-    }
-
-    public override AiState SwitchState()
-    {
-        throw new NotImplementedException();
-    }
-}
-public class DragonFlyAttackState : AiState
-{
-    public DragonFlyAttackState(Animator a, Transform self, NpcHelper nh) : base(a, self, nh)
     {
     }
 
@@ -590,7 +585,8 @@ public static class DragonStateCommon
         bodyFaceDirection.y = selfBody.position.y;
         selfBody.LookAt(bodyFaceDirection.WithoutY(0.75f));
         //2. 看向對方
-        selfHead.LookAt(target);
+        /*高度怪怪的*/
+        selfHead.right = -(target.position.WithoutY(3f) - selfHead.position);
     }
 
     public static float RandonAttackScale()

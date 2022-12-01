@@ -48,6 +48,8 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
     // Update is called once per frame
     void Update()
     {
+        if (aiState == null) print("aiState is null");
+
         aiState.SetAnimation();
         aiState = aiState.SwitchState();
         Move();
