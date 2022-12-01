@@ -400,7 +400,7 @@ public class DragonFightState : AiState
     }
     public override void SetAnimation()
     {
-        DragonStateCommon.Stare(selfTransform.FindAnyChild<Transform>("Root_Pelvis"), head, target);
+        DragonStateCommon.Stare(selfTransform, head, target);
     }
 
     public override AiState SwitchState()
@@ -456,7 +456,7 @@ public class DragonFlyState : AiState
     }
     public override void SetAnimation()
     {
-        DragonStateCommon.Stare(selfTransform.FindAnyChild<Transform>("Root_Pelvis"), head, target);
+        DragonStateCommon.Stare(selfTransform, head, target);
     }
 
     public override AiState SwitchState()
@@ -580,9 +580,9 @@ public static class DragonStateCommon
     public static void Stare(Transform selfBody, Transform selfHead, Transform target)
     {
         //1. 身體面對對方
-        var bodyFaceDirection = target.position - selfBody.position;
+        var bodyFaceDirection = target.position;
         bodyFaceDirection.y = selfBody.position.y;
-        selfBody.right =- bodyFaceDirection.WithoutY(0.75f);
+        selfBody.LookAt(bodyFaceDirection.WithoutY(0.75f));
         //2. 看向對方
         /*高度怪怪的*/
         selfHead.right = -(target.position.WithoutY(3f) - selfHead.position);
