@@ -67,6 +67,7 @@ public class UsaoFightState : AiState
 {
     //2. 可能會轉換
     Transform target;
+    Transform head;
     Vector3 direction;
 
     float dazeSeconds;
@@ -74,8 +75,7 @@ public class UsaoFightState : AiState
     {
         target = t;
         animator.SetBool("findTarget", true);
-        self.GetComponent<IKController>().LookAtObj = target;
-
+        head = selfTransform.FindAnyChild<Transform>("Character1_Head");
         RefreshDazeTime();
     }
     public override AiState SwitchState()
@@ -109,12 +109,14 @@ public class UsaoFightState : AiState
     public override void SetAnimation()
     {
         //1. 總是面對主角
+        AiStateCommon.Stare(selfTransform, head, target.position, 1.6f);
+
         //最大值 +-1 == 每次轉45度
-        direction = target.position - selfTransform.position;
-        var sign = Math.Sign(Vector3.Dot(direction, selfTransform.right));
-        var degree = sign * Vector3.Angle(selfTransform.forward, direction);
-        if (degree > 5 || degree < -5)
-            selfTransform.Rotate(new Vector3(0, Math.Sign(degree), 0));
+        //direction = target.position - selfTransform.position;
+        //var sign = Math.Sign(Vector3.Dot(direction, selfTransform.right));
+        //var degree = sign * Vector3.Angle(selfTransform.forward, direction);
+        //if (degree > 5 || degree < -5)
+        //    selfTransform.Rotate(new Vector3(0, Math.Sign(degree), 0));
         TauntRandomly();
 
     }
@@ -385,7 +387,7 @@ public class DragonFightState : AiState
     Transform target;
     Transform head;
     float flyHpLimit;
-    float attackWait = DragonStateCommon.RandonAttackScale();
+    float attackWait = AiStateCommon.RandonAttackScale();
     float dazeSeconds;
     public DragonFightState(Transform t, Animator a, Transform self, NpcHelper nh) : base(a, self, nh)
     {
@@ -401,7 +403,7 @@ public class DragonFightState : AiState
     }
     public override void SetAnimation()
     {
-        DragonStateCommon.Stare(selfTransform, head, target);
+        AiStateCommon.Stare(selfTransform, head, target.position, 1.6f);
     }
 
     public override AiState SwitchState()
@@ -457,7 +459,7 @@ public class DragonFlyState : AiState
     }
     public override void SetAnimation()
     {
-        DragonStateCommon.Stare(selfTransform, head, target);
+        AiStateCommon.Stare(selfTransform, head, target.position, 1.6f);
     }
 
     public override AiState SwitchState()
@@ -576,17 +578,15 @@ public class DragonDeathState : AiState
         throw new NotImplementedException();
     }
 }
-public static class DragonStateCommon
+public static class AiStateCommon
 {
-    public static void Stare(Transform selfBody, Transform selfHead, Transform target)
+    public static void Stare(Transform selfBody, Transform selfHead, Vector3 target, float headHeight)
     {
         //1. 身體面對對方
-        var bodyFaceDirection = target.position;
-        bodyFaceDirection.y = selfBody.position.y;
-        selfBody.LookAt(bodyFaceDirection.WithoutY(0.75f));
+        var bodyFaceDirection = target;
+        selfBody.LookAt(bodyFaceDirection);
         //2. 看向對方
-        /*高度怪怪的*/
-        selfHead.right = -(target.position.WithoutY(3f) - selfHead.position);
+        selfHead.LookAt(bodyFaceDirection.WithY(headHeight));
     }
 
     public static float RandonAttackScale()

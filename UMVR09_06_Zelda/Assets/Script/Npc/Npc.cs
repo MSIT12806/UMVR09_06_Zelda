@@ -49,7 +49,7 @@ public class Npc : MonoBehaviour
     {
         if (nextPosition != Vector3.zero)
         {
-            if (transform.position.WithoutY().AlmostEqual(nextPosition, 0.03f) == nextPosition.WithoutY())
+            if (transform.position.WithY().AlmostEqual(nextPosition, 0.03f) == nextPosition.WithY())
             {
                 transform.position = nextPosition;
                 nextPosition = Vector3.zero;

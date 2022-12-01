@@ -16,7 +16,7 @@ public static class EasyFalling
         {
             initialVelocityPerFrame = Vector3.zero;
             Debug.Log(initialVelocityPerFrame);
-            transform.position = transform.position.WithoutY(EndingYValue);
+            transform.position = transform.position.WithY(EndingYValue);
             return false;
         }
         return true;

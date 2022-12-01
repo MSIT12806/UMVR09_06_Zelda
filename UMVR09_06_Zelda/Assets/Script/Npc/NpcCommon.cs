@@ -16,10 +16,10 @@ public static class NpcCommon
 
             var vec = nowNpc.position - attackCenter;
 
-            if (distance > Vector3.Distance(nowNpc.position.WithoutY(), attackCenter.WithoutY()))
+            if (distance > Vector3.Distance(nowNpc.position.WithY(), attackCenter.WithY()))
             {
                 vec.Normalize();
-                float fDot = Vector3.Dot(attackForward, vec.WithoutY());
+                float fDot = Vector3.Dot(attackForward, vec.WithY());
                 if (fDot > 1) fDot = 1;
                 if (fDot < -1) fDot = -1;
 
