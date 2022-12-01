@@ -5,7 +5,7 @@ using System.Globalization;
 using UnityEngine;
 using UnityStandardAssets.Characters.ThirdPerson;
 
-public class MainCharacterState : MonoBehaviour
+public class MainCharacterState : MonoBehaviour, NpcHelper
 {
     public float attackMoveDis;
     public bool bAttackMove = false;
@@ -30,14 +30,20 @@ public class MainCharacterState : MonoBehaviour
     public Transform newPlace;
     Npc npc;
     ThirdPersonCharacter tpc;
-    private bool canBeHit;
+    private bool canBeHit = true;
 
+    public float Hp { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    void Awake()
+    {
+        ObjectManager.StateManagers.Add(this.gameObject.GetInstanceID(), this);
+    }
     // Start is called before the first frame update
     void Start()
     {
         npc = GetComponent<Npc>();
         tpc = GetComponent<ThirdPersonCharacter>();
         IK = GetComponent<IKController>();
+
     }
 
     // Update is called once per frame
@@ -55,20 +61,7 @@ public class MainCharacterState : MonoBehaviour
             animator.SetTrigger("died");
         }
 
-        if (canBeHit)
-        {
-            //被打
-            if (Input.GetKeyDown(KeyCode.L)) //改成 l & h 區分輕擊 & 重擊
-            {
-                animator.SetTrigger("getHit");
-                npc.Hp -= 20;//test
-                             // 被擊飛
-            }
-            if (Input.GetKeyDown(KeyCode.H))
-            {
 
-            }
-        }
 
 
         if (animator.IsInTransition(0) == false) //判斷是否在過度動畫
@@ -115,7 +108,7 @@ public class MainCharacterState : MonoBehaviour
             animator.SetBool("attack02", false);
         }
 
-        
+
         if (currentAnimation.IsName("Fast run") || currentAnimation.IsName("Attack02 1") || currentAnimation.IsName("Attack02 2"))
         {
             IK.Weight_Up = 0;
@@ -189,9 +182,9 @@ public class MainCharacterState : MonoBehaviour
     public void AnimationAttack(int attackType)
     {
         if (attackType == 1)
-            NpcCommon.AttackDetection(transform.position, transform.forward, 140, 3.2f, true, new DamageData(10f, transform.forward * 0.10f, HitType.light, DamageStateInfo.NormalAttack));
+            NpcCommon.AttackDetection(transform.position, transform.forward, 140, 3.2f, true, new DamageData(10f, transform.forward * 0.10f, HitType.light, DamageStateInfo.NormalAttack), "Npc");
         if (attackType == 2)
-            NpcCommon.AttackDetection(transform.position, transform.forward, 140, 3.2f, true, new DamageData(10f, transform.forward * 0.15f, HitType.Heavy, DamageStateInfo.NormalAttack));
+            NpcCommon.AttackDetection(transform.position, transform.forward, 140, 3.2f, true, new DamageData(10f, transform.forward * 0.15f, HitType.Heavy, DamageStateInfo.NormalAttack), "Npc");
     }
 
     #region  OnDrawGizmos 註解
@@ -236,6 +229,33 @@ public class MainCharacterState : MonoBehaviour
     public void AttackMoveOff() //...建議如果是事件，加個綴字。
     {
         bAttackMove = false;
+    }
+
+    public void GetHurt(DamageData damageData)
+    {
+        if (!canBeHit) return;
+        npc.Hp -= damageData.Damage;
+
+        //被打
+        if (damageData.Hit == HitType.light) //改成 l & h 區分輕擊 & 重擊
+        {
+            animator.SetTrigger("getHit");
+        }
+        else if (damageData.Hit == HitType.Heavy)
+        {
+            animator.SetTrigger("getHeavyHit");
+            npc.KnockOff(damageData.Force);
+        }
+    }
+
+    public void Move()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Turn(Vector3 direction)
+    {
+        throw new NotImplementedException();
     }
 }
 

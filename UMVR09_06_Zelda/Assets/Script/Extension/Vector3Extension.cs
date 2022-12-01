@@ -17,7 +17,7 @@ public static class Vector3Extension
         }
 
     }
-    public static Vector3 WithoutY(this Vector3 val, float yVal = 0)
+    public static Vector3 WithY(this Vector3 val, float yVal = 0)
     {
         var r = val;
         r.y = yVal;

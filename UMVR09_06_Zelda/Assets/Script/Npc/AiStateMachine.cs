@@ -67,6 +67,7 @@ public class UsaoFightState : AiState
 {
     //2. 可能會轉換
     Transform target;
+    Transform head;
     Vector3 direction;
 
     float dazeSeconds;
@@ -74,8 +75,7 @@ public class UsaoFightState : AiState
     {
         target = t;
         animator.SetBool("findTarget", true);
-        self.GetComponent<IKController>().LookAtObj = target;
-
+        head = selfTransform.FindAnyChild<Transform>("Character1_Head");
         RefreshDazeTime();
     }
     public override AiState SwitchState()
@@ -109,12 +109,14 @@ public class UsaoFightState : AiState
     public override void SetAnimation()
     {
         //1. 總是面對主角
+        AiStateCommon.Stare(selfTransform, head, target.position, 1.6f);
+
         //最大值 +-1 == 每次轉45度
-        direction = target.position - selfTransform.position;
-        var sign = Math.Sign(Vector3.Dot(direction, selfTransform.right));
-        var degree = sign * Vector3.Angle(selfTransform.forward, direction);
-        if (degree > 5 || degree < -5)
-            selfTransform.Rotate(new Vector3(0, Math.Sign(degree), 0));
+        //direction = target.position - selfTransform.position;
+        //var sign = Math.Sign(Vector3.Dot(direction, selfTransform.right));
+        //var degree = sign * Vector3.Angle(selfTransform.forward, direction);
+        //if (degree > 5 || degree < -5)
+        //    selfTransform.Rotate(new Vector3(0, Math.Sign(degree), 0));
         TauntRandomly();
 
     }
@@ -229,6 +231,7 @@ public class UsaoAttackState : AiState
     public override void SetAnimation()
     {
         animator.SetTrigger("attack");
+        NpcCommon.AttackDetection(selfTransform.position, selfTransform.forward, 5f, 2f, false, new DamageData(5, Vector3.zero, HitType.light), "Player");
     }
 
 }
@@ -293,12 +296,13 @@ public class UsaoHurtState : AiState
                 animator.Play("GetHit.SwordAndShieldImpact02", 0);
             else
                 animator.Play("GetHit.SwordAndShieldImpact01", 0);
-            npc.nextPosition = selfTransform.position + getHit.Force;
 
+            npc.nextPosition = selfTransform.position + getHit.Force;
             return;
         }
         if (getHit.Hit == HitType.Heavy)
         {
+
             if (UnityEngine.Random.value >= 0.5)
             {
                 animator.CrossFade("GetHit.Die01_SwordAndShield", 0.2f, 0);
@@ -308,9 +312,8 @@ public class UsaoHurtState : AiState
                 animator.Play("GetHit.Flying Back Death", 0);
                 getHit.Force.y = 0.75f;
             }
-            animator.SetBool("Grounded", false);
-            npc.grounded = false;
-            npc.initVel = getHit.Force;
+            Debug.Log(getHit.Force);
+            npc.KnockOff(getHit.Force);
         }
 
         //if (NpcData.Hp < 0.0001f)
@@ -384,7 +387,7 @@ public class DragonFightState : AiState
     Transform target;
     Transform head;
     float flyHpLimit;
-    float attackWait = DragonStateCommon.RandonAttackScale();
+    float attackWait = AiStateCommon.RandonAttackScale();
     float dazeSeconds;
     public DragonFightState(Transform t, Animator a, Transform self, NpcHelper nh) : base(a, self, nh)
     {
@@ -400,7 +403,7 @@ public class DragonFightState : AiState
     }
     public override void SetAnimation()
     {
-        DragonStateCommon.Stare(selfTransform, head, target);
+        AiStateCommon.Stare(selfTransform, head, target.position, 1.6f);
     }
 
     public override AiState SwitchState()
@@ -456,7 +459,7 @@ public class DragonFlyState : AiState
     }
     public override void SetAnimation()
     {
-        DragonStateCommon.Stare(selfTransform, head, target);
+        AiStateCommon.Stare(selfTransform, head, target.position, 1.6f);
     }
 
     public override AiState SwitchState()
@@ -575,17 +578,15 @@ public class DragonDeathState : AiState
         throw new NotImplementedException();
     }
 }
-public static class DragonStateCommon
+public static class AiStateCommon
 {
-    public static void Stare(Transform selfBody, Transform selfHead, Transform target)
+    public static void Stare(Transform selfBody, Transform selfHead, Vector3 target, float headHeight)
     {
         //1. 身體面對對方
-        var bodyFaceDirection = target.position;
-        bodyFaceDirection.y = selfBody.position.y;
-        selfBody.LookAt(bodyFaceDirection.WithoutY(0.75f));
+        var bodyFaceDirection = target;
+        selfBody.LookAt(bodyFaceDirection);
         //2. 看向對方
-        /*高度怪怪的*/
-        selfHead.right = -(target.position.WithoutY(3f) - selfHead.position);
+        selfHead.LookAt(bodyFaceDirection.WithY(headHeight));
     }
 
     public static float RandonAttackScale()
@@ -666,7 +667,8 @@ public class GolemIdleState : GolemBaseState
         //切至Chase (距離玩家 > 攻擊範圍
         if ((target.position - selfTransform.position).magnitude > attackDistance)
         {
-            animator.SetBool("notReach", true);
+            Debug.Log((target.position - selfTransform.position).magnitude);
+            animator.SetBool("NotReach", true);
             return new GolemChaseState(target, animator, selfTransform, npcHelper);
         }
         //切至Roar (血量低於50% //do once
@@ -694,7 +696,7 @@ public class GolemChaseState : GolemBaseState
     {
         //npcData = selfTransform.GetComponent<Npc>();
         target = t;
-        animator.SetBool("notReach", true);
+        //animator.SetBool("notReach", true);
         AddChasingNpc();
     }
 
@@ -709,6 +711,10 @@ public class GolemChaseState : GolemBaseState
 
     public override void SetAnimation()
     {
+        selfTransform.LookAt(target);
+        selfTransform.Translate(0, 0, 0.1f);
+
+
         if (getHit != null)
         {
             npcData.Hp -= getHit.Damage / 10;
@@ -723,11 +729,13 @@ public class GolemChaseState : GolemBaseState
         if (distance <= attackDistance)
         {
             RemoveChasingNpc();
-            animator.SetBool("notReach", false);
+            Debug.Log("Back to idle");
+            animator.SetBool("NotReach", false);
             return new GolemIdleState(target, animator, selfTransform, armor, npcHelper);
         }
         else if (distance > attackDistance)
         {
+            Debug.Log("in chase");
             return this;
         }
 

@@ -21,7 +21,7 @@ public class Npc : MonoBehaviour
     [SerializeField] LayerMask layerMask;
     [SerializeField] LayerMask terrainLayer;
     Collider collider;
-
+    Animator animator;
     public Vector3 nextPosition;
     public GameState gameState;
     public bool collide { get; set; }
@@ -33,6 +33,7 @@ public class Npc : MonoBehaviour
     {
         nextPosition = Vector3.zero;
         stateManager = ObjectManager.StateManagers[this.gameObject.GetInstanceID()];
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -48,7 +49,7 @@ public class Npc : MonoBehaviour
     {
         if (nextPosition != Vector3.zero)
         {
-            if (transform.position.WithoutY().AlmostEqual(nextPosition, 0.03f) == nextPosition.WithoutY())
+            if (transform.position.WithY().AlmostEqual(nextPosition, 0.03f) == nextPosition.WithY())
             {
                 transform.position = nextPosition;
                 nextPosition = Vector3.zero;
@@ -67,7 +68,6 @@ public class Npc : MonoBehaviour
     }
     public void GetHurt(DamageData damageData)
     {
-
         stateManager.GetHurt(damageData);
     }
 
@@ -189,6 +189,14 @@ public class Npc : MonoBehaviour
         }
 
         return float.MinValue;
+    }
+
+    public void KnockOff(Vector3 force)
+    {
+
+        animator.SetBool("Grounded", false);
+        grounded = false;
+        initVel = force;
     }
     //private void OnDrawGizmos()
     //{

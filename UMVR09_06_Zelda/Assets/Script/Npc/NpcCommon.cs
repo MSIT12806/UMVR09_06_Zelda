@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public static class NpcCommon
 {
-    public static void AttackDetection(Vector3 attackCenter, Vector3 attackForward, float angle, float distance,bool repelDirection, DamageData damageData)//攻擊範圍偵測
+    public static void AttackDetection(Vector3 attackCenter, Vector3 attackForward, float angle, float distance,bool repelDirection, DamageData damageData, params string[] tags)//攻擊範圍偵測
     {
-        foreach (var item in ObjectManager.NpcsAlive.Values)
+        var lst = ObjectManager.NpcsAlive.Values.Where(i => tags.Contains(i.tag));
+        foreach (var item in lst)
         {
             Transform nowNpc = item.transform;
 
@@ -14,10 +16,10 @@ public static class NpcCommon
 
             var vec = nowNpc.position - attackCenter;
 
-            if (distance > Vector3.Distance(nowNpc.position.WithoutY(), attackCenter.WithoutY()))
+            if (distance > Vector3.Distance(nowNpc.position.WithY(), attackCenter.WithY()))
             {
                 vec.Normalize();
-                float fDot = Vector3.Dot(attackForward, vec.WithoutY());
+                float fDot = Vector3.Dot(attackForward, vec.WithY());
                 if (fDot > 1) fDot = 1;
                 if (fDot < -1) fDot = -1;
 

@@ -5,11 +5,11 @@ using UnityEngine;
 public class ShootMagic : MonoBehaviour
 {
     public Vector3 force;
-    public float existSeconds;
+    public float existSeconds ;
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -17,9 +17,10 @@ public class ShootMagic : MonoBehaviour
     {
         transform.Translate(force);
         existSeconds -= Time.deltaTime;
-        if (existSeconds <= 0)
+        if (existSeconds <= 0 || Vector3.Distance(transform.position, ObjectManager.MainCharacter.position) < 5)
         {
             gameObject.SetActive(false);
+            NpcCommon.AttackDetection(transform.position, transform.forward, 360f, 5f, false, new DamageData(100, Vector3.zero, HitType.Heavy), "Player");
         }
     }
 }
