@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
@@ -8,7 +9,9 @@ public class MainCharacterState : MonoBehaviour
 {
     public float attackMoveDis;
     public bool bAttackMove = false;
-
+    /// <summary>
+    /// 速度線
+    /// </summary>
     public GameObject focusLine;
     public GameObject Sword;
     public Animator animator;
@@ -20,13 +23,15 @@ public class MainCharacterState : MonoBehaviour
 
 
     IKController IK;
-    float fTimer = 0f;
+    float pressControlTime = 0f;
     bool dodge = false;
     bool frontMove = false;
     float time = 0f;
     public Transform newPlace;
     Npc npc;
     ThirdPersonCharacter tpc;
+    private bool canBeHit;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +43,7 @@ public class MainCharacterState : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //處理美術位移
         currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
         if (currentAnimation.IsName("Attack01") || currentAnimation.IsName("Attack01 0") || currentAnimation.IsName("Attack01 1") || currentAnimation.IsName("Attack01 2") || currentAnimation.IsName("GetHit") || currentAnimation.IsName("Die"))
             tpc.CanRotate = false;
@@ -49,20 +55,21 @@ public class MainCharacterState : MonoBehaviour
             animator.SetTrigger("died");
         }
 
-        //被打
-        if (Input.GetKeyDown(KeyCode.H)) //改成 l & h 區分輕擊 & 重擊
+        if (canBeHit)
         {
-            animator.SetTrigger("getHit");
-            npc.Hp -= 20;//test
-        }
-        else  //???
-        {
-            //滯空時間？
-            if (currentAnimation.IsName("BackFlip2") || currentAnimation.IsName("BackFlip"))
+            //被打
+            if (Input.GetKeyDown(KeyCode.L)) //改成 l & h 區分輕擊 & 重擊
             {
-                animator.SetTrigger("endHit");
+                animator.SetTrigger("getHit");
+                npc.Hp -= 20;//test
+                             // 被擊飛
+            }
+            if (Input.GetKeyDown(KeyCode.H))
+            {
+
             }
         }
+
 
         if (animator.IsInTransition(0) == false) //判斷是否在過度動畫
         {
@@ -79,40 +86,50 @@ public class MainCharacterState : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftControl))
         {
             //fTimer 也不知道這紀錄時間要用來幹嘛阿
-            fTimer += Time.deltaTime;
-            if (fTimer > 0.3)
+            pressControlTime += Time.deltaTime;
+            if (pressControlTime > 0.3)//衝刺
             {
                 Sword.SetActive(false);
-                focusLine.SetActive(true);//???????
+                focusLine.SetActive(true);//速度線
             }
-            animator.SetFloat("dodge", fTimer);
+            animator.SetFloat("dodge", pressControlTime);
         }
-        //和 line 74. 一樣的判斷式，為什麼不寫在一起？
         if (Input.GetKeyUp(KeyCode.LeftControl))
         {
             focusLine.SetActive(false);
             Sword.SetActive(true);
-            fTimer = 0f;
-            animator.SetFloat("dodge", fTimer);
+            pressControlTime = 0f;
+            animator.SetFloat("dodge", pressControlTime);
         }
+        DodgeTranslate();
 
         //攻擊位移
         if (bAttackMove)// && (currentAnimation.IsName("Attack01"))   //何時 bAttackMove 會被改成 true?
         {
             transform.Translate(new Vector3(0, 0, 1) * 0.10f);
         }
-        else
-        {
-            bAttackMove = false;
-        }
 
+        //重攻擊處理
         if (!(currentAnimation.IsName("Attack01") || currentAnimation.IsName("Attack01 0") || currentAnimation.IsName("Attack01 1") || currentAnimation.IsName("Attack01 2")))
         {
             animator.SetBool("attack02", false);
         }
 
-        //增加 按下Lctrl閃避 時的位移距離
-
+        
+        if (currentAnimation.IsName("Fast run") || currentAnimation.IsName("Attack02 1") || currentAnimation.IsName("Attack02 2"))
+        {
+            IK.Weight_Up = 0;
+        }
+        else
+        {
+            IK.SetWeight_Up(1);
+        }
+    }
+    /// <summary>
+    /// 增加 按下Lctrl閃避 時的位移距離
+    /// </summary>
+    private void DodgeTranslate()
+    {
         //何時 dodge 會被改成 true?
         if (dodge)//(Input.GetKeyDown(KeyCode.LeftControl) && (currentAnimation.IsName("Grounded") || currentAnimation.IsName("Front Dodge")))
         {
@@ -124,7 +141,8 @@ public class MainCharacterState : MonoBehaviour
             //上面才有個 fTimer， 這裡又一個 time ，差在哪？
             time += Time.deltaTime;
         }
-        if (time > 0f && time < 0.16f)
+        float dodgeEndingTime = 0.16f;
+        if (time > 0f && time < dodgeEndingTime)
         {
             if (!npc.collide)
             {
@@ -142,32 +160,18 @@ public class MainCharacterState : MonoBehaviour
             dodge = false;
             time = 0f;
         }
-        Debug.DrawLine(transform.position, transform.position + transform.forward * 10f);
-
-        if (currentAnimation.IsName("Fast run") || currentAnimation.IsName("Attack02 1") || currentAnimation.IsName("Attack02 2"))
-        {
-            IK.Weight_Up = 0;
-        }
-        else
-        {
-            IK.SetWeight_Up(1);
-        }
-
-
-        //for (int i = 0; i <= 70; i += 5)//攻擊範圍
-        //{
-        //    Debug.DrawRay(transform.position + (Vector3.up * 0.6f), Quaternion.Euler(0, i, 0) * transform.forward * 3.2f, Color.red);// 
-        //    Debug.DrawRay(transform.position + (Vector3.up * 0.6f), Quaternion.Euler(0, -i, 0) * transform.forward * 3.2f, Color.red);
-        //}
     }
+
     public virtual void LeftMouseClick()
     {
+        //輕攻擊派生技： 由同一個 trigger 串接 不同的輕攻擊動作。
         animator.SetTrigger("attack01");
     }
     public virtual void RightMouseClick()
     {
+        //Simon: 註解自己打
         if (currentAnimation.IsName("Attack01") || currentAnimation.IsName("Attack01 0") || currentAnimation.IsName("Attack01 1") || currentAnimation.IsName("Attack01 2"))
-            animator.SetBool("attack02", true);
+            animator.SetBool("attack02", true); //應該要用trigger...不過  來不及ㄌXD
         else
             animator.SetBool("attack02", false);
     }

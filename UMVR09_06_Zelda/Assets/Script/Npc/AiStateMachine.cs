@@ -400,7 +400,7 @@ public class DragonFightState : AiState
     }
     public override void SetAnimation()
     {
-        DragonStateCommon.Stare(selfTransform, head, target);
+        DragonStateCommon.Stare(selfTransform.FindAnyChild<Transform>("Root_Pelvis"), head, target);
     }
 
     public override AiState SwitchState()
@@ -440,8 +440,10 @@ public class DragonFlyState : AiState
 {
     Transform target;
     float dazeSeconds;
-    public DragonFlyState(Transform target , Animator a, Transform self, NpcHelper nh) : base(a, self, nh)
+    Transform head;
+    public DragonFlyState(Transform target, Animator a, Transform self, NpcHelper nh) : base(a, self, nh)
     {
+        head = self.FindAnyChild<Transform>("Head");
         this.target = target;
         //不再受到任何攻擊，除非將其擊落(丟炸彈)
         animator.SetBool("Fly", true);
@@ -454,10 +456,18 @@ public class DragonFlyState : AiState
     }
     public override void SetAnimation()
     {
+        DragonStateCommon.Stare(selfTransform.FindAnyChild<Transform>("Root_Pelvis"), head, target);
     }
 
     public override AiState SwitchState()
     {
+        dazeSeconds -= Time.deltaTime;
+        // 距離 >10 || <5 追
+        // 發呆完吐火球
+        if (dazeSeconds <= 0)
+        {
+            animator.SetTrigger("FireHit");
+        }
         RefreshDazeTime();
         return this;
     }
@@ -468,22 +478,6 @@ public class DragonFlyChaseState : AiState
 * 1. 保持 5~10公尺的距離， 太遠或太近就使用這個狀態來移動。
 */
     public DragonFlyChaseState(Animator a, Transform self, NpcHelper nh) : base(a, self, nh)
-    {
-    }
-
-    public override void SetAnimation()
-    {
-        throw new NotImplementedException();
-    }
-
-    public override AiState SwitchState()
-    {
-        throw new NotImplementedException();
-    }
-}
-public class DragonFlyAttackState : AiState
-{
-    public DragonFlyAttackState(Animator a, Transform self, NpcHelper nh) : base(a, self, nh)
     {
     }
 
@@ -586,11 +580,12 @@ public static class DragonStateCommon
     public static void Stare(Transform selfBody, Transform selfHead, Transform target)
     {
         //1. 身體面對對方
-        var bodyFaceDirection = target.position;
+        var bodyFaceDirection = target.position - selfBody.position;
         bodyFaceDirection.y = selfBody.position.y;
-        selfBody.LookAt(bodyFaceDirection.WithoutY(0.75f));
+        selfBody.right =- bodyFaceDirection.WithoutY(0.75f);
         //2. 看向對方
-        selfHead.LookAt(target);
+        /*高度怪怪的*/
+        selfHead.right = -(target.position.WithoutY(3f) - selfHead.position);
     }
 
     public static float RandonAttackScale()
