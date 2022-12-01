@@ -667,7 +667,8 @@ public class GolemIdleState : GolemBaseState
         //切至Chase (距離玩家 > 攻擊範圍
         if ((target.position - selfTransform.position).magnitude > attackDistance)
         {
-            animator.SetBool("notReach", true);
+            Debug.Log((target.position - selfTransform.position).magnitude);
+            animator.SetBool("NotReach", true);
             return new GolemChaseState(target, animator, selfTransform, npcHelper);
         }
         //切至Roar (血量低於50% //do once
@@ -695,7 +696,7 @@ public class GolemChaseState : GolemBaseState
     {
         //npcData = selfTransform.GetComponent<Npc>();
         target = t;
-        animator.SetBool("notReach", true);
+        //animator.SetBool("notReach", true);
         AddChasingNpc();
     }
 
@@ -710,6 +711,10 @@ public class GolemChaseState : GolemBaseState
 
     public override void SetAnimation()
     {
+        selfTransform.LookAt(target);
+        selfTransform.Translate(0, 0, 0.1f);
+
+
         if (getHit != null)
         {
             npcData.Hp -= getHit.Damage / 10;
@@ -724,11 +729,13 @@ public class GolemChaseState : GolemBaseState
         if (distance <= attackDistance)
         {
             RemoveChasingNpc();
-            animator.SetBool("notReach", false);
+            Debug.Log("Back to idle");
+            animator.SetBool("NotReach", false);
             return new GolemIdleState(target, animator, selfTransform, armor, npcHelper);
         }
         else if (distance > attackDistance)
         {
+            Debug.Log("in chase");
             return this;
         }
 
