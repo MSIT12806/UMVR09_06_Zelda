@@ -229,6 +229,7 @@ public class UsaoAttackState : AiState
     public override void SetAnimation()
     {
         animator.SetTrigger("attack");
+        NpcCommon.AttackDetection(selfTransform.position, selfTransform.forward, 5f, 2f, false, new DamageData(5, Vector3.zero, HitType.light), "Player");
     }
 
 }
@@ -293,12 +294,13 @@ public class UsaoHurtState : AiState
                 animator.Play("GetHit.SwordAndShieldImpact02", 0);
             else
                 animator.Play("GetHit.SwordAndShieldImpact01", 0);
-            npc.nextPosition = selfTransform.position + getHit.Force;
 
+            npc.nextPosition = selfTransform.position + getHit.Force;
             return;
         }
         if (getHit.Hit == HitType.Heavy)
         {
+
             if (UnityEngine.Random.value >= 0.5)
             {
                 animator.CrossFade("GetHit.Die01_SwordAndShield", 0.2f, 0);
@@ -308,9 +310,8 @@ public class UsaoHurtState : AiState
                 animator.Play("GetHit.Flying Back Death", 0);
                 getHit.Force.y = 0.75f;
             }
-            animator.SetBool("Grounded", false);
-            npc.grounded = false;
-            npc.initVel = getHit.Force;
+            Debug.Log(getHit.Force);
+            npc.KnockOff(getHit.Force);
         }
 
         //if (NpcData.Hp < 0.0001f)
