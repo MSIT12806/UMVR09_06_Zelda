@@ -234,12 +234,12 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     public void GetHurt(DamageData damageData)
     {
         if (!canBeHit) return;
+        npc.Hp -= damageData.Damage;
 
         //被打
         if (damageData.Hit == HitType.light) //改成 l & h 區分輕擊 & 重擊
         {
             animator.SetTrigger("getHit");
-            npc.Hp -= damageData.Damage;
         }
         else if (damageData.Hit == HitType.Heavy)
         {
