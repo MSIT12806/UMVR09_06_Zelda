@@ -27,6 +27,7 @@ public abstract class AiState
     public abstract void SetAnimation();
 }
 
+
 #region Pico Machine
 
 #endregion
@@ -66,27 +67,38 @@ public class UsaoFightState : AiState
 {
     //2. 可能會轉換
     Transform target;
-
     Vector3 direction;
+
+    float dazeSeconds;
     public UsaoFightState(Transform t, Animator a, Transform self, NpcHelper nh) : base(a, self, nh)
     {
         target = t;
         animator.SetBool("findTarget", true);
         self.GetComponent<IKController>().LookAtObj = target;
+
+        RefreshDazeTime();
     }
     public override AiState SwitchState()
     {
-        //0. 如果我被攻擊
-        var npc = selfTransform.GetComponent<Npc>();
+        //如果我被攻擊
         if (getHit != null) return new UsaoHurtState(animator, selfTransform, getHit, this, npcHelper);
-        if (npc.Hp <= 0) return new UsaoDeathState(animator, selfTransform, npcHelper, getHit);
+
+        dazeSeconds -= Time.deltaTime;
+        if (dazeSeconds > 0) return this;
+
 
         var distance = Vector3.Distance(target.position, selfTransform.position);
         int count = GetChasingNpcCount();
-        //if (distance <= 5 && UnityEngine.Random.value >= 0.75) return new AttackState(animator, selfTransform);
         if (distance > 5) return new UsaoChaseState(target, animator, selfTransform, this, npcHelper);
-        else if (distance <= 2 && UnityEngine.Random.value > 0.9) return new UsaoAttackState(animator, selfTransform, this, npcHelper);
+        else if (distance <= 2) return new UsaoAttackState(animator, selfTransform, this, npcHelper);
+
+        RefreshDazeTime();
         return this;
+    }
+
+    public void RefreshDazeTime()
+    {
+        dazeSeconds = UnityEngine.Random.Range(1, 10);
     }
 
     private int GetChasingNpcCount()
@@ -103,11 +115,11 @@ public class UsaoFightState : AiState
         var degree = sign * Vector3.Angle(selfTransform.forward, direction);
         if (degree > 5 || degree < -5)
             selfTransform.Rotate(new Vector3(0, Math.Sign(degree), 0));
-        Taunt();
+        TauntRandomly();
 
     }
 
-    private void Taunt()
+    private void TauntRandomly()
     {
         var aniInfo = animator.GetCurrentAnimatorStateInfo(0);
         var r = UnityEngine.Random.value;
@@ -128,8 +140,8 @@ public class UsaoChaseState : AiState
     Transform alertTarget;
     float attackRange = 5f;
     Vector3 direction;
-    AiState fightState;
-    public UsaoChaseState(Transform alertObject, Animator a, Transform self, AiState fightState, NpcHelper nh) : base(a, self, nh)
+    UsaoFightState fightState;
+    public UsaoChaseState(Transform alertObject, Animator a, Transform self, UsaoFightState fightState, NpcHelper nh) : base(a, self, nh)
     {
         alertTarget = alertObject;
         animator.SetBool("notReach", true);
@@ -197,8 +209,8 @@ public class UsaoChaseState : AiState
 
 public class UsaoAttackState : AiState
 {
-    AiState fightState;
-    public UsaoAttackState(Animator a, Transform self, AiState fightState, NpcHelper nh) : base(a, self, nh)
+    UsaoFightState fightState;
+    public UsaoAttackState(Animator a, Transform self, UsaoFightState fightState, NpcHelper nh) : base(a, self, nh)
     {
         this.fightState = fightState;
     }
@@ -210,24 +222,24 @@ public class UsaoAttackState : AiState
         //0. 如果我被攻擊
         if (getHit != null) return new UsaoHurtState(animator, selfTransform, getHit, fightState, npcHelper);
 
+        fightState.RefreshDazeTime();
         return fightState;
     }
 
     public override void SetAnimation()
     {
         animator.SetTrigger("attack");
-        //  throw new NotImplementedException();
     }
 
 }
 
 public class UsaoHurtState : AiState
 {
-    AiState fightState;
+    UsaoFightState fightState;
     float deadTime;
     Npc npc;
 
-    public UsaoHurtState(Animator a, Transform self, DamageData d, AiState fight, NpcHelper nh) : base(a, self, nh)
+    public UsaoHurtState(Animator a, Transform self, DamageData d, UsaoFightState fight, NpcHelper nh) : base(a, self, nh)
     {
         npc = selfTransform.GetComponent<Npc>();
         getHit = d;
@@ -240,7 +252,10 @@ public class UsaoHurtState : AiState
     {
         var anInfo = animator.GetCurrentAnimatorStateInfo(0);  //判定動畫快播完時，下個動畫的銜接
         if (npc.Hp > 0 && anInfo.normalizedTime > 0.9f)
-            return fightState;        //回到 FightState
+        {
+            fightState.RefreshDazeTime();
+            return fightState;
+        }
         if (npc.Hp <= 0)
             return new UsaoDeathState(animator, selfTransform, npcHelper, getHit);
 
@@ -336,6 +351,7 @@ public class UsaoDeathState : AiState
     }
 }
 #endregion
+
 #region Dragon State Machine
 
 public class DragonIdleState : AiState
@@ -355,8 +371,8 @@ public class DragonIdleState : AiState
         //如果pico 走進該區域， return new DragonFightState();
         var stage = target.GetComponent<PicoState>();
 
-        if ((int)stage.gameState == 3)
-            return new DragonFightState(target, animator, selfTransform, npcHelper);
+        if ((int)stage.gameState == 2)
+            return new DragonFlyState(target, animator, selfTransform, npcHelper);
 
 
         return this;
@@ -369,13 +385,19 @@ public class DragonFightState : AiState
     Transform head;
     float flyHpLimit;
     float attackWait = DragonStateCommon.RandonAttackScale();
+    float dazeSeconds;
     public DragonFightState(Transform t, Animator a, Transform self, NpcHelper nh) : base(a, self, nh)
     {
         target = t;
         head = self.FindAnyChild<Transform>("Head");
-        flyHpLimit = 1000;
+        flyHpLimit = npcHelper.Hp / 2;
+        RefreshDazeTime();
     }
 
+    public void RefreshDazeTime()
+    {
+        dazeSeconds = UnityEngine.Random.Range(1, 10);
+    }
     public override void SetAnimation()
     {
         DragonStateCommon.Stare(selfTransform, head, target);
@@ -386,7 +408,7 @@ public class DragonFightState : AiState
 
         if (npcHelper.Hp < flyHpLimit)
         {
-            return new DragonFlyState(animator, selfTransform, npcHelper);
+            return new DragonFlyState(target, animator, selfTransform, npcHelper);
         }
         if (attackWait > 0)
         {
@@ -410,17 +432,64 @@ public class DragonFightState : AiState
 
     }
 }
+
+/// <summary>
+/// 可以說是 飛翔狀態的 FightState
+/// </summary>
 public class DragonFlyState : AiState
 {
-    public DragonFlyState(Animator a, Transform self, NpcHelper nh) : base(a, self, nh)
+    Transform target;
+    float dazeSeconds;
+    public DragonFlyState(Transform target , Animator a, Transform self, NpcHelper nh) : base(a, self, nh)
     {
+        this.target = target;
         //不再受到任何攻擊，除非將其擊落(丟炸彈)
         animator.SetBool("Fly", true);
         //一直噴火球兒
     }
 
+    public void RefreshDazeTime()
+    {
+        dazeSeconds = UnityEngine.Random.Range(1, 10);
+    }
     public override void SetAnimation()
     {
+    }
+
+    public override AiState SwitchState()
+    {
+        RefreshDazeTime();
+        return this;
+    }
+}
+public class DragonFlyChaseState : AiState
+{
+    /*
+* 1. 保持 5~10公尺的距離， 太遠或太近就使用這個狀態來移動。
+*/
+    public DragonFlyChaseState(Animator a, Transform self, NpcHelper nh) : base(a, self, nh)
+    {
+    }
+
+    public override void SetAnimation()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override AiState SwitchState()
+    {
+        throw new NotImplementedException();
+    }
+}
+public class DragonFlyAttackState : AiState
+{
+    public DragonFlyAttackState(Animator a, Transform self, NpcHelper nh) : base(a, self, nh)
+    {
+    }
+
+    public override void SetAnimation()
+    {
+        throw new NotImplementedException();
     }
 
     public override AiState SwitchState()

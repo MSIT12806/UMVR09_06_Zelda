@@ -10,6 +10,10 @@ public class Npc : MonoBehaviour
     // Start is called before the first frame update
 
     /*
+     * 群體運動？     
+     */
+
+    /*
      * 1. 對 collider 的碰撞偵測與碰撞反應。  記得問老師怎麼處理 npc碰撞 (raycast? 兩兩算距離?)
      * 1.1 幫每個物件設定半徑，畫raycast
      * 1.2 輪巡(容器？)幫每個物件算距離
@@ -21,11 +25,10 @@ public class Npc : MonoBehaviour
     public Vector3 nextPosition;
     public GameState gameState;
     public bool collide { get; set; }
+    public bool Alive { get => Hp > 0;  }
     public bool OnGround;
     NpcHelper stateManager;
     public float Hp;
-    public float Fever;
-    public int FeverTimes;
     void Start()
     {
         nextPosition = Vector3.zero;

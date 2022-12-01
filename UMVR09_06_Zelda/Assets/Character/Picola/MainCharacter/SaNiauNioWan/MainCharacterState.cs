@@ -13,42 +13,49 @@ public class MainCharacterState : MonoBehaviour
     public GameObject Sword;
     public Animator animator;
     public AnimatorStateInfo currentAnimation;
-    private float fTimer = 0f;
+
+
+    public float Fever;
+    public int FeverTimes;
+
+
+    IKController IK;
+    float fTimer = 0f;
     bool dodge = false;
-    Vector3 newPos;
     bool frontMove = false;
     float time = 0f;
     public Transform newPlace;
-    Npc n;
+    Npc npc;
     ThirdPersonCharacter tpc;
     // Start is called before the first frame update
     void Start()
     {
-        Vector3 newPos = transform.position;
-        n = GetComponent<Npc>();
+        npc = GetComponent<Npc>();
         tpc = GetComponent<ThirdPersonCharacter>();
+        IK = GetComponent<IKController>();
     }
 
     // Update is called once per frame
     void Update()
     {
         currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
-        var tpc = this.GetComponent<UnityStandardAssets.Characters.ThirdPerson.ThirdPersonCharacter>();
         if (currentAnimation.IsName("Attack01") || currentAnimation.IsName("Attack01 0") || currentAnimation.IsName("Attack01 1") || currentAnimation.IsName("Attack01 2") || currentAnimation.IsName("GetHit") || currentAnimation.IsName("Die"))
             tpc.CanRotate = false;
         else tpc.CanRotate = true;
-        //if(asi.IsName(nowAsiName))
-        if (Input.GetKeyDown(KeyCode.K))
+
+        //死亡
+        if (npc.Hp <= 0)
         {
             animator.SetTrigger("died");
-            //animator.SetFloat("hp", 0.0f);
         }
-        if (Input.GetKeyDown(KeyCode.H))
+
+        //被打
+        if (Input.GetKeyDown(KeyCode.H)) //改成 l & h 區分輕擊 & 重擊
         {
             animator.SetTrigger("getHit");
-            n.Hp -= 20;//test
+            npc.Hp -= 20;//test
         }
-        else
+        else  //???
         {
             //滯空時間？
             if (currentAnimation.IsName("BackFlip2") || currentAnimation.IsName("BackFlip"))
@@ -57,28 +64,30 @@ public class MainCharacterState : MonoBehaviour
             }
         }
 
-        if (animator.IsInTransition(0) == false)
+        if (animator.IsInTransition(0) == false) //判斷是否在過度動畫
         {
             if (Input.GetMouseButtonDown(0) && (currentAnimation.IsName("Grounded") || currentAnimation.IsName("Attack01") || currentAnimation.IsName("Attack01 0") || currentAnimation.IsName("Attack01 1") || currentAnimation.IsName("Fast run")))
             {
-                LeftMouseClick();
+                LeftMouseClick();//這命名不知道確切在幹嘛
             }
             if (Input.GetMouseButtonDown(1) && (currentAnimation.IsName("Attack01") || currentAnimation.IsName("Attack01 0") || currentAnimation.IsName("Attack01 1") || currentAnimation.IsName("Attack01 2")))
             {
-                RightMouseClick();
+                RightMouseClick();//這命名不知道確切在幹嘛
             }
         }
 
         if (Input.GetKey(KeyCode.LeftControl))
         {
+            //fTimer 也不知道這紀錄時間要用來幹嘛阿
             fTimer += Time.deltaTime;
             if (fTimer > 0.3)
             {
                 Sword.SetActive(false);
-                focusLine.SetActive(true);
+                focusLine.SetActive(true);//???????
             }
             animator.SetFloat("dodge", fTimer);
         }
+        //和 line 74. 一樣的判斷式，為什麼不寫在一起？
         if (Input.GetKeyUp(KeyCode.LeftControl))
         {
             focusLine.SetActive(false);
@@ -86,45 +95,15 @@ public class MainCharacterState : MonoBehaviour
             fTimer = 0f;
             animator.SetFloat("dodge", fTimer);
         }
-        //else
-        //{
-        //    fTimer = 0f;
-        //    animator.SetFloat("dodge", fTimer);
-        //}
-
-        //沒用 大概
-        //var a = this.GetComponent<IKController>();
-        //if (currentAnimation.IsName("Attack02 1"))
-        //{
-        //    a.IkActive = false;
-        //    //Sword.SetActive(false);
-        //}
-        //if (currentAnimation.IsName("Fast run"))
-        //{
-        //    a.IkActive = false;
-        //    //Sword.SetActive(false);
-        //}
-        //if (currentAnimation.IsName("Grounded"))
-        //{
-        //    a.IkActive = true;
-        //    //Sword.SetActive(true);
-        //}
 
         //攻擊位移
-        if (bAttackMove)// && (currentAnimation.IsName("Attack01"))
+        if (bAttackMove)// && (currentAnimation.IsName("Attack01"))   //何時 bAttackMove 會被改成 true?
         {
-            transform.Translate(new Vector3(0, 0, 1) * 0.15f);
+            transform.Translate(new Vector3(0, 0, 1) * 0.10f);
         }
         else
         {
             bAttackMove = false;
-        }
-
-        if (currentAnimation.IsName("Attack01"))
-        {
-            //Vector3 ForwardMove = transform.position;
-            //ForwardMove.z += 3f*Time.deltaTime;
-            //transform.position = transform.position + transform.forward * 0.2f;
         }
 
         if (!(currentAnimation.IsName("Attack01") || currentAnimation.IsName("Attack01 0") || currentAnimation.IsName("Attack01 1") || currentAnimation.IsName("Attack01 2")))
@@ -134,12 +113,7 @@ public class MainCharacterState : MonoBehaviour
 
         //增加 按下Lctrl閃避 時的位移距離
 
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    newPos = transform.position += transform.forward * 5f;
-        //}
-        //Vector3.Lerp(transform.position, newPos, 0.5f);
-
+        //何時 dodge 會被改成 true?
         if (dodge)//(Input.GetKeyDown(KeyCode.LeftControl) && (currentAnimation.IsName("Grounded") || currentAnimation.IsName("Front Dodge")))
         {
             //print("dodge----------");
@@ -147,13 +121,13 @@ public class MainCharacterState : MonoBehaviour
         }
         if (frontMove)
         {
+            //上面才有個 fTimer， 這裡又一個 time ，差在哪？
             time += Time.deltaTime;
         }
         if (time > 0f && time < 0.16f)
         {
-            if (!n.collide)
+            if (!npc.collide)
             {
-                //print("????????");
                 tpc.artistMovement = true;
                 transform.Translate(new Vector3(0f, 0f, 1f) * 0.15f);
             }
@@ -170,25 +144,21 @@ public class MainCharacterState : MonoBehaviour
         }
         Debug.DrawLine(transform.position, transform.position + transform.forward * 10f);
 
-        var IK = GetComponent<IKController>();
         if (currentAnimation.IsName("Fast run") || currentAnimation.IsName("Attack02 1") || currentAnimation.IsName("Attack02 2"))
-            IK.Weight_Up = 0;
-        else
-            IK.SetWeight_Up(1);
-
-
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    //transform.position = transform.position + transform.forward * 10f;
-        //    transform.position = Vector3.Lerp(transform.position, transform.position + transform.forward.normalized * 2f, 0.1f);
-        //}
-
-
-        for (int i = 0; i <= 70; i += 5)//攻擊範圍
         {
-            Debug.DrawRay(transform.position + (Vector3.up * 0.6f), Quaternion.Euler(0, i, 0) * transform.forward * 3.2f, Color.red);// 
-            Debug.DrawRay(transform.position + (Vector3.up * 0.6f), Quaternion.Euler(0, -i, 0) * transform.forward * 3.2f, Color.red);
+            IK.Weight_Up = 0;
         }
+        else
+        {
+            IK.SetWeight_Up(1);
+        }
+
+
+        //for (int i = 0; i <= 70; i += 5)//攻擊範圍
+        //{
+        //    Debug.DrawRay(transform.position + (Vector3.up * 0.6f), Quaternion.Euler(0, i, 0) * transform.forward * 3.2f, Color.red);// 
+        //    Debug.DrawRay(transform.position + (Vector3.up * 0.6f), Quaternion.Euler(0, -i, 0) * transform.forward * 3.2f, Color.red);
+        //}
     }
     public virtual void LeftMouseClick()
     {
@@ -202,21 +172,14 @@ public class MainCharacterState : MonoBehaviour
             animator.SetBool("attack02", false);
     }
 
-    public void ForwardMove()
+    public void ForwardMove()　　//...建議如果是事件，加個綴字。
     {
         dodge = true;
-        //設定true false開關外面主程式來位移------------------------------------------------------------------------------
-        //transform.position = Vector3.Lerp(transform.position, transform.position + transform.forward.normalized * 1f, 1f);
-        //print(transform.position);
-        //transform.position = transform.position + transform.forward * 100f;
-        //print(transform.position);
-
     }
 
     public void AttackSpeedChange(float f)
     {
         animator.SetFloat("attackSpeed", f * 1.5f * 1.5f);
-        //print(231321213);
     }
 
     public void AnimationAttack(int attackType)
@@ -227,7 +190,8 @@ public class MainCharacterState : MonoBehaviour
             NpcCommon.AttackDetection(transform.position, transform.forward, 140, 3.2f, true, new DamageData(10f, transform.forward * 0.15f, HitType.Heavy, DamageStateInfo.NormalAttack));
     }
 
-    public LayerMask LY;
+    #region  OnDrawGizmos 註解
+    //public LayerMask LY;
     //private void OnDrawGizmos()
     //{
     //    for (int i = 0; i <= 55; i += 5)
@@ -255,15 +219,17 @@ public class MainCharacterState : MonoBehaviour
     //        }
     //    }
     //}
-    public void AttackMoveOn(float dis)
+
+    #endregion
+    public void AttackMoveOn(float dis) //...建議如果是事件，加個綴字。
     {
-        if (!n.collide)
+        if (!npc.collide)
         {
             bAttackMove = true;
             attackMoveDis = dis;
         }
     }
-    public void AttackMoveOff()
+    public void AttackMoveOff() //...建議如果是事件，加個綴字。
     {
         bAttackMove = false;
     }
