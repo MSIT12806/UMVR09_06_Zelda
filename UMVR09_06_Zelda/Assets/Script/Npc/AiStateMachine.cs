@@ -27,7 +27,94 @@ public abstract class AiState
     public abstract void SetAnimation();
 }
 
+#region Common State Machine
+//public class IdelState : AiState
+//{
+//    public Action[] SetAnimations;
+//    int randomAnimation;
+//    //switch state
+//    ////切到 fight
 
+//    //SetAnimation
+//    ////當動作播完  幾種動作的切換  還是要每偵都要檢查捏  不然寫個事件好惹
+//}
+//public class FightState : AiState
+//{
+//    //可以有很多種攻擊方式
+//    //但是只有一種追擊型態
+//    //透過重新更新fightstate 來轉換追擊型態 => RefreshFightState
+//    public AttackStateInfo[] attackStateInfos;
+
+//    //發呆時間
+
+//    //switch state
+//    ////是否丟失目標
+//    //////切到Idle
+//    ////getHit != null
+//    //////切到受傷
+
+//    ////是否超過發呆時間
+//    //////返回 fight
+
+//    ////距離判定
+//    //////切到attack
+//    /////*切到chase
+
+//    ////目標死亡 or 消失
+//    //////切到 chase
+
+
+
+//    //SetAnimation
+//    ////面向目標
+
+//    // private RefreshDazeTime()
+//}
+//public class AttackState : AiState {
+//    AttackStateInfo attackStateInfo;
+//    FightState fightState;
+//    //建構子
+//    //// 發動攻擊  setTrigger
+    
+//    //switch state
+//    ////getHit != null
+//    //////切到受傷
+//    ////返回 fight(更新發呆時間)
+//}
+//public class ChaseState : AiState {
+
+//    //建構子
+//    ////朝著npcHelper.target移動
+//    /// //setBoolean
+
+//    //switch state
+
+//    //setAnimation
+//    //// 更新目標位置 1. npcHelper.originPosition; 2. targetPosition; 3. 
+
+//}
+
+//public class HurtState : AiState {
+//    FightState fightState;
+//    //建構子
+//    //// 取得 damagedata
+//    //// 扣血
+
+//    //set animation
+//    ////還是要判斷現在播動畫到幾成?
+//    ////播放受傷動畫、擊退位移
+
+//    //switch state
+//    //// hp>=0
+//    //////返回 fight
+//    /////*死亡
+//}
+//public class DeathState : AiState {
+//    public float deathTime;
+//    public Action dosomething;
+//    //物件消失
+//}
+#endregion
 #region Pico Machine
 
 #endregion
