@@ -16,7 +16,7 @@ public class TPSCamera : MonoBehaviour
      */
     public Transform m_LookPoint;
     public Transform m_FollowTarget;
-    public Transform m_StareTarget;
+    public Transform[] m_StareTarget;
     public float m_StareHeight = 2.5f;
     public float m_LookHeight;
     public float m_LookSmoothTime = 0.1f;
@@ -25,18 +25,13 @@ public class TPSCamera : MonoBehaviour
     [Range(0.1f, 1000f)]
     public float m_CameraSensitivity = 1.0f;
 
-    //public float m_FollowHeight = 0.0f;
     public LayerMask avoidLayer;
     public LayerMask transparentLayer;
-    public float m_HitMoveDistance = 0.1f;    
-    //private float horizontalRotateDegree = 0.0f;
-    //private float verticalRotateDegree = 0.0f;
-    //private Vector3 m_FollowPosition = Vector3.zero;
-    //private Vector3 cameraDirection = Vector3.zero;
+    public float m_HitMoveDistance = 0.1f;
     private Vector3 m_RefVel = Vector3.zero;
 
     Vector3 lookDirection;
-
+    int stage;
     CameraState state;
     private float fMX;
     private float fMY;
@@ -56,7 +51,7 @@ public class TPSCamera : MonoBehaviour
         GetRotateDegreeByMouse();
         TransparentBlockObject();
         state.SetRotateDegree(fMX, fMY, m_CameraSensitivity);
-        state.UpdateParameters(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance, m_StareTarget, m_LookSmoothTime);
+        state.UpdateParameters(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance, m_LookSmoothTime);
         //DebugExtension.DebugWireSphere(m_LookPoint.position, 0.5f);
     }
     private void LateUpdate()
@@ -74,13 +69,11 @@ public class TPSCamera : MonoBehaviour
     }
     private void RefreshCameraState()
     {
-        if (Input.GetMouseButtonDown(2))//defaut camera
-            state = state.Name == "Default" ? new Stare(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance, m_StareTarget) : new Default(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance);
-        //if (Input.GetKey(KeyCode.Alpha1))//stare camera
-        //{
-        //    state = new Stare(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance, m_StareTarget);
-        //    state.VerticalRotateDegree -= 20f;
-        //}
+        if (Input.GetMouseButtonDown(2))
+        {
+            if (m_StareTarget[stage] != null)
+                state = state.Name == "Default" ? new Stare(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance, m_StareTarget[stage]) : new Default(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance);
+        }
     }
 
     #region private methods

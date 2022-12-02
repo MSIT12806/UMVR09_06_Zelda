@@ -4657,6 +4657,21 @@ PrefabInstance:
       propertyPath: transparentLayer.m_Bits
       value: 513
       objectReference: {fileID: 0}
+    - target: {fileID: 6942378765527368338, guid: 4f320ab5e1c207d479610b23bcf76d58,
+        type: 3}
+      propertyPath: m_StareTarget.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6942378765527368338, guid: 4f320ab5e1c207d479610b23bcf76d58,
+        type: 3}
+      propertyPath: m_StareTarget.Array.data[2]
+      value: 
+      objectReference: {fileID: 1277495261}
+    - target: {fileID: 6942378765527368338, guid: 4f320ab5e1c207d479610b23bcf76d58,
+        type: 3}
+      propertyPath: m_StareTarget.Array.data[3]
+      value: 
+      objectReference: {fileID: 761415171}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f320ab5e1c207d479610b23bcf76d58, type: 3}
 --- !u!1001 &459873401
@@ -13579,6 +13594,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e344ba4e5a1508a4a9133612aa1c3172, type: 3}
+--- !u!4 &1277495261 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2564453279718557009, guid: e344ba4e5a1508a4a9133612aa1c3172,
+    type: 3}
+  m_PrefabInstance: {fileID: 1277495260}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1278446231
 GameObject:
   m_ObjectHideFlags: 0

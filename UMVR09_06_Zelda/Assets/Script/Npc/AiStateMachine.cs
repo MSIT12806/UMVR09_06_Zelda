@@ -684,7 +684,8 @@ public class GolemIdleState : GolemBaseState
             animator.SetTrigger("Dead");
             return new GolemDeadState(target, animator, selfTransform, npcHelper);
         }
-        throw new NotImplementedException();
+
+        return this;
     }
 }
 public class GolemChaseState : GolemBaseState
