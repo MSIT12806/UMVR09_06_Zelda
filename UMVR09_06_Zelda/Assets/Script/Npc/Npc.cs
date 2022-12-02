@@ -22,8 +22,9 @@ public class Npc : MonoBehaviour
     [SerializeField] LayerMask terrainLayer;
     Collider collider;
     Animator animator;
+    PicoState picoState;
     public Vector3 nextPosition;
-    public GameState gameState;
+    public GameState gameState { get => (GameState)picoState.gameState; }
     public bool collide { get; set; }
     public bool Alive { get => Hp > 0;  }
     public bool OnGround;
@@ -34,6 +35,7 @@ public class Npc : MonoBehaviour
         nextPosition = Vector3.zero;
         stateManager = ObjectManager.StateManagers[this.gameObject.GetInstanceID()];
         animator = GetComponent<Animator>();
+        picoState = GetComponent<PicoState>();
     }
 
     // Update is called once per frame

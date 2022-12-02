@@ -31,11 +31,15 @@ public class TPSCamera : MonoBehaviour
     private Vector3 m_RefVel = Vector3.zero;
 
     Vector3 lookDirection;
-    int stage;
+    public int stage;
     CameraState state;
     private float fMX;
     private float fMY;
 
+    private void Awake()
+    {
+        ObjectManager.myCamera = this;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -73,6 +77,8 @@ public class TPSCamera : MonoBehaviour
         {
             if (m_StareTarget[stage] != null)
                 state = state.Name == "Default" ? new Stare(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance, m_StareTarget[stage]) : new Default(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance);
+            else
+                state = new Default(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance);
         }
     }
 
