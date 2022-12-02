@@ -21,6 +21,7 @@ public class StageManager : MonoBehaviour
         if (d <= distance)
         {
             picoState.gameState = (GameState)TriggerType;
+            ObjectManager.myCamera.stage = TriggerType;
         }
     }
 

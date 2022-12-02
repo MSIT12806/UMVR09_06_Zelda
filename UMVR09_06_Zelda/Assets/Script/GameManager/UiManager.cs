@@ -8,14 +8,17 @@ using UnityEngine.UI;
 public class UiManager : MonoBehaviour
 {
     // Start is called before the first frame update
-    public Transform HpUi;
+    Transform MainCharacterHp;
+    Transform GreatEnemyState;
+    Transform StrongholdState;
+    PicoState picoState;
     float currentHp;
     float currentFever;
     Npc mainCharacter;
     string heartPath = "Heart";
     List<GameObject> heartList = new List<GameObject>();
     GameObject heart;
-
+    TPSCamera myCamera;
     GameObject lastHeart;
 
     float OneHeartHp = 100;
@@ -27,14 +30,18 @@ public class UiManager : MonoBehaviour
 
     void Start()
     {
-        HpUi = transform.FindAnyChild<Transform>("MainCharacterHP");
+        MainCharacterHp = transform.FindAnyChild<Transform>("MainCharacterHP");
+        GreatEnemyState = transform.FindAnyChild<Transform>("GreatEnemyState");
+        StrongholdState = transform.FindAnyChild<Transform>("StrongholdState");
+        picoState = ObjectManager.MainCharacter.GetComponent<PicoState>();
+        myCamera = ObjectManager.myCamera;//可以順便拿怪
         ItemUI = transform.FindAnyChild<Transform>("SiKaStone");
         mainCharacter = ObjectManager.MainCharacter.GetComponent<Npc>();
         heart = (GameObject)Resources.Load(heartPath);
         currentHp = mainCharacter.Hp;
         ItemCD = mainCharacter.GetComponent<Throw>().coldTime;
         ItemUI.FindAnyChild<Image>("CanLock").fillAmount = 1;
-        InitHp();
+        InitPicoHp();
     }
 
     // Update is called once per frame
@@ -52,16 +59,34 @@ public class UiManager : MonoBehaviour
             SikaStoneCD();
         }
 
+        //據點
+
+        if (myCamera.cameraState == "Stare")
+        {
+            GreatEnemyState.gameObject.SetActive(true);
+            StrongholdState.gameObject.SetActive(false);
+            RefreshGreatEnemyState();
+        }
+        else
+        {
+            GreatEnemyState.gameObject.SetActive(false);
+            StrongholdState.gameObject.SetActive(false);
+        }
+    }
+
+    private void RefreshGreatEnemyState()
+    {
+        var hp = GreatEnemyState.transform.FindAnyChild<Image>("GreatEnemyHpBarFull");
+        var hpInfo = myCamera.m_StareTarget[(int)picoState.gameState].GetComponent<Npc>();
+        hp.fillAmount = hpInfo.Hp/hpInfo.MaxHp;
     }
 
     void SetHpBar()
     {
-
         FillHeart();
-
     }
 
-    private void InitHp()
+    private void InitPicoHp()
     {
         var nowHp = currentHp;
         var heartCount = (int)Math.Ceiling(currentHp / OneHeartHp);
@@ -70,7 +95,7 @@ public class UiManager : MonoBehaviour
             if (nowHp <= 0) break;
 
             var h = Instantiate(heart);
-            h.transform.SetParent(HpUi);
+            h.transform.SetParent(MainCharacterHp);
             heartList.Add(h);
             lastHeart = h;
         }

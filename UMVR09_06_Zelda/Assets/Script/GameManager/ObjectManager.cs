@@ -12,6 +12,7 @@ public class ObjectManager : MonoBehaviour
     public static List<GameObject> Statics;
     public static Dictionary<int, NpcHelper> StateManagers = new Dictionary<int, NpcHelper>();
     public static HashSet<AiState> ChasingNpc;
+    public static TPSCamera myCamera;
     public static Transform MainCharacter;
     public Transform MyCharacter;
     //    public static List<GameObject> UsaoResources;
