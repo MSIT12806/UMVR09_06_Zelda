@@ -713,7 +713,7 @@ public class GolemChaseState : GolemBaseState
     public override void SetAnimation()
     {
         selfTransform.LookAt(target);
-        selfTransform.Translate(0, 0, 0.1f);
+        //selfTransform.Translate(0, 0, 0.1f);
 
 
         if (getHit != null)
