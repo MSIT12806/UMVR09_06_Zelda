@@ -29,6 +29,7 @@ public class Npc : MonoBehaviour
     public bool Alive { get => Hp > 0;  }
     public bool OnGround;
     NpcHelper stateManager;
+    [HideInInspector] public float MaxHp;
     public float Hp;
     void Start()
     {
@@ -36,6 +37,7 @@ public class Npc : MonoBehaviour
         stateManager = ObjectManager.StateManagers[this.gameObject.GetInstanceID()];
         animator = GetComponent<Animator>();
         picoState = GetComponent<PicoState>();
+        MaxHp = Hp;
     }
 
     // Update is called once per frame

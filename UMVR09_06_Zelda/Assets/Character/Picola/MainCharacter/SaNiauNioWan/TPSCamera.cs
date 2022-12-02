@@ -33,6 +33,7 @@ public class TPSCamera : MonoBehaviour
     Vector3 lookDirection;
     public int stage;
     CameraState state;
+    public string cameraState { get => state.Name; }
     private float fMX;
     private float fMY;
 

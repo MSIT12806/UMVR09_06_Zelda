@@ -3038,6 +3038,27 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 699293754}
     m_Modifications:
+    - target: {fileID: 2082883166139171057, guid: 153b5e03cb146ea49a0695907cac13dd,
+        type: 3}
+      propertyPath: m_Type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2082883166139171057, guid: 153b5e03cb146ea49a0695907cac13dd,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -2085659421, guid: 6551248d31209874da323c7173278226,
+        type: 3}
+    - target: {fileID: 2082883166139171057, guid: 153b5e03cb146ea49a0695907cac13dd,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2082883166139171057, guid: 153b5e03cb146ea49a0695907cac13dd,
+        type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2192646928371951528, guid: 153b5e03cb146ea49a0695907cac13dd,
         type: 3}
       propertyPath: m_Name
@@ -3148,6 +3169,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7450394503185861137, guid: 153b5e03cb146ea49a0695907cac13dd,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -2085659421, guid: 6551248d31209874da323c7173278226,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 153b5e03cb146ea49a0695907cac13dd, type: 3}
 --- !u!224 &311240111 stripped
@@ -8885,8 +8912,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   nextPosition: {x: 0, y: 0, z: 0}
-  gameState: 0
   OnGround: 0
+  MaxHp: 0
   Hp: 20
   initVel: {x: 0, y: 0, z: 0}
   grounded: 0
@@ -8910,7 +8937,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 812130045}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9693cf64279264240938d0f3206ee1b5, type: 3}
   m_Name: 
@@ -14675,7 +14702,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97157448246cc364b93c33e593e42132, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HpUi: {fileID: 0}
 --- !u!1001 &1359991144
 PrefabInstance:
   m_ObjectHideFlags: 0
