@@ -344,6 +344,10 @@ public class UsaoDeathState : AiState
     {
         if (Time.frameCount > deathTime + 180)
         {
+            var particleSystem = selfTransform.GetComponent<ParticleSystem>();
+            var fxGo = particleSystem.gameObject;
+            fxGo.transform.parent = null;
+            fxGo.SetActive(true);
             selfTransform.gameObject.SetActive(false);
         }
     }
