@@ -25,14 +25,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 200548968228092566}
-  m_LocalRotation: {x: -0.000000037252903, y: -0.4266832, z: 0.000000029802322, w: 0.9044012}
+  m_LocalRotation: {x: -0.000000044703484, y: -0.1896673, z: 0.00000008195639, w: 0.9818485}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8302823509282280929}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: -50.514, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -21.867, z: 0}
 --- !u!198 &5170423830571864496
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -116,7 +116,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5
+      scalar: 0.3
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -1258,20 +1258,20 @@ ParticleSystem:
         - serializedVersion: 3
           time: 0
           value: 1
-          inSlope: -2
-          outSlope: -2
+          inSlope: -0.34122077
+          outSlope: -0.34122077
           tangentMode: 0
           weightedMode: 0
           inWeight: 0
-          outWeight: 0
+          outWeight: 0.18168563
         - serializedVersion: 3
-          time: 0.7436603
+          time: 0.9045055
           value: 0
-          inSlope: 0
-          outSlope: 0
+          inSlope: -3.0661995
+          outSlope: -3.0661995
           tangentMode: 0
           weightedMode: 0
-          inWeight: 0
+          inWeight: 0.1920788
           outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
@@ -9765,14 +9765,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8037843303932853751}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.000000014901161, y: 0.18345314, z: 0.0000000055879354, w: 0.9830285}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_LocalScale: {x: 0.85, y: 0.85, z: 0.85}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8302823509282280929}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 39.6, y: -91.634, z: 6.55}
+  m_LocalEulerAnglesHint: {x: 0, y: 21.142, z: 0}
 --- !u!198 &6248489315785420445
 ParticleSystem:
   m_ObjectHideFlags: 0
