@@ -6,6 +6,7 @@ public class StageManager : MonoBehaviour
 {
     public int TriggerType;
     public Transform Pico;
+    public float distance = 10;
     PicoState picoState;
     // Start is called before the first frame update
     void Start()
@@ -17,9 +18,14 @@ public class StageManager : MonoBehaviour
     void Update()
     {
         var d = Vector3.Distance(this.transform.position, Pico.position);
-        if (d <= 10)
+        if (d <= distance)
         {
             picoState.gameState = (GameState)TriggerType;
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, distance);
     }
 }

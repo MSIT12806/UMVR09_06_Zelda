@@ -20,7 +20,7 @@ public abstract class CameraState
     public abstract void SetRotateDegree(float fMX, float fMY, float sensitivity);
     public abstract void MoveCameraSmoothly(Transform cameraTransform);
     public abstract float GetFollowDistance(Transform cameraTransform);
-    public abstract void UpdateParameters(Transform m_LookPoint, Transform m_FollowTarget, float m_LookHeight, float m_FollowDistance, Transform m_StareTarget, float lookSmoothTime);
+    public abstract void UpdateParameters(Transform m_LookPoint, Transform m_FollowTarget, float m_LookHeight, float m_FollowDistance, float lookSmoothTime);
 
 
     /// <summary>
@@ -86,10 +86,10 @@ public class Default : CameraState
         //cameraTransform.position = new Vector3(this.FollowPosition.x, cameraTransform.position.y, this.FollowPosition.z);
         //cameraTransform.position = new Vector3(this.FollowPosition.x, this.FollowPosition.y, this.FollowPosition.z);
         //cameraTransform.position = this.FollowPosition;
-        cameraTransform.position = Vector3.Lerp(cameraTransform.position, this.FollowPosition, followSmoothTime/3);
+        cameraTransform.position = Vector3.Lerp(cameraTransform.position, this.FollowPosition, followSmoothTime / 3);
     }
 
-    public override void UpdateParameters(Transform lookPoint, Transform followTarget, float lookHeight, float followDistance, Transform m_StareTarget, float lookSmoothTime)
+    public override void UpdateParameters(Transform lookPoint, Transform followTarget, float lookHeight, float followDistance, float lookSmoothTime)
     {
         _lookPoint = lookPoint;
         _lookHeight = lookHeight;
@@ -104,7 +104,6 @@ public class Stare : CameraState
     private Transform _followTarget;
     private float _lookHeight;
     private Transform _lookPoint;
-
     public Stare(Transform lookPoint, Transform followTarget, float lookHeight, float followDistance, Transform stareTarget)
     {
         Name = "Stare";
@@ -152,12 +151,11 @@ public class Stare : CameraState
         return Vector3.Distance(_followTarget.position, cameraTransform.position);
     }
 
-    public override void UpdateParameters(Transform lookPoint, Transform followTarget, float lookHeight, float followDistance, Transform stareTarget, float lookSmoothTime)
+    public override void UpdateParameters(Transform lookPoint, Transform followTarget, float lookHeight, float followDistance, float lookSmoothTime)
     {
         _lookPoint = lookPoint;
         _lookHeight = lookHeight;
         _followTarget = followTarget;
-        _stareTarget = stareTarget;
         FollowDistance = followDistance;
         this.lookSmoothTime = lookSmoothTime;
     }

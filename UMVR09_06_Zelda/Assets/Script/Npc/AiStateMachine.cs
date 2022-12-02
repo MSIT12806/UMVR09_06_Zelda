@@ -684,7 +684,8 @@ public class GolemIdleState : GolemBaseState
             animator.SetTrigger("Dead");
             return new GolemDeadState(target, animator, selfTransform, npcHelper);
         }
-        throw new NotImplementedException();
+
+        return this;
     }
 }
 public class GolemChaseState : GolemBaseState
@@ -712,7 +713,7 @@ public class GolemChaseState : GolemBaseState
     public override void SetAnimation()
     {
         selfTransform.LookAt(target);
-        selfTransform.Translate(0, 0, 0.1f);
+        //selfTransform.Translate(0, 0, 0.1f);
 
 
         if (getHit != null)
