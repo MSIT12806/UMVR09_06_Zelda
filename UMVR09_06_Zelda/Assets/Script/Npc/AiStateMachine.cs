@@ -1091,3 +1091,139 @@ public class GolemDeadState : GolemBaseState
 
 
 #endregion
+
+#region Space State Machine
+public abstract class SpaceBaseState : AiState
+{
+    Transform target;
+    float armor;
+    float max_armor;
+    Npc npcData;
+    public SpaceBaseState(Animator a, Transform self, NpcHelper nh) : base(a, self, nh)
+    {
+        animator = a;
+        selfTransform = self;
+        armor = max_armor;
+        npcData = selfTransform.GetComponent<Npc>();
+    }
+}
+
+public class SpaceIdleState : SpaceBaseState
+{
+    public SpaceIdleState(Animator a, Transform self, NpcHelper nh) : base(a, self, nh)
+    {
+    }
+
+    public override void SetAnimation()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override AiState SwitchState()
+    {
+        throw new NotImplementedException();
+    }
+}
+public class SpaceChaseState : SpaceBaseState
+{
+    public SpaceChaseState(Animator a, Transform self, NpcHelper nh) : base(a, self, nh)
+    {
+    }
+
+    public override void SetAnimation()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override AiState SwitchState()
+    {
+        throw new NotImplementedException();
+    }
+}
+public class SpaceAttackState : SpaceBaseState
+{
+    public SpaceAttackState(Animator a, Transform self, NpcHelper nh) : base(a, self, nh)
+    {
+    }
+
+    public override void SetAnimation()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override AiState SwitchState()
+    {
+        throw new NotImplementedException();
+    }
+}
+public class SpaceSkillState : SpaceBaseState
+{
+    public SpaceSkillState(Animator a, Transform self, NpcHelper nh) : base(a, self, nh)
+    {
+    }
+
+    public override void SetAnimation()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override AiState SwitchState()
+    {
+        throw new NotImplementedException();
+    }
+}
+public class SpaceWeakState : SpaceBaseState
+{
+    public SpaceWeakState(Animator a, Transform self, NpcHelper nh) : base(a, self, nh)
+    {
+    }
+
+    public override void SetAnimation()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override AiState SwitchState()
+    {
+        throw new NotImplementedException();
+    }
+}
+
+public class SpaceArmorBreakState : SpaceBaseState
+{
+    public SpaceArmorBreakState(Animator a, Transform self, NpcHelper nh) : base(a, self, nh)
+    {
+    }
+
+    public override void SetAnimation()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override AiState SwitchState()
+    {
+        throw new NotImplementedException();
+    }
+}
+
+public class SpaceDeadState : SpaceBaseState
+{
+    public SpaceDeadState(Animator a, Transform self, NpcHelper nh) : base(a, self, nh)
+    {
+    }
+
+    public override void SetAnimation()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override AiState SwitchState()
+    {
+        throw new NotImplementedException();
+    }
+}
+
+
+
+
+#endregion
