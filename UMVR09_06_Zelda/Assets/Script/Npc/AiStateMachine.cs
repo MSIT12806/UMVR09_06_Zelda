@@ -70,18 +70,20 @@ public abstract class AiState
 
 //    // private RefreshDazeTime()
 //}
-//public class AttackState : AiState {
+//public class AttackState : AiState
+//{
 //    AttackStateInfo attackStateInfo;
 //    FightState fightState;
 //    //建構子
 //    //// 發動攻擊  setTrigger
-    
+
 //    //switch state
 //    ////getHit != null
 //    //////切到受傷
 //    ////返回 fight(更新發呆時間)
 //}
-//public class ChaseState : AiState {
+//public class ChaseState : AiState
+//{
 
 //    //建構子
 //    ////朝著npcHelper.target移動
@@ -94,7 +96,8 @@ public abstract class AiState
 
 //}
 
-//public class HurtState : AiState {
+//public class HurtState : AiState
+//{
 //    FightState fightState;
 //    //建構子
 //    //// 取得 damagedata
@@ -109,12 +112,14 @@ public abstract class AiState
 //    //////返回 fight
 //    /////*死亡
 //}
-//public class DeathState : AiState {
+//public class DeathState : AiState
+//{
 //    public float deathTime;
 //    public Action dosomething;
 //    //物件消失
 //}
 #endregion
+
 #region Pico Machine
 
 #endregion
@@ -122,7 +127,7 @@ public abstract class AiState
 #region Usao State Machine
 public class UsaoIdleState : AiState
 {
-    Transform target;
+    Transform target;    
     public UsaoIdleState(Transform t, PicoState state, Animator a, Transform self, NpcHelper nh) : base(a, self, nh)
     {
         target = t;
