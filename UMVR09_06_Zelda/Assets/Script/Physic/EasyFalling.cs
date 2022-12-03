@@ -15,7 +15,6 @@ public static class EasyFalling
         if (transform.position.y <= EndingYValue)//避免掉落到超過 terrain
         {
             initialVelocityPerFrame = Vector3.zero;
-            Debug.Log(initialVelocityPerFrame);
             transform.position = transform.position.WithY(EndingYValue);
             return false;
         }
