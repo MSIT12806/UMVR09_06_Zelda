@@ -42,5 +42,10 @@ public class GolemManager : MonoBehaviour, NpcHelper
     {
         throw new System.NotImplementedException();
     }
+
+    public void Look(Transform target)
+    {
+        throw new System.NotImplementedException();
+    }
 }
 

@@ -257,5 +257,10 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     {
         throw new NotImplementedException();
     }
+
+    public void Look(Transform target)
+    {
+        throw new NotImplementedException();
+    }
 }
 

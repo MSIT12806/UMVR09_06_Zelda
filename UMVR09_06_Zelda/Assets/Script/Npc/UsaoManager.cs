@@ -1,3 +1,4 @@
+using Ron;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,6 +13,9 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
     //public float flyHigh = 0;
     //public float flyDis = 0;
 
+
+    public Vector3 OriginPosition;
+    Transform head;
     //---Ai---//
     AiState aiState;
     Npc npc;
@@ -20,16 +24,18 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
     #region all aistate
     public UsaoIdleState usaoIdleState;
     public UsaoFightState usaoFightState;
-    public UsaoChaseState usaoChaseState;
-    public UsaoAttackState usaoAttackState;
-    public UsaoHurtState usaoHurtState;
-    public UsaoDeathState usaoDeathState;
+    //public UsaoChaseState usaoChaseState;
+    //public UsaoAttackState usaoAttackState;
+    //public UsaoHurtState usaoHurtState;
+    //public UsaoDeathState usaoDeathState;
     #endregion
     public float Hp { get => npc.Hp; set => npc.Hp = value; }
     void Awake()
     {
         ObjectManager.StateManagers.Add(this.gameObject.GetInstanceID(), this);
         animator = transform.GetComponent<Animator>();
+        OriginPosition = transform.position;
+        head = transform.FindAnyChild<Transform>("Character1_Head");
     }
     void Start()
     {
@@ -37,10 +43,6 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
         var picoState = ObjectManager.MainCharacter.GetComponent<PicoState>();
         usaoIdleState = new UsaoIdleState(ObjectManager.MainCharacter, picoState, animator, transform, this);
         usaoFightState = new UsaoFightState(ObjectManager.MainCharacter, animator, transform, this);
-        //usaoChaseState = 
-        //    usaoAttackState
-        //    usaoHurtState
-        //    usaoDeathState
 
         aiState = usaoIdleState;
     }
@@ -50,28 +52,13 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
     {
         if (aiState == null) print("aiState is null");
 
-        aiState.SetAnimation();
         aiState = aiState.SwitchState();
         Move();
-        //-------------------
-        //if (knock)
-        //{
-        //    flyTime += Time.deltaTime;
-        //    if(flyTime >= 0.3) knock = false;
-        //    if (flyTime <= 0.15) flyHigh = flyHigh * 2;
-        //    else flyHigh = flyHigh / 2;
-
-        //    transform.Translate(0, flyHigh, -0.2f);
-        //}
-        //--------------------
     }
-
-    //public void ToKnock(float a)//test
-    //{
-    //    flyHigh = a;
-    //    knock = true;
-    //}
-
+    private void LateUpdate()
+    {
+            aiState.SetAnimation();
+    }
     public void GetHurt(DamageData damageData)
     {
         aiState = new UsaoHurtState(animator, transform, damageData, usaoFightState, this);
@@ -83,14 +70,56 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
         //animator.SetFloat("forward", forward);
     }
 
-    public void Turn()
-    {
-        //轉向  速度？
-
-    }
 
     public void Turn(Vector3 direction)
     {
-        throw new NotImplementedException();
+        var degree = Vector3.SignedAngle(transform.forward, direction, Vector3.up);
+        if (degree < 0)
+        {
+            transform.Rotate(Vector3.up, -1);
+        }
+        else if (degree > 0)
+        {
+            transform.Rotate(Vector3.up, 1);
+        }
+    }
+
+    public void Look(Transform targetHead)
+    {
+        if (UnityEngine.Random.value < 0.99) return;
+        var degreeY = Vector3.Angle(transform.forward.WithY(), (targetHead.position - head.position).WithY());
+        degreeY = degreeY * Mathf.Sign(Vector3.SignedAngle(transform.forward, targetHead.position - head.position, Vector3.up));
+        if (degreeY > 80)
+        {
+            degreeY = 80;
+        }
+        else if (degreeY < -80)
+        {
+            degreeY = -80;
+        }
+        var degreeX = Vector3.Angle((targetHead.position - head.position).WithY(), (targetHead.position - head.position));
+        degreeX = degreeX * Mathf.Sign(Vector3.SignedAngle((targetHead.position - head.position).WithY(), targetHead.position - head.position, -transform.right));
+        if (degreeX > 40)
+        {
+            degreeX = 40;
+        }
+        else if (degreeX < -40)
+        {
+            degreeX = -40;
+        }
+        var d = head.forward.WithY();
+        d = Quaternion.AngleAxis(degreeY, Vector3.up) * d;
+        d = Quaternion.AngleAxis(degreeX, d.GetLocalRight()) * d;
+
+        //var degree = Vector3.SignedAngle(transform.forward, direction, Vector3.up);
+        //if (degree < 0)
+        //{
+        //    transform.Rotate(Vector3.up, -1);
+        //}
+        //else if (degree > 0)
+        //{
+        //    transform.Rotate(Vector3.up, 1);
+        //}
+        head.forward = d.normalized;
     }
 }

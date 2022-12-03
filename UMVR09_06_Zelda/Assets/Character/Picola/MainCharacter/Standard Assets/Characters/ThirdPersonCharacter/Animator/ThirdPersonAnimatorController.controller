@@ -1317,6 +1317,12 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
+  - m_Name: Grounded
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -2171,12 +2177,12 @@ AnimatorStateMachine:
     - {fileID: -8799590284222308944}
     - {fileID: -3959039517042190396}
     - {fileID: -6640792239816998034}
-  - first: {fileID: -399964401319208778}
-    second:
-    - {fileID: 5229717429624057738}
   - first: {fileID: 6380422853822773594}
     second:
     - {fileID: -7118412946412725925}
+  - first: {fileID: -399964401319208778}
+    second:
+    - {fileID: 5229717429624057738}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 50, y: 20, z: 0}
   m_EntryPosition: {x: 36, y: 108, z: 0}

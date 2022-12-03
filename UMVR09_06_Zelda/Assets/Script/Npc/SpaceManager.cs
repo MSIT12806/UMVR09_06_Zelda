@@ -42,4 +42,9 @@ public class SpaceManager : MonoBehaviour, NpcHelper
     {
         throw new System.NotImplementedException();
     }
+
+    public void Look(Transform target)
+    {
+        throw new System.NotImplementedException();
+    }
 }

@@ -438,8 +438,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.6620014, y: 3.7150111, z: 7.5641394}
-  m_Center: {x: -0.1289033, y: 1.8491514, z: -0.9725213}
+  m_Size: {x: 2.6620014, y: 7.495282, z: 7.5641394}
+  m_Center: {x: -0.1289033, y: 3.7392988, z: -0.9725213}
 --- !u!114 &1533247706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -452,6 +452,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b11601d3f25612d46902453df527e4e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dragonWeapon: {fileID: 0}
+  dragonMouth: {fileID: 2564453279718530225}
+  dragonHead: {fileID: 2564453279718480035}
 --- !u!114 &1533247708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -472,8 +475,19 @@ MonoBehaviour:
     m_Bits: 64
   nextPosition: {x: 0, y: 0, z: 0}
   OnGround: 0
-  Hp: 500
-  Fever: 0
-  FeverTimes: 0
+  MaxHp: 0
+  Hp: 300
   initVel: {x: 0, y: 0, z: 0}
   grounded: 0
+--- !u!4 &2564453279718480035 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 465724, guid: c644a2181ac22e740968a7ece97e8f36,
+    type: 3}
+  m_PrefabInstance: {fileID: 2564453279718409119}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2564453279718530225 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 450350, guid: c644a2181ac22e740968a7ece97e8f36,
+    type: 3}
+  m_PrefabInstance: {fileID: 2564453279718409119}
+  m_PrefabAsset: {fileID: 0}
