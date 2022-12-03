@@ -47,19 +47,24 @@ public class DragonManager : MonoBehaviour, NpcHelper
     [SerializeField] Transform dragonWeapon;
     [SerializeField] Transform dragonMouth;
     [SerializeField] Transform dragonHead;
-    //ÀYªº«e¤è ¬O left...
+    //é ­çš„å‰æ–¹ æ˜¯ left...
     public void ShootFireBall()
     {
-        //¨Æ¥óÄ²µo
-        //§â²y²y±q¤f³¡ªº¦ì¸mµo¥X
+        //äº‹ä»¶è§¸ç™¼
+        //æŠŠçƒçƒå¾å£éƒ¨çš„ä½ç½®ç™¼å‡º
         var fireBall = dragonWeapon.GetComponentsInChildren<Transform>(true).FirstOrDefault(i => i.gameObject.activeSelf==false && i.tag == "FireBall");
         if (fireBall == null) return;
         fireBall.gameObject.SetActive(true);
         fireBall.transform.position = dragonMouth.position;
-        //³t«×¡B¤è¦V
+        //é€Ÿåº¦ã€æ–¹å‘
         var shootMagic = fireBall.GetComponent<ShootMagic>();
         shootMagic.force = -dragonHead.transform.right / 15;
         shootMagic.existSeconds = 2;
-        //¤@¬q®É¶¡«áÃz¬µ/®ø¥¢
+        //ä¸€æ®µæ™‚é–“å¾Œçˆ†ç‚¸/æ¶ˆå¤±
+    }
+
+    public void Look(Transform target)
+    {
+        throw new System.NotImplementedException();
     }
 }

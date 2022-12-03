@@ -174,17 +174,17 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
         dodge = true;
     }
 
-    public void AttackSpeedChange(float f)
+    public void AttackSpeedChange(float f)//事件觸發
     {
         animator.SetFloat("attackSpeed", f * 1.5f * 1.5f);
     }
 
-    public void AnimationAttack(int attackType)
+    public void AnimationAttack(int attackType)//事件觸發
     {
-        if (attackType == 1)
+        if (attackType == 1)//普攻34
             NpcCommon.AttackDetection(transform.position, transform.forward, 140, 3.2f, true, new DamageData(10f, transform.forward * 0.10f, HitType.light, DamageStateInfo.NormalAttack), "Npc");
-        if (attackType == 2)
-            NpcCommon.AttackDetection(transform.position, transform.forward, 140, 3.2f, true, new DamageData(10f, transform.forward * 0.15f, HitType.Heavy, DamageStateInfo.NormalAttack), "Npc");
+        if (attackType == 2)//重擊
+            NpcCommon.AttackDetection(transform.position, transform.forward, 360, 3.2f, true, new DamageData(10f, transform.forward * 0.15f, HitType.Heavy, DamageStateInfo.NormalAttack), "Npc");
     }
 
     #region  OnDrawGizmos 註解
@@ -235,6 +235,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     {
         if (!canBeHit) return;
         npc.Hp -= damageData.Damage;
+        print("pico被揍");
 
         //被打
         if (damageData.Hit == HitType.light) //改成 l & h 區分輕擊 & 重擊
@@ -254,6 +255,11 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     }
 
     public void Turn(Vector3 direction)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Look(Transform target)
     {
         throw new NotImplementedException();
     }

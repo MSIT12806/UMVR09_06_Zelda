@@ -72,6 +72,7 @@ public class Npc : MonoBehaviour
     }
     public void GetHurt(DamageData damageData)
     {
+        //print("有被打喔");
         stateManager.GetHurt(damageData);
     }
 
@@ -177,10 +178,9 @@ public class Npc : MonoBehaviour
 
     private void SetAnimationGroundedParameter()
     {
-        var a = transform.GetComponent<Animator>();
-        if (grounded && !a.GetBool("Grounded"))
+        if (grounded && !animator.GetBool("Grounded"))
         {
-            a.SetBool("Grounded", UnityEngine.Random.value * UnityEngine.Random.value > 0.8f);
+            animator.SetBool("Grounded", UnityEngine.Random.value * UnityEngine.Random.value > 0.8f);
         }
     }
 

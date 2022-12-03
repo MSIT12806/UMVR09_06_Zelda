@@ -9,6 +9,7 @@ public interface NpcHelper
     public void GetHurt(DamageData damageData);
     public void Move();
     public void Turn(Vector3 direction);
+    public void Look(Transform target);
 }
 public class AnimationWeight
 {

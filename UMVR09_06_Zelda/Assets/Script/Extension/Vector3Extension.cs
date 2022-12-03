@@ -23,4 +23,19 @@ public static class Vector3Extension
         r.y = yVal;
         return r;
     }
+    public static Vector3 WithX(this Vector3 val, float xVal = 0)
+    {
+        var r = val;
+        r.x = xVal;
+        return r;
+    }
+
+    public static Vector3 GetLocalRight(this Vector3 forward)
+    {
+        return Vector3.Cross(forward.normalized, Vector3.up);
+    }
+    public static Vector3 GetLocalUp(this Vector3 forward)
+    {
+        return Vector3.Cross(forward.normalized, Vector3.right);
+    }
 }

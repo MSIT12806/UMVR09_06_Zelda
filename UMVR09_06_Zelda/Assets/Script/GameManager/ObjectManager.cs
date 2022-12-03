@@ -14,6 +14,7 @@ public class ObjectManager : MonoBehaviour
     public static HashSet<AiState> ChasingNpc;
     public static TPSCamera myCamera;
     public static Transform MainCharacter;
+    public static Transform MainCharacterHead;
     public Transform MyCharacter;
     //    public static List<GameObject> UsaoResources;
     //處理 npc 碰撞、偵測、迴避、群體運動等行為。
@@ -30,6 +31,7 @@ public class ObjectManager : MonoBehaviour
         ChasingNpc = new HashSet<AiState>();
 
         MainCharacter = MyCharacter;
+        MainCharacterHead = MainCharacter.FindAnyChild<Transform>("Head");
         //    UsaoResources = new List<GameObject>(300);
         NpcsDead = new Dictionary<int, GameObject>();
 
