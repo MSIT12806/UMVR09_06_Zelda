@@ -72,6 +72,7 @@ public class Npc : MonoBehaviour
     }
     public void GetHurt(DamageData damageData)
     {
+        //print("有被打喔");
         stateManager.GetHurt(damageData);
     }
 

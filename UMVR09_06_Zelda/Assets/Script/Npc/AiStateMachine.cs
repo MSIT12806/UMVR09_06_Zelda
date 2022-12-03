@@ -774,12 +774,13 @@ public abstract class GolemBaseState : AiState
 }
 public class GolemIdleState : GolemBaseState
 {
-    float attackDistance = 5f;
-    //Npc npcData;
+    float attackDistance = 3.3f;
+    float nowArmor;
     Transform target;
     public GolemIdleState(Transform t, Animator a, Transform self, float armor, NpcHelper nh) : base(a, self, armor, nh)
     {
         target = t;
+        nowArmor = armor;
         //npcData = selfTransform.GetComponent<Npc>();
     }
     public override void SetAnimation()
@@ -796,20 +797,21 @@ public class GolemIdleState : GolemBaseState
     public override AiState SwitchState()
     {
         //切至Attack (追到後就打? 或亂數決定
-        bool attack = false;
-        if (attack)
+        float distance = (target.position - selfTransform.position).magnitude;
+        if (distance <= attackDistance)
         {
-            animator.SetTrigger("Attack");
-            return new GolemAttackState(target, animator, selfTransform, armor, npcHelper);
+            //animator.SetTrigger("Attack01");
+            return new GolemAttackState(target, animator, selfTransform, nowArmor, npcHelper);
         }
 
-        //切至Weak (攻擊後就露出? 或亂數決定
-        bool weak = false;
-        if (weak)
-        {
-            animator.SetBool("ShowWeakness", true);
-            return new GolemWeakState(target, animator, selfTransform, armor, WeakTime, npcHelper);
-        }
+        ////切至Weak (攻擊後就露出? 或亂數決定
+        //bool weak = false;
+        //if (weak)
+        //{
+        //    animator.SetBool("ShowWeakness", true);
+        //    return new GolemWeakState(target, animator, selfTransform, nowArmor, WeakTime, npcHelper);
+        //}
+
         //切至Skill (血量到特定%? 或亂數決定
         bool skill = false;
         if (skill)
@@ -818,11 +820,11 @@ public class GolemIdleState : GolemBaseState
             return new GolemSkillState(target, animator, selfTransform, npcHelper);
         }
         //切至Chase (距離玩家 > 攻擊範圍
-        if ((target.position - selfTransform.position).magnitude > attackDistance)
+        if (distance> attackDistance)
         {
-            Debug.Log((target.position - selfTransform.position).magnitude);
+            //Debug.Log((target.position - selfTransform.position).magnitude);
             animator.SetBool("NotReach", true);
-            return new GolemChaseState(target, animator, selfTransform, npcHelper);
+            return new GolemChaseState(target, animator, selfTransform, npcHelper,nowArmor);
         }
         //切至Roar (血量低於50% //do once
         if (npcData.Hp <= 10 && Once.CanSetShield)
@@ -844,13 +846,13 @@ public class GolemIdleState : GolemBaseState
 public class GolemChaseState : GolemBaseState
 {
     Transform target;
-    //Npc npcData;
-    float attackDistance = 5f;
-    public GolemChaseState(Transform t, Animator a, Transform self, NpcHelper nh) : base(a, self, 0, nh)
+    float nowArmor;
+    float attackDistance = 3.3f;
+    AnimatorStateInfo currentAnimation;
+    public GolemChaseState(Transform t, Animator a, Transform self, NpcHelper nh , float armor) : base(a, self, armor, nh)
     {
-        //npcData = selfTransform.GetComponent<Npc>();
         target = t;
-        //animator.SetBool("notReach", true);
+        nowArmor = armor;
         AddChasingNpc();
     }
 
@@ -865,9 +867,10 @@ public class GolemChaseState : GolemBaseState
 
     public override void SetAnimation()
     {
-        selfTransform.LookAt(target);
-        //selfTransform.Translate(0, 0, 0.1f);
-
+        LookAt();
+        currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
+        if(!animator.IsInTransition(0) && currentAnimation.IsName("Walk"))
+            selfTransform.Translate(0, 0, 0.15f);
 
         if (getHit != null)
         {
@@ -875,6 +878,36 @@ public class GolemChaseState : GolemBaseState
             getHit = null;
         }
     }
+    public void LookAt()
+    {
+        Vector3 dir = target.position - selfTransform.position;
+        dir.y = 0;
+        dir.Normalize();
+        float dot = Vector3.Dot(selfTransform.forward, dir);
+
+        if (dot > 1) dot = 1;
+        else if (dot < -1) dot = -1;
+
+        float radian = Mathf.Acos(dot);
+        float degree = radian * Mathf.Rad2Deg;
+
+        Vector3 vCross = Vector3.Cross(selfTransform.forward, dir);
+        if(degree > 5)
+        {
+            if (vCross.y < 0)
+                selfTransform.Rotate(0, -15, 0);
+            else
+                selfTransform.Rotate(0, 15, 0);
+        }
+        else
+        {
+            if (vCross.y < 0)
+                selfTransform.Rotate(0, -degree, 0);
+            else
+                selfTransform.Rotate(0, degree, 0);
+        }
+    }
+
 
     public override AiState SwitchState()
     {
@@ -907,11 +940,11 @@ public class GolemWeakState : GolemBaseState
     //Npc npcData;
     Transform target;
     float showWeaknessTime;
-    public GolemWeakState(Transform t, Animator a, Transform self, float armor, float weakTime, NpcHelper npcHelper) : base(a, self, armor, npcHelper)
+    public GolemWeakState(Transform t, Animator a, Transform self, float armor, NpcHelper npcHelper) : base(a, self, armor, npcHelper)
     {
         //npcData = selfTransform.GetComponent<Npc>();
         target = t;
-        showWeaknessTime = 0;
+        showWeaknessTime = 5;
     }
     public override void SetAnimation()
     {
@@ -1007,15 +1040,34 @@ public class GolemArmorBreakState : GolemBaseState
 public class GolemAttackState : GolemBaseState
 {
     Transform target;
-    Npc npcData;
+    AnimatorStateInfo currentAnimation;
+    bool finish = false;
+    float nowArmor;
     public GolemAttackState(Transform t, Animator a, Transform self, float armor, NpcHelper npcHelper) : base(a, self, armor, npcHelper)
     {
+        nowArmor = armor;
         target = t;
+        System.Random random = new System.Random();
+        int attackType = random.Next(1, 2);
+        if(attackType == 1)
+        {
+            animator.SetTrigger("Attack01");
+        }
+        else if(attackType == 2)
+        {
+            animator.SetTrigger("Attack02");
+        }
         //npcData = selfTransform.GetComponent<Npc>();
     }
 
     public override void SetAnimation()
     {
+        currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
+
+        if (currentAnimation.IsName("Attack01"))
+        {
+            finish = true;
+        }
         if (getHit != null)
         {
             npcData.Hp -= getHit.Damage / 10;
@@ -1025,31 +1077,38 @@ public class GolemAttackState : GolemBaseState
 
     public override AiState SwitchState()
     {
-        //被完美閃避 短暫露出Armor Armor被擊破 切至ArmorBreak
-        if (AttackFlaw)
+        ////被完美閃避 短暫露出Armor Armor被擊破 切至ArmorBreak
+        //if (AttackFlaw)
+        //{
+        //    animator.SetTrigger("ArmorBreak");
+        //    return new GolemArmorBreakState(target, animator, selfTransform, npcHelper);
+        //}
+
+        if(!currentAnimation.IsName("Attack02") && !currentAnimation.IsName("Attack01"))
         {
-            animator.SetTrigger("ArmorBreak");
-            return new GolemArmorBreakState(target, animator, selfTransform, npcHelper);
+            if (finish)
+            {
+                //Attack01結束後 切至weak 
+                return new GolemWeakState(target, animator, selfTransform, nowArmor, npcHelper);
+            }
+            else
+                //Attack02結束後 切回idle
+                return new GolemIdleState(target, animator, selfTransform, armor, npcHelper);
         }
-        //攻擊結束 切回idle
-        bool finish = false;
-        if (finish)
-        {
-            return new GolemIdleState(target, animator, selfTransform, armor, npcHelper);
-        }
+
         //切至Dead (血量歸0
         if (npcData.Hp < 0.0001f)
         {
             animator.SetTrigger("Dead");
             return new GolemDeadState(target, animator, selfTransform, npcHelper);
         }
-        throw new NotImplementedException();
+        return this;
     }
 }
 public class GolemSkillState : GolemBaseState
 {
     Transform target;
-    Npc npcData;
+    AnimatorStateInfo currentAnimation;
     public GolemSkillState(Transform t, Animator a, Transform self, NpcHelper nh) : base(a, self, 0, nh)
     {
         //npcData = selfTransform.GetComponent<Npc>();
@@ -1058,6 +1117,8 @@ public class GolemSkillState : GolemBaseState
 
     public override void SetAnimation()
     {
+        currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
+
         if (getHit != null)
         {
             //待修改
@@ -1074,8 +1135,7 @@ public class GolemSkillState : GolemBaseState
     public override AiState SwitchState()
     {
         //技能施放結束 切回idle
-        bool finish = false;
-        if (finish)
+        if (!currentAnimation.IsName("Skill"))
         {
             return new GolemIdleState(target, animator, selfTransform, armor, npcHelper);
         }
@@ -1092,7 +1152,7 @@ public class GolemSkillState : GolemBaseState
             animator.SetTrigger("Dead");
             return new GolemDeadState(target, animator, selfTransform, npcHelper);
         }
-        throw new NotImplementedException();
+        return this;
     }
 }
 public class GolemRoarState : GolemBaseState
@@ -1117,14 +1177,14 @@ public class GolemRoarState : GolemBaseState
         //施放完 切至idle
         bool finish = false;
         time += Time.deltaTime;
-        if (time > 4) finish = true;
+        if (time > 3) finish = true;
         if (finish)
         {
             Debug.Log("back to idle");
 
             return new GolemIdleState(target, animator, selfTransform, armor, npcHelper);
         }
-        throw new NotImplementedException();
+        return this;
     }
 }
 

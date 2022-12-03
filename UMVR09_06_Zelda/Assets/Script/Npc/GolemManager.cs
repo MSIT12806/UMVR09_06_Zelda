@@ -47,5 +47,16 @@ public class GolemManager : MonoBehaviour, NpcHelper
     {
         throw new System.NotImplementedException();
     }
+     public void AnimationAttack(int attackType)
+    {
+        if (attackType == 1)//???𱍊            print("attttttaaaaccccckkk");
+            NpcCommon.AttackDetection(transform.position, transform.forward, 360, 4f, false, new DamageData(10f, transform.forward * 0.3f, HitType.Heavy), "Player");//
+
+    }
+    //public void OnDrawGizmos()
+    //{
+    //    Gizmos.DrawRay(transform.position, transform.forward*4f);
+    //    //Gizmos.DrawRay(transform.position, transform.position + new Vector3(0, 0, 10));
+    //}
 }
 
