@@ -34,9 +34,12 @@ public static class NpcCommon
                         damageData.Force = vec.normalized * 0.15f;
                     }
                     var fx = item.transform.FindAnyChild<Transform>("CFXR Hit A (Red)");
-                    fx.position = item.transform.position.WithY(1);
-                    fx.gameObject.SetActive(true);
-                    fx.GetComponent<ParticleSystem>().Play();
+                    if (fx != null)
+                    {
+                        fx.position = item.transform.position.WithY(1);
+                        fx.gameObject.SetActive(true);
+                        fx.GetComponent<ParticleSystem>().Play();
+                    }
                     var attackReturn = nowNpc.gameObject.GetComponent<Npc>();
                     attackReturn.GetHurt(damageData);
                 }
