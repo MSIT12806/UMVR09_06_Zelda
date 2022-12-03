@@ -1115,8 +1115,10 @@ public abstract class SpaceBaseState : AiState
 
 public class SpaceIdleState : SpaceBaseState
 {
-    public SpaceIdleState(Animator a, Transform self, NpcHelper nh) : base(a, self, nh)
+    Transform target;
+    public SpaceIdleState(Transform t, Animator a, Transform self, NpcHelper nh) : base(a, self, nh)
     {
+        target = t;
     }
 
     public override void SetAnimation()
@@ -1126,6 +1128,15 @@ public class SpaceIdleState : SpaceBaseState
 
     public override AiState SwitchState()
     {
+        //切至Chase
+
+        //切至Attack
+
+        //切至Skill
+
+        //切至weak
+
+        //切至Dead
         throw new NotImplementedException();
     }
 }
@@ -1142,6 +1153,7 @@ public class SpaceChaseState : SpaceBaseState
 
     public override AiState SwitchState()
     {
+        //切至idle
         throw new NotImplementedException();
     }
 }
@@ -1158,6 +1170,13 @@ public class SpaceAttackState : SpaceBaseState
 
     public override AiState SwitchState()
     {
+        //切至idle
+
+        //切至Weak
+
+        //切至Dead
+
+
         throw new NotImplementedException();
     }
 }
@@ -1174,6 +1193,11 @@ public class SpaceSkillState : SpaceBaseState
 
     public override AiState SwitchState()
     {
+        //切至Weak
+
+        //切至idle
+
+        //切至Dead
         throw new NotImplementedException();
     }
 }
@@ -1190,6 +1214,9 @@ public class SpaceWeakState : SpaceBaseState
 
     public override AiState SwitchState()
     {
+        //切至idle
+
+        //切至ArmorBreak
         throw new NotImplementedException();
     }
 }
@@ -1207,6 +1234,9 @@ public class SpaceArmorBreakState : SpaceBaseState
 
     public override AiState SwitchState()
     {
+        //切至idle
+
+        //切至Dead
         throw new NotImplementedException();
     }
 }
