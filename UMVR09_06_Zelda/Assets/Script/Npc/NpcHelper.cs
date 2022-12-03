@@ -9,22 +9,48 @@ public interface NpcHelper
     public void GetHurt(DamageData damageData);
     public void Move();
     public void Turn(Vector3 direction);
-    //public Vector3 OriginPosition { get; }
 }
-public class StateAnimationInfo
+public class AnimationWeight
 {
-    public Action[] SetAnimations;
+    public string TriggerName;
+    public Action Condiction;
+}
+public class IdelStateInfo
+{
+    public readonly float randomValue = UnityEngine.Random.value;
+    public Vector3 OriginPosition;
+    public AnimationWeight[] Animations;
+
+    public IdelStateInfo(Vector3 oriPos, params AnimationWeight[] animations)
+    {
+        OriginPosition = oriPos;
+        Animations = animations;
+    }
+}
+public class FightStateInfo
+{
+    public readonly float randomValue = UnityEngine.Random.value;
+    public AnimationWeight[] Animations;
+    public Transform target;
+
+    public FightStateInfo(Transform t, params AnimationWeight[] animations)
+    {
+        target = t;
+        Animations = animations;
+    }
 }
 public class AttackStateInfo
 {
+    public readonly float randomValue = UnityEngine.Random.value;
+    public AnimationWeight[] Animations;
     public float MinAttackDistance;
     public float MaxAttackDistance;
-    public float Weight;
-    public string TriggerName;
-
 }
 public class ChaseStateInfo
 {
+    public readonly float randomValue = UnityEngine.Random.value;
+    public AnimationWeight[] Animations;
     public float KeepAwayDistance;
     public float ApproachDistance;
+    public Vector3 velocity;
 }

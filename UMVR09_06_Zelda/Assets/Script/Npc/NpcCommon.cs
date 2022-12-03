@@ -1,3 +1,4 @@
+using Ron;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,7 @@ public static class NpcCommon
 
             if (distance > Vector3.Distance(nowNpc.position.WithY(), attackCenter.WithY()))
             {
+                
                 vec.Normalize();
                 float fDot = Vector3.Dot(attackForward, vec.WithY());
                 if (fDot > 1) fDot = 1;
@@ -31,6 +33,10 @@ public static class NpcCommon
                     {
                         damageData.Force = vec.normalized * 0.15f;
                     }
+                    var fx = item.transform.FindAnyChild<Transform>("CFXR Hit A (Red)");
+                    fx.position = item.transform.position.WithY(1);
+                    fx.gameObject.SetActive(true);
+                    fx.GetComponent<ParticleSystem>().Play();
                     var attackReturn = nowNpc.gameObject.GetComponent<Npc>();
                     attackReturn.GetHurt(damageData);
                 }

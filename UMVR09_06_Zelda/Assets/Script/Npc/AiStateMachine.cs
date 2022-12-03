@@ -30,13 +30,15 @@ public abstract class AiState
 #region Common State Machine
 //public class IdelState : AiState
 //{
-//    public Action[] SetAnimations;
+//    public IdelStateInfo SetAnimations;
 //    int randomAnimation;
 //    //switch state
 //    ////切到 fight
 
 //    //SetAnimation
 //    ////當動作播完  幾種動作的切換  還是要每偵都要檢查捏  不然寫個事件好惹
+
+//還是會有一個兜底的動作，其他的動作用 trigger觸發
 //}
 //public class FightState : AiState
 //{
@@ -826,13 +828,11 @@ public class GolemChaseState : GolemBaseState
         if (distance <= attackDistance)
         {
             RemoveChasingNpc();
-            Debug.Log("Back to idle");
             animator.SetBool("NotReach", false);
             return new GolemIdleState(target, animator, selfTransform, armor, npcHelper);
         }
         else if (distance > attackDistance)
         {
-            Debug.Log("in chase");
             return this;
         }
 
