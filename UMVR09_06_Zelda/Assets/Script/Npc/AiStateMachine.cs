@@ -178,7 +178,7 @@ public class UsaoFightState : UsaoAiState
     Transform target;
     Transform head;
     Vector3 direction;
-
+    IKController ik;
     float dazeSeconds;
     public UsaoFightState(Transform t, Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Fight")
     {
@@ -186,6 +186,7 @@ public class UsaoFightState : UsaoAiState
         animator.SetBool("findTarget", true);
         head = selfTransform.FindAnyChild<Transform>("Character1_Head");
         RefreshDazeTime();
+        ik = selfTransform.GetComponent<IKController>();
     }
     public override AiState SwitchState()
     {
@@ -218,8 +219,10 @@ public class UsaoFightState : UsaoAiState
     public override void SetAnimation()
     {
         //1. 總是面對主角
-        AiStateCommon.Turn(selfTransform, target.position - selfTransform.position);
-        AiStateCommon.Look(head, ObjectManager.MainCharacterHead);
+
+        AiStateCommon.LookAtByIk(ik, ObjectManager.MainCharacterHead);
+        //AiStateCommon.Turn(selfTransform, target.position - selfTransform.position);
+        //AiStateCommon.Look(head, ObjectManager.MainCharacterHead);
 
         TauntRandomly();
 
@@ -418,7 +421,6 @@ public class UsaoHurtState : UsaoAiState
                 animator.Play("GetHit.Flying Back Death", 0);
                 getHit.Force.y = 0.75f;
             }
-            Debug.Log(getHit.Force);
             npc.KnockOff(getHit.Force);
         }
 
@@ -746,6 +748,11 @@ public static class AiStateCommon
     {
         return UnityEngine.Random.Range(3f, 10f);
     }
+
+    public static void LookAtByIk(IKController selfIk, Transform targetHead)
+    {
+        selfIk.LookAtObj = targetHead;
+    }
 }
 #endregion
 
@@ -777,10 +784,12 @@ public class GolemIdleState : GolemBaseState
     float attackDistance = 3.3f;
     float nowArmor;
     Transform target;
+    PicoState picoState;
     public GolemIdleState(Transform t, Animator a, Transform self, float armor, NpcHelper nh) : base(a, self, armor, nh)
     {
         target = t;
         nowArmor = armor;
+        picoState = target.GetComponent<PicoState>();
         //npcData = selfTransform.GetComponent<Npc>();
     }
     public override void SetAnimation()
@@ -796,6 +805,8 @@ public class GolemIdleState : GolemBaseState
 
     public override AiState SwitchState()
     {
+        if (picoState.gameState != GameState.ThridStage)
+            return this;
         //切至Attack (追到後就打? 或亂數決定
         float distance = (target.position - selfTransform.position).magnitude;
         if (distance <= attackDistance)

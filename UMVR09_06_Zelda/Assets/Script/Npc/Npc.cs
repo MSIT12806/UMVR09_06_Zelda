@@ -49,8 +49,15 @@ public class Npc : MonoBehaviour
         LerpToNextPosition();
         FreeFall();
     }
+    float lerpTime;
     private void LerpToNextPosition()
     {
+        if(lerpTime < Time.time)
+        {
+            nextPosition = Vector3.zero;
+            lerpTime = Time.time + 3;
+            return;
+        }
         if (nextPosition != Vector3.zero)
         {
             if (transform.position.WithY().AlmostEqual(nextPosition, 0.03f) == nextPosition.WithY())
@@ -62,6 +69,7 @@ public class Npc : MonoBehaviour
             {
                 transform.position = Vector3.Lerp(transform.position, nextPosition, 0.1f).AlmostEqual(nextPosition, 0.2f);
             }
+
         }
     }
 
