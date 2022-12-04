@@ -16,13 +16,17 @@ public abstract class AiState
     protected Animator animator;
     protected Transform selfTransform;
     protected NpcHelper npcHelper;
+    protected Npc npc;
+    protected PicoState picoState;
 
-    public AiState(Animator a, Transform self, NpcHelper nh, string name)
+    public AiState(Animator a, Transform self, NpcHelper nh, string name, PicoState state)
     {
         animator = a;
         selfTransform = self;
         npcHelper = nh;
         Name = name;
+        picoState = state;
+        npc = self.GetComponent<Npc>();
     }
 
 
@@ -133,7 +137,7 @@ public abstract class AiState
 public abstract class UsaoAiState : AiState
 {
     protected UsaoManager usaoManager;
-    protected UsaoAiState(Animator a, Transform self, NpcHelper nh, string name) : base(a, self, nh, name)
+    protected UsaoAiState(Animator a, Transform self, NpcHelper nh, string name, PicoState state) : base(a, self, nh, name, state)
     {
         usaoManager = (UsaoManager)nh;
     }
@@ -142,20 +146,17 @@ public class UsaoIdleState : UsaoAiState
 {
     Transform target;
     UsaoManager manager;
-    PicoState picoState;
 
-    public UsaoIdleState(Transform t, PicoState state, Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Idle")
+    public UsaoIdleState(Transform t, PicoState state, Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Idle", t.GetComponent<PicoState>())
     {
         target = t;
         manager = (UsaoManager)nh;
-        picoState = target.GetComponent<PicoState>();
     }
-    GameState switchStage = GameState.FirstStage;
     //Idle的啟動要是固定範圍 -- 要一直跟主角量距離
     //Idel 應該有個初始位置    
     public override AiState SwitchState()
     {
-        return picoState.gameState == switchStage ? new UsaoFightState(target, animator, selfTransform, npcHelper) : this;
+        return picoState.gameState == npc.gameState ? new UsaoFightState(target, animator, selfTransform, npcHelper) : this;
     }
 
     public override void SetAnimation()
@@ -180,7 +181,7 @@ public class UsaoFightState : UsaoAiState
     Vector3 direction;
     IKController ik;
     float dazeSeconds;
-    public UsaoFightState(Transform t, Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Fight")
+    public UsaoFightState(Transform t, Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Fight", t.GetComponent<PicoState>())
     {
         target = t;
         animator.SetBool("findTarget", true);
@@ -250,7 +251,7 @@ public class UsaoChaseState : UsaoAiState
     float attackRange = 5f;
     Vector3 direction;
     UsaoFightState fightState;
-    public UsaoChaseState(Transform alertObject, Animator a, Transform self, UsaoFightState fightState, NpcHelper nh) : base(a, self, nh, "Chase")
+    public UsaoChaseState(Transform alertObject, Animator a, Transform self, UsaoFightState fightState, NpcHelper nh) : base(a, self, nh, "Chase", alertObject.GetComponent<PicoState>())
     {
         alertTarget = alertObject;
         animator.SetBool("notReach", true);
@@ -277,7 +278,11 @@ public class UsaoChaseState : UsaoAiState
 
 
         //1. 如果目標物件消失於視野之外[，進行巡邏後]，回到發呆狀態
-
+        if (usaoManager.stage != picoState.gameState)
+        {
+            animator.SetBool("notReach", false);
+            return new UsaoIdleState(alertTarget, picoState, animator, selfTransform, usaoManager);
+        }
         //2. 如果目標物件進入攻擊範圍，則切換為攻擊模式
         var distance = Vector3.Distance(alertTarget.position, selfTransform.position);
         if (distance >= attackRange) return this;
@@ -319,7 +324,7 @@ public class UsaoChaseState : UsaoAiState
 public class UsaoAttackState : UsaoAiState
 {
     UsaoFightState fightState;
-    public UsaoAttackState(Animator a, Transform self, UsaoFightState fightState, NpcHelper nh) : base(a, self, nh, "Attack")
+    public UsaoAttackState(Animator a, Transform self, UsaoFightState fightState, NpcHelper nh) : base(a, self, nh, "Attack", null)
     {
         this.fightState = fightState;
     }
@@ -349,7 +354,7 @@ public class UsaoHurtState : UsaoAiState
     float deadTime;
     Npc npc;
 
-    public UsaoHurtState(Animator a, Transform self, DamageData d, UsaoFightState fight, NpcHelper nh) : base(a, self, nh, "Hurt")
+    public UsaoHurtState(Animator a, Transform self, DamageData d, UsaoFightState fight, NpcHelper nh) : base(a, self, nh, "Hurt", null)
     {
         npc = selfTransform.GetComponent<Npc>();
         getHit = d;
@@ -437,9 +442,9 @@ public class UsaoHurtState : UsaoAiState
 public class UsaoDeathState : UsaoAiState
 {
     int deathTime;
-    public UsaoDeathState(Animator a, Transform self, NpcHelper nh, DamageData damageData) : base(a, self, nh, "Death")
+    public UsaoDeathState(Animator a, Transform self, NpcHelper nh, DamageData damageData) : base(a, self, nh, "Death", null)
     {
-        
+
         deathTime = Time.frameCount;
         if (damageData.Hit == HitType.Heavy) return;
         if (UnityEngine.Random.value >= 0.5f)
@@ -472,7 +477,7 @@ public class UsaoDeathState : UsaoAiState
 public class DragonIdleState : AiState
 {
     Transform target;
-    public DragonIdleState(Transform t, Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Idle")
+    public DragonIdleState(Transform t, Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Idle", t.GetComponent<PicoState>())
     {
         target = t;
     }
@@ -501,7 +506,7 @@ public class DragonFightState : AiState
     float flyHpLimit;
     float attackWait = AiStateCommon.RandonAttackScale();
     float dazeSeconds;
-    public DragonFightState(Transform t, Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Fight")
+    public DragonFightState(Transform t, Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Fight", t.GetComponent<PicoState>())
     {
         target = t;
         head = self.FindAnyChild<Transform>("Head");
@@ -557,7 +562,7 @@ public class DragonFlyState : AiState
     Transform target;
     float dazeSeconds;
     Transform head;
-    public DragonFlyState(Transform target, Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Fight")
+    public DragonFlyState(Transform target, Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Fight", target.GetComponent<PicoState>())
     {
         head = self.FindAnyChild<Transform>("Head");
         this.target = target;
@@ -572,8 +577,8 @@ public class DragonFlyState : AiState
     }
     public override void SetAnimation()
     {
-        AiStateCommon.Turn(selfTransform,  target.position- selfTransform.position);
-        AiStateCommon.Look(head,  target);
+        AiStateCommon.Turn(selfTransform, target.position - selfTransform.position);
+        AiStateCommon.Look(head, target);
     }
 
     public override AiState SwitchState()
@@ -594,7 +599,7 @@ public class DragonFlyChaseState : AiState
     /*
 * 1. 保持 5~10公尺的距離， 太遠或太近就使用這個狀態來移動。
 */
-    public DragonFlyChaseState(Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Chase")
+    public DragonFlyChaseState(Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Chase", null)
     {
     }
 
@@ -611,7 +616,7 @@ public class DragonFlyChaseState : AiState
 public class DragonChaseState : AiState
 {
     Transform target;
-    public DragonChaseState(Transform t, Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Chase")
+    public DragonChaseState(Transform t, Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Chase", null)
     {
         target = t;
     }
@@ -633,7 +638,7 @@ public class DragonAttackState : AiState
     bool attack;
     string triggerName;
     Transform target;
-    public DragonAttackState(Transform transform, string trigger, Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Attack")
+    public DragonAttackState(Transform transform, string trigger, Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Attack", null)
     {
         this.triggerName = trigger;
         this.target = transform;
@@ -662,7 +667,7 @@ public class DragonAttackState : AiState
 }
 public class DragonDizzyState : AiState
 {
-    public DragonDizzyState(Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Dizzy")
+    public DragonDizzyState(Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Dizzy", null)
     {
     }
 
@@ -678,7 +683,7 @@ public class DragonDizzyState : AiState
 }
 public class DragonDeathState : AiState
 {
-    public DragonDeathState(Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Death")
+    public DragonDeathState(Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Death", null)
     {
     }
 
@@ -695,7 +700,7 @@ public class DragonDeathState : AiState
 public static class AiStateCommon
 {
 
-    public static void Turn(Transform body,Vector3 direction)
+    public static void Turn(Transform body, Vector3 direction)
     {
         var degree = Vector3.SignedAngle(body.forward, direction, Vector3.up);
         if (degree < 0)
@@ -708,7 +713,7 @@ public static class AiStateCommon
         }
     }
 
-    public static void Look(Transform head,Transform targetHead)
+    public static void Look(Transform head, Transform targetHead)
     {
         bool over = false;
         var degreeY = Vector3.Angle(head.forward.WithY(), (targetHead.position - head.position).WithY());
@@ -739,7 +744,7 @@ public static class AiStateCommon
         d = Quaternion.AngleAxis(degreeY, Vector3.up) * d;
         d = Quaternion.AngleAxis(degreeX, d.GetLocalRight()) * d;
         head.forward = d.normalized;
-        if(!over)
+        if (!over)
         {
             head.LookAt(targetHead);
         }
@@ -771,7 +776,7 @@ public abstract class GolemBaseState : AiState
     public float ArmorBreakTime = 5; //破甲暈眩持續時間 
     public bool AttackFlaw = false;
     public DamageData GolemDamageData;
-    public GolemBaseState(Animator a, Transform self, float armor, NpcHelper nh) : base(a, self, nh, "")//菁英怪 & Boss 有盾值
+    public GolemBaseState(Animator a, Transform self, float armor, NpcHelper nh) : base(a, self, nh, "", null)//菁英怪 & Boss 有盾值
     {
         animator = a;
         selfTransform = self;
@@ -831,11 +836,11 @@ public class GolemIdleState : GolemBaseState
             return new GolemSkillState(target, animator, selfTransform, npcHelper);
         }
         //切至Chase (距離玩家 > 攻擊範圍
-        if (distance> attackDistance)
+        if (distance > attackDistance)
         {
             //Debug.Log((target.position - selfTransform.position).magnitude);
             animator.SetBool("NotReach", true);
-            return new GolemChaseState(target, animator, selfTransform, npcHelper,nowArmor);
+            return new GolemChaseState(target, animator, selfTransform, npcHelper, nowArmor);
         }
         //切至Roar (血量低於50% //do once
         if (npcData.Hp <= 10 && Once.CanSetShield)
@@ -860,7 +865,7 @@ public class GolemChaseState : GolemBaseState
     float nowArmor;
     float attackDistance = 3.3f;
     AnimatorStateInfo currentAnimation;
-    public GolemChaseState(Transform t, Animator a, Transform self, NpcHelper nh , float armor) : base(a, self, armor, nh)
+    public GolemChaseState(Transform t, Animator a, Transform self, NpcHelper nh, float armor) : base(a, self, armor, nh)
     {
         target = t;
         nowArmor = armor;
@@ -880,7 +885,7 @@ public class GolemChaseState : GolemBaseState
     {
         LookAt();
         currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
-        if(!animator.IsInTransition(0) && currentAnimation.IsName("Walk"))
+        if (!animator.IsInTransition(0) && currentAnimation.IsName("Walk"))
             selfTransform.Translate(0, 0, 0.15f);
 
         if (getHit != null)
@@ -903,7 +908,7 @@ public class GolemChaseState : GolemBaseState
         float degree = radian * Mathf.Rad2Deg;
 
         Vector3 vCross = Vector3.Cross(selfTransform.forward, dir);
-        if(degree > 5)
+        if (degree > 5)
         {
             if (vCross.y < 0)
                 selfTransform.Rotate(0, -15, 0);
@@ -1060,11 +1065,11 @@ public class GolemAttackState : GolemBaseState
         target = t;
         System.Random random = new System.Random();
         int attackType = random.Next(1, 2);
-        if(attackType == 1)
+        if (attackType == 1)
         {
             animator.SetTrigger("Attack01");
         }
-        else if(attackType == 2)
+        else if (attackType == 2)
         {
             animator.SetTrigger("Attack02");
         }
@@ -1095,7 +1100,7 @@ public class GolemAttackState : GolemBaseState
         //    return new GolemArmorBreakState(target, animator, selfTransform, npcHelper);
         //}
 
-        if(!currentAnimation.IsName("Attack02") && !currentAnimation.IsName("Attack01"))
+        if (!currentAnimation.IsName("Attack02") && !currentAnimation.IsName("Attack01"))
         {
             if (finish)
             {
@@ -1230,7 +1235,7 @@ public abstract class SpaceBaseState : AiState
     float armor;
     float max_armor;
     Npc npcData;
-    public SpaceBaseState(Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "")
+    public SpaceBaseState(Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "", null)
     {
         animator = a;
         selfTransform = self;

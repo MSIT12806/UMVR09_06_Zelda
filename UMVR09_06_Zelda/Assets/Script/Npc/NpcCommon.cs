@@ -27,12 +27,21 @@ public static class NpcCommon
 
                 float fThetaRadian = Mathf.Acos(fDot);
                 float fThetaDegree = fThetaRadian * Mathf.Rad2Deg;
+
+                //擊中
                 if (fThetaDegree <= angle / 2)
                 {
+                    //擊退位移(如果有預設就用預設，沒有就用中心推開)
                     if (!repelDirection)
                     {
                         damageData.Force = vec.normalized * 0.15f;
                     }
+                    //效果處裡
+                    if(damageData.DamageStates.Count() != 0)
+                    {
+
+                    }
+                    //擊中特效 還沒綁在所有物件上
                     var fx = item.transform.FindAnyChild<Transform>("CFXR Hit A (Red)");
                     if (fx != null)
                     {
