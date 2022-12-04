@@ -21,16 +21,18 @@ public class ObjectManager : MonoBehaviour
     //chase: 檢查目前會攻擊玩家的角色有幾人，並適時切換 npc 狀態為 around or close。
     private void Awake()
     {
+        MainCharacter = MyCharacter;
+        MainCharacterHead = MainCharacter.FindAnyChild<Transform>("Head");
+
+
         stageOneSpawnPoint = transform.FindAnyChild<Transform>("StageOneSpawnPoint");
-        print(stageOneSpawnPoint.position);
+        GenUsao(stageOneSpawnPoint.position, 10, 50);//嚴重掉偵呢
         NpcsAlive = GameObject.FindGameObjectsWithTag("Npc").ToDictionary(i => i.GetInstanceID());
         GameObject.FindGameObjectsWithTag("Player").ToList().ForEach(i => NpcsAlive.Add(i.GetInstanceID(), i));
 
         Statics = GameObject.FindGameObjectsWithTag("Terrain").ToList();
         ChasingNpc = new HashSet<AiState>();
 
-        MainCharacter = MyCharacter;
-        MainCharacterHead = MainCharacter.FindAnyChild<Transform>("Head");
         //    UsaoResources = new List<GameObject>(300);
         NpcsDead = new Dictionary<int, GameObject>();
 
@@ -40,7 +42,6 @@ public class ObjectManager : MonoBehaviour
             item.enabled = false;
         }
 
-        GenUsao(stageOneSpawnPoint.position, 10, 50);//嚴重掉偵呢
 
     }
     Transform stageOneSpawnPoint;

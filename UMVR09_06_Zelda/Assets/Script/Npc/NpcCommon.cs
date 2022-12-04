@@ -37,10 +37,10 @@ public static class NpcCommon
                         damageData.Force = vec.normalized * 0.15f;
                     }
                     //效果處裡
-                    if(damageData.DamageStates.Count() != 0)
-                    {
+                    //if(damageData.DamageStates.Count() != 0)
+                    //{
 
-                    }
+                    //}
                     //擊中特效 還沒綁在所有物件上
                     var fx = item.transform.FindAnyChild<Transform>("CFXR Hit A (Red)");
                     if (fx != null)
@@ -51,6 +51,7 @@ public static class NpcCommon
                     }
                     var attackReturn = nowNpc.gameObject.GetComponent<Npc>();
                     attackReturn.GetHurt(damageData);
+                    Debug.Log("attack");
                 }
             }
         }
