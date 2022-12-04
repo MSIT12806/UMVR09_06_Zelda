@@ -95,10 +95,13 @@ public class SwordLight_Main : MonoBehaviour
         if (stateInfo.IsName("Attack02") && stateInfo.normalizedTime > 0.5f)
         {
             AttackEffectHeavy01.SetActive(true);
+            AttackEffectHeavy01.transform.parent = null;
         }
         else if (stateInfo.IsName("Attack02") == false)
         {
             AttackEffectHeavy01.SetActive(false);
+            AttackEffectHeavy01.transform.position = this.transform.position;
+            AttackEffectHeavy01.transform.parent = this.transform;
         }
     }
 
@@ -107,10 +110,13 @@ public class SwordLight_Main : MonoBehaviour
         if (stateInfo.IsName("Attack02 0") && stateInfo.normalizedTime > 0.5f)
         {
             AttackEffectHeavy02.SetActive(true);
+            AttackEffectHeavy02.transform.parent = null;
         }
         else if (stateInfo.IsName("Attack02 0") == false)
         {
             AttackEffectHeavy02.SetActive(false);
+            AttackEffectHeavy02.transform.position = this.transform.position;
+            AttackEffectHeavy02.transform.parent = this.transform;
         }
     }
 
@@ -119,10 +125,13 @@ public class SwordLight_Main : MonoBehaviour
         if (stateInfo.IsName("Attack02 1") && stateInfo.normalizedTime > 0.4f)
         {
             AttackEffectHeavy03.SetActive(true);
+            AttackEffectHeavy03.transform.parent = null;
         }
         else if (stateInfo.IsName("Attack02 1") == false)
         {
             AttackEffectHeavy03.SetActive(false);
+            AttackEffectHeavy03.transform.position = this.transform.position;
+            AttackEffectHeavy03.transform.parent = this.transform;
         }
     }
 
@@ -130,12 +139,14 @@ public class SwordLight_Main : MonoBehaviour
     {
         if (stateInfo.IsName("Attack02 2") && stateInfo.normalizedTime > 0.4f)
         {
-            Debug.Log(stateInfo.normalizedTime);
             AttackEffectHeavy04.SetActive(true);
+            AttackEffectHeavy04.transform.parent = null;
         }
         else if (stateInfo.IsName("Attack02 2") == false)
         {
             AttackEffectHeavy04.SetActive(false);
+            AttackEffectHeavy04.transform.position = this.transform.position;
+            AttackEffectHeavy04.transform.parent = this.transform;
         }
     }
 }
