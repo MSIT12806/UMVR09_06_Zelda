@@ -182,7 +182,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     public void AnimationAttack(int attackType)//事件觸發
     {
         if (attackType == 1)//普攻34
-            NpcCommon.AttackDetection(transform.position, transform.forward, 140, 3.2f, true, new DamageData(10f, transform.forward * 0.10f, HitType.light, DamageStateInfo.NormalAttack), "Npc");
+            NpcCommon.AttackDetection(transform.position, transform.forward, 140, 3.2f, true, new DamageData(10f, transform.forward * 1f, HitType.light, DamageStateInfo.NormalAttack), "Npc");
         if (attackType == 2)//重擊
             NpcCommon.AttackDetection(transform.position, transform.forward, 360, 3.2f, true, new DamageData(10f, transform.forward * 0.15f, HitType.Heavy, DamageStateInfo.NormalAttack), "Npc");
     }
