@@ -178,7 +178,7 @@ public class UsaoFightState : UsaoAiState
     Transform target;
     Transform head;
     Vector3 direction;
-
+    IKController ik;
     float dazeSeconds;
     public UsaoFightState(Transform t, Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Fight")
     {
@@ -186,6 +186,7 @@ public class UsaoFightState : UsaoAiState
         animator.SetBool("findTarget", true);
         head = selfTransform.FindAnyChild<Transform>("Character1_Head");
         RefreshDazeTime();
+        ik = selfTransform.GetComponent<IKController>();
     }
     public override AiState SwitchState()
     {
@@ -218,8 +219,10 @@ public class UsaoFightState : UsaoAiState
     public override void SetAnimation()
     {
         //1. 總是面對主角
-        AiStateCommon.Turn(selfTransform, target.position - selfTransform.position);
-        AiStateCommon.Look(head, ObjectManager.MainCharacterHead);
+
+        AiStateCommon.LookAtByIk(ik, ObjectManager.MainCharacterHead);
+        //AiStateCommon.Turn(selfTransform, target.position - selfTransform.position);
+        //AiStateCommon.Look(head, ObjectManager.MainCharacterHead);
 
         TauntRandomly();
 
@@ -418,7 +421,6 @@ public class UsaoHurtState : UsaoAiState
                 animator.Play("GetHit.Flying Back Death", 0);
                 getHit.Force.y = 0.75f;
             }
-            Debug.Log(getHit.Force);
             npc.KnockOff(getHit.Force);
         }
 
@@ -746,6 +748,11 @@ public static class AiStateCommon
     {
         return UnityEngine.Random.Range(3f, 10f);
     }
+
+    public static void LookAtByIk(IKController selfIk, Transform targetHead)
+    {
+        selfIk.LookAtObj = targetHead;
+    }
 }
 #endregion
 
@@ -760,7 +767,7 @@ public abstract class GolemBaseState : AiState
     protected Npc npcData;
     protected float max_armor = 10;
     protected float armor;
-    public float WeakTime = 3;//弱點持續時間
+    public float WeakTime = 5;//弱點持續時間
     public float ArmorBreakTime = 5; //破甲暈眩持續時間 
     public bool AttackFlaw = false;
     public DamageData GolemDamageData;
@@ -777,10 +784,12 @@ public class GolemIdleState : GolemBaseState
     float attackDistance = 3.3f;
     float nowArmor;
     Transform target;
+    PicoState picoState;
     public GolemIdleState(Transform t, Animator a, Transform self, float armor, NpcHelper nh) : base(a, self, armor, nh)
     {
         target = t;
         nowArmor = armor;
+        picoState = target.GetComponent<PicoState>();
         //npcData = selfTransform.GetComponent<Npc>();
     }
     public override void SetAnimation()
@@ -796,6 +805,8 @@ public class GolemIdleState : GolemBaseState
 
     public override AiState SwitchState()
     {
+        if (picoState.gameState != GameState.ThridStage)
+            return this;
         //切至Attack (追到後就打? 或亂數決定
         float distance = (target.position - selfTransform.position).magnitude;
         if (distance <= attackDistance)
@@ -944,12 +955,13 @@ public class GolemWeakState : GolemBaseState
     {
         //npcData = selfTransform.GetComponent<Npc>();
         target = t;
-        showWeaknessTime = 5;
+        showWeaknessTime = 0;
     }
     public override void SetAnimation()
     {
         showWeaknessTime += Time.deltaTime;
         animator.SetBool("ShowWeakness", true);
+        //Debug.Log(showWeaknessTime);
         //animator.SetFloat("WeakTime", showWeaknessTime);
 
 
@@ -970,8 +982,9 @@ public class GolemWeakState : GolemBaseState
             return new GolemIdleState(target, animator, selfTransform, armor, npcHelper);
         }
         //Armor被擊破 切至ArmorBreak
-        if (armor <= 0)
+        if (armor < 0)
         {
+            //animator.SetBool("ShowWeakness", false);
             animator.SetTrigger("ArmorBreak");
             return new GolemArmorBreakState(target, animator, selfTransform, npcHelper);
         }
@@ -979,6 +992,7 @@ public class GolemWeakState : GolemBaseState
         //切至Dead (血量歸0
         if (npcData.Hp < 0.0001f)
         {
+            animator.SetBool("ShowWeakness", false);
             animator.SetTrigger("Dead");
             return new GolemDeadState(target, animator, selfTransform, npcHelper);
         }
