@@ -944,12 +944,13 @@ public class GolemWeakState : GolemBaseState
     {
         //npcData = selfTransform.GetComponent<Npc>();
         target = t;
-        showWeaknessTime = 5;
+        showWeaknessTime = 0;
     }
     public override void SetAnimation()
     {
         showWeaknessTime += Time.deltaTime;
         animator.SetBool("ShowWeakness", true);
+        Debug.Log("weak");
         //animator.SetFloat("WeakTime", showWeaknessTime);
 
 
@@ -972,6 +973,7 @@ public class GolemWeakState : GolemBaseState
         //Armor被擊破 切至ArmorBreak
         if (armor <= 0)
         {
+            animator.SetBool("ShowWeakness", false);
             animator.SetTrigger("ArmorBreak");
             return new GolemArmorBreakState(target, animator, selfTransform, npcHelper);
         }
@@ -979,6 +981,7 @@ public class GolemWeakState : GolemBaseState
         //切至Dead (血量歸0
         if (npcData.Hp < 0.0001f)
         {
+            animator.SetBool("ShowWeakness", false);
             animator.SetTrigger("Dead");
             return new GolemDeadState(target, animator, selfTransform, npcHelper);
         }
