@@ -183,8 +183,10 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     {
         if (attackType == 1)//普攻34
             NpcCommon.AttackDetection(transform.position, transform.forward, 140, 3.2f, true, new DamageData(10f, transform.forward * 0.10f, HitType.light, DamageStateInfo.NormalAttack), "Npc");
-        if (attackType == 2)//重擊
-            NpcCommon.AttackDetection(transform.position, transform.forward, 360, 3.2f, true, new DamageData(10f, transform.forward * 0.15f, HitType.Heavy, DamageStateInfo.NormalAttack), "Npc");
+        if (attackType == 2)//重擊1
+            NpcCommon.AttackDetection(transform.position + transform.forward*0.7f, transform.forward, 360, 2.5f, true, new DamageData(10f, transform.forward * 0.15f, HitType.Heavy, DamageStateInfo.NormalAttack), "Npc");
+        if (attackType == 3)//重擊2
+            NpcCommon.AttackDetection(transform.position + transform.forward*-0.2f , transform.forward, 180, 3.5f, true, new DamageData(10f, transform.forward * 0.15f, HitType.Heavy, DamageStateInfo.NormalAttack), "Npc");
     }
 
     #region  OnDrawGizmos 註解

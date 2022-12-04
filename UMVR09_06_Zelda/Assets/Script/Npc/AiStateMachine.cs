@@ -760,7 +760,7 @@ public abstract class GolemBaseState : AiState
     protected Npc npcData;
     protected float max_armor = 10;
     protected float armor;
-    public float WeakTime = 3;//弱點持續時間
+    public float WeakTime = 5;//弱點持續時間
     public float ArmorBreakTime = 5; //破甲暈眩持續時間 
     public bool AttackFlaw = false;
     public DamageData GolemDamageData;
@@ -950,7 +950,7 @@ public class GolemWeakState : GolemBaseState
     {
         showWeaknessTime += Time.deltaTime;
         animator.SetBool("ShowWeakness", true);
-        Debug.Log("weak");
+        //Debug.Log(showWeaknessTime);
         //animator.SetFloat("WeakTime", showWeaknessTime);
 
 
@@ -971,9 +971,9 @@ public class GolemWeakState : GolemBaseState
             return new GolemIdleState(target, animator, selfTransform, armor, npcHelper);
         }
         //Armor被擊破 切至ArmorBreak
-        if (armor <= 0)
+        if (armor < 0)
         {
-            animator.SetBool("ShowWeakness", false);
+            //animator.SetBool("ShowWeakness", false);
             animator.SetTrigger("ArmorBreak");
             return new GolemArmorBreakState(target, animator, selfTransform, npcHelper);
         }
