@@ -805,8 +805,21 @@ public class GolemIdleState : GolemBaseState
 
     public override AiState SwitchState()
     {
+        //切至Dead (血量歸0
+        if (npcData.Hp < 0.0001f)
+        {
+            animator.SetTrigger("Dead");
+            return new GolemDeadState(target, animator, selfTransform, npcHelper);
+        }
         if (picoState.gameState != GameState.ThridStage)
             return this;
+        //切至Roar (血量低於50% //do once
+        if (npcData.Hp <= 10 && Once.CanSetShield)
+        {
+            Once.CanSetShield = false;
+            animator.SetTrigger("SetShield");
+            return new GolemRoarState(target, animator, selfTransform, npcHelper);
+        }
         //切至Attack (追到後就打? 或亂數決定
         float distance = (target.position - selfTransform.position).magnitude;
         if (distance <= attackDistance)
@@ -836,19 +849,6 @@ public class GolemIdleState : GolemBaseState
             //Debug.Log((target.position - selfTransform.position).magnitude);
             animator.SetBool("NotReach", true);
             return new GolemChaseState(target, animator, selfTransform, npcHelper,nowArmor);
-        }
-        //切至Roar (血量低於50% //do once
-        if (npcData.Hp <= 10 && Once.CanSetShield)
-        {
-            Once.CanSetShield = false;
-            animator.SetTrigger("SetShield");
-            return new GolemRoarState(target, animator, selfTransform, npcHelper);
-        }
-        //切至Dead (血量歸0
-        if (npcData.Hp < 0.0001f)
-        {
-            animator.SetTrigger("Dead");
-            return new GolemDeadState(target, animator, selfTransform, npcHelper);
         }
 
         return this;
@@ -922,6 +922,12 @@ public class GolemChaseState : GolemBaseState
 
     public override AiState SwitchState()
     {
+        //切至Dead (血量歸0
+        if (npcData.Hp < 0.0001f)
+        {
+            animator.SetTrigger("Dead");
+            return new GolemDeadState(target, animator, selfTransform, npcHelper);
+        }
         //到玩家旁邊切回idle
         float distance = (selfTransform.position - target.position).magnitude;
         if (distance <= attackDistance)
@@ -935,12 +941,6 @@ public class GolemChaseState : GolemBaseState
             return this;
         }
 
-        //切至Dead (血量歸0
-        if (npcData.Hp < 0.0001f)
-        {
-            animator.SetTrigger("Dead");
-            return new GolemDeadState(target, animator, selfTransform, npcHelper);
-        }
 
         throw new NotImplementedException();
     }
@@ -981,6 +981,13 @@ public class GolemWeakState : GolemBaseState
 
     public override AiState SwitchState()
     {
+        //切至Dead (血量歸0
+        if (npcData.Hp < 0.0001f)
+        {
+            animator.SetBool("ShowWeakness", false);
+            animator.SetTrigger("Dead");
+            return new GolemDeadState(target, animator, selfTransform, npcHelper);
+        }
         //露出時間結束 切回idle
         if (showWeaknessTime > WeakTime)
         {
@@ -996,13 +1003,6 @@ public class GolemWeakState : GolemBaseState
             return new GolemArmorBreakState(target, animator, selfTransform, npcHelper);
         }
 
-        //切至Dead (血量歸0
-        if (npcData.Hp < 0.0001f)
-        {
-            animator.SetBool("ShowWeakness", false);
-            animator.SetTrigger("Dead");
-            return new GolemDeadState(target, animator, selfTransform, npcHelper);
-        }
 
         //
         else return this;
@@ -1038,6 +1038,12 @@ public class GolemArmorBreakState : GolemBaseState
 
     public override AiState SwitchState()
     {
+        //切至Dead (血量歸0
+        if (npcData.Hp < 0.0001f)
+        {
+            animator.SetTrigger("Dead");
+            return new GolemDeadState(target, animator, selfTransform, npcHelper);
+        }
         //暈眩時間結束 切回idle
         //Armor補滿
         if (time > 5)
@@ -1048,12 +1054,6 @@ public class GolemArmorBreakState : GolemBaseState
         if (time <= 5)
         {
             return this;
-        }
-        //切至Dead (血量歸0
-        if (npcData.Hp < 0.0001f)
-        {
-            animator.SetTrigger("Dead");
-            return new GolemDeadState(target, animator, selfTransform, npcHelper);
         }
         throw new NotImplementedException();
     }
@@ -1098,6 +1098,12 @@ public class GolemAttackState : GolemBaseState
 
     public override AiState SwitchState()
     {
+        //切至Dead (血量歸0
+        if (npcData.Hp < 0.0001f)
+        {
+            animator.SetTrigger("Dead");
+            return new GolemDeadState(target, animator, selfTransform, npcHelper);
+        }
         ////被完美閃避 短暫露出Armor Armor被擊破 切至ArmorBreak
         //if (AttackFlaw)
         //{
@@ -1117,12 +1123,6 @@ public class GolemAttackState : GolemBaseState
                 return new GolemIdleState(target, animator, selfTransform, armor, npcHelper);
         }
 
-        //切至Dead (血量歸0
-        if (npcData.Hp < 0.0001f)
-        {
-            animator.SetTrigger("Dead");
-            return new GolemDeadState(target, animator, selfTransform, npcHelper);
-        }
         return this;
     }
 }
@@ -1155,6 +1155,12 @@ public class GolemSkillState : GolemBaseState
 
     public override AiState SwitchState()
     {
+        //切至Dead (血量歸0
+        if (npcData.Hp < 0.0001f)
+        {
+            animator.SetTrigger("Dead");
+            return new GolemDeadState(target, animator, selfTransform, npcHelper);
+        }
         //技能施放結束 切回idle
         if (!currentAnimation.IsName("Skill"))
         {
@@ -1166,12 +1172,6 @@ public class GolemSkillState : GolemBaseState
         {
             animator.SetTrigger("SheikahDefense");
             return new GolemArmorBreakState(target, animator, selfTransform, npcHelper);
-        }
-        //切至Dead (血量歸0
-        if (npcData.Hp < 0.0001f)
-        {
-            animator.SetTrigger("Dead");
-            return new GolemDeadState(target, animator, selfTransform, npcHelper);
         }
         return this;
     }
@@ -1198,7 +1198,8 @@ public class GolemRoarState : GolemBaseState
         //施放完 切至idle
         bool finish = false;
         time += Time.deltaTime;
-        if (time > 3) finish = true;
+        if (time > 4) finish = true;
+        Debug.Log(time);
         if (finish)
         {
             Debug.Log("back to idle");
