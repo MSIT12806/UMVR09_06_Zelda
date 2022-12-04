@@ -126,6 +126,7 @@ public class Npc : MonoBehaviour
 
     void NpcCollision()
     {
+        if(ObjectManager.NpcsAlive == null) return;
         foreach (var item in ObjectManager.NpcsAlive.Values)
         {
             if (item == this) continue;

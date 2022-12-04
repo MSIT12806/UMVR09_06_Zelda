@@ -78,6 +78,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
 
         if (Input.GetKey(KeyCode.LeftControl))
         {
+            Debug.Log(123);
             //fTimer 也不知道這紀錄時間要用來幹嘛阿
             pressControlTime += Time.deltaTime;
             if (pressControlTime > 0.3)//衝刺
@@ -89,6 +90,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
         }
         if (Input.GetKeyUp(KeyCode.LeftControl))
         {
+
             focusLine.SetActive(false);
             Sword.SetActive(true);
             pressControlTime = 0f;
