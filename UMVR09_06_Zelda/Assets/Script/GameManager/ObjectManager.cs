@@ -23,7 +23,6 @@ public class ObjectManager : MonoBehaviour
     {
         stageOneSpawnPoint = transform.FindAnyChild<Transform>("StageOneSpawnPoint");
         print(stageOneSpawnPoint.position);
-        GenUsao(stageOneSpawnPoint.position, 10, 50);//嚴重掉偵呢
         NpcsAlive = GameObject.FindGameObjectsWithTag("Npc").ToDictionary(i => i.GetInstanceID());
         GameObject.FindGameObjectsWithTag("Player").ToList().ForEach(i => NpcsAlive.Add(i.GetInstanceID(), i));
 
@@ -41,6 +40,8 @@ public class ObjectManager : MonoBehaviour
             item.enabled = false;
         }
 
+        GenUsao(stageOneSpawnPoint.position, 10, 50);//嚴重掉偵呢
+
     }
     Transform stageOneSpawnPoint;
     public void GenUsao(Vector3 position, float range, int normalNumber)
@@ -49,8 +50,10 @@ public class ObjectManager : MonoBehaviour
         {
             var usao = (GameObject)Resources.Load("usao_0321");
             usao.transform.position = position + new Vector3(UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1), 1, UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1));
+            usao.transform.forward = ObjectManager.MainCharacter.position - usao.transform.position;
             var npc = usao.GetComponent<Npc>();
             npc.Hp = 50;
+            npc.gameState = GameState.FirstStage;
             Instantiate(usao);
         }
     }

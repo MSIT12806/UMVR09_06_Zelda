@@ -19,8 +19,8 @@ public class DragonManager : MonoBehaviour, NpcHelper
     }
     void Start()
     {
-        aiState = new DragonIdleState(ObjectManager.MainCharacter, transform.GetComponent<Animator>(), transform,this);
-        
+        aiState = new DragonIdleState(ObjectManager.MainCharacter, transform.GetComponent<Animator>(), transform, this);
+
     }
 
     // Update is called once per frame
@@ -31,6 +31,22 @@ public class DragonManager : MonoBehaviour, NpcHelper
     }
     public void GetHurt(DamageData damageData)
     {
+        var currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
+        if(currentAnimation.IsName("Fly Float"))
+        {
+            var dStateList = damageData.DamageStates;
+            foreach (var item in dStateList)
+            {
+                if(item.damageState == DamageState.Bomb)
+                {
+                    Hp -= damageData.Damage;
+                }
+
+            }
+            return;
+        }
+
+
         Hp -= damageData.Damage;
         //aiState = new UsaoHurtState(transform.GetComponent<Animator>(), transform, damageData);
     }
@@ -52,13 +68,13 @@ public class DragonManager : MonoBehaviour, NpcHelper
     {
         //事件觸發
         //把球球從口部的位置發出
-        var fireBall = dragonWeapon.GetComponentsInChildren<Transform>(true).FirstOrDefault(i => i.gameObject.activeSelf==false && i.tag == "FireBall");
+        var fireBall = dragonWeapon.GetComponentsInChildren<Transform>(true).FirstOrDefault(i => i.gameObject.activeSelf == false && i.tag == "FireBall");
         if (fireBall == null) return;
         fireBall.gameObject.SetActive(true);
         fireBall.transform.position = dragonMouth.position;
         //速度、方向
         var shootMagic = fireBall.GetComponent<ShootMagic>();
-        shootMagic.force = -dragonHead.transform.right / 15;
+        shootMagic.force = (ObjectManager.MainCharacter.position - dragonHead.position).normalized / 15;
         shootMagic.existSeconds = 2;
         //一段時間後爆炸/消失
     }

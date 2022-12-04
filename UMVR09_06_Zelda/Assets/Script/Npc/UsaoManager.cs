@@ -20,7 +20,7 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
     AiState aiState;
     Npc npc;
     Animator animator;
-
+    public GameState stage { get => npc.gameState; }
     #region all aistate
     public UsaoIdleState usaoIdleState;
     public UsaoFightState usaoFightState;
@@ -57,7 +57,7 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
     }
     private void LateUpdate()
     {
-            aiState.SetAnimation();
+        aiState.SetAnimation();
     }
     public void GetHurt(DamageData damageData)
     {
@@ -76,11 +76,11 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
         var degree = Vector3.SignedAngle(transform.forward, direction, Vector3.up);
         if (degree < 0)
         {
-            transform.Rotate(Vector3.up, -1);
+            transform.Rotate(Vector3.up, -2);
         }
         else if (degree > 0)
         {
-            transform.Rotate(Vector3.up, 1);
+            transform.Rotate(Vector3.up, 2);
         }
     }
 
