@@ -24,7 +24,7 @@ public class Npc : MonoBehaviour
     Animator animator;
     PicoState picoState;
     public Vector3 nextPosition;
-    public GameState gameState { get => (GameState)picoState.gameState; }
+    public GameState gameState;
     public bool collide { get; set; }
     public bool Alive { get => Hp > 0;  }
     public bool OnGround;

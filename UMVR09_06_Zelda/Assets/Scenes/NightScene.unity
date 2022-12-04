@@ -19732,6 +19732,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 812130047, guid: 5752f796e3e1390418365a49a0e90a84, type: 3}
+      propertyPath: gameState
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 509284550586355046, guid: 5752f796e3e1390418365a49a0e90a84,
         type: 3}
       propertyPath: m_Name
@@ -28842,7 +28846,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1010608057
 Transform:
   m_ObjectHideFlags: 0
@@ -33133,6 +33137,10 @@ PrefabInstance:
       propertyPath: dragonWeapon
       value: 
       objectReference: {fileID: 535674134}
+    - target: {fileID: 1533247708, guid: e344ba4e5a1508a4a9133612aa1c3172, type: 3}
+      propertyPath: gameState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2564453279718341643, guid: e344ba4e5a1508a4a9133612aa1c3172,
         type: 3}
       propertyPath: m_Name

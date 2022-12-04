@@ -17,7 +17,7 @@ public class ShootMagic : MonoBehaviour
     {
         transform.Translate(force);
         existSeconds -= Time.deltaTime;
-        if (existSeconds <= 0 || Vector3.Distance(transform.position, ObjectManager.MainCharacter.position) < 5)
+        if (existSeconds <= 0 || Vector3.Distance(transform.position, ObjectManager.MainCharacter.position) < 1)
         {
             gameObject.SetActive(false);
             NpcCommon.AttackDetection(transform.position, transform.forward, 360f, 5f, false, new DamageData(100, Vector3.zero, HitType.Heavy), "Player");
