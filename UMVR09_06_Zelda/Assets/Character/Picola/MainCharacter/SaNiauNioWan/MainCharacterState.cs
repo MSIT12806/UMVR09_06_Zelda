@@ -63,7 +63,8 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
 
         //無雙條測試
         if (Input.GetKey(KeyCode.P))
-            PicoManager.Power++;
+            AddPowerValue();
+            
 
         if (Input.GetKeyDown(KeyCode.F))
         {
@@ -127,6 +128,12 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
             IK.SetWeight_Up(1);
         }
     }
+
+    private void AddPowerValue()
+    {
+        PicoManager.Power++;
+    }
+
     /// <summary>
     /// 增加 按下Lctrl閃避 時的位移距離
     /// </summary>
@@ -191,11 +198,11 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     public void AnimationAttack(int attackType)//事件觸發
     {
         if (attackType == 1)//普攻34
-            NpcCommon.AttackDetection(transform.position, transform.forward, 140, 3.2f, true, new DamageData(10f, transform.forward * 1f, HitType.light, DamageStateInfo.NormalAttack), "Npc");
+            NpcCommon.AttackDetection("Pico", transform.position, transform.forward, 140, 3.2f, true, new DamageData(10f, transform.forward * 1f, HitType.light, DamageStateInfo.NormalAttack), "Npc");
         if (attackType == 2)//重擊1
-            NpcCommon.AttackDetection(transform.position + transform.forward * 0.7f, transform.forward, 360, 2.5f, true, new DamageData(10f, transform.forward * 0.15f, HitType.Heavy, DamageStateInfo.NormalAttack), "Npc");
+            NpcCommon.AttackDetection("Pico", transform.position + transform.forward * 0.7f, transform.forward, 360, 2.5f, true, new DamageData(10f, transform.forward * 0.15f, HitType.Heavy, DamageStateInfo.NormalAttack), "Npc");
         if (attackType == 3)//重擊2
-            NpcCommon.AttackDetection(transform.position + transform.forward * -0.2f, transform.forward, 180, 3.5f, true, new DamageData(10f, transform.forward * 0.15f, HitType.Heavy, DamageStateInfo.NormalAttack), "Npc");
+            NpcCommon.AttackDetection("Pico", transform.position + transform.forward * -0.2f, transform.forward, 180, 3.5f, true, new DamageData(10f, transform.forward * 0.15f, HitType.Heavy, DamageStateInfo.NormalAttack), "Npc");
     }
 
     #region  OnDrawGizmos 註解

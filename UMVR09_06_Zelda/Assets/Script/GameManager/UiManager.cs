@@ -148,7 +148,7 @@ public class UiManager : MonoBehaviour
         {
             PowerOne.fillAmount = 1;
             PowerTwo.fillAmount = 1;
-            PowerOneKey.gameObject.SetActive(true);
+            PowerOneKey.gameObject.SetActive(false);
             PowerTwoKey.gameObject.SetActive(true);
         }
         else if (PicoManager.Power >= 100)

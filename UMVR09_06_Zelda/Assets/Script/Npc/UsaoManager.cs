@@ -72,7 +72,7 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
 
     public void Attack()
     {
-        NpcCommon.AttackDetection(transform.position, transform.forward, 15f, 1f, false, new DamageData(5, Vector3.zero, HitType.light), "Player");
+        NpcCommon.AttackDetection("", transform.position, transform.forward, 15f, 1f, false, new DamageData(5, Vector3.zero, HitType.light), "Player");
     }
     public void Turn(Vector3 direction)
     {
