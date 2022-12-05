@@ -204,7 +204,7 @@ public class UsaoFightState : UsaoAiState
 
         var distance = Vector3.Distance(target.position, selfTransform.position);
         int count = GetChasingNpcCount();
-        if (keepOrAttack > 0.2)
+        if (keepOrAttack > 0.3)
         {
             if (distance > keepDistance) return new UsaoChaseState(target, animator, selfTransform, this, npcHelper);
             else if (distance <= keepDistance) return new UsaoAttackState(animator, selfTransform, this, npcHelper);
@@ -265,6 +265,8 @@ public class UsaoChaseState : UsaoAiState
     UsaoFightState fightState;
     public UsaoChaseState(Transform alertObject, Animator a, Transform self, UsaoFightState fightState, NpcHelper nh) : base(a, self, nh, "Chase", alertObject.GetComponent<PicoState>())
     {
+        var r = UnityEngine.Random.value;
+        attackRange = r > 0.3 ? 10f : 2f;
         alertTarget = alertObject;
         animator.SetBool("notReach", true);
         AddChasingNpc();
