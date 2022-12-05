@@ -101,6 +101,7 @@ public class SwordLight_Main : MonoBehaviour
         {
             AttackEffectHeavy01.SetActive(false);
             AttackEffectHeavy01.transform.position = this.transform.position;
+            AttackEffectHeavy01.transform.forward = this.transform.forward;
             AttackEffectHeavy01.transform.parent = this.transform;
         }
     }
@@ -116,6 +117,7 @@ public class SwordLight_Main : MonoBehaviour
         {
             AttackEffectHeavy02.SetActive(false);
             AttackEffectHeavy02.transform.position = this.transform.position;
+            AttackEffectHeavy02.transform.forward = this.transform.forward;
             AttackEffectHeavy02.transform.parent = this.transform;
         }
     }
@@ -131,6 +133,7 @@ public class SwordLight_Main : MonoBehaviour
         {
             AttackEffectHeavy03.SetActive(false);
             AttackEffectHeavy03.transform.position = this.transform.position;
+            AttackEffectHeavy03.transform.forward = this.transform.forward;
             AttackEffectHeavy03.transform.parent = this.transform;
         }
     }
@@ -146,6 +149,7 @@ public class SwordLight_Main : MonoBehaviour
         {
             AttackEffectHeavy04.SetActive(false);
             AttackEffectHeavy04.transform.position = this.transform.position;
+            AttackEffectHeavy04.transform.forward = this.transform.forward;
             AttackEffectHeavy04.transform.parent = this.transform;
         }
     }
