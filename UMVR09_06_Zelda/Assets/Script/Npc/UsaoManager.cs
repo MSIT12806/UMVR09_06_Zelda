@@ -76,6 +76,7 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
     }
     public void Turn(Vector3 direction)
     {
+        if (npc.collide) return;
         var degree = Vector3.SignedAngle(transform.forward, direction, Vector3.up);
         if (degree < 0)
         {
