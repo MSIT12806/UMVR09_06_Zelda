@@ -181,6 +181,7 @@ public class UsaoFightState : UsaoAiState
     Vector3 direction;
     IKController ik;
     float dazeSeconds;
+    float attackDistance = 2f;
     public UsaoFightState(Transform t, Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Fight", t.GetComponent<PicoState>())
     {
         target = t;
@@ -200,8 +201,8 @@ public class UsaoFightState : UsaoAiState
 
         var distance = Vector3.Distance(target.position, selfTransform.position);
         int count = GetChasingNpcCount();
-        if (distance > 5) return new UsaoChaseState(target, animator, selfTransform, this, npcHelper);
-        else if (distance <= 2) return new UsaoAttackState(animator, selfTransform, this, npcHelper);
+        if (distance > attackDistance) return new UsaoChaseState(target, animator, selfTransform, this, npcHelper);
+        else if (distance <= attackDistance) return new UsaoAttackState(animator, selfTransform, this, npcHelper);
 
         RefreshDazeTime();
         return this;
@@ -209,7 +210,7 @@ public class UsaoFightState : UsaoAiState
 
     public void RefreshDazeTime()
     {
-        dazeSeconds = UnityEngine.Random.Range(1, 10);
+        dazeSeconds = UnityEngine.Random.Range(1, 5);
     }
 
     private int GetChasingNpcCount()
@@ -222,7 +223,7 @@ public class UsaoFightState : UsaoAiState
         //1. 總是面對主角
 
         AiStateCommon.LookAtByIk(ik, ObjectManager.MainCharacterHead);
-        //AiStateCommon.Turn(selfTransform, target.position - selfTransform.position);
+        AiStateCommon.Turn(selfTransform, target.position - selfTransform.position);
         //AiStateCommon.Look(head, ObjectManager.MainCharacterHead);
 
         TauntRandomly();
@@ -248,7 +249,7 @@ public class UsaoChaseState : UsaoAiState
     //要seek 遇到障礙物還要躲開
     Npc npc;
     Transform alertTarget;
-    float attackRange = 5f;
+    float attackRange = 2f;
     Vector3 direction;
     UsaoFightState fightState;
     public UsaoChaseState(Transform alertObject, Animator a, Transform self, UsaoFightState fightState, NpcHelper nh) : base(a, self, nh, "Chase", alertObject.GetComponent<PicoState>())
@@ -343,7 +344,10 @@ public class UsaoAttackState : UsaoAiState
     public override void SetAnimation()
     {
         animator.SetTrigger("attack");
-        NpcCommon.AttackDetection(selfTransform.position, selfTransform.forward, 5f, 2f, false, new DamageData(5, Vector3.zero, HitType.light), "Player");
+        animator.SetInteger("attackWay", UnityEngine.Random.Range(0,3));
+
+        //攻擊判定交給動作事件處理
+        //NpcCommon.AttackDetection(selfTransform.position, selfTransform.forward, 5f, 2f, false, new DamageData(5, Vector3.zero, HitType.light), "Player");
     }
 
 }

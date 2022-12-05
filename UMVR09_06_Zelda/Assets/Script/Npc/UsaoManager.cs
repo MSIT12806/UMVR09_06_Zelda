@@ -70,7 +70,10 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
         //animator.SetFloat("forward", forward);
     }
 
-
+    public void Attack()
+    {
+        NpcCommon.AttackDetection(transform.position, transform.forward, 15f, 1f, false, new DamageData(5, Vector3.zero, HitType.light), "Player");
+    }
     public void Turn(Vector3 direction)
     {
         var degree = Vector3.SignedAngle(transform.forward, direction, Vector3.up);

@@ -42,14 +42,14 @@ ModelImporter:
       firstFrame: 0
       lastFrame: 68
       wrapMode: 0
-      orientationOffsetY: 0
+      orientationOffsetY: -66.05
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
-      loopBlendOrientation: 0
+      loopBlendOrientation: 1
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
@@ -59,7 +59,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.3873016
+        functionName: Attack
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 24ef9482c19852a449bfc28bee23a5d0,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -1080,7 +1088,8 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 83c01fa081054e041a3522a5c48b3353, type: 3}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 83c01fa081054e041a3522a5c48b3353,
+    type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1

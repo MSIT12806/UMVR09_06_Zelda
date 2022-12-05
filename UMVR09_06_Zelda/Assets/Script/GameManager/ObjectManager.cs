@@ -26,7 +26,7 @@ public class ObjectManager : MonoBehaviour
 
 
         stageOneSpawnPoint = transform.FindAnyChild<Transform>("StageOneSpawnPoint");
-        GenUsao(stageOneSpawnPoint.position, 10, 50);//嚴重掉偵呢
+        GenUsao(stageOneSpawnPoint.position, 10, 20);//嚴重掉偵呢
         NpcsAlive = GameObject.FindGameObjectsWithTag("Npc").ToDictionary(i => i.GetInstanceID());
         GameObject.FindGameObjectsWithTag("Player").ToList().ForEach(i => NpcsAlive.Add(i.GetInstanceID(), i));
 
