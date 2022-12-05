@@ -181,7 +181,9 @@ public class UsaoFightState : UsaoAiState
     Vector3 direction;
     IKController ik;
     float dazeSeconds;
+    float keepDistance = 10f;
     float attackDistance = 2f;
+    float keepOrAttack;
     public UsaoFightState(Transform t, Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Fight", t.GetComponent<PicoState>())
     {
         target = t;
@@ -189,6 +191,7 @@ public class UsaoFightState : UsaoAiState
         head = selfTransform.FindAnyChild<Transform>("Character1_Head");
         RefreshDazeTime();
         ik = selfTransform.GetComponent<IKController>();
+        keepOrAttack = UnityEngine.Random.value;
     }
     public override AiState SwitchState()
     {
@@ -201,8 +204,16 @@ public class UsaoFightState : UsaoAiState
 
         var distance = Vector3.Distance(target.position, selfTransform.position);
         int count = GetChasingNpcCount();
-        if (distance > attackDistance) return new UsaoChaseState(target, animator, selfTransform, this, npcHelper);
-        else if (distance <= attackDistance) return new UsaoAttackState(animator, selfTransform, this, npcHelper);
+        if (keepOrAttack > 0.3)
+        {
+            if (distance > keepDistance) return new UsaoChaseState(target, animator, selfTransform, this, npcHelper);
+            else if (distance <= keepDistance) return new UsaoAttackState(animator, selfTransform, this, npcHelper);
+        }
+        else
+        {
+            if (distance > attackDistance) return new UsaoChaseState(target, animator, selfTransform, this, npcHelper);
+            else if (distance <= attackDistance) return new UsaoAttackState(animator, selfTransform, this, npcHelper);
+        }
 
         RefreshDazeTime();
         return this;
@@ -249,11 +260,13 @@ public class UsaoChaseState : UsaoAiState
     //要seek 遇到障礙物還要躲開
     Npc npc;
     Transform alertTarget;
-    float attackRange = 2f;
+    float attackRange = 10f;
     Vector3 direction;
     UsaoFightState fightState;
     public UsaoChaseState(Transform alertObject, Animator a, Transform self, UsaoFightState fightState, NpcHelper nh) : base(a, self, nh, "Chase", alertObject.GetComponent<PicoState>())
     {
+        var r = UnityEngine.Random.value;
+        attackRange = r > 0.3 ? 10f : 2f;
         alertTarget = alertObject;
         animator.SetBool("notReach", true);
         AddChasingNpc();
@@ -332,7 +345,7 @@ public class UsaoAttackState : UsaoAiState
     public override void SetAnimation()
     {
         animator.SetTrigger("attack");
-        animator.SetInteger("attackWay", UnityEngine.Random.Range(0, 3));
+        animator.SetInteger("attackWay", UnityEngine.Random.Range(0, 7));
 
         //攻擊判定交給動作事件處理
         //NpcCommon.AttackDetection(selfTransform.position, selfTransform.forward, 5f, 2f, false, new DamageData(5, Vector3.zero, HitType.light), "Player");
