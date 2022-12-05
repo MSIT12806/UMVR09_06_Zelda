@@ -7,7 +7,9 @@ public enum HitType
     none,
     light,
     Heavy,
-    Ice
+    finishing,
+    fever,
+    Ice,
 
 }
 public enum DamageState

@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityStandardAssets.Characters.ThirdPerson;
 
 public class MainCharacterState : MonoBehaviour, NpcHelper
-{
+{ 
     public float attackMoveDis;
     public bool bAttackMove = false;
     /// <summary>
@@ -32,6 +32,8 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     ThirdPersonCharacter tpc;
     private bool canBeHit = true;
 
+
+
     public float Hp { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     void Awake()
     {
@@ -51,7 +53,15 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     {
         //處理美術位移
         currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
-        if (currentAnimation.IsName("Attack01") || currentAnimation.IsName("Attack01 0") || currentAnimation.IsName("Attack01 1") || currentAnimation.IsName("Attack01 2") || currentAnimation.IsName("GetHit") || currentAnimation.IsName("Die"))
+        if (currentAnimation.IsName("Attack01") || 
+            currentAnimation.IsName("Attack01 0") || 
+            currentAnimation.IsName("Attack01 1") || 
+            currentAnimation.IsName("Attack01 2") ||
+            currentAnimation.IsName("Finishing") ||
+            currentAnimation.IsName("GetHit") || 
+            currentAnimation.IsName("Die") || 
+            currentAnimation.IsName("Flying Back Death") || 
+            currentAnimation.IsName("GettingUp03"))
             tpc.CanRotate = false;
         else tpc.CanRotate = true;
 
@@ -61,12 +71,16 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
             animator.SetTrigger("died");
         }
 
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            CheckWeakEnemy();
+        }
+
         //無雙條測試
-        if (Input.GetKey(KeyCode.P))
+        if (Input.GetKey(KeyCode.P))//增加無雙值
             AddPowerValue();
             
-
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F))//使用無雙
         {
             if (PicoManager.Power >= 100)
                 PicoManager.Power -= PicoManager.PowerCost;
@@ -118,8 +132,8 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
             animator.SetBool("attack02", false);
         }
 
-
-        if (currentAnimation.IsName("Fast run") || currentAnimation.IsName("Attack02 1") || currentAnimation.IsName("Attack02 2"))
+        //IK調整
+        if (currentAnimation.IsName("Fast run") || currentAnimation.IsName("Attack02 1") || currentAnimation.IsName("Attack02 2") || currentAnimation.IsName("Finishing"))
         {
             IK.Weight_Up = 0;
         }
@@ -183,6 +197,25 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
             animator.SetBool("attack02", true); //應該要用trigger...不過  來不及ㄌXD
         else
             animator.SetBool("attack02", false);
+    }
+
+    public void CheckWeakEnemy()
+    {
+        var lst = ObjectManager.NpcsAlive.Values;
+        foreach (var i in lst)
+        {
+            if ((i.transform.position - transform.position).magnitude < 4f)
+            {
+                Animator NpcAnimator = i.GetComponent<Animator>();
+                AnimatorStateInfo currentAnimation = NpcAnimator.GetCurrentAnimatorStateInfo(0);
+                if (currentAnimation.IsName("ArmorBreak"))
+                {
+                    animator.SetTrigger("Finishing");
+                    NpcCommon.AttackDetection("Pico", transform.position, transform.forward, 180, 4f, true, new DamageData(30f, transform.forward * 0.15f, HitType.finishing), "Npc");
+                    break;
+                }
+            }
+        }
     }
 
     public void ForwardMove()　　//...建議如果是事件，加個綴字。
