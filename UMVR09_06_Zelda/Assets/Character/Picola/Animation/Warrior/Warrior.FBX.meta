@@ -854,7 +854,47 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0
+        functionName: FeverAttackSpeed
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 18c9139d34b25594188c45080c29c25d,
+          type: 3}
+        floatParameter: 0.5
+        intParameter: 1
+        messageOptions: 0
+      - time: 0.020113682
+        functionName: FeverAttackSpeed
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 18c9139d34b25594188c45080c29c25d,
+          type: 3}
+        floatParameter: 0.04
+        intParameter: 1
+        messageOptions: 0
+      - time: 0.024432817
+        functionName: FeverAttackSpeed
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 18c9139d34b25594188c45080c29c25d,
+          type: 3}
+        floatParameter: 3
+        intParameter: 2
+        messageOptions: 0
+      - time: 0.36190033
+        functionName: FeverAttackSpeed
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 18c9139d34b25594188c45080c29c25d,
+          type: 3}
+        floatParameter: 4
+        intParameter: 2
+        messageOptions: 0
+      - time: 0.9997225
+        functionName: FeverIkControl
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 18c9139d34b25594188c45080c29c25d,
+          type: 3}
+        floatParameter: 1
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1

@@ -32,6 +32,8 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     ThirdPersonCharacter tpc;
     private bool canBeHit = true;
 
+    bool FeverIk = false;
+
 
 
     public float Hp { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
@@ -141,7 +143,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
         }
 
         //IK調整
-        if (currentAnimation.IsName("Fast run") || currentAnimation.IsName("Attack02 1") || currentAnimation.IsName("Attack02 2") || currentAnimation.IsName("Finishing") || currentAnimation.IsName("Fever"))
+        if ( (currentAnimation.IsName("Fast run") || currentAnimation.IsName("Attack02 1") || currentAnimation.IsName("Attack02 2") || currentAnimation.IsName("Finishing")) || FeverIk )
         {
             IK.Weight_Up = 0;
         }
@@ -229,6 +231,24 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     public void ForwardMove()　　//...建議如果是事件，加個綴字。
     {
         dodge = true;
+    }
+
+    public void FeverIkControl()
+    {
+        FeverIk = false;
+    }
+    public void FeverAttackSpeed(float speed)//事件觸發
+    {
+        print("123");
+        if(speed >1)
+        {
+            FeverIk = true;
+        }
+        else if(speed < 1)
+        {
+            FeverIk = false;
+        }
+        animator.SetFloat("FeverAttackSpeed", speed);
     }
 
     public void AttackSpeedChange(float f)//事件觸發
