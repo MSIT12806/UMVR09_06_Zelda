@@ -273,7 +273,6 @@ public class UsaoChaseState : UsaoAiState
 
     public override AiState SwitchState()
     {
-
         //0. 如果我被攻擊
         if (getHit != null) return new UsaoHurtState(animator, selfTransform, getHit, fightState, npcHelper);
 
@@ -298,21 +297,10 @@ public class UsaoChaseState : UsaoAiState
         //3. 如果目標在追擊範圍內，則：(1) 如果追擊沒有滿，就進行追擊。(2) 若追擊已滿，就在外面咆哮。
         return new UsaoIdleState(alertTarget, selfTransform.GetComponent<PicoState>(), animator, selfTransform, npcHelper);
     }
-    public void AroundOrClose()
-    {
-
-    }
-    public void Turn() { }
-    public void Seek() { }
 
     public override void SetAnimation()
     {
-        direction = alertTarget.position - selfTransform.position;
-        var sign = Math.Sign(Vector3.Dot(direction, selfTransform.right));
-        var degree = sign * Vector3.Angle(selfTransform.forward, direction);
-        if (degree > 5 || degree < -5)
-            selfTransform.Rotate(new Vector3(0, Math.Sign(degree), 0));
-
+        npcHelper.Turn(alertTarget.position - selfTransform.position);
         var f = animator.GetFloat("forward");
         f = Math.Min(f + 0.02f, 1);
         animator.SetFloat("forward", f);
@@ -344,7 +332,7 @@ public class UsaoAttackState : UsaoAiState
     public override void SetAnimation()
     {
         animator.SetTrigger("attack");
-        animator.SetInteger("attackWay", UnityEngine.Random.Range(0,3));
+        animator.SetInteger("attackWay", UnityEngine.Random.Range(0, 3));
 
         //攻擊判定交給動作事件處理
         //NpcCommon.AttackDetection(selfTransform.position, selfTransform.forward, 5f, 2f, false, new DamageData(5, Vector3.zero, HitType.light), "Player");
@@ -912,7 +900,7 @@ public class GolemChaseState : GolemBaseState
         float degree = radian * Mathf.Rad2Deg;
 
         Vector3 vCross = Vector3.Cross(selfTransform.forward, dir);
-        if(degree > 15)
+        if (degree > 15)
         {
             if (vCross.y < 0)
                 selfTransform.Rotate(0, -15, 0);
@@ -1005,7 +993,7 @@ public class GolemWeakState : GolemBaseState
         }
         //Armor被擊破 切至ArmorBreak
         //if (armor < 0)
-        if(false)
+        if (false)
         {
             //animator.SetBool("ShowWeakness", false);
             animator.SetTrigger("ArmorBreak");
@@ -1039,7 +1027,7 @@ public class GolemArmorBreakState : GolemBaseState
         if (getHit != null)
         {
             animator.SetTrigger("getHit");
-            npcData.Hp -= getHit.Damage/10  +3;
+            npcData.Hp -= getHit.Damage / 10 + 3;
             getHit = null;
         }
 

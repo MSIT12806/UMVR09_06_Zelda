@@ -26,7 +26,7 @@ public class Npc : MonoBehaviour
     public Vector3 nextPosition;
     public GameState gameState;
     public bool collide { get; set; }
-    public bool Alive { get => Hp > 0;  }
+    public bool Alive { get => Hp > 0; }
     public bool OnGround;
     NpcHelper stateManager;
     [HideInInspector] public float MaxHp;
@@ -43,6 +43,10 @@ public class Npc : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+    }
+    private void LateUpdate()
+    {
         OnGround = StandOnTerrain();
         collide = StaticCollision();
         NpcCollision();
@@ -52,7 +56,7 @@ public class Npc : MonoBehaviour
     float lerpTime;
     private void LerpToNextPosition()
     {
-        if(lerpTime < Time.time)
+        if (lerpTime < Time.time)
         {
             nextPosition = Vector3.zero;
             lerpTime = Time.time + 3;
@@ -87,11 +91,18 @@ public class Npc : MonoBehaviour
 
     bool StaticCollision(float radius = 0.23f, float maxDistance = 0.3f)
     {
+        animator.applyRootMotion = true;
         var hitSomethingWhenMoving = Physics.SphereCast(this.transform.position + new Vector3(0, 0.7f, 0), radius, transform.forward, out var hitInfo, maxDistance, layerMask);
 
-        var hitSomething = hitSomethingWhenMoving || Physics.SphereCast(this.transform.position + new Vector3(0, 0.7f, 0), radius, -transform.forward, out hitInfo, maxDistance, layerMask) || Physics.SphereCast(this.transform.position + new Vector3(0, 0.7f, 0), radius, -transform.right, out hitInfo, maxDistance, layerMask) || Physics.SphereCast(this.transform.position + new Vector3(0, 0.7f, 0), radius, transform.right, out hitInfo, maxDistance, layerMask);
+        var hitSomething = hitSomethingWhenMoving || Physics.SphereCast(this.transform.position + new Vector3(0, 0.7f, 0), radius, -transform.forward, out var nope, maxDistance, layerMask) || Physics.SphereCast(this.transform.position + new Vector3(0, 0.7f, 0), radius, -transform.right, out nope, maxDistance, layerMask) || Physics.SphereCast(this.transform.position + new Vector3(0, 0.7f, 0), radius, transform.right, out nope, maxDistance, layerMask);
         if (hitSomething && hitInfo.transform != this.transform)
         {
+            if (hitSomethingWhenMoving && this.name != "MainCharacter")
+            {
+                animator.applyRootMotion = false;
+                var rotateWay = Vector3.SignedAngle(transform.forward, hitInfo.point - transform.position, Vector3.up);
+                transform.Rotate(0, -Mathf.Sign(rotateWay) * 3, 0);
+            }
             //var nowPosXZ = transform.position;
             //nowPosXZ.y = 0;
             //var hitPointXZ = hitInfo.point;
@@ -126,7 +137,8 @@ public class Npc : MonoBehaviour
 
     void NpcCollision()
     {
-        if(ObjectManager.NpcsAlive == null) return;
+        if (collide) return;
+        if (ObjectManager.NpcsAlive == null) return;
         foreach (var item in ObjectManager.NpcsAlive.Values)
         {
             if (item == this) continue;
