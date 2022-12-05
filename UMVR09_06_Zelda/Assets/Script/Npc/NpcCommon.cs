@@ -6,7 +6,7 @@ using UnityEngine;
 
 public static class NpcCommon
 {
-    public static void AttackDetection(Vector3 attackCenter, Vector3 attackForward, float angle, float distance,bool repelDirection, DamageData damageData, params string[] tags)//攻擊範圍偵測
+    public static void AttackDetection(string attacker, Vector3 attackCenter, Vector3 attackForward, float angle, float distance,bool repelDirection, DamageData damageData, params string[] tags)//攻擊範圍偵測
     {
         var lst = ObjectManager.NpcsAlive.Values.Where(i => tags.Contains(i.tag));
         foreach (var item in lst)
@@ -51,7 +51,10 @@ public static class NpcCommon
                     }
                     var attackReturn = nowNpc.gameObject.GetComponent<Npc>();
                     attackReturn.GetHurt(damageData);
-                    Debug.Log("attack");
+                    if (attacker == "Pico")
+                    {
+                        PicoManager.Power++;
+                    }
                 }
             }
         }

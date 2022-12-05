@@ -11,9 +11,13 @@ public class UiManager : MonoBehaviour
     Transform MainCharacterHp;
     Transform GreatEnemyState;
     Transform StrongholdState;
+    Transform PowerOneKey;
+    Image PowerOne;
+    Transform PowerTwoKey;
+    Image PowerTwo;
     PicoState picoState;
     float currentHp;
-    float currentFever;
+    float currentPower;
     Npc mainCharacter;
     string heartPath = "Heart";
     List<GameObject> heartList = new List<GameObject>();
@@ -33,12 +37,16 @@ public class UiManager : MonoBehaviour
         MainCharacterHp = transform.FindAnyChild<Transform>("MainCharacterHP");
         GreatEnemyState = transform.FindAnyChild<Transform>("GreatEnemyState");
         StrongholdState = transform.FindAnyChild<Transform>("StrongholdState");
+        PowerOne = transform.FindAnyChild<Transform>("Power").FindAnyChild<Image>("PowerFull");
+        PowerOneKey = transform.FindAnyChild<Transform>("Power").FindAnyChild<Transform>("Key");
+        PowerTwo = transform.FindAnyChild<Transform>("Power (1)").FindAnyChild<Image>("PowerFull");
+        PowerTwoKey = transform.FindAnyChild<Transform>("Power (1)").FindAnyChild<Transform>("Key");
         picoState = ObjectManager.MainCharacter.GetComponent<PicoState>();
         myCamera = ObjectManager.myCamera;//可以順便拿怪
         ItemUI = transform.FindAnyChild<Transform>("SiKaStone");
         mainCharacter = ObjectManager.MainCharacter.GetComponent<Npc>();
         heart = (GameObject)Resources.Load(heartPath);
-        currentHp = mainCharacter.Hp;
+        currentHp = PicoManager.Hp;
         ItemCD = mainCharacter.GetComponent<Throw>().coldTime;
         ItemUI.FindAnyChild<Image>("CanLock").fillAmount = 1;
         InitPicoHp();
@@ -47,12 +55,8 @@ public class UiManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (mainCharacter.Hp != currentHp)
-        {
-            currentHp = mainCharacter.Hp;
-            SetHpBar();
-        }
-
+        SetHpBar();
+        SetFeverBar();
         currentItemCD = mainCharacter.GetComponent<Throw>().timer;
         if (currentItemCD != 0)
         {
@@ -78,18 +82,24 @@ public class UiManager : MonoBehaviour
     {
         var hp = GreatEnemyState.transform.FindAnyChild<Image>("GreatEnemyHpBarFull");
         var hpInfo = myCamera.m_StareTarget[(int)picoState.gameState].GetComponent<Npc>();
-        hp.fillAmount = hpInfo.Hp/hpInfo.MaxHp;
+        hp.fillAmount = hpInfo.Hp / hpInfo.MaxHp;
     }
 
     void SetHpBar()
     {
-        FillHeart();
+
+        if (PicoManager.Hp != currentHp)
+        {
+            currentHp = PicoManager.Hp;
+            FillHeart();
+
+        }
     }
 
     private void InitPicoHp()
     {
         var nowHp = currentHp;
-        var heartCount = (int)Math.Ceiling(currentHp / OneHeartHp);
+        var heartCount = (int)Math.Ceiling(PicoManager.MaxHp / OneHeartHp);
         for (int i = 0; i < heartCount; i++)
         {
             if (nowHp <= 0) break;
@@ -124,13 +134,40 @@ public class UiManager : MonoBehaviour
             }
         }
     }
-
-    void SetFeverBar()
+    void InitFeverBar()
     {
 
+
+    }
+    void SetFeverBar()
+    {
+        if (PicoManager.Power == currentPower) return;
+
+        currentPower = PicoManager.Power;
+        if (PicoManager.Power == 200)
+        {
+            PowerOne.fillAmount = 1;
+            PowerTwo.fillAmount = 1;
+            PowerOneKey.gameObject.SetActive(false);
+            PowerTwoKey.gameObject.SetActive(true);
+        }
+        else if (PicoManager.Power >= 100)
+        {
+            PowerOne.fillAmount = 1;
+            PowerTwo.fillAmount = (PicoManager.Power - 100) / 100;
+            PowerOneKey.gameObject.SetActive(true);
+            PowerTwoKey.gameObject.SetActive(false);
+        }
+        else
+        {
+            PowerTwo.fillAmount = 0;
+            PowerOne.fillAmount = (PicoManager.Power) / 100;
+            PowerOneKey.gameObject.SetActive(false);
+            PowerTwoKey.gameObject.SetActive(false);
+        }
     }
 
-    private void SikaStoneCD() 
+    private void SikaStoneCD()
     {
         var sCD = currentItemCD / ItemCD;
         ItemUI.FindAnyChild<Image>("CanLock").fillAmount = sCD;

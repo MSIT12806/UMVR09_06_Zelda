@@ -248,16 +248,16 @@ public class Throw : MonoBehaviour
         //}
         if(Explode == "FX_Explosion")
         {
-            NpcCommon.AttackDetection(itemEffect_pos, ItemEffect_obj.transform.forward, 360.0f, 2.7f, false, new DamageData(10, Vector3.zero, HitType.Heavy, new DamageStateInfo(DamageState.Bomb, 0)), "Npc");
+            NpcCommon.AttackDetection("Pico", itemEffect_pos, ItemEffect_obj.transform.forward, 360.0f, 2.7f, false, new DamageData(10, Vector3.zero, HitType.Heavy, new DamageStateInfo(DamageState.Bomb, 0)), "Npc");
             return;
         }
         else if (Explode == "Obj_Ice")
         {
-            NpcCommon.AttackDetection(itemEffect_pos, ItemEffect_obj.transform.forward, 360.0f, 2.7f, false, new DamageData(10, Vector3.zero, HitType.Heavy, new DamageStateInfo(DamageState.Ice, 3)), "Npc");
+            NpcCommon.AttackDetection("Pico", itemEffect_pos, ItemEffect_obj.transform.forward, 360.0f, 2.7f, false, new DamageData(10, Vector3.zero, HitType.Heavy, new DamageStateInfo(DamageState.Ice, 3)), "Npc");
         }
         else if(Explode == "FX_TimeStop")
         {
-            NpcCommon.AttackDetection(itemEffect_pos, ItemEffect_obj.transform.forward, 360.0f, 2.7f, false, new DamageData(10, Vector3.zero, HitType.Heavy, new DamageStateInfo(DamageState.TimePause, 5)), "Npc");
+            NpcCommon.AttackDetection("Pico", itemEffect_pos, ItemEffect_obj.transform.forward, 360.0f, 2.7f, false, new DamageData(10, Vector3.zero, HitType.Heavy, new DamageStateInfo(DamageState.TimePause, 5)), "Npc");
         }
     }
 
