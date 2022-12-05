@@ -50,7 +50,7 @@ public class GolemManager : MonoBehaviour, NpcHelper
      public void AnimationAttack(int attackType)
     {
         if (attackType == 1)//???𱍊            print("attttttaaaaccccckkk");
-            NpcCommon.AttackDetection("",transform.position, transform.forward, 360, 4f, false, new DamageData(10f, transform.forward * 0.3f, HitType.Heavy), "Player");//
+            NpcCommon.AttackDetection("",transform.position, transform.forward, 360, 4f, false, new DamageData(10f, transform.forward * 0.3f, HitType.Heavy,DamageStateInfo.NormalAttack), "Player");//
 
     }
     //public void OnDrawGizmos()

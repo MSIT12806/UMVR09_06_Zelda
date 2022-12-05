@@ -5,7 +5,7 @@ using UnityEngine;
 public class ShootMagic : MonoBehaviour
 {
     public Vector3 force;
-    public float existSeconds ;
+    public float existSeconds;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +20,7 @@ public class ShootMagic : MonoBehaviour
         if (existSeconds <= 0 || Vector3.Distance(transform.position, ObjectManager.MainCharacter.position) < 1)
         {
             gameObject.SetActive(false);
-            NpcCommon.AttackDetection("Pico",transform.position, transform.forward, 360f, 5f, false, new DamageData(100, Vector3.zero, HitType.Heavy), "Player");
+            NpcCommon.AttackDetection("Pico", transform.position, transform.forward, 360f, 5f, false, new DamageData(100, Vector3.zero, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
         }
     }
 }

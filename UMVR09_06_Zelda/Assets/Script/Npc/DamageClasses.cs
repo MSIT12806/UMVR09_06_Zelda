@@ -25,14 +25,14 @@ public class DamageData
     public static DamageData NoDamage = new DamageData(0, Vector3.zero, HitType.none, DamageStateInfo.NormalAttack);
     public float Damage;
     public HitType Hit;
-    public IEnumerable<DamageStateInfo> DamageStates;
+    public DamageStateInfo DamageState;
     public Vector3 Force;
 
-    public DamageData(float damage, Vector3 force, HitType hitType, params DamageStateInfo[] hitInfluence)
+    public DamageData(float damage, Vector3 force, HitType hitType,  DamageStateInfo hitInfluence)
     {
         Damage = damage;
         Hit = hitType;
-        DamageStates = hitInfluence;
+        DamageState = hitInfluence;
         Force = force;
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityStandardAssets.Characters.ThirdPerson;
 
@@ -29,6 +30,7 @@ public class Npc : MonoBehaviour
     public bool Alive { get => Hp > 0; }
     public bool OnGround;
     NpcHelper stateManager;
+    IKController ik;
     [HideInInspector] public float MaxHp;
     public float Hp;
     void Start()
@@ -38,12 +40,39 @@ public class Npc : MonoBehaviour
         animator = GetComponent<Animator>();
         picoState = GetComponent<PicoState>();
         MaxHp = Hp;
+        ik = GetComponent<IKController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        TimePause();
+    }
+    bool pause;
+    float beforePauseAnimatorSpeed;
+    Vector3 beforePauseInitVelocity;
+    Vector3 beforePauseNextPosition;
+    void TimePause()
+    {
+        if (pauseTime > 0)
+        {
+            pause = true;
+            pauseTime -= Time.deltaTime;
+            beforePauseInitVelocity += initVel;
+            initVel = Vector3.zero;
+            beforePauseNextPosition += nextPosition;
+            nextPosition = Vector3.zero;
+        }
+        if (animator.speed == 0 && pauseTime <= 0)
+        {
+            pause = false;
+            initVel = beforePauseInitVelocity;
+            beforePauseInitVelocity = Vector3.zero;
+            nextPosition = beforePauseNextPosition;
+            beforePauseNextPosition = Vector3.zero;
+            animator.speed = beforePauseAnimatorSpeed;
+            ik.enabled = true;
+        }
     }
     private void LateUpdate()
     {
@@ -82,17 +111,38 @@ public class Npc : MonoBehaviour
         //請善用狀態機處理攻擊判定
         return DamageData.NoDamage;
     }
+    float pauseTime;
     public void GetHurt(DamageData damageData)
     {
         //print("有被打喔");
         stateManager.GetHurt(damageData);
-    }
+        //效果處裡
 
+        if (damageData.DamageState == null) return;
+
+        if (damageData.DamageState.damageState == DamageState.TimePause)
+        {
+            pauseTime = damageData.DamageState.KeepTime;
+            beforePauseAnimatorSpeed = animator.speed;
+            animator.speed = 0;
+            beforePauseInitVelocity = initVel;
+            initVel = Vector3.zero;
+            beforePauseNextPosition = nextPosition;
+            nextPosition = Vector3.zero;
+
+            ik.enabled = false;
+        }
+    }
+    public void PlayAnimation(string aniName)
+    {
+        if (pause) return;
+        animator.Play(aniName);
+    }
 
     bool StaticCollision(float radius = 0.23f, float maxDistance = 0.3f)
     {
         animator.applyRootMotion = true;
-        var hitSomethingWhenMoving = Physics.SphereCast(this.transform.position + new Vector3(0, 0.7f, 0), radius, transform.forward, out var hitInfo, maxDistance, layerMask);
+        var hitSomethingWhenMoving = Physics.SphereCast(this.transform.position + new Vector3(0, 0.7f, 0), radius, transform.forward, out var hitInfo, 0.5f, layerMask);
 
         var hitSomething = hitSomethingWhenMoving || Physics.SphereCast(this.transform.position + new Vector3(0, 0.7f, 0), radius, -transform.forward, out var nope, maxDistance, layerMask) || Physics.SphereCast(this.transform.position + new Vector3(0, 0.7f, 0), radius, -transform.right, out nope, maxDistance, layerMask) || Physics.SphereCast(this.transform.position + new Vector3(0, 0.7f, 0), radius, transform.right, out nope, maxDistance, layerMask);
         if (hitSomething && hitInfo.transform != this.transform)
@@ -138,6 +188,7 @@ public class Npc : MonoBehaviour
     void NpcCollision()
     {
         if (collide) return;
+        if (pause) return;
         if (ObjectManager.NpcsAlive == null) return;
         foreach (var item in ObjectManager.NpcsAlive.Values)
         {
@@ -148,7 +199,6 @@ public class Npc : MonoBehaviour
 
             var direction = (item.transform.position - this.transform.position).normalized;
             this.transform.position -= direction * 0.03f;
-            item.transform.position += direction * 0.03f;
         }
     }
     bool StandOnTerrain()
