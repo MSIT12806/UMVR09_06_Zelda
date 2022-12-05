@@ -412,9 +412,9 @@ public class UsaoHurtState : UsaoAiState
         {
 
             if (UnityEngine.Random.value >= 0.5f)
-                animator.Play("GetHit.SwordAndShieldImpact02", 0);
+                npc.PlayAnimation("GetHit.SwordAndShieldImpact02");
             else
-                animator.Play("GetHit.SwordAndShieldImpact01", 0);
+                npc.PlayAnimation("GetHit.SwordAndShieldImpact01");
 
             npc.nextPosition = selfTransform.position + getHit.Force;
             return;
@@ -428,7 +428,7 @@ public class UsaoHurtState : UsaoAiState
             }
             else
             {
-                animator.Play("GetHit.Flying Back Death", 0);
+                npc.PlayAnimation("GetHit.Flying Back Death");
                 getHit.Force.y = 0.75f;
             }
             npc.KnockOff(getHit.Force);
@@ -453,9 +453,9 @@ public class UsaoDeathState : UsaoAiState
         deathTime = Time.frameCount;
         if (damageData.Hit == HitType.Heavy) return;
         if (UnityEngine.Random.value >= 0.5f)
-            a.Play("GetHit.Standing React Death Right");
+            npc.PlayAnimation("GetHit.Standing React Death Right");
         else
-            a.Play("GetHit.Standing React Death Left");
+            npc.PlayAnimation("GetHit.Standing React Death Left");
     }
 
     public override void SetAnimation()

@@ -133,7 +133,11 @@ public class Npc : MonoBehaviour
             ik.enabled = false;
         }
     }
-
+    public void PlayAnimation(string aniName)
+    {
+        if (pause) return;
+        animator.Play(aniName);
+    }
 
     bool StaticCollision(float radius = 0.23f, float maxDistance = 0.3f)
     {
