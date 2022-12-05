@@ -58,6 +58,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
             currentAnimation.IsName("Attack01 1") || 
             currentAnimation.IsName("Attack01 2") ||
             currentAnimation.IsName("Finishing") ||
+            currentAnimation.IsName("Finishing") || 
             currentAnimation.IsName("GetHit") || 
             currentAnimation.IsName("Die") || 
             currentAnimation.IsName("Flying Back Death") || 
@@ -71,7 +72,8 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
             animator.SetTrigger("died");
         }
 
-        if (Input.GetKeyDown(KeyCode.U))
+
+        if (Input.GetKeyDown(KeyCode.U))//斬殺技
         {
             CheckWeakEnemy();
         }
@@ -83,7 +85,11 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
         if (Input.GetKeyDown(KeyCode.F))//使用無雙
         {
             if (PicoManager.Power >= 100)
+            {
                 PicoManager.Power -= PicoManager.PowerCost;
+                animator.SetTrigger("Fever");
+            }
+                
         }
 
 
@@ -135,7 +141,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
         }
 
         //IK調整
-        if (currentAnimation.IsName("Fast run") || currentAnimation.IsName("Attack02 1") || currentAnimation.IsName("Attack02 2") || currentAnimation.IsName("Finishing"))
+        if (currentAnimation.IsName("Fast run") || currentAnimation.IsName("Attack02 1") || currentAnimation.IsName("Attack02 2") || currentAnimation.IsName("Finishing") || currentAnimation.IsName("Fever"))
         {
             IK.Weight_Up = 0;
         }
@@ -213,7 +219,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
                 if (currentAnimation.IsName("ArmorBreak"))
                 {
                     animator.SetTrigger("Finishing");
-                    NpcCommon.AttackDetection("Pico", transform.position, transform.forward, 180, 4f, true, new DamageData(30f, transform.forward * 0.15f, HitType.finishing), "Npc");
+                    NpcCommon.AttackDetection("Pico", transform.position, transform.forward, 180, 4f, true, new DamageData(30f, transform.forward * 0.15f, HitType.finishing, DamageStateInfo.NormalAttack), "Npc");
                     break;
                 }
             }
