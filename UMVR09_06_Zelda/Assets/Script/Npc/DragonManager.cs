@@ -32,17 +32,14 @@ public class DragonManager : MonoBehaviour, NpcHelper
     public void GetHurt(DamageData damageData)
     {
         var currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
-        if(currentAnimation.IsName("Fly Float"))
+        if (currentAnimation.IsName("Fly Float"))
         {
-            var dStateList = damageData.DamageStates;
-            foreach (var item in dStateList)
+            var dState = damageData.DamageState;
+            if (dState.damageState == DamageState.Bomb)
             {
-                if(item.damageState == DamageState.Bomb)
-                {
-                    Hp -= damageData.Damage;
-                }
-
+                Hp -= damageData.Damage;
             }
+
             return;
         }
 

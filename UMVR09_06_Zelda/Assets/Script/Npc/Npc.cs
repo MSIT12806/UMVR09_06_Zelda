@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityStandardAssets.Characters.ThirdPerson;
 
@@ -43,7 +44,32 @@ public class Npc : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        TimePause();
+    }
+    bool pause;
+    float beforePauseAnimatorSpeed;
+    Vector3 beforePauseInitVelocity;
+    Vector3 beforePauseNextPosition;
+    void TimePause()
+    {
+        if (pauseTime > 0)
+        {
+            pause = true;
+            pauseTime -= Time.deltaTime;
+            beforePauseInitVelocity += initVel;
+            initVel = Vector3.zero;
+            beforePauseNextPosition += nextPosition;
+            nextPosition = Vector3.zero;
+        }
+        if (animator.speed == 0 && pauseTime <= 0)
+        {
+            pause = false;
+            initVel = beforePauseInitVelocity;
+            beforePauseInitVelocity = Vector3.zero;
+            nextPosition = beforePauseNextPosition;
+            beforePauseNextPosition = Vector3.zero;
+            animator.speed = beforePauseAnimatorSpeed;
+        }
     }
     private void LateUpdate()
     {
@@ -82,10 +108,25 @@ public class Npc : MonoBehaviour
         //請善用狀態機處理攻擊判定
         return DamageData.NoDamage;
     }
+    float pauseTime;
     public void GetHurt(DamageData damageData)
     {
         //print("有被打喔");
         stateManager.GetHurt(damageData);
+        //效果處裡
+
+        if (damageData.DamageState == null) return;
+
+        if (damageData.DamageState.damageState == DamageState.TimePause)
+        {
+            pauseTime = damageData.DamageState.KeepTime;
+            beforePauseAnimatorSpeed = animator.speed;
+            animator.speed = 0;
+            beforePauseInitVelocity = initVel;
+            initVel = Vector3.zero;
+            beforePauseNextPosition = nextPosition;
+            nextPosition = Vector3.zero;
+        }
     }
 
 
