@@ -32,6 +32,8 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     ThirdPersonCharacter tpc;
     private bool canBeHit = true;
 
+    bool FeverIk = false;
+
 
 
     public float Hp { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
@@ -58,6 +60,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
             currentAnimation.IsName("Attack01 1") || 
             currentAnimation.IsName("Attack01 2") ||
             currentAnimation.IsName("Finishing") ||
+            currentAnimation.IsName("Finishing") || 
             currentAnimation.IsName("GetHit") || 
             currentAnimation.IsName("Die") || 
             currentAnimation.IsName("Flying Back Death") || 
@@ -71,7 +74,8 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
             animator.SetTrigger("died");
         }
 
-        if (Input.GetKeyDown(KeyCode.U))
+
+        if (Input.GetKeyDown(KeyCode.U))//斬殺技
         {
             CheckWeakEnemy();
         }
@@ -83,7 +87,11 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
         if (Input.GetKeyDown(KeyCode.F))//使用無雙
         {
             if (PicoManager.Power >= 100)
+            {
                 PicoManager.Power -= PicoManager.PowerCost;
+                animator.SetTrigger("Fever");
+            }
+                
         }
 
 
@@ -135,7 +143,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
         }
 
         //IK調整
-        if (currentAnimation.IsName("Fast run") || currentAnimation.IsName("Attack02 1") || currentAnimation.IsName("Attack02 2") || currentAnimation.IsName("Finishing"))
+        if ( (currentAnimation.IsName("Fast run") || currentAnimation.IsName("Attack02 1") || currentAnimation.IsName("Attack02 2") || currentAnimation.IsName("Finishing")) || FeverIk )
         {
             IK.Weight_Up = 0;
         }
@@ -213,7 +221,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
                 if (currentAnimation.IsName("ArmorBreak"))
                 {
                     animator.SetTrigger("Finishing");
-                    NpcCommon.AttackDetection("Pico", transform.position, transform.forward, 180, 4f, true, new DamageData(30f, transform.forward * 0.15f, HitType.finishing), "Npc");
+                    NpcCommon.AttackDetection("Pico", transform.position, transform.forward, 180, 4f, true, new DamageData(30f, transform.forward * 0.15f, HitType.finishing, DamageStateInfo.NormalAttack), "Npc");
                     break;
                 }
             }
@@ -223,6 +231,24 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     public void ForwardMove()　　//...建議如果是事件，加個綴字。
     {
         dodge = true;
+    }
+
+    public void FeverIkControl()
+    {
+        FeverIk = false;
+    }
+    public void FeverAttackSpeed(float speed)//事件觸發
+    {
+        print("123");
+        if(speed >1)
+        {
+            FeverIk = true;
+        }
+        else if(speed < 1)
+        {
+            FeverIk = false;
+        }
+        animator.SetFloat("FeverAttackSpeed", speed);
     }
 
     public void AttackSpeedChange(float f)//事件觸發
