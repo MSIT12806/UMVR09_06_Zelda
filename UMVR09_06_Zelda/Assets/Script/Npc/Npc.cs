@@ -30,6 +30,7 @@ public class Npc : MonoBehaviour
     public bool Alive { get => Hp > 0; }
     public bool OnGround;
     NpcHelper stateManager;
+    IKController ik;
     [HideInInspector] public float MaxHp;
     public float Hp;
     void Start()
@@ -39,6 +40,7 @@ public class Npc : MonoBehaviour
         animator = GetComponent<Animator>();
         picoState = GetComponent<PicoState>();
         MaxHp = Hp;
+        ik = GetComponent<IKController>();
     }
 
     // Update is called once per frame
@@ -69,6 +71,7 @@ public class Npc : MonoBehaviour
             nextPosition = beforePauseNextPosition;
             beforePauseNextPosition = Vector3.zero;
             animator.speed = beforePauseAnimatorSpeed;
+            ik.enabled = true;
         }
     }
     private void LateUpdate()
@@ -126,6 +129,8 @@ public class Npc : MonoBehaviour
             initVel = Vector3.zero;
             beforePauseNextPosition = nextPosition;
             nextPosition = Vector3.zero;
+
+            ik.enabled = false;
         }
     }
 
@@ -179,6 +184,7 @@ public class Npc : MonoBehaviour
     void NpcCollision()
     {
         if (collide) return;
+        if (pause) return;
         if (ObjectManager.NpcsAlive == null) return;
         foreach (var item in ObjectManager.NpcsAlive.Values)
         {
@@ -189,7 +195,6 @@ public class Npc : MonoBehaviour
 
             var direction = (item.transform.position - this.transform.position).normalized;
             this.transform.position -= direction * 0.03f;
-            item.transform.position += direction * 0.03f;
         }
     }
     bool StandOnTerrain()
