@@ -77,23 +77,25 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
         {
             if (Input.GetMouseButtonDown(0) && (currentAnimation.IsName("Grounded") || currentAnimation.IsName("Attack01") || currentAnimation.IsName("Attack01 0") || currentAnimation.IsName("Attack01 1") || currentAnimation.IsName("Fast run")))
             {
-                LeftMouseClick();//這命名不知道確切在幹嘛
+                LeftMouseClick();
             }
             if (Input.GetMouseButtonDown(1) && (currentAnimation.IsName("Attack01") || currentAnimation.IsName("Attack01 0") || currentAnimation.IsName("Attack01 1") || currentAnimation.IsName("Attack01 2")))
             {
-                RightMouseClick();//這命名不知道確切在幹嘛
+                RightMouseClick();
             }
         }
 
         if (Input.GetKey(KeyCode.LeftControl))
         {
-            //fTimer 也不知道這紀錄時間要用來幹嘛阿
+            bool roll = true;
             pressControlTime += Time.deltaTime;
             if (pressControlTime > 0.3)//衝刺
             {
+                roll = false;
                 Sword.SetActive(false);
                 focusLine.SetActive(true);//速度線
             }
+            if (roll) animator.Play("Front Dodge");
             animator.SetFloat("dodge", pressControlTime);
         }
         if (Input.GetKeyUp(KeyCode.LeftControl))
@@ -265,6 +267,15 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
             animator.SetTrigger("getHeavyHit");
             npc.KnockOff(damageData.Force);
         }
+    }
+
+    public void SetNoHurt()
+    {
+        canBeHit = false;
+    }
+    public void SetCanHurt()
+    {
+        canBeHit = true;
     }
 
     public void Move()
