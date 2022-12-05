@@ -56,12 +56,20 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
         else tpc.CanRotate = true;
 
         //死亡
-        if (npc.Hp <= 0)
+        if (PicoManager.Hp <= 0)
         {
             animator.SetTrigger("died");
         }
 
+        //無雙條測試
+        if (Input.GetKey(KeyCode.P))
+            PicoManager.Power++;
 
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            if (PicoManager.Power >= 100)
+                PicoManager.Power -= PicoManager.PowerCost;
+        }
 
 
         if (animator.IsInTransition(0) == false) //判斷是否在過度動畫
@@ -185,9 +193,9 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
         if (attackType == 1)//普攻34
             NpcCommon.AttackDetection(transform.position, transform.forward, 140, 3.2f, true, new DamageData(10f, transform.forward * 1f, HitType.light, DamageStateInfo.NormalAttack), "Npc");
         if (attackType == 2)//重擊1
-            NpcCommon.AttackDetection(transform.position + transform.forward*0.7f, transform.forward, 360, 2.5f, true, new DamageData(10f, transform.forward * 0.15f, HitType.Heavy, DamageStateInfo.NormalAttack), "Npc");
+            NpcCommon.AttackDetection(transform.position + transform.forward * 0.7f, transform.forward, 360, 2.5f, true, new DamageData(10f, transform.forward * 0.15f, HitType.Heavy, DamageStateInfo.NormalAttack), "Npc");
         if (attackType == 3)//重擊2
-            NpcCommon.AttackDetection(transform.position + transform.forward*-0.2f , transform.forward, 180, 3.5f, true, new DamageData(10f, transform.forward * 0.15f, HitType.Heavy, DamageStateInfo.NormalAttack), "Npc");
+            NpcCommon.AttackDetection(transform.position + transform.forward * -0.2f, transform.forward, 180, 3.5f, true, new DamageData(10f, transform.forward * 0.15f, HitType.Heavy, DamageStateInfo.NormalAttack), "Npc");
     }
 
     #region  OnDrawGizmos 註解
@@ -237,7 +245,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     public void GetHurt(DamageData damageData)
     {
         if (!canBeHit) return;
-        npc.Hp -= damageData.Damage;
+        PicoManager.Hp -= damageData.Damage;
         print("pico被揍");
 
         //被打
