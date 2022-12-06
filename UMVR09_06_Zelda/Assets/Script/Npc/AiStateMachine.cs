@@ -683,10 +683,12 @@ public class DragonAttackState : AiState
     bool attack;
     string triggerName;
     Transform target;
-    public DragonAttackState(Transform transform, string trigger, Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Attack", null)
+    DragonFightState fightState;
+    public DragonAttackState(DragonFightState state,Transform transform, string trigger, Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Attack", null)
     {
         this.triggerName = trigger;
         this.target = transform;
+        fightState = state;
     }
     public override void SetAnimation()
     {
@@ -705,7 +707,23 @@ public class DragonAttackState : AiState
     {
         if (npcHelper.Hp <= 0) return new DragonDeathState(animator, selfTransform, npcHelper);
         if (attack)
-            return new DragonFightState(target, animator, selfTransform, npcHelper);
+        {
+            var r = UnityEngine.Random.value;
+            if(r < 0.3f)
+            {
+                animator.SetTrigger("BasicHit");
+            }
+            else if (r < 0.6f)
+            {
+                animator.SetTrigger("TailHit");
+            }
+            else if (r < 0.6f)
+            {
+                animator.SetTrigger("FireHit");
+            }
+            fightState.RefreshDazeTime();
+            return fightState;
+        }
 
 
         return this;
