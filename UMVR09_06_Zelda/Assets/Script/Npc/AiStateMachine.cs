@@ -973,7 +973,7 @@ public class GolemChaseState : GolemBaseState
         LookAt();
         currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
         if (!animator.IsInTransition(0) && currentAnimation.IsName("Walk"))
-            selfTransform.Translate(0, 0, 0.15f);
+            selfTransform.Translate(0, 0, 0.8f);
 
         if (getHit != null)
         {
@@ -1120,7 +1120,6 @@ public class GolemArmorBreakState : GolemBaseState
     Transform target;
     float time;
 
-    Npc npcData;
     public GolemArmorBreakState(Transform t, Animator a, Transform self, NpcHelper nh) : base(a, self, 0, nh)
     {
         target = t;
