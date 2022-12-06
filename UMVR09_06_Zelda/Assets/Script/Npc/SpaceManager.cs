@@ -14,6 +14,10 @@ public class SpaceManager : MonoBehaviour, NpcHelper
 
     public float MaxHp => throw new System.NotImplementedException();
 
+    public float WeakPoint => throw new System.NotImplementedException();
+
+    public float MaxWeakPoint => throw new System.NotImplementedException();
+
     // Start is called before the first frame update
     Animator animator;
     void Awake()
