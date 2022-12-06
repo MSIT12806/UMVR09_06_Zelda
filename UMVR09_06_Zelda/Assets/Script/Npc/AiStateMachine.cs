@@ -833,7 +833,7 @@ public abstract class GolemBaseState : AiState
     {
         animator = a;
         selfTransform = self;
-        armor = max_armor;
+        //armor = max_armor;
         npcData = selfTransform.GetComponent<Npc>();
     }
 }
@@ -843,6 +843,7 @@ public class GolemIdleState : GolemBaseState
     float nowArmor;
     Transform target;
     PicoState picoState;
+    bool goWeakState = false;
     public GolemIdleState(Transform t, Animator a, Transform self, float armor, NpcHelper nh) : base(a, self, armor, nh)
     {
         target = t;
@@ -857,6 +858,10 @@ public class GolemIdleState : GolemBaseState
         {
             Debug.Log($"before {npcData.Hp}");
             npcData.Hp -= getHit.Damage / 10;
+            if(getHit.Hit == HitType.fever)
+            {
+                goWeakState = true;
+            }
             getHit = null;
         }
     }
@@ -878,6 +883,15 @@ public class GolemIdleState : GolemBaseState
             animator.SetTrigger("SetShield");
             return new GolemRoarState(target, animator, selfTransform, npcHelper);
         }
+
+        //被無雙技打
+        if (goWeakState)
+        {
+            goWeakState = false;
+            animator.SetTrigger("FeverAttack");
+            return new GolemWeakState(target, animator, selfTransform, nowArmor, npcHelper);
+        }
+        
         //切至Attack (追到後就打? 或亂數決定
         float distance = (target.position - selfTransform.position).magnitude;
         if (distance <= attackDistance)
@@ -899,7 +913,7 @@ public class GolemIdleState : GolemBaseState
         if (skill)
         {
             animator.SetTrigger("Skill");
-            return new GolemSkillState(target, animator, selfTransform, npcHelper);
+            return new GolemSkillState(target, animator, selfTransform, nowArmor, npcHelper);
         }
         //切至Chase (距離玩家 > 攻擊範圍
         if (distance > attackDistance)
@@ -918,6 +932,8 @@ public class GolemChaseState : GolemBaseState
     float nowArmor;
     float attackDistance = 3.3f;
     AnimatorStateInfo currentAnimation;
+    private bool goWeakState;
+
     public GolemChaseState(Transform t, Animator a, Transform self, NpcHelper nh, float armor) : base(a, self, armor, nh)
     {
         target = t;
@@ -944,6 +960,10 @@ public class GolemChaseState : GolemBaseState
         if (getHit != null)
         {
             npcData.Hp -= getHit.Damage / 10;
+            if (getHit.Hit == HitType.fever)
+            {
+                goWeakState = true;
+            }
             getHit = null;
         }
     }
@@ -986,6 +1006,14 @@ public class GolemChaseState : GolemBaseState
             animator.SetTrigger("Dead");
             return new GolemDeadState(target, animator, selfTransform, npcHelper);
         }
+        //被無雙打
+        if (goWeakState)
+        {
+            goWeakState = false;
+            animator.SetTrigger("FeverAttack");
+            return new GolemWeakState(target, animator, selfTransform, armor, npcHelper);
+        }
+
         //到玩家旁邊切回idle
         float distance = (selfTransform.position - target.position).magnitude;
         if (distance <= attackDistance)
@@ -1122,6 +1150,8 @@ public class GolemAttackState : GolemBaseState
     AnimatorStateInfo currentAnimation;
     bool finish = false;
     float nowArmor;
+    private bool goWeakState;
+
     public GolemAttackState(Transform t, Animator a, Transform self, float armor, NpcHelper npcHelper) : base(a, self, armor, npcHelper)
     {
         nowArmor = armor;
@@ -1150,6 +1180,10 @@ public class GolemAttackState : GolemBaseState
         if (getHit != null)
         {
             npcData.Hp -= getHit.Damage / 10;
+            if (getHit.Hit == HitType.fever)
+            {
+                goWeakState = true;
+            }
             getHit = null;
         }
     }
@@ -1168,6 +1202,14 @@ public class GolemAttackState : GolemBaseState
         //    animator.SetTrigger("ArmorBreak");
         //    return new GolemArmorBreakState(target, animator, selfTransform, npcHelper);
         //}
+
+        //被無雙打
+        if (goWeakState)
+        {
+            goWeakState = false;
+            animator.SetTrigger("FeverAttack");
+            return new GolemWeakState(target, animator, selfTransform, armor, npcHelper);
+        }
 
         if (!currentAnimation.IsName("Attack02") && !currentAnimation.IsName("Attack01"))
         {
@@ -1188,10 +1230,14 @@ public class GolemSkillState : GolemBaseState
 {
     Transform target;
     AnimatorStateInfo currentAnimation;
-    public GolemSkillState(Transform t, Animator a, Transform self, NpcHelper nh) : base(a, self, 0, nh)
+    float nowArmor;
+    private bool goWeakState;
+
+    public GolemSkillState(Transform t, Animator a, Transform self, float armor ,NpcHelper nh) : base(a, self, 0, nh)
     {
         //npcData = selfTransform.GetComponent<Npc>();
         target = t;
+        nowArmor = armor;
     }
 
     public override void SetAnimation()
@@ -1204,6 +1250,10 @@ public class GolemSkillState : GolemBaseState
             if (getHit.Hit == HitType.Ice)
             {
                 AttackFlaw = true;
+            }
+            if(getHit.Hit == HitType.fever)
+            {
+                goWeakState = true;
             }
 
             npcData.Hp -= getHit.Damage / 10;
@@ -1219,18 +1269,29 @@ public class GolemSkillState : GolemBaseState
             animator.SetTrigger("Dead");
             return new GolemDeadState(target, animator, selfTransform, npcHelper);
         }
-        //技能施放結束 切回idle
-        if (!currentAnimation.IsName("Skill"))
+
+        //被無雙打
+        if (goWeakState)
         {
-            return new GolemIdleState(target, animator, selfTransform, armor, npcHelper);
+            goWeakState = false;
+            animator.SetTrigger("FeverAttack");
+            return new GolemWeakState(target, animator, selfTransform, armor, npcHelper);
         }
 
         //玩家利用西卡之石破解技能 切至ArmorBreak
         if (AttackFlaw)
         {
             animator.SetTrigger("SheikahDefense");
-            return new GolemArmorBreakState(target, animator, selfTransform, npcHelper);
+            return new GolemWeakState(target, animator, selfTransform,nowArmor, npcHelper);
         }
+        //技能施放結束 切回idle
+        if (!currentAnimation.IsName("Skill"))
+        {
+            return new GolemIdleState(target, animator, selfTransform, armor, npcHelper);
+        }
+
+
+
         return this;
     }
 }
