@@ -228,7 +228,6 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
                 if (currentAnimation.IsName("ArmorBreak"))
                 {
                     animator.SetTrigger("Finishing");
-                    NpcCommon.AttackDetection("Pico", transform.position, transform.forward, 180, 4f, true, new DamageData(30f, transform.forward * 0.15f, HitType.finishing, DamageStateInfo.NormalAttack), "Npc");
                     break;
                 }
             }
@@ -271,6 +270,13 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
             NpcCommon.AttackDetection("Pico", transform.position + transform.forward * 0.7f, transform.forward, 360, 2.5f, true, new DamageData(10f, transform.forward * 0.15f, HitType.Heavy, DamageStateInfo.NormalAttack), "Npc");
         if (attackType == 3)//重擊2
             NpcCommon.AttackDetection("Pico", transform.position + transform.forward * -0.2f, transform.forward, 180, 3.5f, true, new DamageData(10f, transform.forward * 0.15f, HitType.Heavy, DamageStateInfo.NormalAttack), "Npc");
+        if (attackType == 4)//終結技
+            NpcCommon.AttackDetection("Pico", transform.position, transform.forward, 180, 4f, true, new DamageData(30f, transform.forward * 0.15f, HitType.finishing, DamageStateInfo.NormalAttack), "Npc");
+        if (attackType == 5)//無雙
+            NpcCommon.AttackDetection("Pico", transform.position, transform.forward, 360, 6f, true, new DamageData(10f, transform.forward * 0.15f, HitType.fever, DamageStateInfo.NormalAttack), "Npc");
+        
+
+
     }
 
     #region  OnDrawGizmos 註解
