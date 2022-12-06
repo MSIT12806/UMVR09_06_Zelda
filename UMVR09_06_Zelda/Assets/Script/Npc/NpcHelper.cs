@@ -7,6 +7,8 @@ public interface NpcHelper
 {
     public float Hp { get; set; }
     public float MaxHp { get;  }
+    public float WeakPoint { get;  }
+    public float MaxWeakPoint { get;  }
     public bool CanBeKockedOut { get;  }
     public bool Dizzy { get;  }
     public void GetHurt(DamageData damageData);

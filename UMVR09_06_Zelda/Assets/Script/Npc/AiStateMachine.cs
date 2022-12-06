@@ -547,11 +547,11 @@ public class DragonFightState : AiState
         var distance = Vector3.Distance(target.position, selfTransform.position);
         if (distance <= 3f)
         {
-            return new DragonAttackState(target, "TailHit", animator, selfTransform, npcHelper);
+            return new DragonAttackState(this,target, "TailHit", animator, selfTransform, npcHelper);
         }
         if (distance <= 8f)
         {
-            return new DragonAttackState(target, "FireHit", animator, selfTransform, npcHelper);
+            return new DragonAttackState(this, target, "FireHit", animator, selfTransform, npcHelper);
         }
         else
         {

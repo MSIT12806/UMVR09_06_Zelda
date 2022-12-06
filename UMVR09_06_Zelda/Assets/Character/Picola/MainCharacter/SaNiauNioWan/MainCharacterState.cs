@@ -44,6 +44,10 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
 
     public float MaxHp => throw new NotImplementedException();
 
+    public float WeakPoint => throw new NotImplementedException();
+
+    public float MaxWeakPoint => throw new NotImplementedException();
+
     void Awake()
     {
         ObjectManager.StateManagers.Add(this.gameObject.GetInstanceID(), this);

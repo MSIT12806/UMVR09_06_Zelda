@@ -14,6 +14,11 @@ public class DragonManager : MonoBehaviour, NpcHelper
 
     public bool Dizzy => dizzy;
 
+    float weakPoint;
+    public float WeakPoint { get => weakPoint; set => weakPoint = value; }
+
+    public float MaxWeakPoint => npc.MaxHp / 20;
+
     bool canBeKnockedOut;
     bool dizzy;
 
@@ -43,7 +48,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
     bool flyState;
     public void GetHurt(DamageData damageData)
     {
-        if(Hp <= 0)
+        if (Hp <= 0)
         {
             animator.Play("Die");
             ObjectManager.myCamera.SetDefault();
@@ -141,7 +146,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
     {
         print(MaxHp);
         print(Hp);
-        flyState = Hp >= MaxHp/2;
+        flyState = Hp >= MaxHp / 2;
         animator.SetBool("Fly", flyState);
     }
     public void Land()

@@ -4,7 +4,6 @@ using UnityEngine;
 using Ron;
 using System;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class UiManager : MonoBehaviour
 {
