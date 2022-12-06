@@ -4,6 +4,7 @@ using UnityEngine;
 using Ron;
 using System;
 using UnityEngine.UI;
+using Microsoft.Cci;
 
 public class UiManager : MonoBehaviour
 {
@@ -35,6 +36,8 @@ public class UiManager : MonoBehaviour
     public Transform[] WeakableMonsters;
     public Transform[] WeakPoints;
     public RectTransform WeakImg;
+    public Image WeakFull;
+    public Image WeakCrack;
     void Start()
     {
         MainCharacterHp = transform.FindAnyChild<Transform>("MainCharacterHP");
@@ -55,6 +58,8 @@ public class UiManager : MonoBehaviour
         ItemUI.FindAnyChild<Image>("CanLock").fillAmount = 1;
         InitPicoHp();
     }
+
+
 
     bool weakShow = true;
     // Update is called once per frame
