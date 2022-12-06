@@ -49,9 +49,9 @@ ModelImporter:
       hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
-      loopBlendOrientation: 0
+      loopBlendOrientation: 1
       loopBlendPositionY: 1
-      loopBlendPositionXZ: 0
+      loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
@@ -59,7 +59,31 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0
+        functionName: Skill2Attack
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 3e43acbd40d95c64b8351d40cea021b1,
+          type: 3}
+        floatParameter: 0.2
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.14902769
+        functionName: Skill2Attack
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 3e43acbd40d95c64b8351d40cea021b1,
+          type: 3}
+        floatParameter: 0.8
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.475
+        functionName: Skill2AttackDamage
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 9693cf64279264240938d0f3206ee1b5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 2
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

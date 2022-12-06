@@ -14,6 +14,10 @@ public class GolemManager : MonoBehaviour, NpcHelper
 
     public float MaxHp => throw new System.NotImplementedException();
 
+    public float WeakPoint => throw new System.NotImplementedException();
+
+    public float MaxWeakPoint => throw new System.NotImplementedException();
+
     // Start is called before the first frame update
     Animator animator;
     void Awake()
@@ -56,8 +60,10 @@ public class GolemManager : MonoBehaviour, NpcHelper
     }
      public void AnimationAttack(int attackType)
     {
-        if (attackType == 1)//???𱍊            print("attttttaaaaccccckkk");
+        if (attackType == 1)//普攻1
             NpcCommon.AttackDetection("",transform.position, transform.forward, 360, 4f, false, new DamageData(10f, transform.forward * 0.3f, HitType.Heavy,DamageStateInfo.NormalAttack), "Player");//
+        if (attackType == 2)//技能2
+            NpcCommon.AttackDetection("", transform.position, transform.forward, 360, 8f, false, new DamageData(10f, transform.forward * 0.3f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");//
 
     }
     //public void OnDrawGizmos()

@@ -33,14 +33,17 @@ public class Npc : MonoBehaviour
     IKController ik;
     [HideInInspector] public float MaxHp;
     public float Hp;
-    void Start()
+    private void Awake()
     {
         nextPosition = Vector3.zero;
-        stateManager = ObjectManager.StateManagers[this.gameObject.GetInstanceID()];
         animator = GetComponent<Animator>();
         picoState = GetComponent<PicoState>();
         MaxHp = Hp;
         ik = GetComponent<IKController>();
+    }
+    void Start()
+    {
+        stateManager = ObjectManager.StateManagers[this.gameObject.GetInstanceID()];
     }
 
     // Update is called once per frame

@@ -547,11 +547,11 @@ public class DragonFightState : AiState
         var distance = Vector3.Distance(target.position, selfTransform.position);
         if (distance <= 3f)
         {
-            return new DragonAttackState(target, "TailHit", animator, selfTransform, npcHelper);
+            return new DragonAttackState(this,target, "TailHit", animator, selfTransform, npcHelper);
         }
         if (distance <= 8f)
         {
-            return new DragonAttackState(target, "FireHit", animator, selfTransform, npcHelper);
+            return new DragonAttackState(this, target, "FireHit", animator, selfTransform, npcHelper);
         }
         else
         {
@@ -973,7 +973,7 @@ public class GolemChaseState : GolemBaseState
         LookAt();
         currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
         if (!animator.IsInTransition(0) && currentAnimation.IsName("Walk"))
-            selfTransform.Translate(0, 0, 0.15f);
+            selfTransform.Translate(0, 0, 0.05f);
 
         if (getHit != null)
         {
@@ -1120,7 +1120,6 @@ public class GolemArmorBreakState : GolemBaseState
     Transform target;
     float time;
 
-    Npc npcData;
     public GolemArmorBreakState(Transform t, Animator a, Transform self, NpcHelper nh) : base(a, self, 0, nh)
     {
         target = t;
@@ -1312,11 +1311,18 @@ public class GolemSkillState : GolemBaseState
 
         return this;
     }
+    public void Skill2Attack(float AttackSpeed)//事件觸發
+    {
+        animator.SetFloat("Skill2AttackSpeed", AttackSpeed);
+        // +可用時間暫停中斷技能
+        // getHit.DamageState.damageState == DamageState.TimePause 
+    }
 }
 public class GolemRoarState : GolemBaseState
 {
     Transform target;
     float time = 0;
+    AnimatorStateInfo currentAnimation;
     public GolemRoarState(Transform t, Animator a, Transform self, NpcHelper nh) : base(a, self, 0, nh)
     {
         target = t;
@@ -1333,14 +1339,14 @@ public class GolemRoarState : GolemBaseState
     public override AiState SwitchState()
     {
         //施放完 切至idle
-        bool finish = false;
-        time += Time.deltaTime;
-        if (time > 4) finish = true;
-        Debug.Log(time);
-        if (finish)
+        //bool finish = false;
+        //time += Time.deltaTime;
+        //if (time > 4) finish = true;
+        //Debug.Log(time);
+        currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
+        if (!currentAnimation.IsName("Roar"));
         {
             Debug.Log("back to idle");
-
             return new GolemIdleState(target, animator, selfTransform, armor, npcHelper);
         }
         return this;
@@ -1365,7 +1371,6 @@ public class GolemDeadState : GolemBaseState
         throw new NotImplementedException();
     }
 }
-
 
 
 
