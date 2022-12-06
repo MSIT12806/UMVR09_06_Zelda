@@ -30,6 +30,9 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
     //public UsaoDeathState usaoDeathState;
     #endregion
     public float Hp { get => npc.Hp; set => npc.Hp = value; }
+
+    public bool CanBeKockedOut => throw new NotImplementedException();
+
     void Awake()
     {
         ObjectManager.StateManagers.Add(this.gameObject.GetInstanceID(), this);

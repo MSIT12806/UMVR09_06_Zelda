@@ -4,6 +4,7 @@ using UnityEngine;
 using Ron;
 using System;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class UiManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class UiManager : MonoBehaviour
     Transform MainCharacterHp;
     Transform GreatEnemyState;
     Transform StrongholdState;
+    Transform WeakUi;
     Transform PowerOneKey;
     Image PowerOne;
     Transform PowerTwoKey;
@@ -31,12 +33,15 @@ public class UiManager : MonoBehaviour
     private float ItemCD;
     private float currentItemCD;
 
-
+    public Transform[] WeakableMonsters;
+    public Transform[] WeakPoints;
+    public RectTransform WeakImg;
     void Start()
     {
         MainCharacterHp = transform.FindAnyChild<Transform>("MainCharacterHP");
         GreatEnemyState = transform.FindAnyChild<Transform>("GreatEnemyState");
         StrongholdState = transform.FindAnyChild<Transform>("StrongholdState");
+        WeakUi = transform.FindAnyChild<Transform>("WeakUi");
         PowerOne = transform.FindAnyChild<Transform>("Power").FindAnyChild<Image>("PowerFull");
         PowerOneKey = transform.FindAnyChild<Transform>("Power").FindAnyChild<Transform>("Key");
         PowerTwo = transform.FindAnyChild<Transform>("Power (1)").FindAnyChild<Image>("PowerFull");
@@ -52,6 +57,7 @@ public class UiManager : MonoBehaviour
         InitPicoHp();
     }
 
+    bool weakShow = true;
     // Update is called once per frame
     void Update()
     {
@@ -65,6 +71,7 @@ public class UiManager : MonoBehaviour
 
         //據點
 
+        //大怪--注視
         if (myCamera.cameraState == "Stare")
         {
             GreatEnemyState.gameObject.SetActive(true);
@@ -76,6 +83,33 @@ public class UiManager : MonoBehaviour
             GreatEnemyState.gameObject.SetActive(false);
             StrongholdState.gameObject.SetActive(false);
         }
+        //大怪--弱點槽 //希卡指示器？
+        for (int i = 0; i < WeakableMonsters.Length; i++)
+        {
+            var item = WeakableMonsters[i];
+            var nh = ObjectManager.StateManagers[item.gameObject.GetInstanceID()];
+            if (nh.CanBeKockedOut)
+            {
+                if (weakShow == true) return;
+
+                WeakImg.gameObject.SetActive(true);
+                Vector2 v = Camera.main.WorldToScreenPoint(WeakPoints[i].position);
+                WeakImg.position = v;
+                weakShow = true;
+                return;
+            }
+            else
+            {
+                if (weakShow == false) return;
+
+                WeakImg.gameObject.SetActive(false);
+                weakShow = false;
+
+
+            }
+        }
+
+
     }
 
     private void RefreshGreatEnemyState()

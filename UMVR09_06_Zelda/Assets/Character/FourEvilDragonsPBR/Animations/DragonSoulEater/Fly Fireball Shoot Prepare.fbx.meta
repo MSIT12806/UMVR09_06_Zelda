@@ -447,13 +447,21 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.5448495
-        functionName: ShootFireBall
+      - time: 0.08050124
+        functionName: SetKnockedOut
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: b11601d3f25612d46902453df527e4e8,
           type: 3}
         floatParameter: 0
         intParameter: 0
+        messageOptions: 0
+      - time: 0.9836299
+        functionName: SetKnockedOut
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: b11601d3f25612d46902453df527e4e8,
+          type: 3}
+        floatParameter: 0
+        intParameter: 1
         messageOptions: 0
       transformMask:
       - path: 

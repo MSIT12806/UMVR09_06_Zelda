@@ -37,6 +37,9 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
 
 
     public float Hp { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+    public bool CanBeKockedOut => throw new NotImplementedException();
+
     void Awake()
     {
         ObjectManager.StateManagers.Add(this.gameObject.GetInstanceID(), this);

@@ -9,6 +9,10 @@ public class DragonManager : MonoBehaviour, NpcHelper
     Npc npc;
     public float Hp { get => npc.Hp; set => npc.Hp = value; }
 
+    public bool CanBeKockedOut => canBeKnockedOut;
+
+    bool canBeKnockedOut;
+
     // Start is called before the first frame update
     Animator animator;
     void Awake()
@@ -99,5 +103,11 @@ public class DragonManager : MonoBehaviour, NpcHelper
                 transform.position += transform.forward * 0.15f;
                 return;
         }
+    }
+
+    public void SetKnockedOut(int notZero)
+    {
+        //弱點槽的UI
+        canBeKnockedOut = notZero == 0;
     }
 }

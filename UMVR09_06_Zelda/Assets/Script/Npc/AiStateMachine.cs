@@ -599,7 +599,8 @@ public class DragonFlyState : AiState
         // 距離 >10 || <5 追
         if (distance > 10 || distance < 5)
         {
-            var flyPoint = target.position + (((selfTransform.position - target.position).normalized) * 7.5f);
+            var randomDir = new Vector3(UnityEngine.Random.value, 0, UnityEngine.Random.value).normalized;
+            var flyPoint = target.position + randomDir * 7.5f;
             return new DragonFlyChaseState(this, animator, selfTransform, npcHelper, flyPoint);
         }
         else
