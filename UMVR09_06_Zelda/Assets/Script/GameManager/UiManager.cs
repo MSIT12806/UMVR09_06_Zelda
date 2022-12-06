@@ -5,6 +5,7 @@ using Ron;
 using System;
 using UnityEngine.UI;
 using Microsoft.Cci;
+using static UnityEngine.Rendering.DebugUI;
 
 public class UiManager : MonoBehaviour
 {
@@ -59,7 +60,23 @@ public class UiManager : MonoBehaviour
         InitPicoHp();
     }
 
+    void SetWeakPoint(NpcHelper nh)
+    {
+        var Value = nh.WeakPoint;
+        var MaxValue = nh.MaxWeakPoint;
+        if (Value >= MaxValue / 2)
+        {
+            WeakFull.fillAmount = (Value - MaxValue / 2) / (MaxValue / 2);
+            WeakCrack.fillAmount = 1;
+        }
+        else if (Value < MaxValue / 2)
+        {
+            WeakFull.fillAmount = 0;
+            WeakCrack.fillAmount = Value / (MaxValue / 2);
+        }
 
+        //放完終結技、重新填充的議題？
+    }
 
     bool weakShow = true;
     // Update is called once per frame
@@ -94,6 +111,7 @@ public class UiManager : MonoBehaviour
             var nh = ObjectManager.StateManagers[item.gameObject.GetInstanceID()];
             if (nh.Dizzy)
             {
+                SetWeakPoint(nh);
                 if (weakShow == true) return;
 
                 WeakImg.gameObject.SetActive(true);

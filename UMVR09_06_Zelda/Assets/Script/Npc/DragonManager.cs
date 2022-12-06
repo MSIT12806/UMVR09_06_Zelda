@@ -33,7 +33,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
     void Start()
     {
         aiState = new DragonIdleState(ObjectManager.MainCharacter, transform.GetComponent<Animator>(), transform, this);
-
+        weakPoint = MaxWeakPoint;
     }
     void Update()
     {
@@ -64,6 +64,10 @@ public class DragonManager : MonoBehaviour, NpcHelper
                 dizzy = true;
                 flyState = false;
             }
+        }
+        if (dizzy)
+        {
+            weakPoint -= damageData.Damage;
         }
         var currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
         if (flyState)
