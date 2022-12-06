@@ -22,7 +22,10 @@ public class DragonManager : MonoBehaviour, NpcHelper
         aiState = new DragonIdleState(ObjectManager.MainCharacter, transform.GetComponent<Animator>(), transform, this);
 
     }
-
+    void Update()
+    {
+        Move();
+    }
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -47,10 +50,10 @@ public class DragonManager : MonoBehaviour, NpcHelper
         Hp -= damageData.Damage;
         //aiState = new UsaoHurtState(transform.GetComponent<Animator>(), transform, damageData);
     }
-
-    public void Move()
+    int moveType;
+    public void SetMove(int m)
     {
-        throw new System.NotImplementedException();
+        moveType = m;
     }
 
     public void Turn(Vector3 direction)
@@ -79,5 +82,21 @@ public class DragonManager : MonoBehaviour, NpcHelper
     public void Look(Transform target)
     {
         throw new System.NotImplementedException();
+    }
+
+    public void Move()
+    {
+        switch (moveType)
+        {
+            case 1://walk
+                transform.Translate(transform.forward * 0.05f);
+                return;
+            case 2://run
+                transform.Translate(transform.forward * 0.10f);
+                return;
+            case 3://fly
+                transform.Translate(transform.forward * 0.15f);
+                return;
+        }
     }
 }

@@ -166,7 +166,6 @@ public class TPSCamera : MonoBehaviour
     {
         var item = transparentObj.FirstOrDefault(go => !hitArr.Any(i => i.transform.gameObject == go));
         if (item == null) return;
-        print("recover");
         RecoverTransparentObj(item.transform.gameObject);
         transparentObj.Remove(item.transform.gameObject);
     }

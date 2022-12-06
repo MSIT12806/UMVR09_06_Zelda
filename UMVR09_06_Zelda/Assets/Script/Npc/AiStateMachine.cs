@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.UIElements;
 using static UnityEngine.GraphicsBuffer;
 
 public abstract class AiState
@@ -569,6 +570,7 @@ public class DragonFlyState : AiState
     Transform head;
     public DragonFlyState(Transform target, Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Fight", target.GetComponent<PicoState>())
     {
+        a.SetBool("Move", false);
         head = self.FindAnyChild<Transform>("Head");
         this.target = target;
         //不再受到任何攻擊，除非將其擊落(丟炸彈)
@@ -589,14 +591,24 @@ public class DragonFlyState : AiState
     public override AiState SwitchState()
     {
         dazeSeconds -= Time.deltaTime;
+        var distance = Vector3.Distance(selfTransform.position, target.position);
+
         // 距離 >10 || <5 追
-        // 發呆完吐火球
-        if (dazeSeconds <= 0)
+        if (distance > 10 || distance < 5)
         {
-            animator.SetTrigger("FireHit");
+            var flyPoint = target.position + (((selfTransform.position - target.position).normalized) * 7.5f);
+            return new DragonFlyChaseState(this, animator, selfTransform, npcHelper, flyPoint);
         }
-        RefreshDazeTime();
-        return this;
+        else
+        {
+            // 發呆完吐火球
+            if (dazeSeconds <= 0)
+            {
+                animator.SetTrigger("FireHit");
+            }
+            RefreshDazeTime();
+            return this;
+        }
     }
 }
 public class DragonFlyChaseState : AiState
@@ -604,18 +616,28 @@ public class DragonFlyChaseState : AiState
     /*
 * 1. 保持 5~10公尺的距離， 太遠或太近就使用這個狀態來移動。
 */
-    public DragonFlyChaseState(Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Chase", null)
-    {
-    }
 
+    Vector3 vec;
+    int fltFrameCount = 150;
+    DragonFlyState flyFightState;
+    public DragonFlyChaseState(DragonFlyState flyState, Animator a, Transform self, NpcHelper nh, Vector3 moveVec) : base(a, self, nh, "Chase", null)
+    {
+        Debug.Log("FlyChase");
+        flyFightState = flyState;
+        vec = moveVec - self.position;
+        a.SetBool("Move", true);
+    }
+    bool move;
     public override void SetAnimation()
     {
-        throw new NotImplementedException();
+        AiStateCommon.Turn(selfTransform, vec);
     }
 
     public override AiState SwitchState()
     {
-        throw new NotImplementedException();
+        if (fltFrameCount < 1)
+            return flyFightState;
+        return this;
     }
 }
 public class DragonChaseState : AiState
@@ -705,17 +727,24 @@ public class DragonDeathState : AiState
 public static class AiStateCommon
 {
 
-    public static void Turn(Transform body, Vector3 direction)
+    public static bool Turn(Transform body, Vector3 direction)
     {
-        var degree = Vector3.SignedAngle(body.forward, direction, Vector3.up);
-        if (degree < 0)
+        var degree = Vector3.SignedAngle(body.forward.WithY(), direction.WithY(), Vector3.up);
+        if (body.name == "Blue Variant")
+            Debug.Log(degree);
+        if (degree < -1)
         {
             body.Rotate(Vector3.up, -1);
+            return true;
+
         }
-        else if (degree > 0)
+        else if (degree > 1)
         {
             body.Rotate(Vector3.up, 1);
+            return true;
         }
+
+        return false;
     }
 
     public static void Look(Transform head, Transform targetHead)
