@@ -522,6 +522,7 @@ public class DragonFightState : AiState
 
     public void RefreshDazeTime()
     {
+        animator.SetBool("Move", false);
         dazeSeconds = UnityEngine.Random.Range(1, 10);
     }
     public override void SetAnimation()
@@ -568,9 +569,9 @@ public class DragonFlyState : AiState
     Transform target;
     float dazeSeconds;
     Transform head;
+    Vector3 turnPoint;
     public DragonFlyState(Transform target, Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Fight", target.GetComponent<PicoState>())
     {
-        a.SetBool("Move", false);
         head = self.FindAnyChild<Transform>("Head");
         this.target = target;
         //不再受到任何攻擊，除非將其擊落(丟炸彈)
@@ -580,19 +581,21 @@ public class DragonFlyState : AiState
 
     public void RefreshDazeTime()
     {
+        animator.SetBool("Move", false);
         dazeSeconds = UnityEngine.Random.Range(1, 10);
     }
     public override void SetAnimation()
     {
         AiStateCommon.Turn(selfTransform, target.position - selfTransform.position);
-        AiStateCommon.Look(head, target);
+        //AiStateCommon.Look(head, target);
     }
 
     public override AiState SwitchState()
     {
         dazeSeconds -= Time.deltaTime;
-        var distance = Vector3.Distance(selfTransform.position, target.position);
+        if (dazeSeconds > 0) return this;
 
+        var distance = Vector3.Distance(selfTransform.position, target.position);
         // 距離 >10 || <5 追
         if (distance > 10 || distance < 5)
         {
@@ -618,25 +621,37 @@ public class DragonFlyChaseState : AiState
 */
 
     Vector3 vec;
-    int fltFrameCount = 150;
+    int flyFrameCount = 150;
     DragonFlyState flyFightState;
-    public DragonFlyChaseState(DragonFlyState flyState, Animator a, Transform self, NpcHelper nh, Vector3 moveVec) : base(a, self, nh, "Chase", null)
+    public DragonFlyChaseState(DragonFlyState flyState, Animator a, Transform self, NpcHelper nh, Vector3 position) : base(a, self, nh, "Chase", null)
     {
-        Debug.Log("FlyChase");
         flyFightState = flyState;
-        vec = moveVec - self.position;
-        a.SetBool("Move", true);
+        vec = (position - self.position).normalized;
     }
     bool move;
     public override void SetAnimation()
     {
-        AiStateCommon.Turn(selfTransform, vec);
+        if (!move)
+        {
+            move = !AiStateCommon.Turn(selfTransform, vec);
+        }
+        if (move)
+            animator.SetBool("Move", true);
+
     }
 
     public override AiState SwitchState()
     {
-        if (fltFrameCount < 1)
+        if (move)
+            flyFrameCount--;
+
+        if (flyFrameCount < 1)
+        {
+            flyFightState.RefreshDazeTime();
             return flyFightState;
+        }
+
+        Debug.Log(flyFrameCount);
         return this;
     }
 }
@@ -730,8 +745,6 @@ public static class AiStateCommon
     public static bool Turn(Transform body, Vector3 direction)
     {
         var degree = Vector3.SignedAngle(body.forward.WithY(), direction.WithY(), Vector3.up);
-        if (body.name == "Blue Variant")
-            Debug.Log(degree);
         if (degree < -1)
         {
             body.Rotate(Vector3.up, -1);

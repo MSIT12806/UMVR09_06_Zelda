@@ -86,16 +86,17 @@ public class DragonManager : MonoBehaviour, NpcHelper
 
     public void Move()
     {
+        
         switch (moveType)
         {
             case 1://walk
-                transform.Translate(transform.forward * 0.05f);
+                transform.position += transform.forward * 0.05f;
                 return;
             case 2://run
-                transform.Translate(transform.forward * 0.10f);
+                transform.position += transform.forward * 0.10f;
                 return;
             case 3://fly
-                transform.Translate(transform.forward * 0.15f);
+                transform.position += transform.forward * 0.15f;
                 return;
         }
     }
