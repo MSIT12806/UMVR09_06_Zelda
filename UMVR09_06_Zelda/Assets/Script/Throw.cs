@@ -264,7 +264,7 @@ public class Throw : MonoBehaviour
     //private void OnDrawGizmos()
     //{
     //    Gizmos.color = Color.green;
-    //    Gizmos.DrawWireSphere(itemEffect_pos, 2.7f);
+    //    Gizmos.DrawWireSphere(itemEffect_pos, 3.5f);
     //}
     void DestroyItem(float t, string destroyEffect)
     {
