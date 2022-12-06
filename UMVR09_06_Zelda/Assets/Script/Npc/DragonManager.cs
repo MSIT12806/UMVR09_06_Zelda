@@ -43,6 +43,11 @@ public class DragonManager : MonoBehaviour, NpcHelper
     bool flyState;
     public void GetHurt(DamageData damageData)
     {
+        if(Hp <= 0)
+        {
+            animator.Play("Die");
+            ObjectManager.myCamera.SetDefault();
+        }
         if (canBeKnockedOut)
         {
 

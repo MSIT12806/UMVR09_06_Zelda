@@ -30,6 +30,12 @@ public static class Vector3Extension
         return r;
     }
 
+    public static Vector3 AddY(this Vector3 val, float addVal)
+    {
+        val.y += addVal;
+        return val;
+    }
+
     public static Vector3 GetLocalRight(this Vector3 forward)
     {
         return Vector3.Cross(forward.normalized, Vector3.up);

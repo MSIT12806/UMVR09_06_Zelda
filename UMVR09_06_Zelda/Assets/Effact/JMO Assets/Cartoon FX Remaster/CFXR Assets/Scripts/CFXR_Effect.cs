@@ -444,7 +444,7 @@ namespace CartoonFX
         // ================================================================================================================================
 
         [Tooltip("Defines an action to execute when the Particle System has completely finished playing and emitting particles.")]
-        public ClearBehavior clearBehavior = ClearBehavior.Destroy;
+        ClearBehavior clearBehavior = ClearBehavior.Disable;
         [Space]
         public CameraShake cameraShake;
         [Space]

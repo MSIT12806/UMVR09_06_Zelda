@@ -10,7 +10,7 @@ public class GolemManager : MonoBehaviour, NpcHelper
 
     public bool CanBeKockedOut => false;
 
-    public bool Dizzy => throw new System.NotImplementedException();
+    public bool Dizzy => false;
 
     public float MaxHp => throw new System.NotImplementedException();
 

@@ -533,7 +533,7 @@ public class DragonFightState : AiState
 
     public override AiState SwitchState()
     {
-
+        if (npcHelper.Hp <= 0) return new DragonDeathState(animator, selfTransform, npcHelper);
         if (npcHelper.Hp < flyHpLimit)
         {
             return new DragonFlyState(target, animator, selfTransform, npcHelper);
@@ -592,6 +592,7 @@ public class DragonFlyState : AiState
 
     public override AiState SwitchState()
     {
+        if (npcHelper.Hp <= 0) return new DragonDeathState(animator, selfTransform, npcHelper);
         dazeSeconds -= Time.deltaTime;
         if (dazeSeconds > 0) return this;
 
@@ -668,12 +669,13 @@ public class DragonChaseState : AiState
     {
         //面向 pico
         //朝著 pico 用 aStar 做 seek ，直到攻擊範圍內
-        throw new NotImplementedException();
     }
 
     public override AiState SwitchState()
     {
-        throw new NotImplementedException();
+        if (npcHelper.Hp <= 0) return new DragonDeathState(animator, selfTransform, npcHelper);
+
+        return this;
     }
 }
 public class DragonAttackState : AiState
@@ -701,6 +703,7 @@ public class DragonAttackState : AiState
     }
     public override AiState SwitchState()
     {
+        if (npcHelper.Hp <= 0) return new DragonDeathState(animator, selfTransform, npcHelper);
         if (attack)
             return new DragonFightState(target, animator, selfTransform, npcHelper);
 
@@ -721,7 +724,9 @@ public class DragonDizzyState : AiState
 
     public override AiState SwitchState()
     {
-        throw new NotImplementedException();
+        if (npcHelper.Hp <= 0) return new DragonDeathState(animator, selfTransform, npcHelper);
+
+        return this;
     }
 }
 public class DragonDeathState : AiState

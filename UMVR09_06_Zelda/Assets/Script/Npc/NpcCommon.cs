@@ -37,18 +37,20 @@ public static class NpcCommon
                         damageData.Force = vec.normalized * 0.15f;
                     }
                     //擊中特效 還沒綁在所有物件上
-                    var fx = item.transform.FindAnyChild<Transform>("CFXR Hit A (Red)");
-                    if (fx != null)
-                    {
-                        fx.position = item.transform.position.WithY(1);
-                        fx.gameObject.SetActive(true);
-                        fx.GetComponent<ParticleSystem>().Play();
-                    }
+                   
                     var attackReturn = nowNpc.gameObject.GetComponent<Npc>();
                     attackReturn.GetHurt(damageData);
                     if (attacker == "Pico")
                     {
                         PicoManager.Power++;
+                        var fx = ObjectManager.AttackFx.Dequeue();
+                        if (fx != null)
+                        {
+                            fx.transform.position = item.transform.position.AddY(1);
+                            fx.SetActive(true);
+                            fx.GetComponent<ParticleSystem>().Play();
+                            ObjectManager.AttackFx.Enqueue(fx);
+                        }
                     }
 
                 }

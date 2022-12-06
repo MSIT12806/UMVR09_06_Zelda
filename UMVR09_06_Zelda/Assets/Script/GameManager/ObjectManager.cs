@@ -10,6 +10,7 @@ public class ObjectManager : MonoBehaviour
     public static Dictionary<int, GameObject> NpcsAlive;//碰撞偵測、攻擊判定用。
     public static Dictionary<int, GameObject> NpcsDead;
     public static List<GameObject> Statics;
+    public static Queue<GameObject> AttackFx;
     public static Dictionary<int, NpcHelper> StateManagers = new Dictionary<int, NpcHelper>();
     public static HashSet<AiState> ChasingNpc;
     public static TPSCamera myCamera;
@@ -23,8 +24,8 @@ public class ObjectManager : MonoBehaviour
     {
         MainCharacter = MyCharacter;
         MainCharacterHead = MainCharacter.FindAnyChild<Transform>("Head");
-
-
+        AttackFx = new Queue<GameObject>(20);
+        InitAttackFx();
         stageOneSpawnPoint = transform.FindAnyChild<Transform>("StageOneSpawnPoint");
         GenUsao(stageOneSpawnPoint.position, 10, 20);//嚴重掉偵呢
         NpcsAlive = GameObject.FindGameObjectsWithTag("Npc").ToDictionary(i => i.GetInstanceID());
@@ -45,7 +46,7 @@ public class ObjectManager : MonoBehaviour
 
     }
     Transform stageOneSpawnPoint;
-    public void GenUsao(Vector3 position, float range, int normalNumber)
+    void GenUsao(Vector3 position, float range, int normalNumber)
     {
         for (int i = 0; i < normalNumber; i++)
         {
@@ -56,6 +57,15 @@ public class ObjectManager : MonoBehaviour
             npc.Hp = 50;
             npc.gameState = GameState.FirstStage;
             Instantiate(usao);
+        }
+    }
+    void InitAttackFx()
+    {
+        var fx = (GameObject)Resources.Load("CFXR Hit A (Red)");
+        for (int i = 0; i < 20; i++)
+        {
+            var go = Instantiate(fx);
+            AttackFx.Enqueue(go);
         }
     }
 }

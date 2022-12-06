@@ -59,6 +59,12 @@ public class TPSCamera : MonoBehaviour
         state.UpdateParameters(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance, m_LookSmoothTime);
         //DebugExtension.DebugWireSphere(m_LookPoint.position, 0.5f);
     }
+
+    public void SetDefault()
+    {
+        state = new Default(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance);
+    }
+
     private void LateUpdate()
     {
         state.OperateLookDirection();
