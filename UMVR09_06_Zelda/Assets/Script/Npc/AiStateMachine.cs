@@ -575,7 +575,7 @@ public class DragonFlyState : AiState
         head = self.FindAnyChild<Transform>("Head");
         this.target = target;
         //不再受到任何攻擊，除非將其擊落(丟炸彈)
-        animator.SetBool("Fly", true);
+        animator.SetBool("Fly", nh.Hp >= nh.MaxHp);
         //一直噴火球兒
     }
 

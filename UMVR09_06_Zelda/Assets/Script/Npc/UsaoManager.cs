@@ -33,6 +33,10 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
 
     public bool CanBeKockedOut => throw new NotImplementedException();
 
+    public bool Dizzy => throw new NotImplementedException();
+
+    public float MaxHp => throw new NotImplementedException();
+
     void Awake()
     {
         ObjectManager.StateManagers.Add(this.gameObject.GetInstanceID(), this);

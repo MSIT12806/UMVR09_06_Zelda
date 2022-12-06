@@ -88,7 +88,7 @@ public class UiManager : MonoBehaviour
         {
             var item = WeakableMonsters[i];
             var nh = ObjectManager.StateManagers[item.gameObject.GetInstanceID()];
-            if (nh.CanBeKockedOut)
+            if (nh.Dizzy)
             {
                 if (weakShow == true) return;
 

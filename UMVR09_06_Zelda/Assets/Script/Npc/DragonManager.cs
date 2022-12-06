@@ -8,10 +8,14 @@ public class DragonManager : MonoBehaviour, NpcHelper
     AiState aiState;
     Npc npc;
     public float Hp { get => npc.Hp; set => npc.Hp = value; }
+    public float MaxHp => npc.MaxHp;
 
     public bool CanBeKockedOut => canBeKnockedOut;
 
+    public bool Dizzy => dizzy;
+
     bool canBeKnockedOut;
+    bool dizzy;
 
     // Start is called before the first frame update
     Animator animator;
@@ -36,10 +40,23 @@ public class DragonManager : MonoBehaviour, NpcHelper
         aiState.SetAnimation();
         aiState = aiState.SwitchState();
     }
+    bool flyState;
     public void GetHurt(DamageData damageData)
     {
+        if (canBeKnockedOut)
+        {
+
+            var dState = damageData.DamageState;
+            if (dState.damageState == DamageState.Bomb)
+            {
+                animator.Play("Dizzy2");
+                canBeKnockedOut = false;
+                dizzy = true;
+                flyState = false;
+            }
+        }
         var currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
-        if (currentAnimation.IsName("Fly Float"))
+        if (flyState)
         {
             var dState = damageData.DamageState;
             if (dState.damageState == DamageState.Bomb)
@@ -49,11 +66,14 @@ public class DragonManager : MonoBehaviour, NpcHelper
 
             return;
         }
+        else
+        {
+            Hp -= damageData.Damage;
+            //aiState = new UsaoHurtState(transform.GetComponent<Animator>(), transform, damageData);
+        }
 
-
-        Hp -= damageData.Damage;
-        //aiState = new UsaoHurtState(transform.GetComponent<Animator>(), transform, damageData);
     }
+
     int moveType;
     public void SetMove(int m)
     {
@@ -90,7 +110,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
 
     public void Move()
     {
-        
+
         switch (moveType)
         {
             case 1://walk
@@ -110,4 +130,22 @@ public class DragonManager : MonoBehaviour, NpcHelper
         //弱點槽的UI
         canBeKnockedOut = notZero == 0;
     }
+
+    #region Event
+    public void Fly()  //Scream
+    {
+        print(MaxHp);
+        print(Hp);
+        flyState = Hp >= MaxHp/2;
+        animator.SetBool("Fly", flyState);
+    }
+    public void Land()
+    {
+        flyState = false;
+    }
+    public void DizzyEnd()
+    {
+        dizzy = false;
+    }
+    #endregion
 }

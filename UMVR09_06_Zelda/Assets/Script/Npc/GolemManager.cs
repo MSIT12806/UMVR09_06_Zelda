@@ -10,6 +10,10 @@ public class GolemManager : MonoBehaviour, NpcHelper
 
     public bool CanBeKockedOut => false;
 
+    public bool Dizzy => throw new System.NotImplementedException();
+
+    public float MaxHp => throw new System.NotImplementedException();
+
     // Start is called before the first frame update
     Animator animator;
     void Awake()

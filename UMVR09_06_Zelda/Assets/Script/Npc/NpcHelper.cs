@@ -6,7 +6,9 @@ using UnityEngine;
 public interface NpcHelper
 {
     public float Hp { get; set; }
+    public float MaxHp { get;  }
     public bool CanBeKockedOut { get;  }
+    public bool Dizzy { get;  }
     public void GetHurt(DamageData damageData);
     public void Move();
     public void Turn(Vector3 direction);
