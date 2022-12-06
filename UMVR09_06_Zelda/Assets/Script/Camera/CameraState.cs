@@ -160,3 +160,26 @@ public class Stare : CameraState
         this.lookSmoothTime = lookSmoothTime;
     }
 }
+
+public class Boss : CameraState
+{
+    public override float GetFollowDistance(Transform cameraTransform)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void MoveCameraSmoothly(Transform cameraTransform)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void SetRotateDegree(float fMX, float fMY, float sensitivity)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void UpdateParameters(Transform m_LookPoint, Transform m_FollowTarget, float m_LookHeight, float m_FollowDistance, float lookSmoothTime)
+    {
+        throw new NotImplementedException();
+    }
+}
