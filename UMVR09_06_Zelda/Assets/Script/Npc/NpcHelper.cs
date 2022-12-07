@@ -6,6 +6,8 @@ using UnityEngine;
 public interface NpcHelper
 {
     public float Hp { get; set; }
+    public float Radius { get; }
+    public float CollisionDisplacement { get; }
     public float MaxHp { get;  }
     public float WeakPoint { get;  }
     public float MaxWeakPoint { get;  }

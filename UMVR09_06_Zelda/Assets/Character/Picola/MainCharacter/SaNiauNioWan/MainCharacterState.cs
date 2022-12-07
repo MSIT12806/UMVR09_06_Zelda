@@ -33,8 +33,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     private bool canBeHit = true;
 
     bool FeverIk = false;
-
-
+    private bool canRoll = true;
 
     public float Hp { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
@@ -47,6 +46,10 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     public float WeakPoint => throw new NotImplementedException();
 
     public float MaxWeakPoint => throw new NotImplementedException();
+
+    public float Radius => 0.4f;
+
+    public float CollisionDisplacement => 0.04f;
 
     void Awake()
     {
@@ -118,20 +121,23 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
             }
         }
 
-        if (Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
-            bool roll = true;
-            pressControlTime += Time.deltaTime;
-            if (pressControlTime > 0.3)//衝刺
+            if (canRoll)
             {
-                roll = false;
-                Sword.SetActive(false);
-                focusLine.SetActive(true);//速度線
+                bool roll = true;
+                pressControlTime += Time.deltaTime;
+                if (pressControlTime > 0.3)//衝刺
+                {
+                    roll = false;
+                    Sword.SetActive(false);
+                    focusLine.SetActive(true);//速度線
+                }
+                if (roll) animator.Play("Front Dodge");
+                animator.SetFloat("dodge", pressControlTime);
             }
-            if (roll) animator.Play("Front Dodge");
-            animator.SetFloat("dodge", pressControlTime);
         }
-        if (Input.GetKeyUp(KeyCode.LeftControl))
+        if (Input.GetKeyUp(KeyCode.LeftShift))
         {
 
             focusLine.SetActive(false);
@@ -367,6 +373,15 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     public void Look(Transform target)
     {
         throw new NotImplementedException();
+    }
+
+    public void KnockedOut_RollDisabled()
+    {
+        canRoll = false;
+    }
+    public void KnockedOut_RollEnabled()
+    {
+        canRoll = true;
     }
 }
 

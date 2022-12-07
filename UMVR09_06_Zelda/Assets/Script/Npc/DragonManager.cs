@@ -19,6 +19,10 @@ public class DragonManager : MonoBehaviour, NpcHelper
 
     public float MaxWeakPoint => npc.MaxHp / 20;
 
+    public float Radius => 1.8f;
+
+    public float CollisionDisplacement => 0;
+
     bool canBeKnockedOut;
     bool dizzy;
 
@@ -107,7 +111,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
 
     public void Move()
     {
-
+        if (npc.collide) return;
         switch (moveType)
         {
             case 1://walk

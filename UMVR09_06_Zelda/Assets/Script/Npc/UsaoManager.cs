@@ -41,6 +41,10 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
 
     public float MaxWeakPoint => throw new NotImplementedException();
 
+    public float Radius => 0.4f;
+
+    public float CollisionDisplacement => 0.06f;
+
     void Awake()
     {
         ObjectManager.StateManagers.Add(this.gameObject.GetInstanceID(), this);

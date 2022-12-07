@@ -18,6 +18,10 @@ public class GolemManager : MonoBehaviour, NpcHelper
 
     public float MaxWeakPoint => throw new System.NotImplementedException();
 
+    public float Radius =>1.5f;
+
+    public float CollisionDisplacement => 0;
+
     // Start is called before the first frame update
     Animator animator;
     void Awake()

@@ -27,6 +27,7 @@ public class Npc : MonoBehaviour
     public Vector3 nextPosition;
     public GameState gameState;
     public bool collide { get; set; }
+    public bool collideFront { get; set; }
     public bool Alive { get => Hp > 0; }
     public bool OnGround;
     NpcHelper stateManager;
@@ -144,10 +145,11 @@ public class Npc : MonoBehaviour
 
     bool StaticCollision(float radius = 0.23f, float maxDistance = 0.3f)
     {
+        collideFront = false;
         animator.applyRootMotion = true;
         var hitSomethingWhenMoving = Physics.SphereCast(this.transform.position + new Vector3(0, 0.7f, 0), radius, transform.forward, out var hitInfo, 0.5f, layerMask);
 
-        var hitSomething = hitSomethingWhenMoving || Physics.SphereCast(this.transform.position + new Vector3(0, 0.7f, 0), radius, -transform.forward, out var nope, maxDistance, layerMask) || Physics.SphereCast(this.transform.position + new Vector3(0, 0.7f, 0), radius, -transform.right, out nope, maxDistance, layerMask) || Physics.SphereCast(this.transform.position + new Vector3(0, 0.7f, 0), radius, transform.right, out nope, maxDistance, layerMask);
+        var hitSomething = hitSomethingWhenMoving || Physics.OverlapSphere(transform.position, stateManager.Radius, layerMask).Count() > 0;
         if (hitSomething && hitInfo.transform != this.transform)
         {
             if (hitSomethingWhenMoving && this.name != "MainCharacter")
@@ -156,34 +158,9 @@ public class Npc : MonoBehaviour
                 var rotateWay = Vector3.SignedAngle(transform.forward, hitInfo.point - transform.position, Vector3.up);
                 transform.Rotate(0, -Mathf.Sign(rotateWay) * 3, 0);
             }
-            //var nowPosXZ = transform.position;
-            //nowPosXZ.y = 0;
-            //var hitPointXZ = hitInfo.point;
-            //hitPointXZ.y = 0;
-            //var hitObject = hitInfo.transform.gameObject;
-            //var concactVec = hitPointXZ - nowPosXZ;
-            //nextPosition = transform.position - concactVec;
-            //print(hitInfo.transform.name);
             nextPosition = Vector3.zero;//取消程式位移
-            return hitSomethingWhenMoving;//回報碰撞，取消美術位移
-            ////Npc 之間碰撞
-            //if (hitObject.tag =="Npc")
-            //{
-            //    //移動幅度要縮小
-            //    var hitObjectPosXZ = hitObject.transform.position;
-            //    hitObjectPosXZ.y = 0;
-            //    var backVec = hitObjectPosXZ - hitPointXZ;
-            //    hitObject.transform.position += backVec;
-            //    return false;
-            //}
-            //else//靜物碰撞
-            //{
-            //    var concactVec = hitPointXZ - nowPosXZ;
-            //    nextPosition = transform.position - concactVec;
-            //    return true;
-            //}
-
-
+            collideFront = hitSomethingWhenMoving;
+            return hitSomethingWhenMoving || hitSomething;//回報碰撞，取消美術位移
         }
         return false;
     }
@@ -197,11 +174,17 @@ public class Npc : MonoBehaviour
         {
             if (item == this) continue;
 
-            var distance = Vector3.Distance(this.transform.position, item.transform.position);
-            if (distance > 0.6) continue;
+            var nh = ObjectManager.StateManagers[item.gameObject.GetInstanceID()];
 
+            var distance = Vector3.Distance(this.transform.position, item.transform.position);
+            if (distance > nh.Radius + stateManager.Radius) continue;
+            if (name == "MainCharacter" && item.name == "Blue Variant")
+            {
+                print("aaa");
+                print(nh.Radius + stateManager.Radius);
+            }
             var direction = (item.transform.position - this.transform.position).normalized;
-            this.transform.position -= direction * 0.03f;
+            this.transform.position -= direction * stateManager.CollisionDisplacement;
         }
     }
     bool StandOnTerrain()
@@ -243,6 +226,11 @@ public class Npc : MonoBehaviour
         terrainHeight = TerrainY();
         if (!grounded)
         {
+            if (collide)
+            {
+                initVel.x = 0;
+                initVel.z = 0;
+            }
             grounded = !EasyFalling.Fall(transform, ref initVel, EndingYValue: terrainHeight);
             nextPosition = Vector3.zero;
         }

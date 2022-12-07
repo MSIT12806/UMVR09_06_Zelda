@@ -315,7 +315,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			var n = GetComponent<Npc>();
 
 			Animator animator = GetComponent<Animator>();
-			if (animator && !n.collide)
+			if (animator && !n.collideFront)
 			{
 				Vector3 newPosition = transform.position;
 				newPosition += animator.deltaPosition;
