@@ -111,7 +111,7 @@ public class Throw : MonoBehaviour
     void UseBomb() //使用炸彈
     {
         isStartTime = true;
-        Speed = 0.45f;
+        Speed = 0.6f;
         vertical = 0.2f;
         animator.SetTrigger("ThrowBomb");
         CanThrow = false;
