@@ -582,7 +582,7 @@ public class DragonFlyState : AiState
     public void RefreshDazeTime()
     {
         animator.SetBool("Move", false);
-        dazeSeconds = UnityEngine.Random.Range(1, 10);
+        dazeSeconds = UnityEngine.Random.Range(1, 3);
     }
     public override void SetAnimation()
     {
@@ -602,7 +602,8 @@ public class DragonFlyState : AiState
         {
             var randomDir = new Vector3(UnityEngine.Random.value, 0, UnityEngine.Random.value).normalized;
             var flyPoint = target.position + randomDir * 7.5f;
-            return new DragonFlyChaseState(this, animator, selfTransform, npcHelper, flyPoint);
+            int flyFrame = (int)Math.Ceiling( Vector3.Distance(selfTransform.position.WithY(), flyPoint.WithY()) / 0.15f);
+            return new DragonFlyChaseState(this, animator, selfTransform, npcHelper, flyPoint, flyFrame);
         }
         else
         {
@@ -623,12 +624,14 @@ public class DragonFlyChaseState : AiState
 */
 
     Vector3 vec;
-    int flyFrameCount = 150;
+    int flyFrameCount;
     DragonFlyState flyFightState;
-    public DragonFlyChaseState(DragonFlyState flyState, Animator a, Transform self, NpcHelper nh, Vector3 position) : base(a, self, nh, "Chase", null)
+    public DragonFlyChaseState(DragonFlyState flyState, Animator a, Transform self, NpcHelper nh, Vector3 position, int flyFrameCount = 150) : base(a, self, nh, "Chase", null)
     {
         flyFightState = flyState;
         vec = (position - self.position).normalized;
+        this.flyFrameCount = flyFrameCount;
+        Debug.Log(flyFrameCount);
     }
     bool move;
     public override void SetAnimation()
@@ -653,7 +656,6 @@ public class DragonFlyChaseState : AiState
             return flyFightState;
         }
 
-        Debug.Log(flyFrameCount);
         return this;
     }
 }
@@ -771,13 +773,13 @@ public static class AiStateCommon
         var degree = Vector3.SignedAngle(body.forward.WithY(), direction.WithY(), Vector3.up);
         if (degree < -1)
         {
-            body.Rotate(Vector3.up, -1);
+            body.Rotate(Vector3.up, -2);
             return true;
 
         }
         else if (degree > 1)
         {
-            body.Rotate(Vector3.up, 1);
+            body.Rotate(Vector3.up, 2);
             return true;
         }
 

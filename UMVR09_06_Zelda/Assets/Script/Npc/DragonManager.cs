@@ -143,8 +143,8 @@ public class DragonManager : MonoBehaviour, NpcHelper
         fireBall.transform.position = dragonMouth.position;
         //速度、方向
         var shootMagic = fireBall.GetComponent<ShootMagic>();
-        shootMagic.force = -dragonHead.transform.right / 15;
-        shootMagic.existSeconds = 4;
+        shootMagic.force = -dragonHead.transform.right ;
+        shootMagic.existSeconds = 2;
         //一段時間後爆炸/消失
     }
 
