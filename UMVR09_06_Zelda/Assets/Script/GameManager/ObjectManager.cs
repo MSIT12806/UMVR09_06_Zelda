@@ -16,6 +16,7 @@ public class ObjectManager : MonoBehaviour
     public static TPSCamera myCamera;
     public static Transform MainCharacter;
     public static Transform MainCharacterHead;
+    public static GameObject DragonFireBallExplosionFx;
     public Transform MyCharacter;
     //    public static List<GameObject> UsaoResources;
     //處理 npc 碰撞、偵測、迴避、群體運動等行為。
@@ -30,7 +31,7 @@ public class ObjectManager : MonoBehaviour
         GenUsao(stageOneSpawnPoint.position, 10, 20);//嚴重掉偵呢
         NpcsAlive = GameObject.FindGameObjectsWithTag("Npc").ToDictionary(i => i.GetInstanceID());
         GameObject.FindGameObjectsWithTag("Player").ToList().ForEach(i => NpcsAlive.Add(i.GetInstanceID(), i));
-
+        DragonFireBallExplosionFx = (GameObject)Resources.Load("BigExplosion");
         Statics = GameObject.FindGameObjectsWithTag("Terrain").ToList();
         ChasingNpc = new HashSet<AiState>();
 

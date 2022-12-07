@@ -28,7 +28,7 @@ public class GolemManager : MonoBehaviour, NpcHelper
     }
     void Start()
     {
-        aiState = new GolemIdleState(ObjectManager.MainCharacter, animator, transform, 50f, this);
+        aiState = new GolemIdleState(ObjectManager.MainCharacter, animator, transform, 12f, this);
     }
 
     // Update is called once per frame
