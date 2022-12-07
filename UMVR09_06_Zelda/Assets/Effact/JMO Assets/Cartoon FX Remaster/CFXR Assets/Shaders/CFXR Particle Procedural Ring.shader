@@ -170,6 +170,8 @@ Shader "Cartoon FX/Remaster/Particle Procedural Ring"
 		#if _CFXR_DISSOLVE
 				float4 custom1				: TEXCOORD4;
 		#endif
+				UNITY_VERTEX_INPUT_INSTANCE_ID
+				UNITY_VERTEX_OUTPUT_STEREO
 			};
 
 			// --------------------------------
@@ -252,7 +254,7 @@ Shader "Cartoon FX/Remaster/Particle Procedural Ring"
 
 				//--------------------------------
 
-				o.color = v.color;
+				o.color = GetParticleColor(v.color);
 				o.uv_uv2 = v.texcoord;
 
 				//--------------------------------
@@ -370,6 +372,7 @@ Shader "Cartoon FX/Remaster/Particle Procedural Ring"
 				#pragma target 2.0
 				
 				#pragma multi_compile_instancing
+				#pragma instancing_options procedural:ParticleInstancingSetup
 				#pragma multi_compile_fog
 
 				#pragma multi_compile CFXR_URP
@@ -403,6 +406,7 @@ Shader "Cartoon FX/Remaster/Particle Procedural Ring"
 				#pragma target 2.0
 				
 				#pragma multi_compile_instancing
+				#pragma instancing_options procedural:ParticleInstancingSetup
 				#pragma multi_compile_fog
 
 				#pragma multi_compile CFXR_URP
@@ -437,6 +441,7 @@ Shader "Cartoon FX/Remaster/Particle Procedural Ring"
 			
 				CGPROGRAM
 
+				#pragma multi_compile CFXR_URP
 				#pragma multi_compile PASS_SHADOW_CASTER
 
 				#pragma vertex vertex_program
@@ -475,11 +480,14 @@ Shader "Cartoon FX/Remaster/Particle Procedural Ring"
 
 				#pragma vertex vertex_program
 				#pragma fragment fragment_program
-				
-				#pragma target 2.0
+
+				//vertInstancingSetup writes to global, not allowed with DXC
+				#pragma never_use_dxc
+				#pragma target 2.5
 				
 				#pragma multi_compile_particles
 				#pragma multi_compile_instancing
+				#pragma instancing_options procedural:vertInstancingSetup
 				#pragma multi_compile_fog
 				
 				#pragma shader_feature_local _ _CFXR_SINGLE_CHANNEL
@@ -493,6 +501,7 @@ Shader "Cartoon FX/Remaster/Particle Procedural Ring"
 				#pragma shader_feature_local _ _ALPHATEST_ON
 				#pragma shader_feature_local _ _ALPHABLEND_ON _ALPHAPREMULTIPLY_ON _ALPHAMODULATE_ON _CFXR_ADDITIVE
 
+				#include "UnityStandardParticleInstancing.cginc"
 
 				ENDCG
 			}
@@ -516,6 +525,13 @@ Shader "Cartoon FX/Remaster/Particle Procedural Ring"
 				#pragma vertex vertex_program
 				#pragma fragment fragment_program
 
+				//vertInstancingSetup writes to global, not allowed with DXC
+				#pragma never_use_dxc
+				#pragma target 2.5
+
+				#pragma multi_compile_instancing
+				#pragma instancing_options procedural:vertInstancingSetup
+
 				#pragma shader_feature_local _ _CFXR_SINGLE_CHANNEL
 				#pragma shader_feature_local _ _CFXR_RADIAL_UV
 				#pragma shader_feature_local _ _CFXR_WORLD_SPACE_RING
@@ -530,6 +546,8 @@ Shader "Cartoon FX/Remaster/Particle Procedural Ring"
 			#if (_CFXR_DITHERED_SHADOWS_ON || _CFXR_DITHERED_SHADOWS_CUSTOMTEXTURE) && !defined(SHADER_API_GLES)
 				#pragma target 3.0		//needed for VPOS
 			#endif
+
+				#include "UnityStandardParticleInstancing.cginc"
 
 				ENDCG
 			}
