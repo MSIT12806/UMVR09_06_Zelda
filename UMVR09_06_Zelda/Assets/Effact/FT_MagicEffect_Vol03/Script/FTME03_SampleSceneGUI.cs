@@ -3,7 +3,7 @@ using System.Collections;
 
 public class FTME03_SampleSceneGUI : MonoBehaviour {
 
-	public GUIText prefabName;
+	public UnityEngine.UI.Text prefabName;
 	public GameObject[] particlePrefab;
 	public int particleNum = 0;
 
