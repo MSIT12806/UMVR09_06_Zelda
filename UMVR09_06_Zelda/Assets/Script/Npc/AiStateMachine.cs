@@ -845,7 +845,7 @@ public abstract class GolemBaseState : AiState
     protected Npc npcData;
     protected float max_armor = 10;
     protected float armor;
-    public float WeakTime = 5;//弱點持續時間
+    public float WeakTime = 4;//弱點持續時間
     public float ArmorBreakTime = 5; //破甲暈眩持續時間 
     public bool AttackFlaw = false;
     public DamageData GolemDamageData;
@@ -920,21 +920,18 @@ public class GolemIdleState : GolemBaseState
             return new GolemAttackState(target, animator, selfTransform, nowArmor, npcHelper);
         }
 
-        ////切至Weak (攻擊後就露出? 或亂數決定
-        //bool weak = false;
-        //if (weak)
-        //{
-        //    animator.SetBool("ShowWeakness", true);
-        //    return new GolemWeakState(target, animator, selfTransform, nowArmor, WeakTime, npcHelper);
-        //}
 
         //切至Skill (血量到特定%? 或亂數決定
-        bool skill = false;
-        if (skill)
+
+        System.Random random = new System.Random();
+        int rnd = random.Next(1, 11);//判斷要不要用技能
+
+        if (rnd == 1)
         {
-            animator.SetTrigger("Skill");
+            //animator.SetTrigger("Skill");
             return new GolemSkillState(target, animator, selfTransform, nowArmor, npcHelper);
         }
+
         //切至Chase (距離玩家 > 攻擊範圍
         if (distance > attackDistance)
         {
@@ -1023,19 +1020,33 @@ public class GolemChaseState : GolemBaseState
         //切至Dead (血量歸0
         if (npcData.Hp < 0.0001f)
         {
+            RemoveChasingNpc();
             animator.SetTrigger("Dead");
             return new GolemDeadState(target, animator, selfTransform, npcHelper);
         }
         //被無雙打
         if (goWeakState)
         {
+            RemoveChasingNpc();
+            animator.SetBool("NotReach", false);
             goWeakState = false;
             animator.SetTrigger("FeverAttack");
             return new GolemWeakState(target, animator, selfTransform, nowArmor, npcHelper);
         }
 
-        //到玩家旁邊切回idle
         float distance = (selfTransform.position - target.position).magnitude;
+
+        System.Random random = new System.Random();
+        int rnd = random.Next(1, 50);//判斷要不要用技能
+        Debug.Log(rnd);
+        if(distance <= 12f && rnd == 1)
+        {
+            RemoveChasingNpc();
+            animator.SetBool("NotReach", false);
+            return new GolemSkillState(target, animator, selfTransform, nowArmor, npcHelper);
+        }
+
+        //到玩家旁邊切回idle
         if (distance <= attackDistance)
         {
             RemoveChasingNpc();
@@ -1068,7 +1079,7 @@ public class GolemWeakState : GolemBaseState
     }
     public override void SetAnimation()
     {
-        Debug.Log($"Armor{nowArmor}");
+        //Debug.Log($"Armor{nowArmor}");
         currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
         showWeaknessTime += Time.deltaTime;
         animator.SetBool("ShowWeakness", true);
@@ -1259,25 +1270,58 @@ public class GolemSkillState : GolemBaseState
     AnimatorStateInfo currentAnimation;
     float nowArmor;
     private bool goWeakState;
+    bool canInterrupt=false;
 
+    float moveSpeed;
+    public bool canMove = false;
     public GolemSkillState(Transform t, Animator a, Transform self, float armor ,NpcHelper nh) : base(a, self, nh)
     {
         //npcData = selfTransform.GetComponent<Npc>();
         target = t;
         nowArmor = armor;
+
+        System.Random random = new System.Random();
+        int attackType = random.Next(1, 2);
+        if (attackType == 1)
+        {
+            animator.SetTrigger("Skill");
+        }
+        else if (attackType == 2 && npcData.Hp <= npcData.MaxHp/2)//低於一半血
+        {
+            animator.SetTrigger("Skill2");
+        }
+        else
+        {
+            animator.SetTrigger("Skill");
+        }
     }
 
     public override void SetAnimation()
     {
         currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
 
+        if (currentAnimation.IsName("Skill")) moveSpeed = 0.1f;
+        else if (currentAnimation.IsName("Skill2")) moveSpeed = 0.1f;
+
+        LookAt();
+
+        if (canMove)
+        {
+            selfTransform.Translate(0, 0, moveSpeed);
+        }
+
         if (getHit != null)
         {
             //待修改
-            if (getHit.Hit == HitType.Ice)
+            if (getHit.DamageState.damageState == DamageState.Ice && currentAnimation.IsName("Skill"))
             {
                 AttackFlaw = true;
             }
+            if(getHit.DamageState.damageState == DamageState.TimePause && currentAnimation.IsName("Skill2") && canInterrupt)
+            {
+                AttackFlaw = true;
+            }
+
             if(getHit.Hit == HitType.fever)
             {
                 goWeakState = true;
@@ -1285,6 +1329,35 @@ public class GolemSkillState : GolemBaseState
 
             npcData.Hp -= getHit.Damage / 10;
             getHit = null;
+        }
+    }
+    public void LookAt()
+    {
+        Vector3 dir = target.position - selfTransform.position;
+        dir.y = 0;
+        dir.Normalize();
+        float dot = Vector3.Dot(selfTransform.forward, dir);
+
+        if (dot > 1) dot = 1;
+        else if (dot < -1) dot = -1;
+
+        float radian = Mathf.Acos(dot);
+        float degree = radian * Mathf.Rad2Deg;
+
+        Vector3 vCross = Vector3.Cross(selfTransform.forward, dir);
+        if (degree > 15)
+        {
+            if (vCross.y < 0)
+                selfTransform.Rotate(0, -15, 0);
+            else
+                selfTransform.Rotate(0, 15, 0);
+        }
+        else
+        {
+            if (vCross.y < 0)
+                selfTransform.Rotate(0, -degree, 0);
+            else
+                selfTransform.Rotate(0, degree, 0);
         }
     }
 
@@ -1312,7 +1385,7 @@ public class GolemSkillState : GolemBaseState
             return new GolemWeakState(target, animator, selfTransform,nowArmor, npcHelper);
         }
         //技能施放結束 切回idle
-        if (!currentAnimation.IsName("Skill"))
+        if (!currentAnimation.IsName("Skill") || !currentAnimation.IsName("Skill2"))
         {
             return new GolemIdleState(target, animator, selfTransform, nowArmor, npcHelper);
         }
@@ -1321,8 +1394,28 @@ public class GolemSkillState : GolemBaseState
 
         return this;
     }
+
+    public void Skill1Attack(float AttackSpeed)//事件觸發
+    {
+        if (AttackSpeed == 0.4) canMove = true;//攻擊位移開關
+        else canMove = false;
+        Debug.Log("hiiiii");
+        animator.SetFloat("Skill1AttackSpeed", AttackSpeed);
+    }
     public void Skill2Attack(float AttackSpeed)//事件觸發
     {
+
+        if (AttackSpeed == 0.8) canMove = true;//攻擊位移開關
+        else canMove = false;
+
+        if (AttackSpeed == 0.2f)
+        {
+            canInterrupt = true;
+        }
+        else
+        {
+            canInterrupt = false; 
+        }
         animator.SetFloat("Skill2AttackSpeed", AttackSpeed);
         // +可用時間暫停中斷技能
         // getHit.DamageState.damageState == DamageState.TimePause 

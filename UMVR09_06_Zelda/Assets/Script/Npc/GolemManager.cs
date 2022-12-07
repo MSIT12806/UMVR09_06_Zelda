@@ -12,9 +12,9 @@ public class GolemManager : MonoBehaviour, NpcHelper
 
     public bool Dizzy => false;
 
-    public float MaxHp => throw new System.NotImplementedException();
+    public float MaxHp { get => 500; }
 
-    public float WeakPoint => throw new System.NotImplementedException();
+public float WeakPoint => throw new System.NotImplementedException();
 
     public float MaxWeakPoint => throw new System.NotImplementedException();
 
@@ -62,14 +62,56 @@ public class GolemManager : MonoBehaviour, NpcHelper
     {
         throw new System.NotImplementedException();
     }
-     public void AnimationAttack(int attackType)
+    public void AnimationAttack(int attackType)
     {
         if (attackType == 1)//普攻1
-            NpcCommon.AttackDetection("",transform.position, transform.forward, 360, 4f, false, new DamageData(10f, transform.forward * 0.3f, HitType.Heavy,DamageStateInfo.NormalAttack), "Player");//
+            NpcCommon.AttackDetection("",transform.position, transform.forward, 360, 4f, false, new DamageData(10f, transform.forward * 0.6f, HitType.Heavy,DamageStateInfo.NormalAttack), "Player");//
         if (attackType == 2)//技能2
             NpcCommon.AttackDetection("", transform.position, transform.forward, 360, 8f, false, new DamageData(10f, transform.forward * 0.3f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");//
-
+        if (attackType == 3)//技能1
+            NpcCommon.AttackDetection("", transform.position, transform.forward, 360, 5f, false, new DamageData(5f, transform.forward * 0.3f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");//
     }
+
+
+    public void Skill1Attack(float AttackSpeed)//事件觸發
+    {
+        //if (AttackSpeed == 0.4) canMove = true;//攻擊位移開關
+        //else canMove = false;
+        Debug.Log("hiiiii");
+        animator.SetFloat("Skill1AttackSpeed", AttackSpeed);
+    }
+    public void Skill2Attack(float AttackSpeed)//事件觸發
+    {
+
+        //if (AttackSpeed == 0.8) canMove = true;//攻擊位移開關
+        //else canMove = false;
+
+        //if (AttackSpeed == 0.2f)
+        //{
+        //    canInterrupt = true;
+        //}
+        //else
+        //{
+        //    canInterrupt = false;
+        //}
+        animator.SetFloat("Skill2AttackSpeed", AttackSpeed);
+        // +可用時間暫停中斷技能
+        // getHit.DamageState.damageState == DamageState.TimePause 
+    }
+
+    //public void Skill1Attack(float AttackSpeed)//事件觸發
+    //{
+
+    //    var a = GetComponent<GolemSkillState>();
+    //    a.Skill1Attack(AttackSpeed);
+    //}
+
+    //public void Skill2Attack(float AttackSpeed)//事件觸發
+    //{
+    //    var a = GetComponent<GolemSkillState>();
+    //    a.Skill2Attack(AttackSpeed);
+    //}
+
     //public void OnDrawGizmos()
     //{
     //    Gizmos.DrawRay(transform.position, transform.forward*4f);
