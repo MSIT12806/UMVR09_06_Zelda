@@ -65,6 +65,7 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
 
         aiState = aiState.SwitchState();
         Move();
+        Jump();
     }
     private void LateUpdate()
     {
@@ -136,5 +137,24 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
         //    transform.Rotate(Vector3.up, 1);
         //}
         head.forward = d.normalized;
+    }
+    bool jump;
+    Vector3 jumpRandomDirection;
+    public void Jump()
+    {
+        if (jump)
+        {
+            
+            transform.position += jumpRandomDirection * 0.05f;
+        }
+    }
+    public void JumpStart()
+    {
+        jumpRandomDirection = (new Vector3(UnityEngine.Random.value - 0.5f, 0, UnityEngine.Random.value - 0.5f)).normalized;
+        jump = true;
+    }
+    public void JumpEnd()
+    {
+        jump = false;
     }
 }
