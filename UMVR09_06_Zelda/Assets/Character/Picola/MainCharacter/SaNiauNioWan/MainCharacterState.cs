@@ -89,7 +89,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
         }
 
 
-        if (Input.GetKeyDown(KeyCode.U))//斬殺技
+        if (Input.GetKeyDown(KeyCode.E))//斬殺技
         {
             CheckWeakEnemy();
         }
@@ -104,8 +104,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
             {
                 PicoManager.Power -= PicoManager.PowerCost;
                 animator.SetTrigger("Fever");
-            }
-                
+            } 
         }
 
 
