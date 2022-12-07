@@ -248,7 +248,7 @@ public class Throw : MonoBehaviour
         //}
         if(Explode == "FX_Explosion")
         {
-            NpcCommon.AttackDetection("Pico", itemEffect_pos, ItemEffect_obj.transform.forward, 360.0f, 2.7f, false, new DamageData(10, Vector3.zero, HitType.Heavy, new DamageStateInfo(DamageState.Bomb, 0)), "Npc");
+            NpcCommon.AttackDetection("Pico", itemEffect_pos, ItemEffect_obj.transform.forward, 360.0f, 5.0f, false, new DamageData(10, Vector3.zero, HitType.Heavy, new DamageStateInfo(DamageState.Bomb, 0)), "Npc");
             return;
         }
         else if (Explode == "Obj_Ice")
@@ -261,11 +261,11 @@ public class Throw : MonoBehaviour
         }
     }
 
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.color = Color.green;
-    //    Gizmos.DrawWireSphere(itemEffect_pos, 3.5f);
-    //}
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(itemEffect_pos, 5.0f);
+    }
     void DestroyItem(float t, string destroyEffect)
     {
         if (timer > t)

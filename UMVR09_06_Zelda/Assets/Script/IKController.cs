@@ -94,8 +94,8 @@ public class IKController : MonoBehaviour
             }
             if (LeftFootObj != null)
             {
-                LeftElbowObj.position = avatar.GetIKPosition(AvatarIKGoal.LeftFoot);
-                LeftElbowObj.rotation = avatar.GetIKRotation(AvatarIKGoal.LeftFoot);
+                LeftFootObj.position = avatar.GetIKPosition(AvatarIKGoal.LeftFoot);
+                LeftFootObj.rotation = avatar.GetIKRotation(AvatarIKGoal.LeftFoot);
             }
             if (RightFootObj != null)
             {
