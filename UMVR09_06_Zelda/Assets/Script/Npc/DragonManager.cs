@@ -98,24 +98,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
     {
         throw new System.NotImplementedException();
     }
-    [SerializeField] Transform dragonWeapon;
-    [SerializeField] Transform dragonMouth;
-    [SerializeField] Transform dragonHead;
-    //頭的前方 是 left...
-    public void ShootFireBall()
-    {
-        //事件觸發
-        //把球球從口部的位置發出
-        var fireBall = dragonWeapon.GetComponentsInChildren<Transform>(true).FirstOrDefault(i => i.gameObject.activeSelf == false && i.tag == "FireBall");
-        if (fireBall == null) return;
-        fireBall.gameObject.SetActive(true);
-        fireBall.transform.position = dragonMouth.position;
-        //速度、方向
-        var shootMagic = fireBall.GetComponent<ShootMagic>();
-        shootMagic.force = (ObjectManager.MainCharacter.position - dragonHead.position).normalized / 15;
-        shootMagic.existSeconds = 2;
-        //一段時間後爆炸/消失
-    }
+
 
     public void Look(Transform target)
     {
@@ -146,6 +129,25 @@ public class DragonManager : MonoBehaviour, NpcHelper
     }
 
     #region Event
+    [SerializeField] Transform dragonWeapon;
+    [SerializeField] Transform dragonMouth;
+    [SerializeField] Transform dragonHead;
+    //頭的前方 是 left...
+    public void ShootFireBall()
+    {
+        //事件觸發
+        //把球球從口部的位置發出
+        var fireBall = dragonWeapon.GetComponentsInChildren<Transform>(true).FirstOrDefault(i => i.gameObject.activeSelf == false && i.tag == "FireBall");
+        if (fireBall == null) return;
+        fireBall.gameObject.SetActive(true);
+        fireBall.transform.position = dragonMouth.position;
+        //速度、方向
+        var shootMagic = fireBall.GetComponent<ShootMagic>();
+        shootMagic.force = -dragonHead.transform.right / 15;
+        shootMagic.existSeconds = 4;
+        //一段時間後爆炸/消失
+    }
+
     public void Fly()  //Scream
     {
         print(MaxHp);
