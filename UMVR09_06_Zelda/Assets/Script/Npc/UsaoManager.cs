@@ -2,6 +2,7 @@ using Ron;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class UsaoManager : MonoBehaviour, IHp, NpcHelper
@@ -86,9 +87,21 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
         //animator.SetFloat("forward", forward);
     }
 
-    public void Attack()
+    public void Attack(int usaoType)
     {
-        NpcCommon.AttackDetection("", transform.position, transform.forward, 15f, 1f, false, new DamageData(5, Vector3.zero, HitType.light, DamageStateInfo.NormalAttack), "Player");
+        switch (usaoType)
+        {
+            case 0:
+            default:
+                NpcCommon.AttackDetection("", transform.position, transform.forward, 15f, 1f, false, new DamageData(5, Vector3.zero, HitType.light, DamageStateInfo.NormalAttack), "Player");
+                return;
+            case 1:
+                NpcCommon.AttackDetection("", transform.position, transform.forward, 15f, 1.5f, false, new DamageData(15, Vector3.zero, HitType.light, DamageStateInfo.NormalAttack), "Player");
+                return;
+
+
+        }
+
     }
     public void Turn(Vector3 direction)
     {
@@ -163,7 +176,7 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
     {
 
     }
-    void FootR() 
+    void FootR()
     {
 
     }

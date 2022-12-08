@@ -1603,11 +1603,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: usao_0321_2
       objectReference: {fileID: 0}
-    - target: {fileID: 8201303604326155634, guid: 4934e775091515f4c91c052402ebe77b,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 3c34944fe0bc4724d94546b6f3b2505c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4934e775091515f4c91c052402ebe77b, type: 3}
 --- !u!1 &123553472
@@ -8954,10 +8949,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 455430477, guid: b2b93fd3dcacb8c43ae42ff8a24cc91b, type: 3}
-      propertyPath: gameState
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8293178818871931233, guid: b2b93fd3dcacb8c43ae42ff8a24cc91b,
         type: 3}
       propertyPath: m_RootOrder
@@ -27314,6 +27305,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 201917901}
     m_Modifications:
+    - target: {fileID: 392967794740857257, guid: 4934e775091515f4c91c052402ebe77b,
+        type: 3}
+      propertyPath: Hp
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 392967794740857257, guid: 4934e775091515f4c91c052402ebe77b,
+        type: 3}
+      propertyPath: gameState
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4097420217758095137, guid: 4934e775091515f4c91c052402ebe77b,
         type: 3}
       propertyPath: m_RootOrder
@@ -29472,6 +29473,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 201917901}
     m_Modifications:
+    - target: {fileID: 392967794740857257, guid: 4934e775091515f4c91c052402ebe77b,
+        type: 3}
+      propertyPath: gameState
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4097420217758095137, guid: 4934e775091515f4c91c052402ebe77b,
         type: 3}
       propertyPath: m_RootOrder
@@ -32073,6 +32079,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 201917901}
     m_Modifications:
+    - target: {fileID: 392967794740857257, guid: 4934e775091515f4c91c052402ebe77b,
+        type: 3}
+      propertyPath: gameState
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4097420217758095137, guid: 4934e775091515f4c91c052402ebe77b,
         type: 3}
       propertyPath: m_RootOrder
@@ -32171,7 +32182,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 20, y: 80}
+  m_AnchoredPosition: {x: 20.00003, y: 80}
   m_SizeDelta: {x: 250, y: 100}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1328007391
@@ -51756,6 +51767,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 201917901}
     m_Modifications:
+    - target: {fileID: 392967794740857257, guid: 4934e775091515f4c91c052402ebe77b,
+        type: 3}
+      propertyPath: Hp
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 392967794740857257, guid: 4934e775091515f4c91c052402ebe77b,
+        type: 3}
+      propertyPath: gameState
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4097420217758095137, guid: 4934e775091515f4c91c052402ebe77b,
         type: 3}
       propertyPath: m_RootOrder
@@ -52112,6 +52133,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 201917901}
     m_Modifications:
+    - target: {fileID: 392967794740857257, guid: 4934e775091515f4c91c052402ebe77b,
+        type: 3}
+      propertyPath: gameState
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4097420217758095137, guid: 4934e775091515f4c91c052402ebe77b,
         type: 3}
       propertyPath: m_RootOrder
