@@ -234,7 +234,7 @@ public class UsaoFightState : UsaoAiState
     {
         //1. 總是面對主角
 
-        //AiStateCommon.LookAtByIk(ik, ObjectManager.MainCharacterHead);  暫時註解掉，請把 ik 改回來...
+        AiStateCommon.LookAtByIk(ik, ObjectManager.MainCharacterHead); 
         AiStateCommon.Turn(selfTransform, target.position - selfTransform.position);
         //AiStateCommon.Look(head, ObjectManager.MainCharacterHead);
 
@@ -389,20 +389,7 @@ public class UsaoHurtState : UsaoAiState
 
     public override void SetAnimation()
     {
-        //if (npc.Hp <= 0)
-        //{
-        //    deadTime += Time.deltaTime;
-        //    if (getHit != null)
-        //    {
-        //        deadTime = 0f;
-        //        animator.SetTrigger("toFlog");
-        //        Debug.Log("Stop FLOGINGGGGG!!!!!!");
-        //    }
-        //}
-        //else
-        //{
-        //    deadTime = 0f;
-        //}
+
     }
     private void DoOnce()
     {
@@ -416,8 +403,11 @@ public class UsaoHurtState : UsaoAiState
                 npc.PlayAnimation("GetHit.SwordAndShieldImpact02");
             else
                 npc.PlayAnimation("GetHit.SwordAndShieldImpact01");
-
-            npc.nextPosition = selfTransform.position + getHit.Force;
+            if (npc.collide == false)
+            {
+                //npc.nextPosition = selfTransform.position + getHit.Force;//不知道為什麼  註解掉之後還是會擊飛
+            }
+                
             return;
         }
         if (getHit.Hit == HitType.Heavy)

@@ -146,14 +146,15 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
     Vector3 jumpRandomDirection;
     public void Jump()
     {
-        if (jump>0)
+        if (jump > 0 && !npc.collide)
         {
-            jump--;
             transform.position += jumpRandomDirection * 0.05f;
         }
+        jump--;
     }
     public void JumpStart()
     {
+        if (npc.collide) return;
         jumpRandomDirection = (new Vector3(UnityEngine.Random.value - 0.5f, 0, UnityEngine.Random.value - 0.5f)).normalized;
         jump = 21;
     }

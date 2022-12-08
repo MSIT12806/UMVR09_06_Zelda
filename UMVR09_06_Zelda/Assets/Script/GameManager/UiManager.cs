@@ -108,6 +108,7 @@ public class UiManager : MonoBehaviour
         for (int i = 0; i < WeakableMonsters.Length; i++)
         {
             var item = WeakableMonsters[i];
+            if (item == null) break;
             var nh = ObjectManager.StateManagers[item.gameObject.GetInstanceID()];
             if (nh.Dizzy)
             {
