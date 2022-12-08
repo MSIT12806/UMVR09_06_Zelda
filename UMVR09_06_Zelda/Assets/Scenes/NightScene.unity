@@ -8954,15 +8954,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 455430477, guid: b2b93fd3dcacb8c43ae42ff8a24cc91b, type: 3}
-      propertyPath: Hp
-      value: 50000
-      objectReference: {fileID: 0}
-    - target: {fileID: 2735768440183352091, guid: b2b93fd3dcacb8c43ae42ff8a24cc91b,
-        type: 3}
-      propertyPath: m_ApplyRootMotion
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8293178818871931233, guid: b2b93fd3dcacb8c43ae42ff8a24cc91b,
         type: 3}
       propertyPath: m_RootOrder
@@ -13286,16 +13277,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2735768440183352091, guid: 69e0abd36a8324842835ff1afd552884,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 6e76c1b0b05ef684c8478b1a967ee94e, type: 2}
-    - target: {fileID: 4315946335360097635, guid: 69e0abd36a8324842835ff1afd552884,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
     - target: {fileID: 8293178818871931233, guid: 69e0abd36a8324842835ff1afd552884,
         type: 3}
       propertyPath: m_RootOrder
@@ -16504,37 +16485,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 661869001}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &661953954
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 661953955}
-  m_Layer: 0
-  m_Name: DragonWeakPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &661953955
+--- !u!4 &661953955 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 661953955, guid: e344ba4e5a1508a4a9133612aa1c3172,
+    type: 3}
+  m_PrefabInstance: {fileID: 1277495260}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 661953954}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.11, y: 3.37, z: 2.33}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1277495261}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &662380480
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18108,26 +18064,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 812130047, guid: 5752f796e3e1390418365a49a0e90a84, type: 3}
-      propertyPath: Hp
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 812130047, guid: 5752f796e3e1390418365a49a0e90a84, type: 3}
-      propertyPath: gameState
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 812130048, guid: 5752f796e3e1390418365a49a0e90a84, type: 3}
-      propertyPath: m_Size.x
-      value: 3.8424797
-      objectReference: {fileID: 0}
-    - target: {fileID: 812130048, guid: 5752f796e3e1390418365a49a0e90a84, type: 3}
-      propertyPath: m_Center.x
-      value: 0.022743694
-      objectReference: {fileID: 0}
-    - target: {fileID: 812130048, guid: 5752f796e3e1390418365a49a0e90a84, type: 3}
-      propertyPath: m_Center.z
-      value: 0.22000004
-      objectReference: {fileID: 0}
     - target: {fileID: 509284550586355046, guid: 5752f796e3e1390418365a49a0e90a84,
         type: 3}
       propertyPath: m_Name
@@ -30673,14 +30609,6 @@ PrefabInstance:
       propertyPath: dragonWeapon
       value: 
       objectReference: {fileID: 535674134}
-    - target: {fileID: 1533247708, guid: e344ba4e5a1508a4a9133612aa1c3172, type: 3}
-      propertyPath: Hp
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 1533247708, guid: e344ba4e5a1508a4a9133612aa1c3172, type: 3}
-      propertyPath: gameState
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 2564453279718341643, guid: e344ba4e5a1508a4a9133612aa1c3172,
         type: 3}
       propertyPath: m_Name
