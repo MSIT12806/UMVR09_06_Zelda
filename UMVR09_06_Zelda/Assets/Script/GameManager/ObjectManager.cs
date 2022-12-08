@@ -29,7 +29,7 @@ public class ObjectManager : MonoBehaviour
         AttackFx = new Queue<GameObject>(20);
         InitAttackFx();
         stageOneSpawnPoint = transform.FindAnyChild<Transform>("StageOneSpawnPoint");
-        GenUsao(stageOneSpawnPoint.position, 10, 20);
+        //GenUsao(stageOneSpawnPoint.position, 10, 50);
         NpcsAlive = GameObject.FindGameObjectsWithTag("Npc").ToDictionary(i => i.GetInstanceID());
         GameObject.FindGameObjectsWithTag("Player").ToList().ForEach(i => NpcsAlive.Add(i.GetInstanceID(), i));
 
@@ -61,7 +61,7 @@ public class ObjectManager : MonoBehaviour
             usao.transform.position = position + new Vector3(UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1), 1, UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1));
             usao.transform.forward = ObjectManager.MainCharacter.position - usao.transform.position;
             var npc = usao.GetComponent<Npc>();
-            npc.Hp = 50;
+            npc.Hp = 300;
             npc.gameState = GameState.FirstStage;
             Instantiate(usao);
         }

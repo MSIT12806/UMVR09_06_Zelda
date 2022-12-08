@@ -152,7 +152,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
         DodgeTranslate();
 
         //攻擊位移
-        if (attackMove > 0)// && (currentAnimation.IsName("Attack01"))   //何時 bAttackMove 會被改成 true?
+        if (attackMove > 0 && !npc.collideFront)// && (currentAnimation.IsName("Attack01"))   //何時 bAttackMove 會被改成 true?
         {
             attackMove--;
             transform.Translate(new Vector3(0, 0, 1) * 0.10f);

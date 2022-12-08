@@ -389,20 +389,7 @@ public class UsaoHurtState : UsaoAiState
 
     public override void SetAnimation()
     {
-        //if (npc.Hp <= 0)
-        //{
-        //    deadTime += Time.deltaTime;
-        //    if (getHit != null)
-        //    {
-        //        deadTime = 0f;
-        //        animator.SetTrigger("toFlog");
-        //        Debug.Log("Stop FLOGINGGGGG!!!!!!");
-        //    }
-        //}
-        //else
-        //{
-        //    deadTime = 0f;
-        //}
+
     }
     private void DoOnce()
     {
@@ -416,8 +403,11 @@ public class UsaoHurtState : UsaoAiState
                 npc.PlayAnimation("GetHit.SwordAndShieldImpact02");
             else
                 npc.PlayAnimation("GetHit.SwordAndShieldImpact01");
-
-            npc.nextPosition = selfTransform.position + getHit.Force;
+            if (npc.collide == false)
+            {
+                npc.nextPosition = selfTransform.position + getHit.Force;
+            }
+                
             return;
         }
         if (getHit.Hit == HitType.Heavy)

@@ -71,6 +71,11 @@ public class Npc : MonoBehaviour
     void Update()
     {
         TimePause();
+        if (stopAnimationMoving > 0)
+        {
+            stopAnimationMoving--;
+            animator.applyRootMotion = false;
+        }
     }
     bool pause;
     float beforePauseAnimatorSpeed;
@@ -187,7 +192,7 @@ public class Npc : MonoBehaviour
         animator.applyRootMotion = true;
         var hitSomethingWhenMoving = Physics.SphereCast(this.transform.position + new Vector3(0, 0.7f, 0), radius, transform.forward, out var hitInfo, 0.5f, layerMask);
 
-        var hitSomething = hitSomethingWhenMoving || Physics.OverlapSphere(transform.position, stateManager.Radius, layerMask).Count() > 0;
+        var hitSomething = hitSomethingWhenMoving || Physics.OverlapSphere(transform.position + new Vector3(0, 0.7f, 0), stateManager.Radius, layerMask).Count() > 0;
         if (hitSomething && hitInfo.transform != this.transform)
         {
             if (hitSomethingWhenMoving && this.name != "MainCharacter") //讓 npc 隨機旋轉，離開障礙物
@@ -301,6 +306,12 @@ public class Npc : MonoBehaviour
         animator.SetBool("Grounded", false);
         grounded = false;
         initVel = force;
+    }
+    int stopAnimationMoving;
+    public void CancelMotionIfCollided(int keepFrame)
+    {
+        if (collide)
+            stopAnimationMoving = keepFrame;
     }
     //private void OnDrawGizmos()
     //{
