@@ -18091,11 +18091,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 812130047, guid: 5752f796e3e1390418365a49a0e90a84, type: 3}
       propertyPath: Hp
-      value: 50
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 812130047, guid: 5752f796e3e1390418365a49a0e90a84, type: 3}
       propertyPath: gameState
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 812130048, guid: 5752f796e3e1390418365a49a0e90a84, type: 3}
+      propertyPath: m_Size.x
+      value: 3.8424797
+      objectReference: {fileID: 0}
+    - target: {fileID: 812130048, guid: 5752f796e3e1390418365a49a0e90a84, type: 3}
+      propertyPath: m_Center.x
+      value: 0.022743694
+      objectReference: {fileID: 0}
+    - target: {fileID: 812130048, guid: 5752f796e3e1390418365a49a0e90a84, type: 3}
+      propertyPath: m_Center.z
+      value: 0.22000004
       objectReference: {fileID: 0}
     - target: {fileID: 509284550586355046, guid: 5752f796e3e1390418365a49a0e90a84,
         type: 3}
