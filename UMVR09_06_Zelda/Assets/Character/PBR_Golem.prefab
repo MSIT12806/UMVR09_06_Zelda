@@ -21,7 +21,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4408297863206454, guid: 6bbfea6690ef7724ba495c866081f855, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14.882477
+      value: 14.98
       objectReference: {fileID: 0}
     - target: {fileID: 4408297863206454, guid: 6bbfea6690ef7724ba495c866081f855, type: 3}
       propertyPath: m_LocalPosition.y
@@ -29,7 +29,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4408297863206454, guid: 6bbfea6690ef7724ba495c866081f855, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 170.1528
+      value: 170.47
       objectReference: {fileID: 0}
     - target: {fileID: 4408297863206454, guid: 6bbfea6690ef7724ba495c866081f855, type: 3}
       propertyPath: m_LocalRotation.w
@@ -88,8 +88,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.8, y: 4.1, z: 2.85}
-  m_Center: {x: 0, y: 2.05, z: 0.22}
+  m_Size: {x: 3.8424797, y: 4.1, z: 2.85}
+  m_Center: {x: 0.022743694, y: 2.05, z: 0.22000004}
 --- !u!114 &812130047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,14 +104,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 1025
   terrainLayer:
     serializedVersion: 2
     m_Bits: 64
   nextPosition: {x: 0, y: 0, z: 0}
+  gameState: 3
   OnGround: 0
   MaxHp: 0
-  Hp: 20
+  Hp: 14
+  MaterialAddress: 
   initVel: {x: 0, y: 0, z: 0}
   grounded: 0
 --- !u!114 &812130049

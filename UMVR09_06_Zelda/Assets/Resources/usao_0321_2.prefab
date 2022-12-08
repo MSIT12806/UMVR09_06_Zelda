@@ -3564,7 +3564,7 @@ Animator:
   m_GameObject: {fileID: 7116163442875687807}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 83c01fa081054e041a3522a5c48b3353, type: 3}
-  m_Controller: {fileID: 9100000, guid: 678e2e8de20bcd34f9edf9a15808e935, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3c34944fe0bc4724d94546b6f3b2505c, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -3602,15 +3602,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 1025
   terrainLayer:
     serializedVersion: 2
     m_Bits: 64
   nextPosition: {x: 0, y: 0, z: 0}
-  gameState: 0
+  gameState: 2
   OnGround: 0
   MaxHp: 0
   Hp: 50
+  MaterialAddress: 
   initVel: {x: 0, y: 0, z: 0}
   grounded: 0
 --- !u!114 &8410644276572499095
