@@ -142,23 +142,19 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
         //}
         head.forward = d.normalized;
     }
-    bool jump;
+    int jump;
     Vector3 jumpRandomDirection;
     public void Jump()
     {
-        if (jump)
+        if (jump>0)
         {
-            
+            jump--;
             transform.position += jumpRandomDirection * 0.05f;
         }
     }
     public void JumpStart()
     {
         jumpRandomDirection = (new Vector3(UnityEngine.Random.value - 0.5f, 0, UnityEngine.Random.value - 0.5f)).normalized;
-        jump = true;
-    }
-    public void JumpEnd()
-    {
-        jump = false;
+        jump = 21;
     }
 }
