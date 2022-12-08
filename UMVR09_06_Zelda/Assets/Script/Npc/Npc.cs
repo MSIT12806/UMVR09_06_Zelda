@@ -32,7 +32,7 @@ public class Npc : MonoBehaviour
     public bool Alive { get => Hp > 0; }
     public bool OnGround;
     NpcHelper stateManager;
-    Material material;
+    List<Material> materials;
     Color oriColor = new Color(209, 209, 209);
     float oriPower = 0.254f;
     float oriMask = 0.199f;
@@ -47,11 +47,16 @@ public class Npc : MonoBehaviour
         picoState = GetComponent<PicoState>();
         MaxHp = Hp;
         ik = GetComponent<IKController>();
+        materials = new List<Material>();
         if (string.IsNullOrEmpty(MaterialAddress) == false)
         {
-            var a = transform.FindAnyChild<Renderer>(MaterialAddress);
-            var b = a.materials;
-            material = b.FirstOrDefault(i => i.name == "Mt_usao_Main");
+            var a = transform.FindAnyChild<Transform>(MaterialAddress);
+            var b = a.GetComponent<Renderer>();
+            materials.Add(b.materials[0]);
+            materials.Add(b.materials[2]);
+            materials.Add(b.materials[3]);
+            //  print(c.name);
+            //material = b.FirstOrDefault(i => i.name == "Mt_usao_Main");
         }
     }
     void Start()
@@ -88,11 +93,14 @@ public class Npc : MonoBehaviour
             beforePauseNextPosition = Vector3.zero;
             animator.speed = beforePauseAnimatorSpeed;
             ik.enabled = true;
-            if (material != null)
+            if (materials != null)
             {
-                material.SetColor("RimLightColor", oriColor);
-                material.SetFloat("RimLightPower", oriPower);
-                material.SetFloat("RimLight_InsightMask", oriMask);
+                foreach (var item in materials)
+                {
+                    item.SetColor("_RimLightColor", oriColor);
+                    item.SetFloat("_RimLight_Power", oriPower);
+                    item.SetFloat("_RimLight_InsightMask", oriMask);
+                }
             }
         }
     }
@@ -153,11 +161,14 @@ public class Npc : MonoBehaviour
             nextPosition = Vector3.zero;
 
             ik.enabled = false;
-            if (material != null)
+            if (materials != null)
             {
-                material.SetColor("RimLightColor", new Color(255, 255, 0));
-                material.SetFloat("RimLightPower", 1);
-                material.SetFloat("RimLight_InsightMask", 0.0001f);
+                foreach (var item in materials)
+                {
+                    item.SetColor("_RimLightColor", new Color(255, 255, 0));
+                    item.SetFloat("_RimLight_Power", 1);
+                    item.SetFloat("_RimLight_InsightMask", 0.0001f);
+                }
             }
         }
     }
