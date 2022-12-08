@@ -180,7 +180,6 @@ public class UsaoFightState : UsaoAiState
     Transform target;
     Transform head;
     Vector3 direction;
-    IKController ik;
     float dazeSeconds;
     float keepDistance = 10f;
     float attackDistance = 2f;
@@ -191,7 +190,6 @@ public class UsaoFightState : UsaoAiState
         animator.SetBool("findTarget", true);
         head = selfTransform.FindAnyChild<Transform>("Character1_Head");
         RefreshDazeTime();
-        ik = selfTransform.GetComponent<IKController>();
         keepOrAttack = UnityEngine.Random.value;
     }
     public override AiState SwitchState()
@@ -234,7 +232,7 @@ public class UsaoFightState : UsaoAiState
     {
         //1. 總是面對主角
 
-        AiStateCommon.Turn(selfTransform, target.position - selfTransform.position);
+       
         //AiStateCommon.Look(head, ObjectManager.MainCharacterHead);
 
         TauntRandomly();
@@ -363,7 +361,6 @@ public class UsaoHurtState : UsaoAiState
         npc = selfTransform.GetComponent<Npc>();
         getHit = d;
         DoOnce();
-        self.GetComponent<IKController>().enabled = false;
         fightState = fight;
     }
 
