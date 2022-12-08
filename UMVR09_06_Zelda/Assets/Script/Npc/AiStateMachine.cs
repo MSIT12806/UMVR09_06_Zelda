@@ -180,7 +180,6 @@ public class UsaoFightState : UsaoAiState
     Transform target;
     Transform head;
     Vector3 direction;
-    IKController ik;
     float dazeSeconds;
     float keepDistance = 10f;
     float attackDistance = 2f;
@@ -191,7 +190,6 @@ public class UsaoFightState : UsaoAiState
         animator.SetBool("findTarget", true);
         head = selfTransform.FindAnyChild<Transform>("Character1_Head");
         RefreshDazeTime();
-        ik = selfTransform.GetComponent<IKController>();
         keepOrAttack = UnityEngine.Random.value;
     }
     public override AiState SwitchState()
@@ -234,7 +232,7 @@ public class UsaoFightState : UsaoAiState
     {
         //1. 總是面對主角
 
-        AiStateCommon.Turn(selfTransform, target.position - selfTransform.position);
+       
         //AiStateCommon.Look(head, ObjectManager.MainCharacterHead);
 
         TauntRandomly();
@@ -363,7 +361,6 @@ public class UsaoHurtState : UsaoAiState
         npc = selfTransform.GetComponent<Npc>();
         getHit = d;
         DoOnce();
-        self.GetComponent<IKController>().enabled = false;
         fightState = fight;
     }
 
@@ -455,11 +452,11 @@ public class UsaoDeathState : UsaoAiState
             //死亡程序
             var fxGo = ObjectManager.DieFx.Dequeue();
             fxGo.transform.position = selfTransform.position;
-            selfTransform.position.AddY(-1000);
-            ObjectManager.NpcsAlive.Remove(selfTransform.gameObject.GetInstanceID());
+            selfTransform.position.AddY(-1000);//移出場外以免打擊判定與推擠判定
+            ObjectManager.NpcsAlive.Remove(selfTransform.gameObject.GetInstanceID()); //移出活人池增益效能
             if (npc.gameState == GameState.FirstStage)
-                ObjectManager.StageOneUsaoPool.Add(selfTransform.gameObject.GetInstanceID(), selfTransform.gameObject);
-            ObjectManager.StageMonsterMonitor[1]--;
+                ObjectManager.StageOneUsaoPool.Add(selfTransform.gameObject.GetInstanceID(), selfTransform.gameObject);//移入備用池
+            ObjectManager.StageMonsterMonitor[1]--;//怪物數量監控
             selfTransform.gameObject.SetActive(false);
             fxGo.SetActive(true);
             ObjectManager.DieFx.Enqueue(fxGo);
