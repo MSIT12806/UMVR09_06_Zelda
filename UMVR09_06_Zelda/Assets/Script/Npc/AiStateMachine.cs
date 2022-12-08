@@ -267,7 +267,7 @@ public class UsaoChaseState : UsaoAiState
     public UsaoChaseState(Transform alertObject, Animator a, Transform self, UsaoFightState fightState, NpcHelper nh) : base(a, self, nh, "Chase", alertObject.GetComponent<PicoState>())
     {
         var r = UnityEngine.Random.value;
-        attackRange = r > 0.3 ? 10f : 2f;
+        attackRange = r > 0.3 ? 10f : 3f;
         alertTarget = alertObject;
         animator.SetBool("notReach", true);
         AddChasingNpc();
