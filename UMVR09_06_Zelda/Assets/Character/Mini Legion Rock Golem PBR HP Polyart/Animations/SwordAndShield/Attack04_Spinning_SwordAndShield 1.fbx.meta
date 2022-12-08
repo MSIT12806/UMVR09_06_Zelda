@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d7c9f9d7c4b489e4fbf25a52dab81abd
+guid: 6b5e874da0ca60642be7112c5938ba13
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable:
@@ -59,7 +59,39 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0
+        functionName: Skill1Attack
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 9693cf64279264240938d0f3206ee1b5,
+          type: 3}
+        floatParameter: 0.005
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.032952916
+        functionName: Skill1Attack
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 9693cf64279264240938d0f3206ee1b5,
+          type: 3}
+        floatParameter: 0.4
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.10277778
+        functionName: AnimationAttack
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 9693cf64279264240938d0f3206ee1b5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 1
+        messageOptions: 0
+      - time: 0.57916665
+        functionName: AnimationAttack
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 9693cf64279264240938d0f3206ee1b5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 1
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
