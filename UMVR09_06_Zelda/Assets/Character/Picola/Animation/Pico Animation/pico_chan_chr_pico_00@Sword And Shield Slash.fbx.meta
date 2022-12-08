@@ -63,21 +63,16 @@ ModelImporter:
       - time: 0.30833334
         functionName: AttackMoveOn
         data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 18c9139d34b25594188c45080c29c25d, type: 3}
-        floatParameter: 0
-        intParameter: 2
-        messageOptions: 0
-      - time: 0.47291222
-        functionName: AttackMoveOff
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 18c9139d34b25594188c45080c29c25d, type: 3}
+        objectReferenceParameter: {fileID: 11500000, guid: 18c9139d34b25594188c45080c29c25d,
+          type: 3}
         floatParameter: 0
         intParameter: 2
         messageOptions: 0
       - time: 0.6058917
         functionName: AnimationAttack
         data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 18c9139d34b25594188c45080c29c25d, type: 3}
+        objectReferenceParameter: {fileID: 11500000, guid: 18c9139d34b25594188c45080c29c25d,
+          type: 3}
         floatParameter: 0
         intParameter: 2
         messageOptions: 0
@@ -867,7 +862,8 @@ ModelImporter:
     - name: LeftHandThumb3
       parentName: LeftHandThumb2
       position: {x: -0.034, y: 3.5527135e-16, z: 1.4210854e-16}
-      rotation: {x: 7.3669576e-10, y: 0.0000000012566302, z: -0.0000000016413559, w: 1}
+      rotation: {x: 7.3669576e-10, y: 0.0000000012566302, z: -0.0000000016413559,
+        w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: RightShoulder
       parentName: Spine02
@@ -1381,7 +1377,8 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 10038fdbf93c4dd43af9ce774d03a956, type: 3}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 10038fdbf93c4dd43af9ce774d03a956,
+    type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1

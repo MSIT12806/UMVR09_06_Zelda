@@ -6,9 +6,7 @@ using UnityEngine;
 using UnityStandardAssets.Characters.ThirdPerson;
 
 public class MainCharacterState : MonoBehaviour, NpcHelper
-{ 
-    public float attackMoveDis;
-    public bool bAttackMove = false;
+{
     /// <summary>
     /// 速度線
     /// </summary>
@@ -32,7 +30,6 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     public Transform newPlace;
     Npc npc;
     ThirdPersonCharacter tpc;
-    private bool canBeHit = true;
 
     bool FeverIk = false;
     private bool canRoll = true;
@@ -69,17 +66,19 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     // Update is called once per frame
     void Update()
     {
+        if (noHurt > 0) noHurt--;
+
         //處理美術位移
         currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
-        if (currentAnimation.IsName("Attack01") || 
-            currentAnimation.IsName("Attack01 0") || 
-            currentAnimation.IsName("Attack01 1") || 
+        if (currentAnimation.IsName("Attack01") ||
+            currentAnimation.IsName("Attack01 0") ||
+            currentAnimation.IsName("Attack01 1") ||
             currentAnimation.IsName("Attack01 2") ||
             currentAnimation.IsName("Finishing") ||
-            currentAnimation.IsName("Finishing") || 
-            currentAnimation.IsName("GetHit") || 
-            currentAnimation.IsName("Die") || 
-            currentAnimation.IsName("Flying Back Death") || 
+            currentAnimation.IsName("Finishing") ||
+            currentAnimation.IsName("GetHit") ||
+            currentAnimation.IsName("Die") ||
+            currentAnimation.IsName("Flying Back Death") ||
             currentAnimation.IsName("GettingUp03"))
             tpc.CanRotate = false;
         else tpc.CanRotate = true;
@@ -99,14 +98,14 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
         //無雙條測試
         if (Input.GetKey(KeyCode.P))//增加無雙值
             AddPowerValue();
-            
+
         if (Input.GetKeyDown(KeyCode.F))//使用無雙
         {
             if (PicoManager.Power >= 100)
             {
                 PicoManager.Power -= PicoManager.PowerCost;
                 animator.SetTrigger("Fever");
-            } 
+            }
         }
 
 
@@ -135,7 +134,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
                     Sword.SetActive(false);
                     focusLine.SetActive(true);//速度線
                 }
-                if(currentAnimation.IsName("Fast run"))
+                if (currentAnimation.IsName("Fast run"))
                     SwordEffect1.SetActive(false);
                 if (roll) animator.Play("Front Dodge");
                 animator.SetFloat("dodge", pressControlTime);
@@ -153,8 +152,9 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
         DodgeTranslate();
 
         //攻擊位移
-        if (bAttackMove)// && (currentAnimation.IsName("Attack01"))   //何時 bAttackMove 會被改成 true?
+        if (attackMove > 0)// && (currentAnimation.IsName("Attack01"))   //何時 bAttackMove 會被改成 true?
         {
+            attackMove--;
             transform.Translate(new Vector3(0, 0, 1) * 0.10f);
         }
 
@@ -165,7 +165,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
         }
 
         //IK調整
-        if ( (currentAnimation.IsName("Fast run") || currentAnimation.IsName("Attack02 1") || currentAnimation.IsName("Attack02 2") || currentAnimation.IsName("Finishing")) || FeverIk )
+        if ((currentAnimation.IsName("Fast run") || currentAnimation.IsName("Attack02 1") || currentAnimation.IsName("Attack02 2") || currentAnimation.IsName("Finishing")) || FeverIk)
         {
             IK.Weight_Up = 0;
         }
@@ -261,11 +261,11 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     public void FeverAttackSpeed(float speed)//事件觸發
     {
         print("123");
-        if(speed >1)
+        if (speed > 1)
         {
             FeverIk = true;
         }
-        else if(speed < 1)
+        else if (speed < 1)
         {
             FeverIk = false;
         }
@@ -289,7 +289,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
             NpcCommon.AttackDetection("Pico", transform.position, transform.forward, 180, 4f, true, new DamageData(30f, transform.forward * 0.15f, HitType.finishing, DamageStateInfo.NormalAttack), "Npc");
         if (attackType == 5)//無雙
             NpcCommon.AttackDetection("Pico", transform.position, transform.forward, 360, 6f, true, new DamageData(10f, transform.forward * 0.15f, HitType.fever, DamageStateInfo.NormalAttack), "Npc");
-        
+
 
 
     }
@@ -325,22 +325,18 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     //}
 
     #endregion
-    public void AttackMoveOn(float dis) //...建議如果是事件，加個綴字。
+    int attackMove;
+    public void AttackMoveOn(int keepFrame) //...建議如果是事件，加個綴字。
     {
         if (!npc.collide)
         {
-            bAttackMove = true;
-            attackMoveDis = dis;
+            attackMove = keepFrame;
         }
-    }
-    public void AttackMoveOff() //...建議如果是事件，加個綴字。
-    {
-        bAttackMove = false;
     }
 
     public void GetHurt(DamageData damageData)
     {
-        if (!canBeHit) return;
+        if (noHurt > 0) return;
         PicoManager.Hp -= damageData.Damage;
         print("pico被揍");
 
@@ -355,14 +351,10 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
             npc.KnockOff(damageData.Force);
         }
     }
-
-    public void SetNoHurt()
+    int noHurt;
+    public void SetNoHurt(int keepFrame)
     {
-        canBeHit = false;
-    }
-    public void SetCanHurt()
-    {
-        canBeHit = true;
+        noHurt = keepFrame;
     }
 
     public void Move()
