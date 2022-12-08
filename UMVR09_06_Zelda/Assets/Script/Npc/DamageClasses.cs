@@ -18,6 +18,7 @@ public enum DamageState
     Bomb,
     Ice,
     TimePause,
+    Fever,
 
 }
 public class DamageData

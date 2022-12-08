@@ -879,7 +879,7 @@ public class GolemIdleState : GolemBaseState
         {
             Debug.Log($"before {npcData.Hp}");
             npcData.Hp -= getHit.Damage / 10;
-            if (getHit.Hit == HitType.fever)
+            if (getHit.DamageState.damageState == DamageState.Fever)
             {
                 goWeakState = true;
             }
@@ -978,7 +978,7 @@ public class GolemChaseState : GolemBaseState
         if (getHit != null)
         {
             npcData.Hp -= getHit.Damage / 10;
-            if (getHit.Hit == HitType.fever)
+            if (getHit.DamageState.damageState == DamageState.Fever)
             {
                 goWeakState = true;
             }
@@ -1197,7 +1197,7 @@ public class GolemAttackState : GolemBaseState
         nowArmor = armor;
         target = t;
         System.Random random = new System.Random();
-        int attackType = random.Next(1, 2);
+        int attackType = random.Next(1, 3);
         if (attackType == 1)
         {
             animator.SetTrigger("Attack01");
@@ -1220,7 +1220,7 @@ public class GolemAttackState : GolemBaseState
         if (getHit != null)
         {
             npcData.Hp -= getHit.Damage / 10;
-            if (getHit.Hit == HitType.fever)
+            if (getHit.DamageState.damageState == DamageState.Fever)
             {
                 goWeakState = true;
             }
@@ -1352,7 +1352,7 @@ public class GolemSkillState : GolemBaseState
                 AttackFlaw = true;
             }
 
-            if (getHit.Hit == HitType.fever)
+            if (getHit.DamageState.damageState == DamageState.Fever)
             {
                 goWeakState = true;
             }
