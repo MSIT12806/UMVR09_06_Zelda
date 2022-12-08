@@ -1,3 +1,4 @@
+using Ron;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -31,9 +32,14 @@ public class Npc : MonoBehaviour
     public bool Alive { get => Hp > 0; }
     public bool OnGround;
     NpcHelper stateManager;
+    List<Material> materials;
+    Color oriColor = new Color(209, 209, 209);
+    float oriPower = 0.254f;
+    float oriMask = 0.199f;
     IKController ik;
     [HideInInspector] public float MaxHp;
     public float Hp;
+    public string MaterialAddress;
     private void Awake()
     {
         nextPosition = Vector3.zero;
@@ -41,6 +47,20 @@ public class Npc : MonoBehaviour
         picoState = GetComponent<PicoState>();
         MaxHp = Hp;
         ik = GetComponent<IKController>();
+        materials = new List<Material>();
+        if (string.IsNullOrEmpty(MaterialAddress) == false)
+        {
+            var a = transform.FindAnyChild<Transform>(MaterialAddress);
+            var b = a.GetComponent<Renderer>();
+            materials.Add(b.materials[0]);
+            materials.Add(b.materials[2]);
+            materials.Add(b.materials[3]);
+            oriColor = materials[0].GetColor("_RimLightColor");
+            oriPower = materials[0].GetFloat("_RimLight_Power");
+            oriMask = materials[0].GetFloat("_RimLight_InsightMask");
+            //  print(c.name);
+            //material = b.FirstOrDefault(i => i.name == "Mt_usao_Main");
+        }
     }
     void Start()
     {
@@ -76,6 +96,15 @@ public class Npc : MonoBehaviour
             beforePauseNextPosition = Vector3.zero;
             animator.speed = beforePauseAnimatorSpeed;
             ik.enabled = true;
+            if (materials != null)
+            {
+                foreach (var item in materials)
+                {
+                    item.SetColor("_RimLightColor", oriColor);
+                    item.SetFloat("_RimLight_Power", oriPower);
+                    item.SetFloat("_RimLight_InsightMask", oriMask);
+                }
+            }
         }
     }
     private void LateUpdate()
@@ -135,6 +164,15 @@ public class Npc : MonoBehaviour
             nextPosition = Vector3.zero;
 
             ik.enabled = false;
+            if (materials != null)
+            {
+                foreach (var item in materials)
+                {
+                    item.SetColor("_RimLightColor", new Color(255, 255, 0));
+                    item.SetFloat("_RimLight_Power", 1);
+                    item.SetFloat("_RimLight_InsightMask", 0.0001f);
+                }
+            }
         }
     }
     public void PlayAnimation(string aniName)
