@@ -152,7 +152,7 @@ public class Npc : MonoBehaviour
         var hitSomething = hitSomethingWhenMoving || Physics.OverlapSphere(transform.position, stateManager.Radius, layerMask).Count() > 0;
         if (hitSomething && hitInfo.transform != this.transform)
         {
-            if (hitSomethingWhenMoving && this.name != "MainCharacter")
+            if (hitSomethingWhenMoving && this.name != "MainCharacter") //讓 npc 隨機旋轉，離開障礙物
             {
                 animator.applyRootMotion = false;
                 var rotateWay = Vector3.SignedAngle(transform.forward, hitInfo.point - transform.position, Vector3.up);

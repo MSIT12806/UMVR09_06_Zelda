@@ -111,7 +111,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
 
     public void Move()
     {
-        if (npc.collide) return;
+        if (npc.collideFront) return;
         switch (moveType)
         {
             case 1://walk
@@ -147,7 +147,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
         fireBall.transform.position = dragonMouth.position;
         //速度、方向
         var shootMagic = fireBall.GetComponent<ShootMagic>();
-        shootMagic.force = -dragonHead.transform.right ;
+        shootMagic.force = -dragonHead.transform.right;
         shootMagic.existSeconds = 2;
         //一段時間後爆炸/消失
     }
@@ -166,6 +166,11 @@ public class DragonManager : MonoBehaviour, NpcHelper
     public void DizzyEnd()
     {
         dizzy = false;
+    }
+
+    public void TailAttack()
+    {
+        NpcCommon.AttackDetection("Dragon", transform.position, transform.forward, 15, 8, false, new DamageData(100, transform.forward, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
     }
     #endregion
 }
