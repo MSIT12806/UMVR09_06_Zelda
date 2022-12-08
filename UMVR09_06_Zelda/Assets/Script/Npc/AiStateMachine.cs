@@ -455,11 +455,11 @@ public class UsaoDeathState : UsaoAiState
             //死亡程序
             var fxGo = ObjectManager.DieFx.Dequeue();
             fxGo.transform.position = selfTransform.position;
-            selfTransform.position.AddY(-1000);
-            ObjectManager.NpcsAlive.Remove(selfTransform.gameObject.GetInstanceID());
+            selfTransform.position.AddY(-1000);//移出場外以免打擊判定與推擠判定
+            ObjectManager.NpcsAlive.Remove(selfTransform.gameObject.GetInstanceID()); //移出活人池增益效能
             if (npc.gameState == GameState.FirstStage)
-                ObjectManager.StageOneUsaoPool.Add(selfTransform.gameObject.GetInstanceID(), selfTransform.gameObject);
-            ObjectManager.StageMonsterMonitor[1]--;
+                ObjectManager.StageOneUsaoPool.Add(selfTransform.gameObject.GetInstanceID(), selfTransform.gameObject);//移入備用池
+            ObjectManager.StageMonsterMonitor[1]--;//怪物數量監控
             selfTransform.gameObject.SetActive(false);
             fxGo.SetActive(true);
             ObjectManager.DieFx.Enqueue(fxGo);
