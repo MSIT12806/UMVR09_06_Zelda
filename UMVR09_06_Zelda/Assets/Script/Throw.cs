@@ -261,9 +261,14 @@ public class Throw : MonoBehaviour
         {
             NpcCommon.AttackDetection("Pico", itemEffect_pos, ItemEffect_obj.transform.forward, 360.0f, 2.7f, false, new DamageData(10, Vector3.zero, HitType.Heavy, new DamageStateInfo(DamageState.TimePause, 5)), "Npc");
             ObjectManager.TimeStopChain.transform.position = itemEffect_pos;
+            ObjectManager.TimeStopChain.SetActive(true);
+            Invoke("ChainDisable", 5);
         }
     }
-
+    void ChainDisable()
+    {
+        ObjectManager.TimeStopChain.SetActive(false);
+    }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
