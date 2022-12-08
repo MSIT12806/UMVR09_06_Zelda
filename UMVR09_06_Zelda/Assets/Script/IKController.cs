@@ -35,6 +35,7 @@ public class IKController : MonoBehaviour
     public float LookAtWeight = 1.0f;
     public float Weight_Up = 1.0f;
     public float Weight_Down = 0.0f;
+    public float Y_Up = 0.07f;
 
     //使用IK
     public bool IkActive = false;
@@ -176,7 +177,7 @@ public class IKController : MonoBehaviour
             {
                 LeftFootObj.position = LeftFootTarget.position;
                 Vector3 vecL = LeftFootObj.localPosition;
-                if (vecL.y < 0.07f) vecL.y = 0.07f;
+                if (vecL.y < Y_Up) vecL.y = Y_Up;
                 LeftFootObj.localPosition = vecL;
                 avatar.SetIKPosition(AvatarIKGoal.LeftFoot, LeftFootObj.position);
                 //avatar.SetIKRotation(AvatarIKGoal.LeftFoot, LeftFootObj.rotation);
@@ -185,7 +186,7 @@ public class IKController : MonoBehaviour
             {
                 RightFootObj.position = RightFootTarget.position;
                 Vector3 vecR = RightFootObj.localPosition;
-                if (vecR.y < 0.07f) vecR.y = 0.07f;
+                if (vecR.y < Y_Up) vecR.y = Y_Up;
                 RightFootObj.localPosition = vecR;
                 avatar.SetIKPosition(AvatarIKGoal.RightFoot, RightFootObj.position);
                 //avatar.SetIKRotation(AvatarIKGoal.RightFoot, RightFootObj.rotation);

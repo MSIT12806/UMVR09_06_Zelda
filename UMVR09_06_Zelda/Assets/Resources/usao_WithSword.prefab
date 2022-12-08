@@ -4018,7 +4018,7 @@ GameObject:
   - component: {fileID: 968814401}
   - component: {fileID: 968814404}
   - component: {fileID: 532141071}
-  - component: {fileID: 4642281871656938874}
+  - component: {fileID: 1439358736}
   m_Layer: 9
   m_Name: usao_WithSword
   m_TagString: Npc
@@ -4122,7 +4122,7 @@ MonoBehaviour:
   OriginPosition: {x: 0, y: 0, z: 0}
   forward: 0
   trunDirection: {x: 0, y: 0, z: 0}
---- !u!114 &4642281871656938874
+--- !u!114 &1439358736
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4131,15 +4131,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 8672976989278694363}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50a8d3ea89c3eb14c95121f2bdd40158, type: 3}
+  m_Script: {fileID: 11500000, guid: b85164394593500449109aea113c8757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LookAtObj: {fileID: 0}
+  BodyObj: {fileID: 0}
+  LeftElbowObj: {fileID: 0}
+  RightElbowObj: {fileID: 0}
+  LeftHandObj: {fileID: 0}
+  RightHandObj: {fileID: 0}
+  LeftKneeObj: {fileID: 0}
+  RightKneeObj: {fileID: 0}
   LeftFootObj: {fileID: 2128819004}
   RightFootObj: {fileID: 1932561632}
   LeftFootTarget: {fileID: 3075836415387929598}
   RightFootTarget: {fileID: 9193383740047151223}
+  LookAtWeight: 0
+  Weight_Up: 0
   Weight_Down: 1
-  IkActive: 0
+  Y_Up: 0.15
+  IkActive: 1
 --- !u!1 &8758781246023044786
 GameObject:
   m_ObjectHideFlags: 0
