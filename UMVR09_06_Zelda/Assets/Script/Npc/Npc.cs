@@ -124,7 +124,7 @@ public class Npc : MonoBehaviour
 
         if (!collide)
         {
-        NpcCollision();
+            NpcCollision();
             LerpToNextPosition();
         }
         FreeFall();
@@ -212,9 +212,11 @@ public class Npc : MonoBehaviour
             }
             nextPosition = Vector3.zero;//取消程式位移
             collideFront = hitSomethingWhenMoving;
-
-            var closestPoint = hitInfos[0].ClosestPoint(transform.position);
-            transform.position -= (closestPoint - transform.position).normalized * 0.05f;
+            if (hitInfos.Count() > 0)
+            {
+                var closestPoint = hitInfos[0].ClosestPoint(transform.position);
+                transform.position -= (closestPoint - transform.position).normalized * 0.05f;
+            }
             return hitSomethingWhenMoving || hitSomething;//回報碰撞，取消美術位移
         }
         return false;

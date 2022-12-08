@@ -234,7 +234,7 @@ public class UsaoFightState : UsaoAiState
     {
         //1. 總是面對主角
 
-        //AiStateCommon.LookAtByIk(ik, ObjectManager.MainCharacterHead);  暫時註解掉，請把 ik 改回來...
+        AiStateCommon.LookAtByIk(ik, ObjectManager.MainCharacterHead); 
         AiStateCommon.Turn(selfTransform, target.position - selfTransform.position);
         //AiStateCommon.Look(head, ObjectManager.MainCharacterHead);
 
