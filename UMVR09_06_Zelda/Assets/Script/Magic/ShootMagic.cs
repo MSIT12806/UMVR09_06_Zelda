@@ -26,7 +26,7 @@ public class ShootMagic : MonoBehaviour
             fx.transform.position = transform.position;
             fx.SetActive(true);
             gameObject.SetActive(false);
-            NpcCommon.AttackDetection("Pico", transform.position, transform.forward, 360f, 3f, false, new DamageData(100, Vector3.zero, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
+            NpcCommon.AttackDetection("Dragon", transform.position, transform.forward, 360f, 3f, false, new DamageData(100, Vector3.zero, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
         }
     }
 }

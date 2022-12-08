@@ -170,7 +170,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
 
     public void TailAttack()
     {
-        NpcCommon.AttackDetection("Dragon", transform.position, transform.forward, 15, 8, false, new DamageData(100, transform.forward, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
+        NpcCommon.AttackDetection("Dragon", transform.position, transform.forward, /*15*/360f, 8, false, new DamageData(100, Vector3.zero, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
     }
     #endregion
 }
