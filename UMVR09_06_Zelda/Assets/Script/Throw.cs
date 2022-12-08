@@ -23,7 +23,6 @@ public class Throw : MonoBehaviour
     private Vector3 resistance;
     private Vector3 face;
 
-    private bool isRunning = false;
     private bool CanThrow = true;
     private bool isThrowing = false;
     private Item useItem;
@@ -42,25 +41,17 @@ public class Throw : MonoBehaviour
     Animator animator;
     public float coldTime = 10.0f;
     public float timer = 0.0f;
-    private float ItemExistTimer = 0.0f;
     private bool isStartTime = false;
 
     private void Start()
     {
-        animator = GetComponent<Animator>(); 
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        var stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-        if(stateInfo.IsName("Fast run")) 
-            isRunning = true;
-        else isRunning = false;
-
-        ThrowBreakOff();
-
-        if (CanThrow == true && isRunning ==false)
+        if (CanThrow == true)
         {
             if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Alpha4))
             {
@@ -85,30 +76,12 @@ public class Throw : MonoBehaviour
             OnThrow();
             CDTimer();
         }
-        
 
         if (ItemEffect_obj != null)
         {
             if (useItem == Item.Ice) DestroyItem(3.5f, "CFXR3 Hit Ice B (Air)");
         }
 
-    }
-
-    void ThrowBreakOff()
-    {
-        if (ThrowItem != null)
-        {
-            ItemExistTimer += Time.deltaTime;
-            if (ItemExistTimer >= ItemExistMaxTime)
-            {
-                Destroy(ThrowItem.gameObject);
-                ThrowItem = null;
-                isThrowing = false;
-                CanThrow = true;
-                ItemExistTimer = 0;
-            }
-
-        }
     }
 
     void GetThrowKeyIn()  //按鍵切換enum
@@ -172,11 +145,8 @@ public class Throw : MonoBehaviour
         SwordEffect2.SetActive(true);
     }
 
-    int ItemExistMaxTime;
     public void GetBomb()  //取得炸彈（動作事件）
     {
-        ItemExistMaxTime = 2;
-
         var IK = this.GetComponent<IKController>();
         IK.Weight_Up = 0.0f;
 
@@ -189,8 +159,6 @@ public class Throw : MonoBehaviour
 
     public void GetIce() //取得冰（動作事件）
     {
-        ItemExistMaxTime = 2;
-
         var IK = this.GetComponent<IKController>();
         IK.Weight_Up = 0.0f;
 
@@ -203,8 +171,6 @@ public class Throw : MonoBehaviour
 
     public void GetTimeStop()  //取得時停（動作事件）
     {
-        ItemExistMaxTime = 2;
-
         var IK = this.GetComponent<IKController>();
         IK.Weight_Up = 0.0f;
 
@@ -295,14 +261,19 @@ public class Throw : MonoBehaviour
         {
             NpcCommon.AttackDetection("Pico", itemEffect_pos, ItemEffect_obj.transform.forward, 360.0f, 2.7f, false, new DamageData(10, Vector3.zero, HitType.Heavy, new DamageStateInfo(DamageState.TimePause, 5)), "Npc");
             ObjectManager.TimeStopChain.transform.position = itemEffect_pos;
+            ObjectManager.TimeStopChain.SetActive(true);
+            Invoke("ChainDisable", 5);
         }
     }
-
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.color = Color.green;
-    //    Gizmos.DrawWireSphere(itemEffect_pos, 5.0f);
-    //}
+    void ChainDisable()
+    {
+        ObjectManager.TimeStopChain.SetActive(false);
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(itemEffect_pos, 5.0f);
+    }
     void DestroyItem(float t, string destroyEffect)
     {
         if (timer > t)
@@ -336,8 +307,6 @@ public class Throw : MonoBehaviour
 
         return float.MinValue;
     }
-
-
 
     /*
     

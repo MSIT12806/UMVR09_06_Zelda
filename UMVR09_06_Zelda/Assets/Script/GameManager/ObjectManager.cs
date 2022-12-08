@@ -36,7 +36,7 @@ public class ObjectManager : MonoBehaviour
         //載入短暫浮現的特效或物件
         DragonFireBallExplosionFx = (GameObject)Resources.Load("BigExplosion"); //龍龍火球爆炸特效
         TimeStopChain = Instantiate((GameObject)Resources.Load("FX_TimeStopKeep")); //時間暫停
-
+        TimeStopChain.SetActive(false);
         //...
         Statics = GameObject.FindGameObjectsWithTag("Terrain").ToList();
         ChasingNpc = new HashSet<AiState>();
@@ -75,4 +75,5 @@ public class ObjectManager : MonoBehaviour
             AttackFx.Enqueue(go);
         }
     }
+
 }
