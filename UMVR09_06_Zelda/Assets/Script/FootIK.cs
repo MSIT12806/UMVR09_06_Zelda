@@ -31,13 +31,20 @@ public class FootIK : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        
+    }
+
+    //IK動畫控制專用函數
+    private void OnAnimatorIK(int layerIndex)
+    {
         FootUp();
 
         //如果IK沒啟動，則把控制器附上動畫本身的值
 
         if (IkActive == false)
         {
-            
+
             if (LeftFootObj != null)
             {
                 LeftFootObj.position = avatar.GetIKPosition(AvatarIKGoal.LeftFoot);
@@ -49,11 +56,7 @@ public class FootIK : MonoBehaviour
                 RightFootObj.rotation = avatar.GetIKRotation(AvatarIKGoal.RightFoot);
             }
         }
-    }
 
-    //IK動畫控制專用函數
-    private void OnAnimatorIK(int layerIndex)
-    {
         //avator為空則返回
         if (avatar == null)
             return;

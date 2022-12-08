@@ -14,6 +14,8 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     /// </summary>
     public GameObject focusLine;
     public GameObject Sword;
+    public GameObject SwordEffect1;
+    public GameObject SwordEffect2;
     public Animator animator;
     public AnimatorStateInfo currentAnimation;
 
@@ -129,9 +131,12 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
                 if (pressControlTime > 0.3)//衝刺
                 {
                     roll = false;
+                    SwordEffect1.SetActive(true);
                     Sword.SetActive(false);
                     focusLine.SetActive(true);//速度線
                 }
+                if(currentAnimation.IsName("Fast run"))
+                    SwordEffect1.SetActive(false);
                 if (roll) animator.Play("Front Dodge");
                 animator.SetFloat("dodge", pressControlTime);
             }
@@ -140,6 +145,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
         {
 
             focusLine.SetActive(false);
+            SwordEffect2.SetActive(true);
             Sword.SetActive(true);
             pressControlTime = 0f;
             animator.SetFloat("dodge", pressControlTime);

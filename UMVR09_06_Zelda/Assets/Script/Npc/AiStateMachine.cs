@@ -674,6 +674,7 @@ public class DragonChaseState : AiState
     {
         target = t;
         fight = fightState;
+        Debug.Log("Chase");
         animator.SetBool("Move", true);
     }
 
@@ -691,7 +692,6 @@ public class DragonChaseState : AiState
         var distance = Vector3.Distance(selfTransform.position, target.position);
         if (distance > 8)
         {
-            animator.SetBool("Move", false);
             return this;
         }
         else return fight;

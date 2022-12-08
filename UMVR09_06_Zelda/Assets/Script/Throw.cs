@@ -30,7 +30,8 @@ public class Throw : MonoBehaviour
     private Transform ThrowItem;
     public Transform RightHandThrow_pos;
     public GameObject Sword;
-    public GameObject SwordEffect;
+    public GameObject SwordEffect1;
+    public GameObject SwordEffect2;
     private Vector3 itemEffect_pos;
     public GameObject ItemEffect_obj;
     public float Speed = 0.25f;
@@ -134,13 +135,13 @@ public class Throw : MonoBehaviour
 
     public void SwordFalse() //讓劍消失（動作事件）
     {
-        SwordEffect.GetComponent<ParticleSystem>().Play();
+        SwordEffect1.SetActive(true);
         Sword.SetActive(false);
     }
     public void SwordTrue() //讓劍出現（動作事件）
     {
         Sword.SetActive(true);
-        SwordEffect.GetComponent<ParticleSystem>().Play();
+        SwordEffect2.SetActive(true);
     }
 
     public void GetBomb()  //取得炸彈（動作事件）
@@ -258,6 +259,7 @@ public class Throw : MonoBehaviour
         else if(Explode == "FX_TimeStop")
         {
             NpcCommon.AttackDetection("Pico", itemEffect_pos, ItemEffect_obj.transform.forward, 360.0f, 2.7f, false, new DamageData(10, Vector3.zero, HitType.Heavy, new DamageStateInfo(DamageState.TimePause, 5)), "Npc");
+            ObjectManager.TimeStopChain.transform.position = itemEffect_pos;
         }
     }
 

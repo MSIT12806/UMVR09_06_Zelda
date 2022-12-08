@@ -17,6 +17,7 @@ public class ObjectManager : MonoBehaviour
     public static Transform MainCharacter;
     public static Transform MainCharacterHead;
     public static GameObject DragonFireBallExplosionFx;
+    public static GameObject TimeStopChain;
     public Transform MyCharacter;
     //    public static List<GameObject> UsaoResources;
     //處理 npc 碰撞、偵測、迴避、群體運動等行為。
@@ -28,10 +29,15 @@ public class ObjectManager : MonoBehaviour
         AttackFx = new Queue<GameObject>(20);
         InitAttackFx();
         stageOneSpawnPoint = transform.FindAnyChild<Transform>("StageOneSpawnPoint");
-        GenUsao(stageOneSpawnPoint.position, 10, 20);//嚴重掉偵呢
+        GenUsao(stageOneSpawnPoint.position, 10, 20);
         NpcsAlive = GameObject.FindGameObjectsWithTag("Npc").ToDictionary(i => i.GetInstanceID());
         GameObject.FindGameObjectsWithTag("Player").ToList().ForEach(i => NpcsAlive.Add(i.GetInstanceID(), i));
-        DragonFireBallExplosionFx = (GameObject)Resources.Load("BigExplosion");
+
+        //載入短暫浮現的特效或物件
+        DragonFireBallExplosionFx = (GameObject)Resources.Load("BigExplosion"); //龍龍火球爆炸特效
+        TimeStopChain = Instantiate((GameObject)Resources.Load("FX_TimeStopKeep")); //時間暫停
+
+        //...
         Statics = GameObject.FindGameObjectsWithTag("Terrain").ToList();
         ChasingNpc = new HashSet<AiState>();
 
