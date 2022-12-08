@@ -3259,7 +3259,7 @@ Transform:
   - {fileID: 2327226115086252738}
   - {fileID: 617701552}
   - {fileID: 540453672}
-  - {fileID: 8771972551106816603}
+  - {fileID: 1965425261321405513}
   m_Father: {fileID: 2046102327983505285}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11272,6 +11272,7 @@ MonoBehaviour:
   LookAtWeight: 0.5
   Weight_Up: 1
   Weight_Down: 0
+  Y_Up: 0.07
   IkActive: 1
 --- !u!114 &1264341149
 MonoBehaviour:
@@ -11294,6 +11295,7 @@ MonoBehaviour:
   nextPosition: {x: 0, y: 0, z: 0}
   gameState: 0
   OnGround: 0
+  MaxHp: 0
   Hp: 1000
   initVel: {x: 0, y: 0, z: 0}
   grounded: 0
@@ -11346,7 +11348,7 @@ MonoBehaviour:
     m_Bits: 64
   RightHandThrow_pos: {fileID: 617701552}
   Sword: {fileID: 6547270053367928707}
-  SwordEffect: {fileID: 8771972551106816612}
+  SwordEffect: {fileID: 1965425261321405558}
   ItemEffect_obj: {fileID: 0}
   Speed: 0.25
   vertical: 0.2
@@ -12500,87 +12502,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4168285910116281428}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &4238155993083984653
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 2046102328524594503}
-    m_Modifications:
-    - target: {fileID: 4858463590572904790, guid: 148745a164cc7d64c80a746bd049706b,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4858463590572904790, guid: 148745a164cc7d64c80a746bd049706b,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.068440095
-      objectReference: {fileID: 0}
-    - target: {fileID: 4858463590572904790, guid: 148745a164cc7d64c80a746bd049706b,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.024264151
-      objectReference: {fileID: 0}
-    - target: {fileID: 4858463590572904790, guid: 148745a164cc7d64c80a746bd049706b,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.01087676
-      objectReference: {fileID: 0}
-    - target: {fileID: 4858463590572904790, guid: 148745a164cc7d64c80a746bd049706b,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.000000040861774
-      objectReference: {fileID: 0}
-    - target: {fileID: 4858463590572904790, guid: 148745a164cc7d64c80a746bd049706b,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4858463590572904790, guid: 148745a164cc7d64c80a746bd049706b,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.0000000018626449
-      objectReference: {fileID: 0}
-    - target: {fileID: 4858463590572904790, guid: 148745a164cc7d64c80a746bd049706b,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.0000011399387
-      objectReference: {fileID: 0}
-    - target: {fileID: 4858463590572904790, guid: 148745a164cc7d64c80a746bd049706b,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4858463590572904790, guid: 148745a164cc7d64c80a746bd049706b,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4858463590572904790, guid: 148745a164cc7d64c80a746bd049706b,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4858463590572904809, guid: 148745a164cc7d64c80a746bd049706b,
-        type: 3}
-      propertyPath: m_Name
-      value: CFXR3 Hit Light B (Air)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 148745a164cc7d64c80a746bd049706b, type: 3}
---- !u!4 &8771972551106816603 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4858463590572904790, guid: 148745a164cc7d64c80a746bd049706b,
-    type: 3}
-  m_PrefabInstance: {fileID: 4238155993083984653}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &8771972551106816612 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4858463590572904809, guid: 148745a164cc7d64c80a746bd049706b,
-    type: 3}
-  m_PrefabInstance: {fileID: 4238155993083984653}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5656093376914270632
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12752,6 +12673,92 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7702170732276949933, guid: 543c46c72f689374ca77125d67890919,
     type: 3}
   m_PrefabInstance: {fileID: 6315291811139467167}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6352939944308118815
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2046102328524594503}
+    m_Modifications:
+    - target: {fileID: 4858463590566129069, guid: 148745a164cc7d64c80a746bd049706b,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4858463590572904790, guid: 148745a164cc7d64c80a746bd049706b,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4858463590572904790, guid: 148745a164cc7d64c80a746bd049706b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.068440095
+      objectReference: {fileID: 0}
+    - target: {fileID: 4858463590572904790, guid: 148745a164cc7d64c80a746bd049706b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.024264151
+      objectReference: {fileID: 0}
+    - target: {fileID: 4858463590572904790, guid: 148745a164cc7d64c80a746bd049706b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.01087676
+      objectReference: {fileID: 0}
+    - target: {fileID: 4858463590572904790, guid: 148745a164cc7d64c80a746bd049706b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.000000040861774
+      objectReference: {fileID: 0}
+    - target: {fileID: 4858463590572904790, guid: 148745a164cc7d64c80a746bd049706b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4858463590572904790, guid: 148745a164cc7d64c80a746bd049706b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.0000000018626449
+      objectReference: {fileID: 0}
+    - target: {fileID: 4858463590572904790, guid: 148745a164cc7d64c80a746bd049706b,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.0000011399387
+      objectReference: {fileID: 0}
+    - target: {fileID: 4858463590572904790, guid: 148745a164cc7d64c80a746bd049706b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4858463590572904790, guid: 148745a164cc7d64c80a746bd049706b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4858463590572904790, guid: 148745a164cc7d64c80a746bd049706b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4858463590572904809, guid: 148745a164cc7d64c80a746bd049706b,
+        type: 3}
+      propertyPath: m_Name
+      value: CFXR3 Hit Light B (Air)_1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 148745a164cc7d64c80a746bd049706b, type: 3}
+--- !u!4 &1965425261321405513 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4858463590572904790, guid: 148745a164cc7d64c80a746bd049706b,
+    type: 3}
+  m_PrefabInstance: {fileID: 6352939944308118815}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1965425261321405558 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4858463590572904809, guid: 148745a164cc7d64c80a746bd049706b,
+    type: 3}
+  m_PrefabInstance: {fileID: 6352939944308118815}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6770553160248171754
 PrefabInstance:
