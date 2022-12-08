@@ -1603,6 +1603,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: usao_0321_2
       objectReference: {fileID: 0}
+    - target: {fileID: 8201303604326155634, guid: 4934e775091515f4c91c052402ebe77b,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 3c34944fe0bc4724d94546b6f3b2505c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4934e775091515f4c91c052402ebe77b, type: 3}
 --- !u!1 &123553472
@@ -13272,6 +13277,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2735768440183352091, guid: 69e0abd36a8324842835ff1afd552884,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 6e76c1b0b05ef684c8478b1a967ee94e, type: 2}
     - target: {fileID: 4315946335360097635, guid: 69e0abd36a8324842835ff1afd552884,
         type: 3}
       propertyPath: m_RootOrder
