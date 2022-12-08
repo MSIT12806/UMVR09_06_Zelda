@@ -57,7 +57,7 @@ public class Npc : MonoBehaviour
             materials.Add(b.materials[3]);
             oriColor = materials[0].GetColor("_RimLightColor");
             oriPower = materials[0].GetFloat("_RimLight_Power");
-            oriMask = materials[0].GetFloat("_RimLight_InsightMask");
+            oriMask = materials[0].GetFloat("_RimLight_InsideMask");
             //  print(c.name);
             //material = b.FirstOrDefault(i => i.name == "Mt_usao_Main");
         }
@@ -70,11 +70,18 @@ public class Npc : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        OnGround = StandOnTerrain();
+        collide = StaticCollision();
         TimePause();
         if (stopAnimationMoving > 0)
         {
             stopAnimationMoving--;
-            animator.applyRootMotion = false;
+            var hitInfos = Physics.OverlapSphere(transform.position + new Vector3(0, 0.7f, 0), stateManager.Radius, layerMask);
+            if (hitInfos.Count() > 0)
+            {
+
+                animator.applyRootMotion = false;
+            }
         }
     }
     bool pause;
@@ -107,17 +114,19 @@ public class Npc : MonoBehaviour
                 {
                     item.SetColor("_RimLightColor", oriColor);
                     item.SetFloat("_RimLight_Power", oriPower);
-                    item.SetFloat("_RimLight_InsightMask", oriMask);
+                    item.SetFloat("_RimLight_InsideMask", oriMask);
                 }
             }
         }
     }
     private void LateUpdate()
     {
-        OnGround = StandOnTerrain();
-        collide = StaticCollision();
+
+        if (!collide)
+        {
         NpcCollision();
-        LerpToNextPosition();
+            LerpToNextPosition();
+        }
         FreeFall();
     }
     float lerpTime;
@@ -191,8 +200,8 @@ public class Npc : MonoBehaviour
         collideFront = false;
         animator.applyRootMotion = true;
         var hitSomethingWhenMoving = Physics.SphereCast(this.transform.position + new Vector3(0, 0.7f, 0), radius, transform.forward, out var hitInfo, 0.5f, layerMask);
-
-        var hitSomething = hitSomethingWhenMoving || Physics.OverlapSphere(transform.position + new Vector3(0, 0.7f, 0), stateManager.Radius, layerMask).Count() > 0;
+        var hitInfos = Physics.OverlapSphere(transform.position + new Vector3(0, 0.7f, 0), stateManager.Radius, layerMask);
+        var hitSomething = hitSomethingWhenMoving || hitInfos.Count() > 0;
         if (hitSomething && hitInfo.transform != this.transform)
         {
             if (hitSomethingWhenMoving && this.name != "MainCharacter") //讓 npc 隨機旋轉，離開障礙物
@@ -203,6 +212,9 @@ public class Npc : MonoBehaviour
             }
             nextPosition = Vector3.zero;//取消程式位移
             collideFront = hitSomethingWhenMoving;
+
+            var closestPoint = hitInfos[0].ClosestPoint(transform.position);
+            transform.position -= (closestPoint - transform.position).normalized * 0.05f;
             return hitSomethingWhenMoving || hitSomething;//回報碰撞，取消美術位移
         }
         return false;
@@ -271,6 +283,7 @@ public class Npc : MonoBehaviour
         {
             if (collide)
             {
+                print("touch");
                 initVel.x = 0;
                 initVel.z = 0;
             }
@@ -310,8 +323,7 @@ public class Npc : MonoBehaviour
     int stopAnimationMoving;
     public void CancelMotionIfCollided(int keepFrame)
     {
-        if (collide)
-            stopAnimationMoving = keepFrame;
+        stopAnimationMoving = keepFrame;
     }
     //private void OnDrawGizmos()
     //{

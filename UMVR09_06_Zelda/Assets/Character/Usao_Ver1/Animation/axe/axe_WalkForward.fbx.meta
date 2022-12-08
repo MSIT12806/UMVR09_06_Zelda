@@ -59,7 +59,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.99143475
+        functionName: CancelMotionIfCollided
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: b9f6c11a6345888498622957e1896247,
+          type: 3}
+        floatParameter: 0
+        intParameter: 60
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -1080,7 +1088,8 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 83c01fa081054e041a3522a5c48b3353, type: 3}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 83c01fa081054e041a3522a5c48b3353,
+    type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1

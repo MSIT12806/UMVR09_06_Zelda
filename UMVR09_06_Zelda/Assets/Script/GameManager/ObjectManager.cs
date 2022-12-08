@@ -29,7 +29,7 @@ public class ObjectManager : MonoBehaviour
         AttackFx = new Queue<GameObject>(20);
         InitAttackFx();
         stageOneSpawnPoint = transform.FindAnyChild<Transform>("StageOneSpawnPoint");
-        //GenUsao(stageOneSpawnPoint.position, 10, 50);
+        GenUsao(stageOneSpawnPoint.position, 10, 50);
         NpcsAlive = GameObject.FindGameObjectsWithTag("Npc").ToDictionary(i => i.GetInstanceID());
         GameObject.FindGameObjectsWithTag("Player").ToList().ForEach(i => NpcsAlive.Add(i.GetInstanceID(), i));
 

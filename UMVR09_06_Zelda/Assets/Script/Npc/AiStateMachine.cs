@@ -405,7 +405,7 @@ public class UsaoHurtState : UsaoAiState
                 npc.PlayAnimation("GetHit.SwordAndShieldImpact01");
             if (npc.collide == false)
             {
-                npc.nextPosition = selfTransform.position + getHit.Force;
+                //npc.nextPosition = selfTransform.position + getHit.Force;//不知道為什麼  註解掉之後還是會擊飛
             }
                 
             return;

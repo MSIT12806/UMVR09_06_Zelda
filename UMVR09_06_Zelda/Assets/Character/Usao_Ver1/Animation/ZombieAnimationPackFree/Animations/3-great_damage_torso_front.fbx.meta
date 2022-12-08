@@ -929,7 +929,15 @@ ModelImporter:
         objectReferenceParameter: {fileID: 11500000, guid: b9f6c11a6345888498622957e1896247,
           type: 3}
         floatParameter: 0
-        intParameter: 50
+        intParameter: 80
+        messageOptions: 0
+      - time: 0.053633217
+        functionName: CancelMotionIfCollided
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: b9f6c11a6345888498622957e1896247,
+          type: 3}
+        floatParameter: 0
+        intParameter: 80
         messageOptions: 0
       transformMask: []
       maskType: 3
