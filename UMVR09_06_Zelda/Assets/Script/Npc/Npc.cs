@@ -1,3 +1,4 @@
+using Ron;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -31,9 +32,14 @@ public class Npc : MonoBehaviour
     public bool Alive { get => Hp > 0; }
     public bool OnGround;
     NpcHelper stateManager;
+    Material material;
+    Color oriColor = new Color(209, 209, 209);
+    float oriPower = 0.254f;
+    float oriMask = 0.199f;
     IKController ik;
     [HideInInspector] public float MaxHp;
     public float Hp;
+    public string MaterialAddress;
     private void Awake()
     {
         nextPosition = Vector3.zero;
@@ -41,6 +47,12 @@ public class Npc : MonoBehaviour
         picoState = GetComponent<PicoState>();
         MaxHp = Hp;
         ik = GetComponent<IKController>();
+        if (string.IsNullOrEmpty(MaterialAddress) == false)
+        {
+            var a = transform.FindAnyChild<Renderer>(MaterialAddress);
+            var b = a.materials;
+            material = b.FirstOrDefault(i => i.name == "Mt_usao_Main");
+        }
     }
     void Start()
     {
@@ -76,6 +88,12 @@ public class Npc : MonoBehaviour
             beforePauseNextPosition = Vector3.zero;
             animator.speed = beforePauseAnimatorSpeed;
             ik.enabled = true;
+            if (material != null)
+            {
+                material.SetColor("RimLightColor", oriColor);
+                material.SetFloat("RimLightPower", oriPower);
+                material.SetFloat("RimLight_InsightMask", oriMask);
+            }
         }
     }
     private void LateUpdate()
@@ -135,6 +153,12 @@ public class Npc : MonoBehaviour
             nextPosition = Vector3.zero;
 
             ik.enabled = false;
+            if (material != null)
+            {
+                material.SetColor("RimLightColor", new Color(255, 255, 0));
+                material.SetFloat("RimLightPower", 1);
+                material.SetFloat("RimLight_InsightMask", 0.0001f);
+            }
         }
     }
     public void PlayAnimation(string aniName)
