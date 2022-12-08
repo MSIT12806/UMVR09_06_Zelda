@@ -380,5 +380,12 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     {
         canRoll = true;
     }
+    void FootL() 
+    {
+    }
+    void FootR() 
+    {
+    }
+
 }
 
