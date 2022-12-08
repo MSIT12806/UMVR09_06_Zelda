@@ -158,4 +158,13 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
         jumpRandomDirection = (new Vector3(UnityEngine.Random.value - 0.5f, 0, UnityEngine.Random.value - 0.5f)).normalized;
         jump = 21;
     }
+
+    void FootL()
+    {
+
+    }
+    void FootR() 
+    {
+
+    }
 }

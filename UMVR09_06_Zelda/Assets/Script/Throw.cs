@@ -137,6 +137,7 @@ public class Throw : MonoBehaviour
     {
         SwordEffect1.SetActive(true);
         Sword.SetActive(false);
+        
     }
     public void SwordTrue() //讓劍出現（動作事件）
     {
