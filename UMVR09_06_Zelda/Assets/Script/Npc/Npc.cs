@@ -55,6 +55,9 @@ public class Npc : MonoBehaviour
             materials.Add(b.materials[0]);
             materials.Add(b.materials[2]);
             materials.Add(b.materials[3]);
+            oriColor = materials[0].GetColor("_RimLightColor");
+            oriPower = materials[0].GetFloat("_RimLight_Power");
+            oriMask = materials[0].GetFloat("_RimLight_InsightMask");
             //  print(c.name);
             //material = b.FirstOrDefault(i => i.name == "Mt_usao_Main");
         }
