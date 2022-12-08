@@ -932,7 +932,7 @@ public class GolemIdleState : GolemBaseState
         System.Random random = new System.Random();
         int rnd = random.Next(1, 11);//判斷要不要用技能
 
-        if (rnd == 1)
+        if (rnd == 1 && distance<=15)
         {
             //animator.SetTrigger("Skill");
             return new GolemSkillState(target, animator, selfTransform, nowArmor, npcHelper);
@@ -1118,6 +1118,16 @@ public class GolemWeakState : GolemBaseState
             animator.SetTrigger("Dead");
             return new GolemDeadState(target, animator, selfTransform, npcHelper);
         }
+
+        //切至roar (血量低於一半
+        if(npcData.Hp <= npcHelper.MaxHp / 2 && Once.CanSetShield == true)
+        {
+            animator.SetBool("ShowWeakness", false);
+            animator.SetTrigger("SetShield");
+            Once.CanSetShield = false;
+            return new GolemRoarState(target, animator, selfTransform, nowArmor, npcHelper);
+        }
+
         //露出時間結束 切回idle
         if (showWeaknessTime > WeakTime)
         {
@@ -1196,6 +1206,7 @@ public class GolemAttackState : GolemBaseState
     bool finish = false;
     float nowArmor;
     private bool goWeakState;
+    float inStateTime = 0f;
 
     public GolemAttackState(Transform t, Animator a, Transform self, float armor, NpcHelper npcHelper) : base(a, self, npcHelper)
     {
@@ -1256,7 +1267,8 @@ public class GolemAttackState : GolemBaseState
             return new GolemWeakState(target, animator, selfTransform, nowArmor, npcHelper);
         }
 
-        if (!currentAnimation.IsName("Attack02") && !currentAnimation.IsName("Attack01"))
+        inStateTime += Time.deltaTime;
+        if (!currentAnimation.IsName("Attack02") && !currentAnimation.IsName("Attack01") && inStateTime > 1)
         {
             if (finish)
             {
@@ -1468,10 +1480,12 @@ public class GolemRoarState : GolemBaseState
     float time = 0;
     AnimatorStateInfo currentAnimation;
     float nowArmor;
+    float inStateTime = 0f;
     public GolemRoarState(Transform t, Animator a, Transform self, float armor, NpcHelper nh) : base(a, self, nh)
     {
         target = t;
         nowArmor = armor;
+
     }
 
     public override void SetAnimation()
@@ -1490,7 +1504,8 @@ public class GolemRoarState : GolemBaseState
         //if (time > 4) finish = true;
         //Debug.Log(time);
         currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
-        if (!currentAnimation.IsName("Roar")) ;
+        inStateTime += Time.deltaTime;
+        if (!currentAnimation.IsName("Roar") && inStateTime > 1) 
         {
             Debug.Log("back to idle");
             return new GolemIdleState(target, animator, selfTransform, nowArmor, npcHelper);
