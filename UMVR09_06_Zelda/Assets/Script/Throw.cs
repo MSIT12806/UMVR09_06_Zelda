@@ -253,7 +253,7 @@ public class Throw : MonoBehaviour
         }
         else if (Explode == "Obj_Ice")
         {
-            NpcCommon.AttackDetection("Pico", itemEffect_pos, ItemEffect_obj.transform.forward, 360.0f, 2.7f, false, new DamageData(10, Vector3.zero, HitType.Heavy, new DamageStateInfo(DamageState.Ice, 3)), "Npc");
+            NpcCommon.AttackDetection("Pico", itemEffect_pos, ItemEffect_obj.transform.forward, 360.0f, 10f, false, new DamageData(10, Vector3.zero, HitType.Heavy, new DamageStateInfo(DamageState.Ice, 3)), "Npc");
         }
         else if(Explode == "FX_TimeStop")
         {
