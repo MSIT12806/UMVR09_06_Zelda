@@ -207,10 +207,9 @@ public class TPSCamera : MonoBehaviour
     }
     #endregion
 
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.DrawWireSphere(m_LookPoint.position, 0.5f);
-    //    Gizmos.color = Color.red;
-    //    Gizmos.DrawWireSphere(state.FollowPosition, 0.5f);
-    //}
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(m_LookPoint.position, 0.5f);
+    }
 }

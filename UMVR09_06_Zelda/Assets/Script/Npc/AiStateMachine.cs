@@ -234,7 +234,6 @@ public class UsaoFightState : UsaoAiState
     {
         //1. 總是面對主角
 
-        AiStateCommon.LookAtByIk(ik, ObjectManager.MainCharacterHead); 
         AiStateCommon.Turn(selfTransform, target.position - selfTransform.position);
         //AiStateCommon.Look(head, ObjectManager.MainCharacterHead);
 
@@ -359,13 +358,12 @@ public class UsaoHurtState : UsaoAiState
     UsaoFightState fightState;
     float deadTime;
     Npc npc;
-
     public UsaoHurtState(Animator a, Transform self, DamageData d, UsaoFightState fight, NpcHelper nh) : base(a, self, nh, "Hurt", null)
     {
         npc = selfTransform.GetComponent<Npc>();
         getHit = d;
         DoOnce();
-        self.GetComponent<IKController>().LookAtObj = null;
+        self.GetComponent<IKController>().enabled = false;
         fightState = fight;
     }
 
@@ -407,7 +405,7 @@ public class UsaoHurtState : UsaoAiState
             {
                 //npc.nextPosition = selfTransform.position + getHit.Force;//不知道為什麼  註解掉之後還是會擊飛
             }
-                
+
             return;
         }
         if (getHit.Hit == HitType.Heavy)
@@ -447,17 +445,24 @@ public class UsaoDeathState : UsaoAiState
             npc.PlayAnimation("GetHit.Standing React Death Right");
         else
             npc.PlayAnimation("GetHit.Standing React Death Left");
+
     }
 
     public override void SetAnimation()
     {
         if (Time.frameCount > deathTime + 180)
         {
-            var particleSystem = selfTransform.FindAnyChild<Transform>("FX_NPC_Die");
-            var fxGo = particleSystem.gameObject;
-            fxGo.transform.parent = null;
-            fxGo.SetActive(true);
+            //死亡程序
+            var fxGo = ObjectManager.DieFx.Dequeue();
+            fxGo.transform.position = selfTransform.position;
+            selfTransform.position.AddY(-1000);
+            ObjectManager.NpcsAlive.Remove(selfTransform.gameObject.GetInstanceID());
+            if (npc.gameState == GameState.FirstStage)
+                ObjectManager.StageOneUsaoPool.Add(selfTransform.gameObject.GetInstanceID(), selfTransform.gameObject);
+            ObjectManager.StageMonsterMonitor[1]--;
             selfTransform.gameObject.SetActive(false);
+            fxGo.SetActive(true);
+            ObjectManager.DieFx.Enqueue(fxGo);
         }
     }
 
@@ -898,7 +903,7 @@ public class GolemIdleState : GolemBaseState
         if (picoState.gameState != GameState.ThridStage)
             return this;
         //切至Roar (血量低於50% //do once
-        if (npcData.Hp <= npcHelper.MaxHp/2 && Once.CanSetShield)
+        if (npcData.Hp <= npcHelper.MaxHp / 2 && Once.CanSetShield)
         {
             Once.CanSetShield = false;
             animator.SetTrigger("SetShield");
@@ -1311,10 +1316,10 @@ public class GolemSkillState : GolemBaseState
         if (currentAnimation.IsName("Skill 0")) moveSpeed = 0.3f;
         else if (currentAnimation.IsName("Skill2 0")) moveSpeed = 0.5f;
 
-        if( !(currentAnimation.IsName("Skill") ))
+        if (!(currentAnimation.IsName("Skill")))
             LookAt();
 
-        if(currentAnimation.IsName("Skill 0"))//Skill1 程式位移
+        if (currentAnimation.IsName("Skill 0"))//Skill1 程式位移
         {
             float dis = (target.position - selfTransform.position).magnitude;
             if (dis > 4f)
@@ -1411,13 +1416,13 @@ public class GolemSkillState : GolemBaseState
         //玩家利用西卡之石破解技能 切至ArmorBreak
         if (AttackFlaw)
         {
-           
+
             animator.SetTrigger("SheikahDefense");
             return new GolemWeakState(target, animator, selfTransform, nowArmor, npcHelper);
         }
         //技能施放結束 切回idle
         inStateTime += Time.deltaTime;
-        if ( !animator.IsInTransition(0)  && currentAnimation.IsName("Idle") && inStateTime > 1) //|| currentAnimation.IsName("Skill 0") || currentAnimation.IsName("Skill2") || currentAnimation.IsName("Skill2 0")
+        if (!animator.IsInTransition(0) && currentAnimation.IsName("Idle") && inStateTime > 1) //|| currentAnimation.IsName("Skill 0") || currentAnimation.IsName("Skill2") || currentAnimation.IsName("Skill2 0")
         {
             //Debug.Log(currentAnimation.IsName("Skill 0"));
             //Debug.Log(currentAnimation.IsName("Skill2"));

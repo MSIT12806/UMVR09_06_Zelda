@@ -70,6 +70,8 @@ public class Npc : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (gameObject.activeSelf == false) return;
+
         OnGround = StandOnTerrain();
         collide = StaticCollision();
         TimePause();

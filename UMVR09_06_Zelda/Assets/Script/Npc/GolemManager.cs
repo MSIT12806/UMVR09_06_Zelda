@@ -40,7 +40,6 @@ public float WeakPoint => throw new System.NotImplementedException();
     {
         aiState.SetAnimation();
         aiState = aiState.SwitchState();
-        Debug.Log(aiState.ToString());
     }
     public void GetHurt(DamageData damageData)
     {
