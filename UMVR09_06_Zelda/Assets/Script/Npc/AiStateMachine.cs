@@ -180,7 +180,6 @@ public class UsaoFightState : UsaoAiState
     Transform target;
     Transform head;
     Vector3 direction;
-    IKController ik;
     float dazeSeconds;
     float keepDistance = 10f;
     float attackDistance = 2f;
@@ -191,7 +190,6 @@ public class UsaoFightState : UsaoAiState
         animator.SetBool("findTarget", true);
         head = selfTransform.FindAnyChild<Transform>("Character1_Head");
         RefreshDazeTime();
-        ik = selfTransform.GetComponent<IKController>();
         keepOrAttack = UnityEngine.Random.value;
     }
     public override AiState SwitchState()
@@ -234,8 +232,7 @@ public class UsaoFightState : UsaoAiState
     {
         //1. 總是面對主角
 
-        AiStateCommon.LookAtByIk(ik, ObjectManager.MainCharacterHead); 
-        AiStateCommon.Turn(selfTransform, target.position - selfTransform.position);
+       
         //AiStateCommon.Look(head, ObjectManager.MainCharacterHead);
 
         TauntRandomly();
@@ -359,13 +356,11 @@ public class UsaoHurtState : UsaoAiState
     UsaoFightState fightState;
     float deadTime;
     Npc npc;
-
     public UsaoHurtState(Animator a, Transform self, DamageData d, UsaoFightState fight, NpcHelper nh) : base(a, self, nh, "Hurt", null)
     {
         npc = selfTransform.GetComponent<Npc>();
         getHit = d;
         DoOnce();
-        self.GetComponent<IKController>().LookAtObj = null;
         fightState = fight;
     }
 
@@ -407,7 +402,7 @@ public class UsaoHurtState : UsaoAiState
             {
                 //npc.nextPosition = selfTransform.position + getHit.Force;//不知道為什麼  註解掉之後還是會擊飛
             }
-                
+
             return;
         }
         if (getHit.Hit == HitType.Heavy)
@@ -447,17 +442,24 @@ public class UsaoDeathState : UsaoAiState
             npc.PlayAnimation("GetHit.Standing React Death Right");
         else
             npc.PlayAnimation("GetHit.Standing React Death Left");
+
     }
 
     public override void SetAnimation()
     {
         if (Time.frameCount > deathTime + 180)
         {
-            var particleSystem = selfTransform.FindAnyChild<Transform>("FX_NPC_Die");
-            var fxGo = particleSystem.gameObject;
-            fxGo.transform.parent = null;
-            fxGo.SetActive(true);
+            //死亡程序
+            var fxGo = ObjectManager.DieFx.Dequeue();
+            fxGo.transform.position = selfTransform.position;
+            selfTransform.position.AddY(-1000);//移出場外以免打擊判定與推擠判定
+            ObjectManager.NpcsAlive.Remove(selfTransform.gameObject.GetInstanceID()); //移出活人池增益效能
+            if (npc.gameState == GameState.FirstStage)
+                ObjectManager.StageOneUsaoPool.Add(selfTransform.gameObject.GetInstanceID(), selfTransform.gameObject);//移入備用池
+            ObjectManager.StageMonsterMonitor[1]--;//怪物數量監控
             selfTransform.gameObject.SetActive(false);
+            fxGo.SetActive(true);
+            ObjectManager.DieFx.Enqueue(fxGo);
         }
     }
 
@@ -898,7 +900,7 @@ public class GolemIdleState : GolemBaseState
         if (picoState.gameState != GameState.ThridStage)
             return this;
         //切至Roar (血量低於50% //do once
-        if (npcData.Hp <= npcHelper.MaxHp/2 && Once.CanSetShield)
+        if (npcData.Hp <= npcHelper.MaxHp / 2 && Once.CanSetShield)
         {
             Once.CanSetShield = false;
             animator.SetTrigger("SetShield");
@@ -927,7 +929,7 @@ public class GolemIdleState : GolemBaseState
         System.Random random = new System.Random();
         int rnd = random.Next(1, 11);//判斷要不要用技能
 
-        if (rnd == 1)
+        if (rnd == 1 && distance<=15)
         {
             //animator.SetTrigger("Skill");
             return new GolemSkillState(target, animator, selfTransform, nowArmor, npcHelper);
@@ -1113,6 +1115,16 @@ public class GolemWeakState : GolemBaseState
             animator.SetTrigger("Dead");
             return new GolemDeadState(target, animator, selfTransform, npcHelper);
         }
+
+        //切至roar (血量低於一半
+        if(npcData.Hp <= npcHelper.MaxHp / 2 && Once.CanSetShield == true)
+        {
+            animator.SetBool("ShowWeakness", false);
+            animator.SetTrigger("SetShield");
+            Once.CanSetShield = false;
+            return new GolemRoarState(target, animator, selfTransform, nowArmor, npcHelper);
+        }
+
         //露出時間結束 切回idle
         if (showWeaknessTime > WeakTime)
         {
@@ -1191,6 +1203,7 @@ public class GolemAttackState : GolemBaseState
     bool finish = false;
     float nowArmor;
     private bool goWeakState;
+    float inStateTime = 0f;
 
     public GolemAttackState(Transform t, Animator a, Transform self, float armor, NpcHelper npcHelper) : base(a, self, npcHelper)
     {
@@ -1251,7 +1264,8 @@ public class GolemAttackState : GolemBaseState
             return new GolemWeakState(target, animator, selfTransform, nowArmor, npcHelper);
         }
 
-        if (!currentAnimation.IsName("Attack02") && !currentAnimation.IsName("Attack01"))
+        inStateTime += Time.deltaTime;
+        if (!currentAnimation.IsName("Attack02") && !currentAnimation.IsName("Attack01") && inStateTime > 1)
         {
             if (finish)
             {
@@ -1311,10 +1325,10 @@ public class GolemSkillState : GolemBaseState
         if (currentAnimation.IsName("Skill 0")) moveSpeed = 0.3f;
         else if (currentAnimation.IsName("Skill2 0")) moveSpeed = 0.5f;
 
-        if( !(currentAnimation.IsName("Skill") ))
+        if (!(currentAnimation.IsName("Skill")))
             LookAt();
 
-        if(currentAnimation.IsName("Skill 0"))//Skill1 程式位移
+        if (currentAnimation.IsName("Skill 0"))//Skill1 程式位移
         {
             float dis = (target.position - selfTransform.position).magnitude;
             if (dis > 4f)
@@ -1411,13 +1425,13 @@ public class GolemSkillState : GolemBaseState
         //玩家利用西卡之石破解技能 切至ArmorBreak
         if (AttackFlaw)
         {
-           
+
             animator.SetTrigger("SheikahDefense");
             return new GolemWeakState(target, animator, selfTransform, nowArmor, npcHelper);
         }
         //技能施放結束 切回idle
         inStateTime += Time.deltaTime;
-        if ( !animator.IsInTransition(0)  && currentAnimation.IsName("Idle") && inStateTime > 1) //|| currentAnimation.IsName("Skill 0") || currentAnimation.IsName("Skill2") || currentAnimation.IsName("Skill2 0")
+        if (!animator.IsInTransition(0) && currentAnimation.IsName("Idle") && inStateTime > 1) //|| currentAnimation.IsName("Skill 0") || currentAnimation.IsName("Skill2") || currentAnimation.IsName("Skill2 0")
         {
             //Debug.Log(currentAnimation.IsName("Skill 0"));
             //Debug.Log(currentAnimation.IsName("Skill2"));
@@ -1463,10 +1477,12 @@ public class GolemRoarState : GolemBaseState
     float time = 0;
     AnimatorStateInfo currentAnimation;
     float nowArmor;
+    float inStateTime = 0f;
     public GolemRoarState(Transform t, Animator a, Transform self, float armor, NpcHelper nh) : base(a, self, nh)
     {
         target = t;
         nowArmor = armor;
+
     }
 
     public override void SetAnimation()
@@ -1485,7 +1501,8 @@ public class GolemRoarState : GolemBaseState
         //if (time > 4) finish = true;
         //Debug.Log(time);
         currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
-        if (!currentAnimation.IsName("Roar")) ;
+        inStateTime += Time.deltaTime;
+        if (!currentAnimation.IsName("Roar") && inStateTime > 1) 
         {
             Debug.Log("back to idle");
             return new GolemIdleState(target, animator, selfTransform, nowArmor, npcHelper);
