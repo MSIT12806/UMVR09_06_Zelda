@@ -501,14 +501,12 @@ public class DragonFightState : AiState
 {
     Transform target;
     Transform head;
-    float flyHpLimit;
     float attackWait = AiStateCommon.RandonAttackScale();
     float dazeSeconds;
     public DragonFightState(Transform t, Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Fight", t.GetComponent<PicoState>())
     {
         target = t;
         head = self.FindAnyChild<Transform>("Head");
-        flyHpLimit = npcHelper.Hp / 2;
         RefreshDazeTime();
     }
 
@@ -525,31 +523,27 @@ public class DragonFightState : AiState
 
     public override AiState SwitchState()
     {
-        if (npcHelper.Hp <= 0) return new DragonDeathState(animator, selfTransform, npcHelper);
-        if (npcHelper.Hp < flyHpLimit)
-        {
-            return new DragonFlyState(target, animator, selfTransform, npcHelper);
-        }
-        if (attackWait > 0)
-        {
-            attackWait -= Time.deltaTime;
-            return this;
-        }
-        // do attack
-        var distance = Vector3.Distance(target.position, selfTransform.position);
-        //還差衝鋒
-        if (distance <= 3f)
-        {
-            animator.SetTrigger("TailHit");
-        }
-        if (distance <= 8f)
-        {
-            animator.SetTrigger("FireHit");
-        }
-        else
-        {
-            return new DragonChaseState(this, target, animator, selfTransform, npcHelper);
-        }
+        //if (npcHelper.Hp <= 0) return new DragonDeathState(animator, selfTransform, npcHelper);
+        //if (attackWait > 0)
+        //{
+        //    attackWait -= Time.deltaTime;
+        //    return this;
+        //}
+        //// do attack
+        //var distance = Vector3.Distance(target.position, selfTransform.position);
+        ////還差衝鋒
+        //if (distance <= 3f)
+        //{
+        //    animator.SetTrigger("TailHit");
+        //}
+        //if (distance <= 8f)
+        //{
+        //    animator.SetTrigger("FireHit");
+        //}
+        //else
+        //{
+        //    return new DragonChaseState(this, target, animator, selfTransform, npcHelper);
+        //}
 
         RefreshDazeTime();
         return this;
@@ -588,7 +582,7 @@ public class DragonFlyState : AiState
 
     public override AiState SwitchState()
     {
-        if (npcHelper.Hp <= 0) return new DragonDeathState(animator, selfTransform, npcHelper);
+        //if (npcHelper.Hp <= 0) return new DragonDeathState(animator, selfTransform, npcHelper);
         if (npcHelper.Hp < npcHelper.MaxHp) return new DragonFightState(target, animator, selfTransform, npcHelper);
         dazeSeconds -= Time.deltaTime;
         if (dazeSeconds > 0) return this;
@@ -679,7 +673,7 @@ public class DragonChaseState : AiState
 
     public override AiState SwitchState()
     {
-        if (npcHelper.Hp <= 0) return new DragonDeathState(animator, selfTransform, npcHelper);
+        //if (npcHelper.Hp <= 0) return new DragonDeathState(animator, selfTransform, npcHelper);
 
         var distance = Vector3.Distance(selfTransform.position, target.position);
         if (distance > 8)
@@ -708,7 +702,7 @@ public class DragonAttackState : AiState
     }
     public override AiState SwitchState()
     {
-        if (npcHelper.Hp <= 0) return new DragonDeathState(animator, selfTransform, npcHelper);
+        //if (npcHelper.Hp <= 0) return new DragonDeathState(animator, selfTransform, npcHelper);
         if (attack)
         {
             var r = UnityEngine.Random.value;
@@ -745,25 +739,9 @@ public class DragonDizzyState : AiState
 
     public override AiState SwitchState()
     {
-        if (npcHelper.Hp <= 0) return new DragonDeathState(animator, selfTransform, npcHelper);
+        //if (npcHelper.Hp <= 0) return new DragonDeathState(animator, selfTransform, npcHelper);
 
         return this;
-    }
-}
-public class DragonDeathState : AiState
-{
-    public DragonDeathState(Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Death", null)
-    {
-    }
-
-    public override void SetAnimation()
-    {
-        throw new NotImplementedException();
-    }
-
-    public override AiState SwitchState()
-    {
-        throw new NotImplementedException();
     }
 }
 public static class AiStateCommon

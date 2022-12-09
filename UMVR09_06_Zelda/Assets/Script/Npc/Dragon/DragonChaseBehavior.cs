@@ -3,9 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UsaoFightBehavior : StateMachineBehaviour
+public class DragonChaseBehavior : StateMachineBehaviour
 {
-    float dazeSeconds;
     Transform target;
     DragonManager manager;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
@@ -23,29 +22,11 @@ public class UsaoFightBehavior : StateMachineBehaviour
     {
         if (manager.Hp <= 0) animator.Play("Die");
         AiStateCommon.Turn(animator.transform, ObjectManager.MainCharacter.position - animator.transform.position);
-        if (dazeSeconds > 0)
-        {
-            dazeSeconds -= Time.deltaTime;
-        }
-        var distance = Vector3.Distance(target.position, animator.transform.position);
-        //還差衝鋒
-        if (distance <= 3f)
-        {
-            animator.SetTrigger("TailHit");
-        }
-        if (distance <= 8f)
-        {
-            animator.SetTrigger("FireHit");
-        }
-        else
-        {
-            animator.SetBool("Move", true);
-        }
+        var distance = Vector3.Distance(animator.transform.position, target.position);
+        if (distance <= 8)
+            animator.SetBool("Move", false);
     }
-    void RefreshDazeTime()
-    {
-        dazeSeconds = UnityEngine.Random.Range(3, 6);
-    }
+
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     //{
