@@ -92,9 +92,11 @@ public class DragonManager : MonoBehaviour, NpcHelper
 
     }
 
+    private int moveFrame;
     int moveType;
     public void SetMove(int m)
     {
+        moveFrame = 35;
         moveType = m;
     }
 
@@ -112,17 +114,21 @@ public class DragonManager : MonoBehaviour, NpcHelper
     public void Move()
     {
         if (npc.collideFront) return;
-        switch (moveType)
+        if (moveFrame > 0)
         {
-            case 1://walk
-                transform.position += transform.forward * 0.05f;
-                return;
-            case 2://run
-                transform.position += transform.forward * 0.10f;
-                return;
-            case 3://fly
-                transform.position += transform.forward * 0.15f;
-                return;
+            moveFrame--;
+            switch (moveType)
+            {
+                case 1://walk
+                    transform.position += transform.forward * 0.05f;
+                    return;
+                case 2://run
+                    transform.position += transform.forward * 0.10f;
+                    return;
+                case 3://fly
+                    transform.position += transform.forward * 0.3f;
+                    return;
+            }
         }
     }
 

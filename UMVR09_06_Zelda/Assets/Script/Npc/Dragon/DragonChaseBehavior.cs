@@ -37,7 +37,7 @@ public class DragonChaseBehavior : StateMachineBehaviour
     {
         if (manager.Hp <= 0) animator.Play("Die");
         var d = Vector3.Distance(flyPoint, animator.transform.position);
-        if (lastDistance - d > 0.001f)
+        if (lastDistance - d > 0.2f)
         {
             lastDistance = d;
         }
