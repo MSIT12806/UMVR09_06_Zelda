@@ -41,7 +41,6 @@ public class DragonManager : MonoBehaviour, NpcHelper
     }
     void Update()
     {
-        Move();
         DebugExtension.DebugWireSphere(ArrivePoint, 1);
     }
     // Update is called once per frame
@@ -94,11 +93,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
 
     private int moveFrame;
     int moveType;
-    public void SetMove(int m)
-    {
-        moveFrame = 35;
-        moveType = m;
-    }
+   
 
     public void Turn(Vector3 direction)
     {
