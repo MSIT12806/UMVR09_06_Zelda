@@ -32,7 +32,7 @@ public class DragonFireBallBehavior : StateMachineBehaviour
     override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if (manager.Hp <= 0) animator.Play("Die");
-        Turn(animator.transform, ObjectManager.MainCharacter.position - animator.transform.position);
+        AiStateCommon.Turn(animator.transform, ObjectManager.MainCharacter.position - animator.transform.position);
         Turn(head, ObjectManager.MainCharacter.position - head.transform.position);
     }
 

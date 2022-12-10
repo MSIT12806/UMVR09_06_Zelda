@@ -60,6 +60,7 @@ public class ObjectManager : MonoBehaviour
             item.enabled = false;
         }
 
+        //FirstStage
         GenUsao(stageOneSpawnPoint.position, 10, 15 , GameState.FirstStage);
         GenUsao2(stageOneSpawnPoint.position, 10, 5 , GameState.FirstStage);
         GenUsaoSword(stageOneSpawnPoint.position, 10, 10 , GameState.FirstStage);

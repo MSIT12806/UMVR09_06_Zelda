@@ -38,9 +38,6 @@ public class DragonIdleBehavior : StateMachineBehaviour
                 return;
             }
 
-            AiStateCommon.Turn(animator.transform, target.position - animator.transform.position);
-            AiStateCommon.Look(head, target);
-
             if (dazeSeconds > 0)
             {
                 dazeSeconds -= Time.deltaTime;
@@ -75,10 +72,16 @@ public class DragonIdleBehavior : StateMachineBehaviour
     //}
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
-    //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    // Implement code that processes and affects root motion
-    //}
+    override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        if (fightState)
+        {
+
+            AiStateCommon.Turn(animator.transform, target.position - animator.transform.position);
+            AiStateCommon.Look(head, target);
+
+        }
+    }
 
     // OnStateIK is called right after Animator.OnAnimatorIK()
     //override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
