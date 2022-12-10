@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class DragonManager : MonoBehaviour, NpcHelper
 {
-    AiState aiState;
     Npc npc;
     public float Hp { get => npc.Hp; set => npc.Hp = value; }
     public float MaxHp => npc.MaxHp;
@@ -23,6 +22,8 @@ public class DragonManager : MonoBehaviour, NpcHelper
 
     public float CollisionDisplacement => 0;
 
+    public Vector3 ArrivePoint { get;  set; }
+
     bool canBeKnockedOut;
     bool dizzy;
 
@@ -36,18 +37,17 @@ public class DragonManager : MonoBehaviour, NpcHelper
     }
     void Start()
     {
-        aiState = new DragonIdleState(ObjectManager.MainCharacter, transform.GetComponent<Animator>(), transform, this);
         weakPoint = MaxWeakPoint;
     }
     void Update()
     {
         Move();
+        DebugExtension.DebugWireSphere(ArrivePoint, 1);
     }
     // Update is called once per frame
     void FixedUpdate()
     {
-        aiState.SetAnimation();
-        aiState = aiState.SwitchState();
+        
     }
     bool flyState;
     public void GetHurt(DamageData damageData)
@@ -92,9 +92,11 @@ public class DragonManager : MonoBehaviour, NpcHelper
 
     }
 
+    private int moveFrame;
     int moveType;
     public void SetMove(int m)
     {
+        moveFrame = 35;
         moveType = m;
     }
 
@@ -112,17 +114,21 @@ public class DragonManager : MonoBehaviour, NpcHelper
     public void Move()
     {
         if (npc.collideFront) return;
-        switch (moveType)
+        if (moveFrame > 0)
         {
-            case 1://walk
-                transform.position += transform.forward * 0.05f;
-                return;
-            case 2://run
-                transform.position += transform.forward * 0.10f;
-                return;
-            case 3://fly
-                transform.position += transform.forward * 0.15f;
-                return;
+            moveFrame--;
+            switch (moveType)
+            {
+                case 1://walk
+                    transform.position += transform.forward * 0.05f;
+                    return;
+                case 2://run
+                    transform.position += transform.forward * 0.10f;
+                    return;
+                case 3://fly
+                    transform.position += transform.forward * 0.3f;
+                    return;
+            }
         }
     }
 

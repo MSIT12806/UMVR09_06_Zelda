@@ -3,20 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UsaoFightBehavior : StateMachineBehaviour
+public class DragonFireBallBehavior : StateMachineBehaviour
 {
+    Transform target;
+    DragonManager manager;
+    Transform head;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        var ik = animator.transform.GetComponent<IKController>();
-        ik.enabled = true;
-        ik.LookAtObj = ObjectManager.MainCharacter.FindAnyChild<Transform>("Head");
+        target = ObjectManager.MainCharacter;
+        manager = animator.transform.GetComponent<DragonManager>();
+        head = animator.transform.FindAnyChild<Transform>("Head");
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        AiStateCommon.Turn(animator.transform, ObjectManager.MainCharacter.position - animator.transform.position);
+
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
@@ -26,14 +29,34 @@ public class UsaoFightBehavior : StateMachineBehaviour
     //}
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
-    //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    // Implement code that processes and affects root motion
-    //}
+    override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        if (manager.Hp <= 0) animator.Play("Die");
+        Turn(animator.transform, ObjectManager.MainCharacter.position - animator.transform.position);
+        Turn(head, ObjectManager.MainCharacter.position - head.transform.position);
+    }
 
     // OnStateIK is called right after Animator.OnAnimatorIK()
     //override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     //{
     //    // Implement code that sets up animation IK (inverse kinematics)
     //}
+
+    bool Turn(Transform body, Vector3 direction)
+    {
+        var degree = Vector3.SignedAngle(-body.right.WithY(), direction.WithY(), Vector3.up);
+        if (degree < -1)
+        {
+            body.Rotate(Vector3.up, -2);
+            return true;
+
+        }
+        else if (degree > 1)
+        {
+            body.Rotate(Vector3.up, 2);
+            return true;
+        }
+
+        return false;
+    }
 }
