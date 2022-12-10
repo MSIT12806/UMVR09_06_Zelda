@@ -470,280 +470,10 @@ public class UsaoDeathState : UsaoAiState
 }
 #endregion
 
-#region Dragon State Machine
-
-public class DragonIdleState : AiState
-{
-    Transform target;
-    public DragonIdleState(Transform t, Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Idle", t.GetComponent<PicoState>())
-    {
-        target = t;
-    }
-
-    public override void SetAnimation()
-    {
-    }
-
-    public override AiState SwitchState()
-    {
-        //如果pico 走進該區域， return new DragonFightState();
-        var stage = target.GetComponent<PicoState>();
-
-        if ((int)stage.gameState == 2)
-            return new DragonFlyState(target, animator, selfTransform, npcHelper);
-
-
-        return this;
-    }
-}
-
-public class DragonFightState : AiState
-{
-    Transform target;
-    Transform head;
-    float attackWait = AiStateCommon.RandonAttackScale();
-    float dazeSeconds;
-    public DragonFightState(Transform t, Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Fight", t.GetComponent<PicoState>())
-    {
-        target = t;
-        head = self.FindAnyChild<Transform>("Head");
-        RefreshDazeTime();
-    }
-
-    public void RefreshDazeTime()
-    {
-        animator.SetBool("Move", false);
-        dazeSeconds = UnityEngine.Random.Range(3, 6);
-    }
-    public override void SetAnimation()
-    {
-        AiStateCommon.Turn(selfTransform, target.position - selfTransform.position);
-        AiStateCommon.Look(head, target);
-    }
-
-    public override AiState SwitchState()
-    {
-        //if (npcHelper.Hp <= 0) return new DragonDeathState(animator, selfTransform, npcHelper);
-        //if (attackWait > 0)
-        //{
-        //    attackWait -= Time.deltaTime;
-        //    return this;
-        //}
-        //// do attack
-        //var distance = Vector3.Distance(target.position, selfTransform.position);
-        ////還差衝鋒
-        //if (distance <= 3f)
-        //{
-        //    animator.SetTrigger("TailHit");
-        //}
-        //if (distance <= 8f)
-        //{
-        //    animator.SetTrigger("FireHit");
-        //}
-        //else
-        //{
-        //    return new DragonChaseState(this, target, animator, selfTransform, npcHelper);
-        //}
-
-        RefreshDazeTime();
-        return this;
-
-    }
-}
 
 /// <summary>
 /// 可以說是 飛翔狀態的 FightState
 /// </summary>
-public class DragonFlyState : AiState
-{
-    Transform target;
-    float dazeSeconds;
-    Transform head;
-    Vector3 turnPoint;
-    public DragonFlyState(Transform target, Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Fight", target.GetComponent<PicoState>())
-    {
-        head = self.FindAnyChild<Transform>("Head");
-        this.target = target;
-        //不再受到任何攻擊，除非將其擊落(丟炸彈)
-        animator.SetBool("Fly", nh.Hp >= nh.MaxHp);
-        //一直噴火球兒
-    }
-
-    public void RefreshDazeTime()
-    {
-        animator.SetBool("Move", false);
-        dazeSeconds = UnityEngine.Random.Range(1, 3);
-    }
-    public override void SetAnimation()
-    {
-        AiStateCommon.Turn(selfTransform, target.position - selfTransform.position);
-        //AiStateCommon.Look(head, target);
-    }
-
-    public override AiState SwitchState()
-    {
-        //if (npcHelper.Hp <= 0) return new DragonDeathState(animator, selfTransform, npcHelper);
-        if (npcHelper.Hp < npcHelper.MaxHp) return new DragonFightState(target, animator, selfTransform, npcHelper);
-        dazeSeconds -= Time.deltaTime;
-        if (dazeSeconds > 0) return this;
-
-        var distance = Vector3.Distance(selfTransform.position, target.position);
-        // 距離 >10 || <5 追
-        if (distance > 10 || distance < 5)
-        {
-            var randomDir = new Vector3(UnityEngine.Random.value, 0, UnityEngine.Random.value).normalized;
-            var flyPoint = target.position + randomDir * 7.5f;
-            int flyFrame = (int)Math.Ceiling(Vector3.Distance(selfTransform.position.WithY(), flyPoint.WithY()) / 0.15f);
-            return new DragonFlyChaseState(this, animator, selfTransform, npcHelper, flyPoint, flyFrame);
-        }
-        else
-        {
-            // 發呆完吐火球
-            if (dazeSeconds <= 0)
-            {
-                animator.SetTrigger("FireHit");
-            }
-            RefreshDazeTime();
-            return this;
-        }
-    }
-}
-public class DragonFlyChaseState : AiState
-{
-    /*
-* 1. 保持 5~10公尺的距離， 太遠或太近就使用這個狀態來移動。
-*/
-
-    Vector3 vec;
-    int flyFrameCount;
-    DragonFlyState flyFightState;
-    public DragonFlyChaseState(DragonFlyState flyState, Animator a, Transform self, NpcHelper nh, Vector3 position, int flyFrameCount = 150) : base(a, self, nh, "Chase", null)
-    {
-        flyFightState = flyState;
-        vec = (position - self.position).normalized;
-        this.flyFrameCount = flyFrameCount;
-        Debug.Log(flyFrameCount);
-    }
-    bool move;
-    public override void SetAnimation()
-    {
-        if (!move)
-        {
-            move = !AiStateCommon.Turn(selfTransform, vec);
-        }
-        if (move)
-            animator.SetBool("Move", true);
-
-    }
-
-    public override AiState SwitchState()
-    {
-        if (move)
-            flyFrameCount--;
-
-        if (flyFrameCount < 1)
-        {
-            flyFightState.RefreshDazeTime();
-            return flyFightState;
-        }
-
-        return this;
-    }
-}
-public class DragonChaseState : AiState
-{
-    Transform target;
-    bool move;
-    Vector3 vec;
-    DragonFightState fight;
-    public DragonChaseState(DragonFightState fightState, Transform t, Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Chase", null)
-    {
-        target = t;
-        fight = fightState;
-        Debug.Log("Chase");
-        animator.SetBool("Move", true);
-    }
-
-    public override void SetAnimation()
-    {
-        //面向 pico
-        //朝著 pico 用 aStar 做 seek ，直到攻擊範圍內
-        AiStateCommon.Turn(selfTransform, vec);
-    }
-
-    public override AiState SwitchState()
-    {
-        //if (npcHelper.Hp <= 0) return new DragonDeathState(animator, selfTransform, npcHelper);
-
-        var distance = Vector3.Distance(selfTransform.position, target.position);
-        if (distance > 8)
-        {
-            return this;
-        }
-        else return fight;
-    }
-}
-public class DragonAttackState : AiState
-{
-    bool attack;
-    string triggerName;
-    Transform target;
-    DragonFightState fightState;
-    public DragonAttackState(DragonFightState state, Transform transform, string trigger, Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Attack", null)
-    {
-        this.triggerName = trigger;
-        this.target = transform;
-        fightState = state;
-    }
-    public override void SetAnimation()
-    {
-        animator.SetTrigger(triggerName);
-        attack = true;
-    }
-    public override AiState SwitchState()
-    {
-        //if (npcHelper.Hp <= 0) return new DragonDeathState(animator, selfTransform, npcHelper);
-        if (attack)
-        {
-            var r = UnityEngine.Random.value;
-            if (r < 0.3f)
-            {
-                animator.SetTrigger("BasicHit");
-            }
-            else if (r < 0.6f)
-            {
-                animator.SetTrigger("TailHit");
-            }
-            else if (r < 0.6f)
-            {
-                animator.SetTrigger("FireHit");
-            }
-            fightState.RefreshDazeTime();
-            return fightState;
-        }
-
-
-        return this;
-    }
-}
-public class DragonDizzyState : AiState
-{
-    public DragonDizzyState(Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Dizzy", null)
-    {
-    }
-
-    public override void SetAnimation()
-    {
-        throw new NotImplementedException();
-    }
-
-    public override AiState SwitchState()
-    {
-        //if (npcHelper.Hp <= 0) return new DragonDeathState(animator, selfTransform, npcHelper);
-
-        return this;
-    }
-}
 public static class AiStateCommon
 {
 
@@ -751,15 +481,15 @@ public static class AiStateCommon
     public static bool Turn(Transform body, Vector3 direction)
     {
         var degree = Vector3.SignedAngle(body.forward.WithY(), direction.WithY(), Vector3.up);
-        if (degree < -1)
+        if (degree < -4)
         {
-            body.Rotate(Vector3.up, -2);
+            body.Rotate(Vector3.up, -4);
             return true;
 
         }
-        else if (degree > 1)
+        else if (degree > 4)
         {
-            body.Rotate(Vector3.up, 2);
+            body.Rotate(Vector3.up, 4);
             return true;
         }
 
@@ -812,7 +542,6 @@ public static class AiStateCommon
         selfIk.LookAtObj = targetHead;
     }
 }
-#endregion
 
 #region Golem State Machine
 public static class Once

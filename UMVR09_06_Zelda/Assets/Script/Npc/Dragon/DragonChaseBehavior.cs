@@ -2,42 +2,50 @@ using Ron;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.Utility;
 
 public class DragonChaseBehavior : StateMachineBehaviour
 {
     Transform target;
     DragonManager manager;
+    Npc npc;
+    Vector3 flyPoint;
+    float lastDistance = float.MaxValue - 100;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         target = ObjectManager.MainCharacter;
-        var ik = animator.transform.GetComponent<IKController>();
         manager = animator.transform.GetComponent<DragonManager>();
-        ik.enabled = true;
-        ik.LookAtObj = target.FindAnyChild<Transform>("Head");
+        npc = animator.transform.GetComponent<Npc>();
+        flyPoint = manager.ArrivePoint;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (manager.Hp <= 0) animator.Play("Die");
-        AiStateCommon.Turn(animator.transform, ObjectManager.MainCharacter.position - animator.transform.position);
-        var distance = Vector3.Distance(animator.transform.position, target.position);
-        if (distance <= 8)
-            animator.SetBool("Move", false);
+
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        lastDistance = float.MaxValue - 100;
+    }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
-    //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    // Implement code that processes and affects root motion
-    //}
+    override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        if (manager.Hp <= 0) animator.Play("Die");
+        var d = Vector3.Distance(flyPoint, animator.transform.position);
+        if (lastDistance - d > 0.001f)
+        {
+            lastDistance = d;
+        }
+        else
+        {
+            animator.SetBool("Move", false);
+        }
+    }
 
     // OnStateIK is called right after Animator.OnAnimatorIK()
     //override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
