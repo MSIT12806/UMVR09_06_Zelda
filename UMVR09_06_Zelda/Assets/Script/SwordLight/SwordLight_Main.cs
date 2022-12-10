@@ -30,15 +30,16 @@ public class SwordLight_Main : MonoBehaviour
     {
         stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
-        LightAttack01();
-        LightAttack02();
-        LightAttack03();
-        LightAttack04();
+        //試過：GetBool 滑鼠點擊 所有攻擊動畫
+            LightAttack01();
+            LightAttack02();
+            LightAttack03();
+            LightAttack04();
 
-        HeavyAttack01();
-        HeavyAttack02();
-        HeavyAttack03();
-        HeavyAttack04();
+            HeavyAttack01();
+            HeavyAttack02();
+            HeavyAttack03();
+            HeavyAttack04();
 
     }
 
