@@ -999,7 +999,7 @@ public class GolemSkillState : GolemBaseState
 
     float moveSpeed;
     //float canMoveFramesOne = 50f;//Skill1
-    float canMoveFramesTwo = 50f;//Skill2
+    float canMoveFramesTwo = 27f;//Skill2
     public bool canMove = false;
     public GolemSkillState(Transform t, Animator a, Transform self, float armor, NpcHelper nh) : base(a, self, nh)
     {
@@ -1032,7 +1032,7 @@ public class GolemSkillState : GolemBaseState
         if (currentAnimation.IsName("Skill 0")) moveSpeed = 0.3f;
         else if (currentAnimation.IsName("Skill2 0")) moveSpeed = 0.5f;
 
-        if (!(currentAnimation.IsName("Skill")))
+        if (!(currentAnimation.IsName("Skill")))// && !currentAnimation.IsName("Skill2 0")
             LookAt();
 
         if (currentAnimation.IsName("Skill 0"))//Skill1 程式位移
@@ -1047,7 +1047,7 @@ public class GolemSkillState : GolemBaseState
 
         if (currentAnimation.IsName("Skill2 0"))//Skill2 程式位移
         {
-            if (canMoveFramesTwo > 0)//175 225
+            if (canMoveFramesTwo > 0)//227 265
             {
                 canMoveFramesTwo -= 1;
                 Debug.Log("moveeeee");
