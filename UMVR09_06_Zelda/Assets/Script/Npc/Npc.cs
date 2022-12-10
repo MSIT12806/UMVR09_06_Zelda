@@ -41,7 +41,7 @@ public class Npc : MonoBehaviour
     [HideInInspector] public float MaxHp;
     public float Hp;
     public string MaterialAddress;
-    SkinnedMeshRenderer renderer;
+    Transform renderer;
     private void Awake()
     {
         nextPosition = Vector3.zero;
@@ -52,9 +52,8 @@ public class Npc : MonoBehaviour
         materials = new List<Material>();
         if (string.IsNullOrEmpty(MaterialAddress) == false)
         {
-            var a = transform.FindAnyChild<Transform>(MaterialAddress);
-            var r = a.GetComponent<Renderer>();
-            renderer = a.GetComponent<SkinnedMeshRenderer>();
+            renderer = transform.FindAnyChild<Transform>(MaterialAddress);
+            var r = renderer.GetComponent<Renderer>();
             materials.Add(r.materials[0]);
             if (r.materials.Length >= 4)
             {
@@ -65,7 +64,7 @@ public class Npc : MonoBehaviour
             oriPower = materials[0].GetFloat("_RimLight_Power");
             oriMask = materials[0].GetFloat("_RimLight_InsideMask");
 
-            oriEnabled = renderer.enabled;
+            oriEnabled = renderer.gameObject.activeSelf;
             //  print(c.name);
             //material = b.FirstOrDefault(i => i.name == "Mt_usao_Main");
         }
@@ -117,7 +116,12 @@ public class Npc : MonoBehaviour
             nextPosition = beforePauseNextPosition;
             beforePauseNextPosition = Vector3.zero;
             animator.speed = beforePauseAnimatorSpeed;
-            ik.enabled = true;
+            if (ik != null)
+            {
+
+                ik.enabled = true;
+            }
+            renderer.gameObject.SetActive(oriEnabled);
             if (materials != null)
             {
                 foreach (var item in materials)
@@ -125,7 +129,6 @@ public class Npc : MonoBehaviour
                     item.SetColor("_RimLightColor", oriColor);
                     item.SetFloat("_RimLight_Power", oriPower);
                     item.SetFloat("_RimLight_InsideMask", oriMask);
-                    renderer.enabled = oriEnabled;
                 }
             }
         }
@@ -187,17 +190,20 @@ public class Npc : MonoBehaviour
             initVel = Vector3.zero;
             beforePauseNextPosition = nextPosition;
             nextPosition = Vector3.zero;
-
-            ik.enabled = false;
+            if (ik != null)
+            {
+                ik.enabled = false;
+            }
             if (materials != null)
             {
+                print("LIGHT");
                 foreach (var item in materials)
                 {
                     item.SetColor("_RimLightColor", new Color(255, 255, 0));
                     item.SetFloat("_RimLight_Power", 1);
                     item.SetFloat("_RimLight_InsightMask", 0.0001f);
-                    renderer.enabled = true;
                 }
+                renderer.gameObject.SetActive(true);
             }
         }
     }
