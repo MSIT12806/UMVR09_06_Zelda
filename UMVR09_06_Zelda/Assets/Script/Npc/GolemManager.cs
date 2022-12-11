@@ -8,6 +8,8 @@ public class GolemManager : MonoBehaviour, NpcHelper
     Npc npc;
     public float Hp { get => npc.Hp; set => npc.Hp = value; }
 
+    public float Shield = 0f;
+
     public bool CanBeKockedOut => false;
 
     public bool Dizzy => false;
@@ -40,6 +42,7 @@ public float WeakPoint => throw new System.NotImplementedException();
     {
         aiState.SetAnimation();
         aiState = aiState.SwitchState();
+        Debug.Log(Shield);
     }
     public void GetHurt(DamageData damageData)
     {
@@ -76,6 +79,10 @@ public float WeakPoint => throw new System.NotImplementedException();
         if (attackType == 4)//普攻2
             NpcCommon.AttackDetection("", transform.position, transform.forward, 90, 5f, false, new DamageData(5f, transform.forward * 0.3f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
 
+    }
+    public void SetShield()
+    {
+        Shield = 50;
     }
 
 

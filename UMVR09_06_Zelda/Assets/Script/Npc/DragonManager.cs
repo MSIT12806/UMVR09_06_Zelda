@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
     float weakPoint;
     public float WeakPoint { get => weakPoint; set => weakPoint = value; }
 
-    public float MaxWeakPoint => npc.MaxHp / 20;
+    public float MaxWeakPoint => npc.MaxHp / 5;
 
     public float Radius => 1.8f;
 
@@ -66,8 +67,6 @@ public class DragonManager : MonoBehaviour, NpcHelper
 
         if (canBeKnockedOut)
         {
-
-
             if (dState.damageState == DamageState.Bomb)
             {
                 animator.Play("Dizzy2");
@@ -79,6 +78,18 @@ public class DragonManager : MonoBehaviour, NpcHelper
         if (dizzy)
         {
             weakPoint -= damageData.Damage;
+            if(weakPoint <= 0)
+            {
+                animator.Play("ArmorBreak");
+            }
+        }
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("ArmorBreak"))
+        {
+            if(damageData.Hit == HitType.finishing)
+            {
+                animator.CrossFade("Idle",0.25f,0);
+                ResetWeakPoint();
+            }
         }
         var currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
         if (flyState)
@@ -96,6 +107,13 @@ public class DragonManager : MonoBehaviour, NpcHelper
             //aiState = new UsaoHurtState(transform.GetComponent<Animator>(), transform, damageData);
         }
 
+    }
+
+    public void ResetWeakPoint()
+    {
+
+        dizzy = false;
+        weakPoint = MaxWeakPoint;
     }
 
     private int moveFrame;
