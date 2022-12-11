@@ -139,8 +139,7 @@ public class ObjectManager : MonoBehaviour
         //全體復活
         foreach (var usao in StagePool[2].Values)
         {
-            usao.transform.position = position + new Vector3(UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1), position.y, UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1));
-            usao.transform.forward = ObjectManager.MainCharacter.position - usao.transform.position;
+            usao.transform.position = position + new Vector3(UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1), 0, UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1));
             var npc = usao.GetComponent<Npc>();
             npc.Hp = npc.MaxHp;
             var ator = usao.GetComponent<Animator>();
