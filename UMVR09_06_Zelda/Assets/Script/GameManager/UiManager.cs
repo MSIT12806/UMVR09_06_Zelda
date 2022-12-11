@@ -123,7 +123,7 @@ public class UiManager : MonoBehaviour
             }
             else
             {
-                if (weakShow == false) return;
+                if (weakShow == false) continue;
 
                 WeakImg.gameObject.SetActive(false);
                 weakShow = false;
