@@ -11,7 +11,13 @@ using UnityEngine.UIElements;
 public class ObjectManager : MonoBehaviour
 {
     public static Dictionary<int, GameObject> NpcsAlive;//碰撞偵測、攻擊判定用。
-    public static Dictionary<int, GameObject> StageOneUsaoPool  = new Dictionary<int, GameObject>();
+    public static Dictionary<int, GameObject>[] StagePool = new Dictionary<int, GameObject>[4]
+    {
+        new Dictionary<int, GameObject>(),
+        new Dictionary<int, GameObject>(),
+        new Dictionary<int, GameObject>(),
+        new Dictionary<int, GameObject>()
+    };
     public static List<GameObject> Statics;
     public static Queue<GameObject> AttackFx;
     public static Queue<GameObject> DieFx;
@@ -22,8 +28,14 @@ public class ObjectManager : MonoBehaviour
     public static Transform MainCharacterHead;
     public static GameObject DragonFireBallExplosionFx;
     public static GameObject TimeStopChain;
+    public static Transform stageOneSpawnPoint;
+    public static Transform stageTwoSpawnPoint;
+    public static Transform stageThreeSpawnPoint;
     public Transform MyCharacter;
-    public static int[] StageMonsterMonitor = new int[4];
+    public static int[] StageMonsterMonitor { get; } = new int[4];
+
+
+
     //    public static List<GameObject> UsaoResources;
     //處理 npc 碰撞、偵測、迴避、群體運動等行為。
     //chase: 檢查目前會攻擊玩家的角色有幾人，並適時切換 npc 狀態為 around or close。
@@ -32,6 +44,8 @@ public class ObjectManager : MonoBehaviour
         MainCharacter = MyCharacter;
         MainCharacterHead = MainCharacter.FindAnyChild<Transform>("Head");
         stageOneSpawnPoint = transform.FindAnyChild<Transform>("StageOneSpawnPoint");
+        stageTwoSpawnPoint = transform.FindAnyChild<Transform>("StageTwoSpawnPoint");
+        stageThreeSpawnPoint = transform.FindAnyChild<Transform>("StageThreeSpawnPoint");
 
         //npc 池 初始化
         NpcsAlive = GameObject.FindGameObjectsWithTag("Npc").ToDictionary(i => i.GetInstanceID());
@@ -51,9 +65,6 @@ public class ObjectManager : MonoBehaviour
         Statics = GameObject.FindGameObjectsWithTag("Terrain").ToList();
         ChasingNpc = new HashSet<AiState>();
 
-        //    UsaoResources = new List<GameObject>(300);
-        StageOneUsaoPool = new Dictionary<int, GameObject>();
-
         var meshs = transform.GetComponentsInChildren<MeshRenderer>();
         foreach (var item in meshs)
         {
@@ -61,10 +72,16 @@ public class ObjectManager : MonoBehaviour
         }
 
         //FirstStage
-        GenUsao(stageOneSpawnPoint.position, 10, 15 , GameState.FirstStage);
-        GenUsao2(stageOneSpawnPoint.position, 10, 5 , GameState.FirstStage);
-        GenUsaoSword(stageOneSpawnPoint.position, 10, 10 , GameState.FirstStage);
+        GenUsao(stageOneSpawnPoint.position, 10, 15, GameState.FirstStage);
+        GenUsao2(stageOneSpawnPoint.position, 10, 5, GameState.FirstStage);
+        GenUsaoSword(stageOneSpawnPoint.position, 10, 10, GameState.FirstStage);
         StageMonsterMonitor[1] = 30;
+
+        //SecondStage
+        GenUsao2(stageTwoSpawnPoint.position, 10, 15, GameState.SecondStage);
+        StageMonsterMonitor[2] = 10;
+
+        //ThirdStage
     }
 
     private void InitDieFx()
@@ -77,7 +94,7 @@ public class ObjectManager : MonoBehaviour
         }
     }
 
-    private void GenUsaoSword(Vector3 position, int range, int normalNumber, GameState state)
+    public void GenUsaoSword(Vector3 position, int range, int normalNumber, GameState state)
     {
         var usao = (GameObject)Resources.Load("usao_WithSword");
 
@@ -92,27 +109,52 @@ public class ObjectManager : MonoBehaviour
             NpcsAlive.Add(go.GetInstanceID(), go);
         }
     }
-    public static void Resurrection(int stage)
+    public static void StageOneResurrection()
     {
-        switch (stage)
+        var position = stageOneSpawnPoint.position;
+        var range = 10;
+        //全體復活
+        foreach (var usao in StagePool[1].Values)
         {
-            case 1:
-                var position = stageOneSpawnPoint.position;
-                var range = 10;
-                foreach (var usao in StageOneUsaoPool.Values)
-                {
-                    usao.transform.position = position + new Vector3(UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1), 1, UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1));
-                    usao.transform.forward = ObjectManager.MainCharacter.position - usao.transform.position;
-                    var npc = usao.GetComponent<Npc>();
-                    npc.Hp = npc.MaxHp;
-                    usao.SetActive(true);
-                    NpcsAlive.Add(usao.GetInstanceID(), usao);
-                }
-                StageOneUsaoPool.Clear();
-                return;
+            usao.transform.position = position + new Vector3(UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1), 1, UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1));
+            usao.transform.forward = ObjectManager.MainCharacter.position - usao.transform.position;
+            var npc = usao.GetComponent<Npc>();
+            npc.Hp = npc.MaxHp;
+            var ator = usao.GetComponent<Animator>();
+            var manager = usao.GetComponent<UsaoManager>();
+            manager.StartAiState();
+            ator.Play("Fight");
+            usao.SetActive(true);
+            NpcsAlive.Add(usao.GetInstanceID(), usao);
+            StageMonsterMonitor[1]++;
+
         }
+        StagePool[1].Clear();
+        return;
     }
-    private void GenUsao2(Vector3 position, int range, int normalNumber, GameState state)
+    internal static void StageTwoResurrection()
+    {
+        var position = stageTwoSpawnPoint.position;
+        var range = 10;
+        //全體復活
+        foreach (var usao in StagePool[2].Values)
+        {
+            usao.transform.position = position + new Vector3(UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1), 0, UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1));
+            var npc = usao.GetComponent<Npc>();
+            npc.Hp = npc.MaxHp;
+            var ator = usao.GetComponent<Animator>();
+            var manager = usao.GetComponent<UsaoManager>();
+            manager.StartAiState();
+            ator.Play("Fight");
+            usao.SetActive(true);
+            NpcsAlive.Add(usao.GetInstanceID(), usao);
+            StageMonsterMonitor[2]++;
+
+        }
+        StagePool[2].Clear();
+        return;
+    }
+    public void GenUsao2(Vector3 position, int range, int normalNumber, GameState state)
     {
         var usao = (GameObject)Resources.Load("usao_0321_2");
 
@@ -121,14 +163,13 @@ public class ObjectManager : MonoBehaviour
             usao.transform.position = position + new Vector3(UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1), 1, UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1));
             usao.transform.forward = ObjectManager.MainCharacter.position - usao.transform.position;
             var npc = usao.GetComponent<Npc>();
-            npc.Hp = 300;
+            npc.Hp = 150;
             npc.gameState = state;
             var go = Instantiate(usao);
             NpcsAlive.Add(go.GetInstanceID(), go);
         }
     }
 
-    public static Transform stageOneSpawnPoint;
     public void GenUsao(Vector3 position, float range, int normalNumber, GameState state)
     {
         var usao = (GameObject)Resources.Load("usao_0321");
@@ -138,7 +179,7 @@ public class ObjectManager : MonoBehaviour
             usao.transform.position = position + new Vector3(UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1), 1, UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1));
             usao.transform.forward = ObjectManager.MainCharacter.position - usao.transform.position;
             var npc = usao.GetComponent<Npc>();
-            npc.Hp = 100;
+            npc.Hp = 50;
             npc.gameState = state;
             var go = Instantiate(usao);
             NpcsAlive.Add(go.GetInstanceID(), go);
