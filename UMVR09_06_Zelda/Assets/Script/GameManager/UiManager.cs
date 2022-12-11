@@ -28,7 +28,7 @@ public class UiManager : MonoBehaviour
     TPSCamera myCamera;
     GameObject lastHeart;
 
-    float OneHeartHp = 100;
+    float OneHeartHp = 50;
 
     private Transform ItemUI;
     private float ItemCD;
