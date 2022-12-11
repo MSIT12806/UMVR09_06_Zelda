@@ -35,6 +35,7 @@ public class StageManager : MonoBehaviour
             case 1:
                 if (stageOneWave > 0 && ObjectManager.StageMonsterMonitor[1] < 10)
                 {
+                    print("?????");
                     ObjectManager.StageOneResurrection();
                     stageOneWave--;
                 }

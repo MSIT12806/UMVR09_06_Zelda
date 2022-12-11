@@ -60,6 +60,11 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
         usaoIdleState = new UsaoIdleState(ObjectManager.MainCharacter, picoState, animator, transform, this);
         usaoFightState = new UsaoFightState(ObjectManager.MainCharacter, animator, transform, this);
 
+        StartAiState();
+    }
+
+    public void StartAiState()
+    {
         aiState = usaoIdleState;
     }
 
