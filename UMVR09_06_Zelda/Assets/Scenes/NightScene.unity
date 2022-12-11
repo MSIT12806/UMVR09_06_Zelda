@@ -10371,6 +10371,7 @@ MonoBehaviour:
   TriggerType: 2
   Pico: {fileID: 693283532}
   distance: 12
+  Dragon: {fileID: 0}
 --- !u!1 &389303682
 GameObject:
   m_ObjectHideFlags: 0
@@ -19121,6 +19122,7 @@ MonoBehaviour:
   TriggerType: 0
   Pico: {fileID: 693283532}
   distance: 7
+  Dragon: {fileID: 0}
 --- !u!23 &843742329
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -29527,6 +29529,7 @@ MonoBehaviour:
   TriggerType: 3
   Pico: {fileID: 693283532}
   distance: 15
+  Dragon: {fileID: 0}
 --- !u!23 &1278809734
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -37139,6 +37142,7 @@ MonoBehaviour:
   TriggerType: 0
   Pico: {fileID: 693283532}
   distance: 10
+  Dragon: {fileID: 0}
 --- !u!23 &1661155993
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -38863,6 +38867,7 @@ MonoBehaviour:
   TriggerType: 1
   Pico: {fileID: 693283532}
   distance: 6
+  Dragon: {fileID: 0}
 --- !u!4 &1745321866 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2564453279718530225, guid: e344ba4e5a1508a4a9133612aa1c3172,
@@ -39714,6 +39719,7 @@ MonoBehaviour:
   TriggerType: 0
   Pico: {fileID: 693283532}
   distance: 7
+  Dragon: {fileID: 0}
 --- !u!23 &1773591612
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -46097,6 +46103,7 @@ MonoBehaviour:
   TriggerType: 0
   Pico: {fileID: 693283532}
   distance: 7
+  Dragon: {fileID: 0}
 --- !u!23 &1871892544
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -46375,7 +46382,7 @@ PrefabInstance:
     - target: {fileID: 4415769575301426300, guid: 510be0e958e2ffe4bb58cb4fc9c1be5e,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4955925662092792870, guid: 510be0e958e2ffe4bb58cb4fc9c1be5e,
         type: 3}
