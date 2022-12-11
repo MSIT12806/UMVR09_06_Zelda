@@ -113,11 +113,11 @@ public class UiManager : MonoBehaviour
             if (nh.Dizzy)
             {
                 SetWeakPoint(nh);
+                Vector2 v = Camera.main.WorldToScreenPoint(WeakPoints[i].position);
+                WeakImg.position = v;
                 if (weakShow == true) return;
 
                 WeakImg.gameObject.SetActive(true);
-                Vector2 v = Camera.main.WorldToScreenPoint(WeakPoints[i].position);
-                WeakImg.position = v;
                 weakShow = true;
                 return;
             }
