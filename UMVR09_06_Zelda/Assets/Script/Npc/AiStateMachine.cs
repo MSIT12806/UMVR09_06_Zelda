@@ -646,8 +646,19 @@ public class GolemIdleState : GolemBaseState
             return new GolemWeakState(target, animator, selfTransform, nowArmor, npcHelper);
         }
 
-        //切至Attack (追到後就打? 或亂數決定
         float distance = (target.position - selfTransform.position).magnitude;
+        //切至Skill (血量到特定%? 或亂數決定
+
+        System.Random random = new System.Random();
+        int rnd = random.Next(1, 11);//判斷要不要用技能
+
+        if (rnd < 3 && distance <= 15)
+        {
+            //animator.SetTrigger("Skill");
+            return new GolemSkillState(target, animator, selfTransform, nowArmor, npcHelper);
+        }
+
+        //切至Attack (追到後就打? 或亂數決定
         if (distance <= attackDistance)
         {
             //animator.SetTrigger("Attack01");
@@ -655,16 +666,6 @@ public class GolemIdleState : GolemBaseState
         }
 
 
-        //切至Skill (血量到特定%? 或亂數決定
-
-        System.Random random = new System.Random();
-        int rnd = random.Next(1, 11);//判斷要不要用技能
-
-        if (rnd == 1 && distance <= 15)
-        {
-            //animator.SetTrigger("Skill");
-            return new GolemSkillState(target, animator, selfTransform, nowArmor, npcHelper);
-        }
 
         //切至Chase (距離玩家 > 攻擊範圍
         if (distance > attackDistance)
@@ -779,7 +780,7 @@ public class GolemChaseState : GolemBaseState
         System.Random random = new System.Random();
         int rnd = random.Next(1, 100);//判斷要不要用技能
         //Debug.Log(rnd);
-        if (distance <= 12f && rnd == 1)
+        if (distance <= 12f && rnd < 4)
         {
             RemoveChasingNpc();
             animator.SetBool("NotReach", false);
@@ -1060,13 +1061,13 @@ public class GolemSkillState : GolemBaseState
         currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
 
         System.Random random = new System.Random();
-        int attackType = random.Next(1, 3);
+        int attackType = random.Next(1, 11);
         Debug.Log(attackType);
-        if (attackType == 1)
+        if (attackType < 8)
         {
             animator.SetTrigger("Skill");
         }
-        else if (attackType == 2 && npcData.Hp <= npcHelper.MaxHp / 2)//低於一半血
+        else if (attackType < 11  && npcData.Hp <= npcHelper.MaxHp / 2)//低於一半血
         {
             animator.SetTrigger("Skill2");
         }
@@ -1198,6 +1199,11 @@ public class GolemSkillState : GolemBaseState
 
             animator.SetTrigger("SheikahDefense");
             return new GolemWeakState(target, animator, selfTransform, nowArmor, npcHelper);
+        }
+        else if (AttackFlaw)
+        {
+            animator.SetTrigger("HaveShieldGetHit");
+            return new GolemIdleState(target, animator, selfTransform, nowArmor, npcHelper);
         }
         //技能施放結束 切回idle
         inStateTime += Time.deltaTime;

@@ -76,7 +76,10 @@ public class GolemManager : MonoBehaviour, NpcHelper
         {
             NpcCommon.AttackDetection("", transform.position, transform.forward, 360, 8f, false, new DamageData(10f, transform.forward * 0.3f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");//
             //Once.CanMove = false;
-        }
+        }        
+        if(attackType == 5)//技能2的第二段傷害
+            NpcCommon.AttackDetection("", transform.position, transform.forward, 360, 10f, false, new DamageData(10f, transform.forward * 0.3f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");//
+
         if (attackType == 3)//技能1
             NpcCommon.AttackDetection("", transform.position, transform.forward, 360, 5f, false, new DamageData(5f, transform.forward * 0.3f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");//
         if (attackType == 4)//普攻2
