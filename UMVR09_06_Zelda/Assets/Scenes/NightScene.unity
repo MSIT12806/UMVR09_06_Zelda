@@ -7042,7 +7042,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 172800044}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -78.22806, y: 7.472, z: 81.65664}
+  m_LocalPosition: {x: -78.22806, y: 6.21, z: 86.524}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10371,7 +10371,7 @@ MonoBehaviour:
   TriggerType: 2
   Pico: {fileID: 693283532}
   distance: 12
-  Dragon: {fileID: 0}
+  Dragon: {fileID: 1277495263}
 --- !u!1 &389303682
 GameObject:
   m_ObjectHideFlags: 0
@@ -29396,6 +29396,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1277495260}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1277495263 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1533247706, guid: e344ba4e5a1508a4a9133612aa1c3172,
+    type: 3}
+  m_PrefabInstance: {fileID: 1277495260}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b11601d3f25612d46902453df527e4e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1278217057 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2564453279718562077, guid: e344ba4e5a1508a4a9133612aa1c3172,
@@ -46247,7 +46259,7 @@ PrefabInstance:
     - target: {fileID: 2046102329827991577, guid: 510be0e958e2ffe4bb58cb4fc9c1be5e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.013
+      value: 0.071
       objectReference: {fileID: 0}
     - target: {fileID: 2046102329827991577, guid: 510be0e958e2ffe4bb58cb4fc9c1be5e,
         type: 3}
@@ -46382,7 +46394,7 @@ PrefabInstance:
     - target: {fileID: 4415769575301426300, guid: 510be0e958e2ffe4bb58cb4fc9c1be5e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4955925662092792870, guid: 510be0e958e2ffe4bb58cb4fc9c1be5e,
         type: 3}

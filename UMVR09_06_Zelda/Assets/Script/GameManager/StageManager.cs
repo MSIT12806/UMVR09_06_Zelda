@@ -35,12 +35,13 @@ public class StageManager : MonoBehaviour
             case 1:
                 if (stageOneWave > 0 && ObjectManager.StageMonsterMonitor[1] < 10)
                 {
+                    print("?????");
                     ObjectManager.StageOneResurrection();
                     stageOneWave--;
                 }
                 return;
             case 2:
-                if (ObjectManager.StageMonsterMonitor[2] < 10)
+                if (Dragon.Hp>0 && ObjectManager.StageMonsterMonitor[2] < 10)
                 {
                     ObjectManager.StageTwoResurrection();
                 }

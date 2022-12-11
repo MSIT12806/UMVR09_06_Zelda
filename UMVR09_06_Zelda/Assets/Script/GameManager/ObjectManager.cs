@@ -76,7 +76,12 @@ public class ObjectManager : MonoBehaviour
         GenUsao2(stageOneSpawnPoint.position, 10, 5, GameState.FirstStage);
         GenUsaoSword(stageOneSpawnPoint.position, 10, 10, GameState.FirstStage);
         StageMonsterMonitor[1] = 30;
+
+        //SecondStage
+        GenUsao2(stageTwoSpawnPoint.position, 10, 15, GameState.SecondStage);
         StageMonsterMonitor[2] = 10;
+
+        //ThirdStage
     }
 
     private void InitDieFx()
@@ -115,9 +120,14 @@ public class ObjectManager : MonoBehaviour
             usao.transform.forward = ObjectManager.MainCharacter.position - usao.transform.position;
             var npc = usao.GetComponent<Npc>();
             npc.Hp = npc.MaxHp;
+            var ator = usao.GetComponent<Animator>();
+            var manager = usao.GetComponent<UsaoManager>();
+            manager.StartAiState();
+            ator.Play("Fight");
             usao.SetActive(true);
             NpcsAlive.Add(usao.GetInstanceID(), usao);
             StageMonsterMonitor[1]++;
+
         }
         StagePool[1].Clear();
         return;
@@ -129,10 +139,13 @@ public class ObjectManager : MonoBehaviour
         //全體復活
         foreach (var usao in StagePool[2].Values)
         {
-            usao.transform.position = position + new Vector3(UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1), position.y + 0.5f, UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1));
-            usao.transform.forward = ObjectManager.MainCharacter.position - usao.transform.position;
+            usao.transform.position = position + new Vector3(UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1), 0, UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1));
             var npc = usao.GetComponent<Npc>();
             npc.Hp = npc.MaxHp;
+            var ator = usao.GetComponent<Animator>();
+            var manager = usao.GetComponent<UsaoManager>();
+            manager.StartAiState();
+            ator.Play("Fight");
             usao.SetActive(true);
             NpcsAlive.Add(usao.GetInstanceID(), usao);
             StageMonsterMonitor[2]++;
@@ -150,7 +163,7 @@ public class ObjectManager : MonoBehaviour
             usao.transform.position = position + new Vector3(UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1), 1, UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1));
             usao.transform.forward = ObjectManager.MainCharacter.position - usao.transform.position;
             var npc = usao.GetComponent<Npc>();
-            npc.Hp = 300;
+            npc.Hp = 150;
             npc.gameState = state;
             var go = Instantiate(usao);
             NpcsAlive.Add(go.GetInstanceID(), go);
@@ -166,7 +179,7 @@ public class ObjectManager : MonoBehaviour
             usao.transform.position = position + new Vector3(UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1), 1, UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1));
             usao.transform.forward = ObjectManager.MainCharacter.position - usao.transform.position;
             var npc = usao.GetComponent<Npc>();
-            npc.Hp = 100;
+            npc.Hp = 50;
             npc.gameState = state;
             var go = Instantiate(usao);
             NpcsAlive.Add(go.GetInstanceID(), go);

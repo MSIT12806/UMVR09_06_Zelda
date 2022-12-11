@@ -461,9 +461,11 @@ public class UsaoDeathState : UsaoAiState
 
             //移入備用池
             ObjectManager.StagePool[(int)npc.gameState].Add(selfTransform.gameObject.GetInstanceID(), selfTransform.gameObject);
+            Debug.Log((int)npc.gameState);
 
             //怪物數量監控
             ObjectManager.StageMonsterMonitor[(int)npc.gameState]--;
+            Debug.Log(ObjectManager.StageMonsterMonitor[(int)npc.gameState]);
 
             //死亡消失與特效
             selfTransform.gameObject.SetActive(false);
@@ -596,7 +598,11 @@ public class GolemIdleState : GolemBaseState
         if (getHit != null)
         {
             Debug.Log($"before {npcData.Hp}");
-            npcData.Hp -= getHit.Damage / 10;
+            GolemManager gm = (GolemManager)npcHelper;
+            if(gm.Shield <= 0)
+            {
+                npcData.Hp -= getHit.Damage / 10;
+            }
             if (getHit.DamageState.damageState == DamageState.Fever)
             {
                 goWeakState = true;
@@ -624,7 +630,9 @@ public class GolemIdleState : GolemBaseState
         }
 
         //被無雙技打
-        if (goWeakState)
+
+        GolemManager gm = (GolemManager)npcHelper;
+        if (goWeakState && gm.Shield <= 0 )
         {
             goWeakState = false;
             animator.SetTrigger("FeverAttack");
@@ -695,7 +703,11 @@ public class GolemChaseState : GolemBaseState
 
         if (getHit != null)
         {
-            npcData.Hp -= getHit.Damage / 10;
+            GolemManager gm = (GolemManager)npcHelper;
+            if (gm.Shield <= 0)
+            {
+                npcData.Hp -= getHit.Damage / 10;
+            }
             if (getHit.DamageState.damageState == DamageState.Fever)
             {
                 goWeakState = true;
@@ -744,7 +756,8 @@ public class GolemChaseState : GolemBaseState
             return new GolemDeadState(target, animator, selfTransform, npcHelper);
         }
         //被無雙打
-        if (goWeakState)
+        GolemManager gm = (GolemManager)npcHelper;
+        if (goWeakState && gm.Shield <= 0)
         {
             RemoveChasingNpc();
             animator.SetBool("NotReach", false);
@@ -808,7 +821,11 @@ public class GolemWeakState : GolemBaseState
 
         if (getHit != null)
         {
-            npcData.Hp -= getHit.Damage / 10;
+            GolemManager gm = (GolemManager)npcHelper;
+            if (gm.Shield <= 0)
+            {
+                npcData.Hp -= getHit.Damage / 10;
+            }
             if (currentAnimation.IsName("GetHit0"))
             {
                 animator.SetTrigger("getHit2");
@@ -884,7 +901,11 @@ public class GolemArmorBreakState : GolemBaseState
         if (getHit != null)
         {
             animator.SetTrigger("getHit");
-            npcData.Hp -= getHit.Damage / 10 + 3;
+            GolemManager gm = (GolemManager)npcHelper;
+            if (gm.Shield <= 0)
+            {
+                npcData.Hp -= getHit.Damage / 10 +3;
+            }
             getHit = null;
         }
 
@@ -948,7 +969,11 @@ public class GolemAttackState : GolemBaseState
         }
         if (getHit != null)
         {
-            npcData.Hp -= getHit.Damage / 10;
+            GolemManager gm = (GolemManager)npcHelper;
+            if (gm.Shield <= 0)
+            {
+                npcData.Hp -= getHit.Damage / 10;
+            }
             if (getHit.DamageState.damageState == DamageState.Fever)
             {
                 goWeakState = true;
@@ -973,7 +998,8 @@ public class GolemAttackState : GolemBaseState
         //}
 
         //被無雙打
-        if (goWeakState)
+        GolemManager gm = (GolemManager)npcHelper;
+        if (goWeakState && gm.Shield <= 0)
         {
             goWeakState = false;
             animator.SetTrigger("FeverAttack");
@@ -983,7 +1009,7 @@ public class GolemAttackState : GolemBaseState
         inStateTime += Time.deltaTime;
         if (!currentAnimation.IsName("Attack02") && !currentAnimation.IsName("Attack01") && inStateTime > 1)
         {
-            if (finish)
+            if (finish && gm.Shield <= 0)
             {
                 //Attack01結束後 切至weak 
                 return new GolemWeakState(target, animator, selfTransform, nowArmor, npcHelper);
@@ -1070,7 +1096,9 @@ public class GolemSkillState : GolemBaseState
 
         if (getHit != null)
         {
+            GolemManager gm = (GolemManager)npcHelper;
             Debug.Log(getHit.DamageState.damageState);
+
             //待修改
             if (getHit.DamageState.damageState == DamageState.Ice && (currentAnimation.IsName("Skill") || currentAnimation.IsName("Skill 0")))
             {
@@ -1087,7 +1115,15 @@ public class GolemSkillState : GolemBaseState
                 goWeakState = true;
             }
 
-            npcData.Hp -= getHit.Damage / 10;
+            if (gm.Shield <= 0)
+            {
+                npcData.Hp -= getHit.Damage / 10;
+            }
+            else if(gm.Shield > 0 && getHit.DamageState.damageState == DamageState.Ice)//解護盾的唯一方法
+            {
+                gm.Shield -= getHit.Damage;
+            }
+
             getHit = null;
         }
     }
@@ -1131,15 +1167,17 @@ public class GolemSkillState : GolemBaseState
         }
 
         //被無雙打
-        if (goWeakState)
+
+        GolemManager gm = (GolemManager)npcHelper;
+        if (goWeakState && gm.Shield <= 0)
         {
             goWeakState = false;
             animator.SetTrigger("FeverAttack");
             return new GolemWeakState(target, animator, selfTransform, nowArmor, npcHelper);
         }
 
-        //玩家利用西卡之石破解技能 切至ArmorBreak
-        if (AttackFlaw)
+        //玩家利用西卡之石破解技能 切至weak
+        if (AttackFlaw && gm.Shield <= 0)
         {
 
             animator.SetTrigger("SheikahDefense");

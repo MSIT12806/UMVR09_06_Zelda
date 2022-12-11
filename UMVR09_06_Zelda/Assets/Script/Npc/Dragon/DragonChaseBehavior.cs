@@ -39,7 +39,6 @@ public class DragonChaseBehavior : StateMachineBehaviour
         var d = Vector3.Distance(targetPoint, animator.transform.position);
         if (lastDistance - d > 0.05f)
         {
-            Debug.Log(targetPoint);
             animator.transform.position += animator.transform.forward * speed;
             lastDistance = d;
         }
