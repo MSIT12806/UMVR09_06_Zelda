@@ -222,9 +222,9 @@ public class Npc : MonoBehaviour
         var hitSomething = hitSomethingWhenMoving || hitInfos.Count() > 0;
         if (hitSomething && hitInfo.transform != this.transform)
         {
+            animator.applyRootMotion = false;
             if (hitSomethingWhenMoving && this.name != "MainCharacter") //讓 npc 隨機旋轉，離開障礙物
             {
-                animator.applyRootMotion = false;
 
                 var rotateWay = Vector3.SignedAngle(transform.forward, hitInfo.point - transform.position, Vector3.up);
                 transform.Rotate(0, -Mathf.Sign(rotateWay) * 2, 0);
@@ -234,7 +234,7 @@ public class Npc : MonoBehaviour
             if (hitInfos.Count() > 0)
             {
                 var closestPoint = hitInfos[0].ClosestPoint(transform.position);
-                transform.position -= (closestPoint - transform.position).normalized * 0.05f;
+                transform.position -= (closestPoint - transform.position).normalized * 0.1f;
             }
             return hitSomethingWhenMoving || hitSomething;//回報碰撞，取消美術位移
         }

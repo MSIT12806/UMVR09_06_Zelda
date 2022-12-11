@@ -98,13 +98,14 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
         {
             case 0:
             default:
-                NpcCommon.AttackDetection("", transform.position, transform.forward, 15f, 1f, false, new DamageData(5, Vector3.zero, HitType.light, DamageStateInfo.NormalAttack), "Player");
+                NpcCommon.AttackDetection("", transform.position, transform.forward, 15f, 1f, false, new DamageData(10, Vector3.zero, HitType.light, DamageStateInfo.NormalAttack), "Player");
                 return;
             case 1:
-                NpcCommon.AttackDetection("", transform.position, transform.forward, 15f, 1.5f, false, new DamageData(15, Vector3.zero, HitType.light, DamageStateInfo.NormalAttack), "Player");
+                NpcCommon.AttackDetection("", transform.position, transform.forward, 15f, 1.5f, false, new DamageData(30, Vector3.zero, HitType.light, DamageStateInfo.NormalAttack), "Player");
                 return;
-
-
+            case 2:
+                NpcCommon.AttackDetection("", transform.position, transform.forward, 15f, 1.5f, false, new DamageData(50, Vector3.zero, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
+                return;
         }
 
     }

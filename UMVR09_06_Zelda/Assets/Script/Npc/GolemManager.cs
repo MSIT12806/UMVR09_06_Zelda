@@ -82,7 +82,7 @@ public float WeakPoint => throw new System.NotImplementedException();
     }
     public void SetShield()
     {
-        Shield = 50;
+        Shield = 10;
     }
 
 
