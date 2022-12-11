@@ -7042,7 +7042,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 172800044}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -78.22806, y: 7.472, z: 81.65664}
+  m_LocalPosition: {x: -78.22806, y: 6.21, z: 86.524}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10371,6 +10371,7 @@ MonoBehaviour:
   TriggerType: 2
   Pico: {fileID: 693283532}
   distance: 12
+  Dragon: {fileID: 1277495263}
 --- !u!1 &389303682
 GameObject:
   m_ObjectHideFlags: 0
@@ -19121,6 +19122,7 @@ MonoBehaviour:
   TriggerType: 0
   Pico: {fileID: 693283532}
   distance: 7
+  Dragon: {fileID: 0}
 --- !u!23 &843742329
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -29394,6 +29396,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1277495260}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1277495263 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1533247706, guid: e344ba4e5a1508a4a9133612aa1c3172,
+    type: 3}
+  m_PrefabInstance: {fileID: 1277495260}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b11601d3f25612d46902453df527e4e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1278217057 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2564453279718562077, guid: e344ba4e5a1508a4a9133612aa1c3172,
@@ -29527,6 +29541,7 @@ MonoBehaviour:
   TriggerType: 3
   Pico: {fileID: 693283532}
   distance: 15
+  Dragon: {fileID: 0}
 --- !u!23 &1278809734
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -37139,6 +37154,7 @@ MonoBehaviour:
   TriggerType: 0
   Pico: {fileID: 693283532}
   distance: 10
+  Dragon: {fileID: 0}
 --- !u!23 &1661155993
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -38863,6 +38879,7 @@ MonoBehaviour:
   TriggerType: 1
   Pico: {fileID: 693283532}
   distance: 6
+  Dragon: {fileID: 0}
 --- !u!4 &1745321866 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2564453279718530225, guid: e344ba4e5a1508a4a9133612aa1c3172,
@@ -39714,6 +39731,7 @@ MonoBehaviour:
   TriggerType: 0
   Pico: {fileID: 693283532}
   distance: 7
+  Dragon: {fileID: 0}
 --- !u!23 &1773591612
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -46097,6 +46115,7 @@ MonoBehaviour:
   TriggerType: 0
   Pico: {fileID: 693283532}
   distance: 7
+  Dragon: {fileID: 0}
 --- !u!23 &1871892544
 MeshRenderer:
   m_ObjectHideFlags: 0
