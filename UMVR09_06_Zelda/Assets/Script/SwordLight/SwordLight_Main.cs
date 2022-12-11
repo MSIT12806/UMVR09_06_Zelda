@@ -93,7 +93,7 @@ public class SwordLight_Main : MonoBehaviour
 
     void HeavyAttack01()
     {
-        if (stateInfo.IsName("Attack02") && stateInfo.normalizedTime > 0.5f)
+        if (stateInfo.IsName("Attack02") && stateInfo.normalizedTime > 0.6f)
         {
             AttackEffectHeavy01.SetActive(true);
             AttackEffectHeavy01.transform.parent = null;
@@ -109,7 +109,7 @@ public class SwordLight_Main : MonoBehaviour
 
     void HeavyAttack02()
     {
-        if (stateInfo.IsName("Attack02 0") && stateInfo.normalizedTime > 0.5f)
+        if (stateInfo.IsName("Attack02 0") && stateInfo.normalizedTime > 0.6f)
         {
             AttackEffectHeavy02.SetActive(true);
             AttackEffectHeavy02.transform.parent = null;
