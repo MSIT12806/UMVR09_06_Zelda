@@ -22,7 +22,7 @@ public class ShootMagic : MonoBehaviour
             offset = 2f;
         }
         force += (ObjectManager.MainCharacter.position + (ObjectManager.MainCharacter.forward - (ObjectManager.MainCharacter.position - transform.position)) * offset - transform.position).WithY(-1.5f).normalized * 5;
-        transform.Translate(force.normalized / 2f);
+        transform.Translate(force.normalized / 5f);
         existSeconds -= Time.deltaTime;
         bool land = Physics.Raycast(transform.position, -Vector3.up, out var hit, 0.3f, terrainMask);
         if (existSeconds <= 0 || Vector3.Distance(transform.position, ObjectManager.MainCharacter.position.AddY(1)) < 0.4 || land)

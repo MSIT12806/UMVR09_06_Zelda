@@ -8,14 +8,15 @@ public class StageManager : MonoBehaviour
     public Transform Pico;
     public float distance = 10;
     PicoState picoState;
-    int wave;
+    int stageOneWave;
+    public DragonManager Dragon;
     // Start is called before the first frame update
     void Start()
     {
         picoState = Pico.GetComponent<PicoState>();
         if (TriggerType == 1)
         {
-            wave = 4;//第一關會有四波
+            stageOneWave = 4;//第一關會有四波
         }
     }
 
@@ -32,10 +33,16 @@ public class StageManager : MonoBehaviour
         switch (TriggerType)
         {
             case 1:
-                if (wave > 0 && ObjectManager.StageMonsterMonitor[1] < 10)
+                if (stageOneWave > 0 && ObjectManager.StageMonsterMonitor[1] < 10)
                 {
-                    ObjectManager.Resurrection(1);
-                    wave--;
+                    ObjectManager.StageOneResurrection();
+                    stageOneWave--;
+                }
+                return;
+            case 2:
+                if (ObjectManager.StageMonsterMonitor[2] < 10)
+                {
+                    ObjectManager.StageTwoResurrection();
                 }
                 return;
         }

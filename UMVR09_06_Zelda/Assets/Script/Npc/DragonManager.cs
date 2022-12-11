@@ -22,7 +22,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
 
     public float CollisionDisplacement => 0;
 
-    public Vector3 ArrivePoint { get;  set; }
+    public Vector3 ArrivePoint { get; set; }
 
     bool canBeKnockedOut;
     bool dizzy;
@@ -46,20 +46,28 @@ public class DragonManager : MonoBehaviour, NpcHelper
     // Update is called once per frame
     void FixedUpdate()
     {
-        
+
     }
     bool flyState;
     public void GetHurt(DamageData damageData)
     {
         if (Hp <= 0)
         {
-            animator.Play("Die");
-            ObjectManager.myCamera.SetDefault();
+            return;
         }
+        var dState = damageData.DamageState;
+        if (dState.damageState == DamageState.Fever)
+        {
+            animator.Play("Dizzy2");
+            canBeKnockedOut = false;
+            dizzy = true;
+            flyState = false;
+        }
+
         if (canBeKnockedOut)
         {
 
-            var dState = damageData.DamageState;
+
             if (dState.damageState == DamageState.Bomb)
             {
                 animator.Play("Dizzy2");
@@ -75,8 +83,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
         var currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
         if (flyState)
         {
-            var dState = damageData.DamageState;
-            if (dState.damageState == DamageState.Bomb)
+            if (dState.damageState == DamageState.Bomb || dState.damageState == DamageState.Fever)
             {
                 Hp -= damageData.Damage;
             }
@@ -93,7 +100,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
 
     private int moveFrame;
     int moveType;
-   
+
 
     public void Turn(Vector3 direction)
     {

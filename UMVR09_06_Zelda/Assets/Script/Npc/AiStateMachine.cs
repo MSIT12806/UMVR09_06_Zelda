@@ -232,7 +232,7 @@ public class UsaoFightState : UsaoAiState
     {
         //1. 總是面對主角
 
-       
+
         //AiStateCommon.Look(head, ObjectManager.MainCharacterHead);
 
         TauntRandomly();
@@ -452,11 +452,20 @@ public class UsaoDeathState : UsaoAiState
             //死亡程序
             var fxGo = ObjectManager.DieFx.Dequeue();
             fxGo.transform.position = selfTransform.position;
-            selfTransform.position.AddY(-1000);//移出場外以免打擊判定與推擠判定
-            ObjectManager.NpcsAlive.Remove(selfTransform.gameObject.GetInstanceID()); //移出活人池增益效能
-            if (npc.gameState == GameState.FirstStage)
-                ObjectManager.StageOneUsaoPool.Add(selfTransform.gameObject.GetInstanceID(), selfTransform.gameObject);//移入備用池
-            ObjectManager.StageMonsterMonitor[1]--;//怪物數量監控
+
+            //移出場外以免打擊判定與推擠判定
+            selfTransform.position.AddY(-1000);
+
+            //移出活人池增益效能
+            ObjectManager.NpcsAlive.Remove(selfTransform.gameObject.GetInstanceID()); 
+
+            //移入備用池
+            ObjectManager.StagePool[(int)npc.gameState].Add(selfTransform.gameObject.GetInstanceID(), selfTransform.gameObject);
+
+            //怪物數量監控
+            ObjectManager.StageMonsterMonitor[(int)npc.gameState]--;
+
+            //死亡消失與特效
             selfTransform.gameObject.SetActive(false);
             fxGo.SetActive(true);
             ObjectManager.DieFx.Enqueue(fxGo);
@@ -636,7 +645,7 @@ public class GolemIdleState : GolemBaseState
         System.Random random = new System.Random();
         int rnd = random.Next(1, 11);//判斷要不要用技能
 
-        if (rnd == 1 && distance<=15)
+        if (rnd == 1 && distance <= 15)
         {
             //animator.SetTrigger("Skill");
             return new GolemSkillState(target, animator, selfTransform, nowArmor, npcHelper);
@@ -824,7 +833,7 @@ public class GolemWeakState : GolemBaseState
         }
 
         //切至roar (血量低於一半
-        if(npcData.Hp <= npcHelper.MaxHp / 2 && Once.CanSetShield == true)
+        if (npcData.Hp <= npcHelper.MaxHp / 2 && Once.CanSetShield == true)
         {
             animator.SetBool("ShowWeakness", false);
             animator.SetTrigger("SetShield");
@@ -1209,7 +1218,7 @@ public class GolemRoarState : GolemBaseState
         //Debug.Log(time);
         currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
         inStateTime += Time.deltaTime;
-        if (!currentAnimation.IsName("Roar") && inStateTime > 1) 
+        if (!currentAnimation.IsName("Roar") && inStateTime > 1)
         {
             Debug.Log("back to idle");
             return new GolemIdleState(target, animator, selfTransform, nowArmor, npcHelper);
