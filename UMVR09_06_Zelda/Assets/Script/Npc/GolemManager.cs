@@ -6,21 +6,22 @@ public class GolemManager : MonoBehaviour, NpcHelper
 {
     AiState aiState;
     Npc npc;
+    public bool dizzy = false;
     public float Hp { get => npc.Hp; set => npc.Hp = value; }
 
     public float Shield = 0f;
 
     public bool CanBeKockedOut => false;
 
-    public bool Dizzy => false;
+    public bool Dizzy => dizzy;
 
     public float MaxHp { get => npc.MaxHp; }
 
-public float WeakPoint => throw new System.NotImplementedException();
+    public float WeakPoint => ((GolemBaseState)aiState).GetArmor();
 
-    public float MaxWeakPoint => throw new System.NotImplementedException();
+    public float MaxWeakPoint => 12;
 
-    public float Radius =>1.5f;
+    public float Radius => 1.5f;
 
     public float CollisionDisplacement => 0;
 
@@ -42,11 +43,13 @@ public float WeakPoint => throw new System.NotImplementedException();
     {
         aiState.SetAnimation();
         aiState = aiState.SwitchState();
-        Debug.Log(Shield);
+
+        //Debug.Log(Shield);
+        //Debug.Log(Dizzy);
     }
     public void GetHurt(DamageData damageData)
     {
-        Debug.Log("hit"); 
+        Debug.Log("hit");
         aiState.getHit = damageData;
         //aiState = new UsaoHurtState(transform.GetComponent<Animator>(), transform, damageData);
     }
@@ -68,7 +71,7 @@ public float WeakPoint => throw new System.NotImplementedException();
     public void AnimationAttack(int attackType)
     {
         if (attackType == 1)//普攻1
-            NpcCommon.AttackDetection("",transform.position, transform.forward, 360, 4f, false, new DamageData(10f, transform.forward * 0.6f, HitType.Heavy,DamageStateInfo.NormalAttack), "Player");//
+            NpcCommon.AttackDetection("", transform.position, transform.forward, 360, 4f, false, new DamageData(10f, transform.forward * 0.6f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");//
         if (attackType == 2)//技能2
         {
             NpcCommon.AttackDetection("", transform.position, transform.forward, 360, 8f, false, new DamageData(10f, transform.forward * 0.3f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");//
@@ -85,7 +88,10 @@ public float WeakPoint => throw new System.NotImplementedException();
         Shield = 10;
     }
 
-
+    public void ArmorUi()
+    {
+        dizzy = true;
+    }
 
     //public void OnDrawGizmos()
     //{
