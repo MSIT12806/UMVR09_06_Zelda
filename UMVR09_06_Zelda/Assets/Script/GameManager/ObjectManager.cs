@@ -40,6 +40,7 @@ public class ObjectManager : MonoBehaviour
 
 
 
+
     //    public static List<GameObject> UsaoResources;
     //處理 npc 碰撞、偵測、迴避、群體運動等行為。
     //chase: 檢查目前會攻擊玩家的角色有幾人，並適時切換 npc 狀態為 around or close。
@@ -86,6 +87,8 @@ public class ObjectManager : MonoBehaviour
         StageMonsterMonitor[2] = 10;
 
         //ThirdStage
+        GenUsaoSword(stageThreeSpawnPoint.position, 10, 15, GameState.ThridStage);
+        StageMonsterMonitor[3] = 10;
     }
 
     private void InitDieFx()
@@ -156,6 +159,30 @@ public class ObjectManager : MonoBehaviour
 
         }
         StageDeathPool[2].Clear();
+        return;
+    }
+
+
+    internal static void StageThreeResurrection()
+    {
+        var position = stageThreeSpawnPoint.position;
+        var range = 10;
+        //全體復活
+        foreach (var usao in StageDeathPool[3].Values)
+        {
+            usao.transform.position = position + new Vector3(UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1), 0, UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1));
+            var npc = usao.GetComponent<Npc>();
+            npc.Hp = npc.MaxHp;
+            var ator = usao.GetComponent<Animator>();
+            var manager = usao.GetComponent<UsaoManager>();
+            manager.StartAiState();
+            ator.Play("Fight");
+            usao.SetActive(true);
+            NpcsAlive.Add(usao.GetInstanceID(), usao);
+            StageMonsterMonitor[3]++;
+
+        }
+        StageDeathPool[3].Clear();
         return;
     }
     public void GenUsao2(Vector3 position, int range, int normalNumber, GameState state)

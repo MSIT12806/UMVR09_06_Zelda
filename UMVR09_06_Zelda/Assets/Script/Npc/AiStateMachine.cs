@@ -1343,16 +1343,16 @@ public class GolemDeadState : GolemBaseState
     public GolemDeadState(Transform t, Animator a, Transform self, NpcHelper nh) : base(a, self, nh, 0)
     {
         target = t;
+        nh.Die();
     }
 
     public override void SetAnimation()
     {
-        throw new NotImplementedException();
     }
 
     public override AiState SwitchState()
     {
-        throw new NotImplementedException();
+        return this;
     }
 }
 

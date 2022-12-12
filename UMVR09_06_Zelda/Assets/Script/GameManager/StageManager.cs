@@ -9,10 +9,13 @@ public class StageManager : MonoBehaviour
     public float distance = 10;
     PicoState picoState;
     int stageOneWave;
-    public DragonManager Dragon;
+     DragonManager Dragon;
+     GolemManager Golem;
     // Start is called before the first frame update
     void Start()
     {
+        Dragon = GameObject.Find("Blue Variant").GetComponent<DragonManager>();
+        Golem = GameObject.Find("PBR_Golem (1)").GetComponent<GolemManager>();
         picoState = Pico.GetComponent<PicoState>();
         if (TriggerType == 1)
         {
@@ -44,6 +47,12 @@ public class StageManager : MonoBehaviour
                 if (Dragon.Hp > 0 && ObjectManager.StageMonsterMonitor[2] < 10)
                 {
                     ObjectManager.StageTwoResurrection();
+                }
+                return;
+            case 3:
+                if (Golem.Hp > 0 && ObjectManager.StageMonsterMonitor[3] < 10)
+                {
+                    ObjectManager.StageThreeResurrection();
                 }
                 return;
         }

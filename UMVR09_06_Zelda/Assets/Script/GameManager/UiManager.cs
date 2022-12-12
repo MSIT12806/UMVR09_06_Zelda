@@ -38,7 +38,7 @@ public class UiManager : MonoBehaviour
 
     public Transform[] WeakableMonsters;
     public Transform[] WeakPoints;
-     RectTransform ImgToShow;
+    RectTransform ImgToShow;
     public Image WeakFull;
     public Image WeakCrack;
     private void Awake()
@@ -132,9 +132,9 @@ public class UiManager : MonoBehaviour
         var ScriptThrow = mainCharacter.GetComponent<Throw>();
         currentItemCD = ScriptThrow.timer;
 
-        float appleFill = ScriptThrow.appleCount/6;
+        float appleFill = ScriptThrow.appleCount / 6;
         ItemUI.FindAnyChild<Image>("CanEatApple").fillAmount = appleFill;//蘋果ui控制
-        
+
         if (currentItemCD != 0)
         {
             SikaStoneCD();
@@ -177,14 +177,17 @@ public class UiManager : MonoBehaviour
                 ImgToShow.gameObject.SetActive(false);
             }
         }
-        ImageFollow(0);
+        ImageFollow((int)picoState.gameState - 2);
 
     }
     void ImageFollow(int mosterType)
     {
         if (ImgToShow == null) return;
-        Vector2 v = Camera.main.WorldToScreenPoint(WeakPoints[1].position);
-        ImgToShow.position = v;
+        if (mosterType == 0 || mosterType == 1)
+        {
+            Vector2 v = Camera.main.WorldToScreenPoint(WeakPoints[mosterType].position);
+            ImgToShow.position = v;
+        }
     }
     private void RefreshGreatEnemyState()
     {
@@ -277,11 +280,11 @@ public class UiManager : MonoBehaviour
 
     private void SikaStoneCD()
     {
-        var sCD = currentItemCD / ItemCD; 
+        var sCD = currentItemCD / ItemCD;
         ItemUI.FindAnyChild<Image>("CanLock").fillAmount = sCD;
         ItemUI.FindAnyChild<Image>("CanIce").fillAmount = sCD;
         ItemUI.FindAnyChild<Image>("CanBomb").fillAmount = sCD;
         // 現在的CD時間/總CD時間 = 道具中cando 的fill amount
     }
-    
+
 }
