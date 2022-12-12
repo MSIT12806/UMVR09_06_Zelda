@@ -559,6 +559,7 @@ public static class Once
 {
     public static bool CanSetShield = true;
     public static bool CanMove = true;
+    public static Vector3 IcePosision;
 }
 public abstract class GolemBaseState : AiState
 {
@@ -1063,13 +1064,16 @@ public class GolemSkillState : GolemBaseState
     float inStateTime = 0;
 
     bool canInterrupt = false;
-
+    GolemManager gm;
     float moveSpeed;
     //float canMoveFramesOne = 50f;//Skill1
     float canMoveFramesTwo = 27f;//Skill2
     public bool canMove = false;
+
+    float freezeTime = 0;
     public GolemSkillState(Transform t, Animator a, Transform self, float armor, NpcHelper nh) :  base(a, self, nh, armor)
     {
+        gm = (GolemManager)npcHelper;
         //npcData = selfTransform.GetComponent<Npc>();
         target = t;
         nowArmor = armor;
@@ -1099,14 +1103,16 @@ public class GolemSkillState : GolemBaseState
         if (currentAnimation.IsName("Skill 0")) moveSpeed = 0.3f;
         else if (currentAnimation.IsName("Skill2 0")) moveSpeed = 0.5f;
 
-        if (!(currentAnimation.IsName("Skill")))// && !currentAnimation.IsName("Skill2 0")
+        if (!(currentAnimation.IsName("Skill") || currentAnimation.IsName("Skill 0")))// && !currentAnimation.IsName("Skill2 0")
             LookAt();
 
+        freezeTime -= Time.deltaTime;
         if (currentAnimation.IsName("Skill 0"))//Skill1 程式位移
         {
             float dis = (target.position - selfTransform.position).magnitude;
-            if (dis > 4f)
+            if (dis > 3f && freezeTime <= 0)
             {
+                LookAt();
                 selfTransform.Translate(0, 0, moveSpeed);
             }
         }
@@ -1119,24 +1125,42 @@ public class GolemSkillState : GolemBaseState
                 canMoveFramesTwo -= 1;
                 Debug.Log("moveeeee");
                 float dis = (target.position - selfTransform.position).magnitude;
-                if (dis > 4f)
+                if (dis > 2f)
                 {
                     selfTransform.Translate(0, 0, moveSpeed);
                 }
             }
         }
 
+        if(Once.IcePosision != Vector3.zero)
+        {
+            float iceToGolem = (Once.IcePosision - selfTransform.position).magnitude;
+            if(iceToGolem <= 3 && (currentAnimation.IsName("Skill") || currentAnimation.IsName("Skill 0")))
+            {
+                AttackFlaw = true;
+                if (gm.Shield > 0)//解護盾的唯一方法
+                {
+                    gm.Shield -= 25;
+                }
+            }
+        }
+
         if (getHit != null)
         {
-            GolemManager gm = (GolemManager)npcHelper;
+            if(getHit.DamageState.damageState == DamageState.TimePause)
+            {
+                freezeTime = 5f;
+            }
+            
             Debug.Log(getHit.DamageState.damageState);
 
+
             //待修改
-            if (getHit.DamageState.damageState == DamageState.Ice && (currentAnimation.IsName("Skill") || currentAnimation.IsName("Skill 0")))
-            {
-                Debug.Log("HIIIII");
-                AttackFlaw = true;
-            }
+            //if (getHit.DamageState.damageState == DamageState.Ice && (currentAnimation.IsName("Skill") || currentAnimation.IsName("Skill 0")))
+            //{
+            //    Debug.Log("HIIIII");
+            //    AttackFlaw = true;
+            //}
             if (getHit.DamageState.damageState == DamageState.TimePause && currentAnimation.IsName("Skill2"))
             {
                 AttackFlaw = true;
@@ -1151,10 +1175,10 @@ public class GolemSkillState : GolemBaseState
             {
                 npcData.Hp -= getHit.Damage / 10;
             }
-            else if(gm.Shield > 0 && getHit.DamageState.damageState == DamageState.Ice)//解護盾的唯一方法
-            {
-                gm.Shield -= getHit.Damage;
-            }
+            //else if(gm.Shield > 0 && getHit.DamageState.damageState == DamageState.Ice)
+            //{
+            //    gm.Shield -= getHit.Damage;
+            //}
 
             getHit = null;
         }
