@@ -10,6 +10,7 @@ using static UnityEngine.Rendering.DebugUI;
 public class UiManager : MonoBehaviour
 {
     // Start is called before the first frame update
+    public static UiManager singleton;
     Transform MainCharacterHp;
     Transform GreatEnemyState;
     Transform StrongholdState;
@@ -17,6 +18,7 @@ public class UiManager : MonoBehaviour
     Transform PowerOneKey;
     Image PowerOne;
     Transform PowerTwoKey;
+    public Transform SikaTools;
     Image PowerTwo;
     PicoState picoState;
     float currentHp;
@@ -36,19 +38,25 @@ public class UiManager : MonoBehaviour
 
     public Transform[] WeakableMonsters;
     public Transform[] WeakPoints;
-    public RectTransform WeakImg;
+     RectTransform ImgToShow;
     public Image WeakFull;
     public Image WeakCrack;
+    private void Awake()
+    {
+        singleton = this;
+    }
     void Start()
     {
+
         MainCharacterHp = transform.FindAnyChild<Transform>("MainCharacterHP");
         GreatEnemyState = transform.FindAnyChild<Transform>("GreatEnemyState");
         StrongholdState = transform.FindAnyChild<Transform>("StrongholdState");
-        WeakUi = transform.FindAnyChild<Transform>("WeakUi");
+        WeakUi = transform.FindAnyChild<Transform>("Weakness");
         PowerOne = transform.FindAnyChild<Transform>("Power").FindAnyChild<Image>("PowerFull");
         PowerOneKey = transform.FindAnyChild<Transform>("Power").FindAnyChild<Transform>("Key");
         PowerTwo = transform.FindAnyChild<Transform>("Power (1)").FindAnyChild<Image>("PowerFull");
         PowerTwoKey = transform.FindAnyChild<Transform>("Power (1)").FindAnyChild<Transform>("Key");
+        SikaTools = transform.FindAnyChild<Transform>("ItemTips");
         picoState = ObjectManager.MainCharacter.GetComponent<PicoState>();
         myCamera = ObjectManager.myCamera;//可以順便拿怪
         ItemUI = transform.FindAnyChild<Transform>("SiKaStone");
@@ -59,7 +67,43 @@ public class UiManager : MonoBehaviour
         ItemUI.FindAnyChild<Image>("CanLock").fillAmount = 1;
         InitPicoHp();
     }
+    public void ShowSikaTip(string sikaType)
+    {
+        //初始化        
+        var ItemLockTips = SikaTools.FindAnyChild<RectTransform>("ItemLockTips");
+        ItemLockTips.gameObject.SetActive(false);
+        var ItemBombTips = SikaTools.FindAnyChild<RectTransform>("ItemBombTips");
+        ItemBombTips.gameObject.SetActive(false);
+        var ItemIceTips = SikaTools.FindAnyChild<RectTransform>("ItemIceTips");
+        ItemIceTips.gameObject.SetActive(false);
 
+        SikaTools.gameObject.SetActive(true);
+
+
+        switch (sikaType)
+        {
+            case "ItemLockTips":
+                ImgToShow = ItemLockTips;
+                break;
+            case "ItemBombTips":
+                ImgToShow = ItemBombTips;
+                break;
+            case "ItemIceTips":
+                ImgToShow = ItemIceTips;
+                break;
+            default:
+                ImgToShow = WeakUi.GetComponent<RectTransform>();
+                SikaTools.gameObject.SetActive(false);
+                break;
+        }
+
+        ImgToShow.gameObject.SetActive(true);
+    }
+
+    public void HideSikaTip()
+    {
+        ImgToShow.gameObject.SetActive(false);
+    }
     void SetWeakPoint(NpcHelper nh)
     {
         var Value = nh.WeakPoint;
@@ -78,7 +122,7 @@ public class UiManager : MonoBehaviour
         //放完終結技、重新填充的議題？
     }
 
-    bool weakShow = true;
+    bool tipShow = true;
     // Update is called once per frame
     void Update()
     {
@@ -112,29 +156,30 @@ public class UiManager : MonoBehaviour
             var nh = ObjectManager.StateManagers[item.gameObject.GetInstanceID()];
             if (nh.Dizzy)
             {
+                ShowSikaTip("");
                 SetWeakPoint(nh);
-                Vector2 v = Camera.main.WorldToScreenPoint(WeakPoints[i].position);
-                WeakImg.position = v;
-                if (weakShow == true) return;
-
-                WeakImg.gameObject.SetActive(true);
-                weakShow = true;
+                if (tipShow == true) return;
+                ImgToShow.gameObject.SetActive(true);
+                tipShow = true;
                 return;
             }
             else
             {
-                if (weakShow == false) continue;
+                if (tipShow == false) continue;
 
-                WeakImg.gameObject.SetActive(false);
-                weakShow = false;
-
-
+                tipShow = false;
+                ImgToShow.gameObject.SetActive(false);
             }
         }
-
+        ImageFollow(0);
 
     }
-
+    void ImageFollow(int mosterType)
+    {
+        if (ImgToShow == null) return;
+        Vector2 v = Camera.main.WorldToScreenPoint(WeakPoints[0].position);
+        ImgToShow.position = v;
+    }
     private void RefreshGreatEnemyState()
     {
         var hp = GreatEnemyState.transform.FindAnyChild<Image>("GreatEnemyHpBarFull");

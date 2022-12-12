@@ -29559,6 +29559,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 661953955, guid: e344ba4e5a1508a4a9133612aa1c3172, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.14
+      objectReference: {fileID: 0}
     - target: {fileID: 1533247706, guid: e344ba4e5a1508a4a9133612aa1c3172, type: 3}
       propertyPath: dragonWeapon
       value: 
@@ -31616,13 +31620,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97157448246cc364b93c33e593e42132, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SikaTools: {fileID: 0}
   WeakableMonsters:
   - {fileID: 1277495261}
   - {fileID: 761415171}
   WeakPoints:
   - {fileID: 661953955}
   - {fileID: 549925934}
-  WeakImg: {fileID: 261823916}
   WeakFull: {fileID: 261823918}
   WeakCrack: {fileID: 261823917}
 --- !u!4 &1356077073 stripped
@@ -52131,6 +52135,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1349877554}
     m_Modifications:
+    - target: {fileID: 657531574087256162, guid: 591b31c1ffa3fa144b2b1c8938bf0eaf,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 738133332346971893, guid: 591b31c1ffa3fa144b2b1c8938bf0eaf,
         type: 3}
       propertyPath: m_Name
@@ -52244,6 +52253,11 @@ PrefabInstance:
     - target: {fileID: 3642368196897608999, guid: 591b31c1ffa3fa144b2b1c8938bf0eaf,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5478223661885408542, guid: 591b31c1ffa3fa144b2b1c8938bf0eaf,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
