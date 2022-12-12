@@ -295,7 +295,6 @@ public class Throw : MonoBehaviour
         //{
         ItemEffect_obj.transform.position = itemEffect_pos;
 
-        Once.IcePosision = itemEffect_pos;//紀錄冰塊位置
         //}
         if(Explode == "FX_Explosion")
         {
@@ -304,6 +303,7 @@ public class Throw : MonoBehaviour
         }
         else if (Explode == "Obj_Ice")
         {
+            Once.IcePosision = itemEffect_pos;//紀錄冰塊位置
             NpcCommon.AttackDetection("Pico", itemEffect_pos, ItemEffect_obj.transform.forward, 360.0f, 10.0f, false, new DamageData(5, Vector3.zero, HitType.Heavy, new DamageStateInfo(DamageState.Ice, 3)), "Npc");
         }
         else if(Explode == "FX_TimeStop")

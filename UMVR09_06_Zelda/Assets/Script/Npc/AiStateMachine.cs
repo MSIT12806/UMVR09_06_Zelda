@@ -1069,6 +1069,8 @@ public class GolemSkillState : GolemBaseState
     //float canMoveFramesOne = 50f;//Skill1
     float canMoveFramesTwo = 27f;//Skill2
     public bool canMove = false;
+
+    float freezeTime = 0;
     public GolemSkillState(Transform t, Animator a, Transform self, float armor, NpcHelper nh) :  base(a, self, nh, armor)
     {
         gm = (GolemManager)npcHelper;
@@ -1101,14 +1103,16 @@ public class GolemSkillState : GolemBaseState
         if (currentAnimation.IsName("Skill 0")) moveSpeed = 0.3f;
         else if (currentAnimation.IsName("Skill2 0")) moveSpeed = 0.5f;
 
-        if (!(currentAnimation.IsName("Skill")))// && !currentAnimation.IsName("Skill2 0")
+        if (!(currentAnimation.IsName("Skill") || currentAnimation.IsName("Skill 0")))// && !currentAnimation.IsName("Skill2 0")
             LookAt();
 
+        freezeTime -= Time.deltaTime;
         if (currentAnimation.IsName("Skill 0"))//Skill1 程式位移
         {
             float dis = (target.position - selfTransform.position).magnitude;
-            if (dis > 4f)
+            if (dis > 3f && freezeTime <= 0)
             {
+                LookAt();
                 selfTransform.Translate(0, 0, moveSpeed);
             }
         }
@@ -1143,6 +1147,10 @@ public class GolemSkillState : GolemBaseState
 
         if (getHit != null)
         {
+            if(getHit.DamageState.damageState == DamageState.TimePause)
+            {
+                freezeTime = 5f;
+            }
             
             Debug.Log(getHit.DamageState.damageState);
 
