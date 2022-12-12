@@ -1127,7 +1127,7 @@ public class GolemSkillState : GolemBaseState
         }
         else
         {
-            UiManager.singleton.HideSikaTip();
+            UiManager.singleton.HideTip();
         }
 
         if (currentAnimation.IsName("Skill2 0"))//Skill2 程式位移
