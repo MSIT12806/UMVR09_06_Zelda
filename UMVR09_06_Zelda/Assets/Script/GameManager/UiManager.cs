@@ -100,8 +100,9 @@ public class UiManager : MonoBehaviour
         ImgToShow.gameObject.SetActive(true);
     }
 
-    public void HideSikaTip()
+    public void HideTip()
     {
+        if (ImgToShow == null) return;
         ImgToShow.gameObject.SetActive(false);
     }
     void SetWeakPoint(NpcHelper nh)
@@ -182,7 +183,7 @@ public class UiManager : MonoBehaviour
     void ImageFollow(int mosterType)
     {
         if (ImgToShow == null) return;
-        Vector2 v = Camera.main.WorldToScreenPoint(WeakPoints[0].position);
+        Vector2 v = Camera.main.WorldToScreenPoint(WeakPoints[1].position);
         ImgToShow.position = v;
     }
     private void RefreshGreatEnemyState()

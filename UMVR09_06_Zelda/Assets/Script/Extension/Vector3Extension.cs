@@ -44,4 +44,9 @@ public static class Vector3Extension
     {
         return Vector3.Cross(forward.normalized, Vector3.right);
     }
+
+    public static Vector3 GetRandomDirection()
+    {
+        return new Vector3(UnityEngine.Random.value - 0.5f, UnityEngine.Random.value - 0.5f, UnityEngine.Random.value - 0.5f);
+    }
 }
