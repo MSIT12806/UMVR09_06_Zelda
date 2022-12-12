@@ -24,4 +24,16 @@ public class AnimAffectUsao : MonoBehaviour
     {
         YellEffect.GetComponent<ParticleSystem>().Play();
     }
+    void Effect0101()
+    {
+        AttackEffect0101.GetComponent<ParticleSystem>().Play();
+    }
+    void Effect0102()
+    {
+        AttackEffect0102.GetComponent<ParticleSystem>().Play();
+    }
+    void Effect0103()
+    {
+        AttackEffect0103.GetComponent<ParticleSystem>().Play();
+    }
 }
