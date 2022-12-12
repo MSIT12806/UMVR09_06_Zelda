@@ -1347,12 +1347,11 @@ public class GolemDeadState : GolemBaseState
 
     public override void SetAnimation()
     {
-        throw new NotImplementedException();
     }
 
     public override AiState SwitchState()
     {
-        throw new NotImplementedException();
+        return this;
     }
 }
 
