@@ -47941,6 +47941,31 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.0027274636
       objectReference: {fileID: 0}
+    - target: {fileID: 4415769573460095250, guid: 69e0abd36a8324842835ff1afd552884,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4415769573809423114, guid: 69e0abd36a8324842835ff1afd552884,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4415769574212649917, guid: 69e0abd36a8324842835ff1afd552884,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4415769574778092306, guid: 69e0abd36a8324842835ff1afd552884,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 4415769575345788590, guid: 69e0abd36a8324842835ff1afd552884,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4486786441163849247, guid: 69e0abd36a8324842835ff1afd552884,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -48840,6 +48865,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1258422356, guid: 510be0e958e2ffe4bb58cb4fc9c1be5e, type: 3}
+      propertyPath: coldTime
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1258422356, guid: 510be0e958e2ffe4bb58cb4fc9c1be5e, type: 3}
       propertyPath: SwordEffect1
       value: 
