@@ -17200,6 +17200,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 812130047, guid: 5752f796e3e1390418365a49a0e90a84, type: 3}
+      propertyPath: Hp
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 812130047, guid: 5752f796e3e1390418365a49a0e90a84, type: 3}
       propertyPath: MaterialAddress
       value: RockGolemMesh
       objectReference: {fileID: 0}
@@ -18032,8 +18036,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 803679573}
   m_LocalRotation: {x: -0, y: 0.98372453, z: -0, w: 0.17968322}
-  m_LocalPosition: {x: -13.299, y: -0.04, z: -8.512}
-  m_LocalScale: {x: 0.5910022, y: 0.6991052, z: 0.3622}
+  m_LocalPosition: {x: -13.211, y: -0.04, z: -8.522}
+  m_LocalScale: {x: 0.969265, y: 0.6991052, z: 0.3622}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1885573202}
@@ -18401,7 +18405,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 830045084}
   m_LocalRotation: {x: -0, y: 0.38884738, z: -0, w: 0.9213022}
-  m_LocalPosition: {x: -7.33, y: 0.358, z: 1.423}
+  m_LocalPosition: {x: -7.14, y: 0.358, z: 1.412}
   m_LocalScale: {x: 2.1438787, y: 1.7348598, z: 0.3622}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -19436,7 +19440,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 847896259}
   m_LocalRotation: {x: -0, y: 0.10396573, z: -0, w: 0.99458086}
-  m_LocalPosition: {x: -9.455, y: 0.364, z: 2.364}
+  m_LocalPosition: {x: -9.156, y: 0.364, z: 2.301}
   m_LocalScale: {x: 3.1520739, y: 1.7348598, z: 0.3622}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -30138,6 +30142,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 535674134}
     - target: {fileID: 1533247708, guid: e344ba4e5a1508a4a9133612aa1c3172, type: 3}
+      propertyPath: Hp
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1533247708, guid: e344ba4e5a1508a4a9133612aa1c3172, type: 3}
       propertyPath: MaterialAddress
       value: MyDragonSoulEater
       objectReference: {fileID: 0}
@@ -30687,8 +30695,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1293376191}
   m_LocalRotation: {x: -0, y: -0.015396359, z: -0, w: 0.9998815}
-  m_LocalPosition: {x: -6.235, y: -0.116, z: 0.68}
-  m_LocalScale: {x: 0.73169196, y: 0.6689362, z: 0.3622}
+  m_LocalPosition: {x: -6.112, y: -0.116, z: 0.677}
+  m_LocalScale: {x: 0.6061721, y: 0.6689362, z: 0.3622}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1885573202}
@@ -31416,8 +31424,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1323590563}
   m_LocalRotation: {x: -0, y: 0.9972731, z: -0, w: -0.073800735}
-  m_LocalPosition: {x: -14.588, y: -0.03, z: -8.449}
-  m_LocalScale: {x: 2.12596, y: 0.6991052, z: 0.3622}
+  m_LocalPosition: {x: -14.612, y: -0.03, z: -8.446}
+  m_LocalScale: {x: 2.1263855, y: 0.6991052, z: 0.3622}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1885573202}
@@ -46728,7 +46736,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1836687547}
   m_LocalRotation: {x: -0, y: 0.9214983, z: -0, w: 0.38838243}
-  m_LocalPosition: {x: -12.597, y: 0.59, z: -7.957}
+  m_LocalPosition: {x: -12.509, y: 0.59, z: -8.043}
   m_LocalScale: {x: 1.3694783, y: 2.2255313, z: 0.3622}
   m_ConstrainProportionsScale: 0
   m_Children: []
