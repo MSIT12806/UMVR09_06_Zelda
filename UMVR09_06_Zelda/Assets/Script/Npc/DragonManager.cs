@@ -202,6 +202,9 @@ public class DragonManager : MonoBehaviour, NpcHelper
 
     public void Die()
     {
+        ObjectManager.myCamera.SetDefault();
+        ObjectManager.myCamera.m_StareTarget[2] = null;
+        UiManager.singleton.HideTip();
         animator.Play("Die");
         //把小怪都殺死
         var usaosBelongSecondStage = ObjectManager.StagePools[2];

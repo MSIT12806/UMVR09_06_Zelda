@@ -11,6 +11,6 @@ public class DragonShowToolBehavior : StateMachineBehaviour
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        UiManager.singleton.HideSikaTip();
+        UiManager.singleton.HideTip();
     }
 }
