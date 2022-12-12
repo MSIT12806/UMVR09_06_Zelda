@@ -45,6 +45,8 @@ public class Throw : MonoBehaviour
     private float ItemExistTimer = 0.0f;
     private bool isStartTime = false;
 
+    public float appleCount = 6;
+
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -59,6 +61,18 @@ public class Throw : MonoBehaviour
         else isRunning = false;
 
         ThrowBreakOff();
+
+
+
+        if (Input.GetKeyDown(KeyCode.Alpha1) && appleCount > 0 && PicoManager.Hp != PicoManager.MaxHp)
+        {
+            PicoManager.Hp += 200;
+            if(PicoManager.Hp > PicoManager.MaxHp)
+            {
+                PicoManager.Hp = PicoManager.MaxHp;
+            }
+            appleCount -= 1;
+        }
 
         if (CanThrow == true && isRunning == false)
         {
@@ -288,7 +302,7 @@ public class Throw : MonoBehaviour
         }
         else if (Explode == "Obj_Ice")
         {
-            NpcCommon.AttackDetection("Pico", itemEffect_pos, ItemEffect_obj.transform.forward, 360.0f, 8f, false, new DamageData(5, Vector3.zero, HitType.Heavy, new DamageStateInfo(DamageState.Ice, 3)), "Npc");
+            NpcCommon.AttackDetection("Pico", itemEffect_pos, ItemEffect_obj.transform.forward, 360.0f, 10.0f, false, new DamageData(5, Vector3.zero, HitType.Heavy, new DamageStateInfo(DamageState.Ice, 3)), "Npc");
         }
         else if(Explode == "FX_TimeStop")
         {

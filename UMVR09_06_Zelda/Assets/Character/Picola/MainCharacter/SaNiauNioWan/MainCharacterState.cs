@@ -17,10 +17,8 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     public Animator animator;
     public AnimatorStateInfo currentAnimation;
 
-
     public float Fever;
     public int FeverTimes;
-
 
     IKController IK;
     float pressControlTime = 0f;
@@ -30,6 +28,8 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     public Transform newPlace;
     Npc npc;
     ThirdPersonCharacter tpc;
+
+    
 
     bool FeverIk = false;
     private bool canRoll = true;
@@ -69,7 +69,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
         if (noHurt > 0) noHurt--;
 
         //處理美術位移
-        currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
+            currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
         if (currentAnimation.IsName("Attack01") ||
             currentAnimation.IsName("Attack01 0") ||
             currentAnimation.IsName("Attack01 1") ||
