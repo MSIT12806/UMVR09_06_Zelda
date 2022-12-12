@@ -1117,6 +1117,18 @@ public class GolemSkillState : GolemBaseState
             }
         }
 
+        if(currentAnimation.IsName("Skill") || currentAnimation.IsName("Skill 0"))//希卡之石使用提示
+        {
+            UiManager.singleton.ShowSikaTip("ItemIceTips");
+        }
+        else if (currentAnimation.IsName("Skill2") )
+        {
+            UiManager.singleton.ShowSikaTip("ItemLockTips");
+        }
+        else
+        {
+            UiManager.singleton.HideSikaTip();
+        }
 
         if (currentAnimation.IsName("Skill2 0"))//Skill2 程式位移
         {
