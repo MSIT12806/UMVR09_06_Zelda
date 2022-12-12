@@ -35,6 +35,8 @@ public class DragonManager : MonoBehaviour, NpcHelper
         ObjectManager.StateManagers.Add(this.gameObject.GetInstanceID(), this);
         animator = transform.GetComponent<Animator>();
         npc = transform.GetComponent<Npc>();
+        apple = (GameObject)Resources.Load("Apple");
+        heart = (GameObject)Resources.Load("Obj_Heart");
     }
     void Start()
     {
@@ -199,9 +201,25 @@ public class DragonManager : MonoBehaviour, NpcHelper
     {
         NpcCommon.AttackDetection("Dragon", transform.position, transform.forward, /*15*/360f, 8, false, new DamageData(30, Vector3.zero, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
     }
-
+    GameObject apple;
+    GameObject heart;
     public void Die()
     {
+        //掉蘋果跟掉愛心
+        int heartCount = UnityEngine.Random.Range(1, 3);
+        for (int i = 0; i < heartCount; i++)
+        {
+            var go = Instantiate(heart);
+            go.transform.position = transform.position + Vector3Extension.GetRandomDirection().AddY(1).normalized;
+
+        }
+        int appleCount = UnityEngine.Random.Range(2, 5);
+        for (int i = 0; i < heartCount; i++)
+        {
+            var go = Instantiate(apple);
+            go.transform.position = transform.position + Vector3Extension.GetRandomDirection().AddY(1).normalized;
+        }
+
         ObjectManager.myCamera.SetDefault();
         ObjectManager.myCamera.m_StareTarget[2] = null;
         UiManager.singleton.HideTip();
