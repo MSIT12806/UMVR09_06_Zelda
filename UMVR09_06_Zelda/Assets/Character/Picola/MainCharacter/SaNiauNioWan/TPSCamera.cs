@@ -133,16 +133,8 @@ public class TPSCamera : MonoBehaviour
     }
     private void AdjustPositionToAvoidObstruct(Vector3 lookDirection)
     {
-        //lookDirection = this.transform.position - m_LookPoint.position;
         Ray r = new Ray(m_LookPoint.position, -lookDirection);
-        // first method.
-        //if(Physics.Raycast(r, out rh, m_FollowDistance, m_HitLayers))
-        //{
-        //    Vector3 t = rh.point + finialVec* m_HitMoveDistance;
-        //    transform.position = t;
-        //}
-
-        if (Physics.SphereCast(r, 0.5f, out RaycastHit rh, state.GetFollowDistance(this.transform), avoidLayer))//形成一個圓柱體？
+        if (Physics.SphereCast(r, 0.2f, out RaycastHit rh, state.GetFollowDistance(this.transform), avoidLayer))//形成一個圓柱體？
         {
             Vector3 t = m_LookPoint.position - lookDirection * (rh.distance);// - m_HitMoveDistance
             transform.position = t;
