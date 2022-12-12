@@ -100,7 +100,7 @@ public class UiManager : MonoBehaviour
         ImgToShow.gameObject.SetActive(true);
     }
 
-    public void HideSikaTip()
+    public void HideTip()
     {
         if (ImgToShow == null) return;
         ImgToShow.gameObject.SetActive(false);
