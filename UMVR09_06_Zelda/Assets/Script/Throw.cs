@@ -294,6 +294,8 @@ public class Throw : MonoBehaviour
         //else 
         //{
         ItemEffect_obj.transform.position = itemEffect_pos;
+
+        Once.IcePosision = itemEffect_pos;//紀錄冰塊位置
         //}
         if(Explode == "FX_Explosion")
         {
@@ -326,6 +328,7 @@ public class Throw : MonoBehaviour
         if (timer > t)
         {
             Destroy(ItemEffect_obj);
+            Once.IcePosision = Vector3.zero;//
             Object o = Resources.Load(destroyEffect);
             GameObject go = Instantiate((GameObject)o);
             go.transform.position = itemEffect_pos;
