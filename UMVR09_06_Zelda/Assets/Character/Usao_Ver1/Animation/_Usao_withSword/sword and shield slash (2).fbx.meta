@@ -47,7 +47,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
@@ -78,6 +78,30 @@ ModelImporter:
         messageOptions: 0
       - time: 0.6678832
         functionName: Attack
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 24ef9482c19852a449bfc28bee23a5d0,
+          type: 3}
+        floatParameter: 0
+        intParameter: 2
+        messageOptions: 0
+      - time: 0.10179641
+        functionName: Effect0101
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 24ef9482c19852a449bfc28bee23a5d0,
+          type: 3}
+        floatParameter: 0
+        intParameter: 2
+        messageOptions: 0
+      - time: 0.28143713
+        functionName: Effect0102
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 24ef9482c19852a449bfc28bee23a5d0,
+          type: 3}
+        floatParameter: 0
+        intParameter: 2
+        messageOptions: 0
+      - time: 0.6347305
+        functionName: Effect0103
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 24ef9482c19852a449bfc28bee23a5d0,
           type: 3}
