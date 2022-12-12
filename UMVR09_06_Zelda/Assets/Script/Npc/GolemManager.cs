@@ -96,6 +96,11 @@ public class GolemManager : MonoBehaviour, NpcHelper
         dizzy = true;
     }
 
+    public void Die()
+    {
+        throw new System.NotImplementedException();
+    }
+
     //public void OnDrawGizmos()
     //{
     //    Gizmos.DrawRay(transform.position, transform.forward*4f);

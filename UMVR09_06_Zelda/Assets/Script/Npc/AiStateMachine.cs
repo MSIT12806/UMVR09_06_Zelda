@@ -460,7 +460,7 @@ public class UsaoDeathState : UsaoAiState
             ObjectManager.NpcsAlive.Remove(selfTransform.gameObject.GetInstanceID()); 
 
             //移入備用池
-            ObjectManager.StagePool[(int)npc.gameState].Add(selfTransform.gameObject.GetInstanceID(), selfTransform.gameObject);
+            ObjectManager.StageDeathPool[(int)npc.gameState].Add(selfTransform.gameObject.GetInstanceID(), selfTransform.gameObject);
             Debug.Log((int)npc.gameState);
 
             //怪物數量監控

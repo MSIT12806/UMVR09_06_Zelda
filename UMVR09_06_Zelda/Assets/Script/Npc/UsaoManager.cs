@@ -186,4 +186,9 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
     {
 
     }
+
+    public void Die()
+    {
+        GetHurt(new DamageData(Hp, Vector3.zero, HitType.light, DamageStateInfo.NormalAttack));
+    }
 }

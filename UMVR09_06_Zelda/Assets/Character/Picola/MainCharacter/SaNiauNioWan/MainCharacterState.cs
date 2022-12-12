@@ -387,5 +387,9 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     {
     }
 
+    public void Die()
+    {
+        throw new NotImplementedException();
+    }
 }
 

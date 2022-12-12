@@ -54,6 +54,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
     {
         if (Hp <= 0)
         {
+            Die();
             return;
         }
         var dState = damageData.DamageState;
@@ -78,16 +79,16 @@ public class DragonManager : MonoBehaviour, NpcHelper
         if (dizzy)
         {
             weakPoint -= damageData.Damage;
-            if(weakPoint <= 0)
+            if (weakPoint <= 0)
             {
                 animator.Play("ArmorBreak");
             }
         }
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("ArmorBreak"))
         {
-            if(damageData.Hit == HitType.finishing)
+            if (damageData.Hit == HitType.finishing)
             {
-                animator.CrossFade("Idle",0.25f,0);
+                animator.CrossFade("Idle", 0.25f, 0);
                 ResetWeakPoint();
             }
         }
@@ -197,6 +198,18 @@ public class DragonManager : MonoBehaviour, NpcHelper
     public void TailAttack()
     {
         NpcCommon.AttackDetection("Dragon", transform.position, transform.forward, /*15*/360f, 8, false, new DamageData(30, Vector3.zero, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
+    }
+
+    public void Die()
+    {
+        animator.Play("Die");
+        //把小怪都殺死
+        var usaosBelongSecondStage = ObjectManager.StagePools[2];
+        foreach (var item in usaosBelongSecondStage)
+        {
+            item.Die();
+        }
+
     }
     #endregion
 }

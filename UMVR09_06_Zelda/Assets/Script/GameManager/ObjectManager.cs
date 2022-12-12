@@ -11,12 +11,16 @@ using UnityEngine.UIElements;
 public class ObjectManager : MonoBehaviour
 {
     public static Dictionary<int, GameObject> NpcsAlive;//碰撞偵測、攻擊判定用。
-    public static Dictionary<int, GameObject>[] StagePool = new Dictionary<int, GameObject>[4]
+    public static Dictionary<int, GameObject>[] StageDeathPool = new Dictionary<int, GameObject>[4]
     {
         new Dictionary<int, GameObject>(),
         new Dictionary<int, GameObject>(),
         new Dictionary<int, GameObject>(),
         new Dictionary<int, GameObject>()
+    };//復活用
+    public static HashSet<Npc>[] StagePools = new HashSet<Npc>[4]
+    {
+        new HashSet<Npc>(), new HashSet<Npc>(), new HashSet<Npc>(), new HashSet<Npc>()
     };
     public static List<GameObject> Statics;
     public static Queue<GameObject> AttackFx;
@@ -102,10 +106,11 @@ public class ObjectManager : MonoBehaviour
         {
             usao.transform.position = position + new Vector3(UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1), 1, UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1));
             usao.transform.forward = ObjectManager.MainCharacter.position - usao.transform.position;
-            var npc = usao.GetComponent<Npc>();
-            npc.Hp = 150;
-            npc.gameState = state;
             var go = Instantiate(usao);
+            var npc = go.GetComponent<Npc>();
+            StagePools[(int)state].Add(npc);
+            npc.Hp = 50;
+            npc.gameState = state;
             NpcsAlive.Add(go.GetInstanceID(), go);
         }
     }
@@ -114,7 +119,7 @@ public class ObjectManager : MonoBehaviour
         var position = stageOneSpawnPoint.position;
         var range = 10;
         //全體復活
-        foreach (var usao in StagePool[1].Values)
+        foreach (var usao in StageDeathPool[1].Values)
         {
             usao.transform.position = position + new Vector3(UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1), 1, UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1));
             usao.transform.forward = ObjectManager.MainCharacter.position - usao.transform.position;
@@ -129,7 +134,7 @@ public class ObjectManager : MonoBehaviour
             StageMonsterMonitor[1]++;
 
         }
-        StagePool[1].Clear();
+        StageDeathPool[1].Clear();
         return;
     }
     internal static void StageTwoResurrection()
@@ -137,7 +142,7 @@ public class ObjectManager : MonoBehaviour
         var position = stageTwoSpawnPoint.position;
         var range = 10;
         //全體復活
-        foreach (var usao in StagePool[2].Values)
+        foreach (var usao in StageDeathPool[2].Values)
         {
             usao.transform.position = position + new Vector3(UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1), 0, UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1));
             var npc = usao.GetComponent<Npc>();
@@ -151,7 +156,7 @@ public class ObjectManager : MonoBehaviour
             StageMonsterMonitor[2]++;
 
         }
-        StagePool[2].Clear();
+        StageDeathPool[2].Clear();
         return;
     }
     public void GenUsao2(Vector3 position, int range, int normalNumber, GameState state)
@@ -162,10 +167,11 @@ public class ObjectManager : MonoBehaviour
         {
             usao.transform.position = position + new Vector3(UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1), 1, UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1));
             usao.transform.forward = ObjectManager.MainCharacter.position - usao.transform.position;
-            var npc = usao.GetComponent<Npc>();
-            npc.Hp = 150;
-            npc.gameState = state;
             var go = Instantiate(usao);
+            var npc = go.GetComponent<Npc>();
+            StagePools[(int)state].Add(npc);
+            npc.Hp = 50;
+            npc.gameState = state;
             NpcsAlive.Add(go.GetInstanceID(), go);
         }
     }
@@ -178,10 +184,11 @@ public class ObjectManager : MonoBehaviour
         {
             usao.transform.position = position + new Vector3(UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1), 1, UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1));
             usao.transform.forward = ObjectManager.MainCharacter.position - usao.transform.position;
-            var npc = usao.GetComponent<Npc>();
+            var go = Instantiate(usao);
+            var npc = go.GetComponent<Npc>();
+            StagePools[(int)state].Add(npc);
             npc.Hp = 50;
             npc.gameState = state;
-            var go = Instantiate(usao);
             NpcsAlive.Add(go.GetInstanceID(), go);
         }
     }

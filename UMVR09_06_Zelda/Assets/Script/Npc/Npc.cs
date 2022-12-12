@@ -346,6 +346,11 @@ public class Npc : MonoBehaviour
     {
         stopAnimationMoving = keepFrame;
     }
+
+    public void Die()
+    {
+        stateManager.Die();
+    }
     //private void OnDrawGizmos()
     //{
     //    //檢查球射線是否有交點

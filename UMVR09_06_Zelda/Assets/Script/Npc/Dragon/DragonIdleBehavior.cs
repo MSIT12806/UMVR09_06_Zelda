@@ -27,7 +27,8 @@ public class DragonIdleBehavior : StateMachineBehaviour
     {
         if (manager.Hp <= 0)
         {
-            animator.Play("Die");
+            manager.Die();
+            
         }
 
         if (fightState)

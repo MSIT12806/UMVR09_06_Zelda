@@ -58,7 +58,7 @@ public class DragonFlyBehavior : StateMachineBehaviour
 
         if (manager.Hp <= 0)
         {
-            animator.Play("Die");
+            manager.Die();
         }
 
         if (fightState)

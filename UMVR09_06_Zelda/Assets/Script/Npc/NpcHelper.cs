@@ -17,6 +17,7 @@ public interface NpcHelper
     public void Move();
     public void Turn(Vector3 direction);
     public void Look(Transform target);
+    public void Die();
 }
 public class AnimationWeight
 {
