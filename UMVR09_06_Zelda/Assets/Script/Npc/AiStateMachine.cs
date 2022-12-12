@@ -837,14 +837,16 @@ public class GolemWeakState : GolemBaseState
             {
                 npcData.Hp -= getHit.Damage / 10;
             }
-            if (currentAnimation.IsName("GetHit0"))
-            {
-                animator.SetTrigger("getHit2");
-            }
-            else
-            {
-                animator.SetTrigger("getHit");
-            }
+            animator.ResetTrigger("getHit");
+            animator.SetTrigger("getHit");
+            //if (currentAnimation.IsName("GetHit0"))
+            //{
+            //    animator.SetTrigger("getHit2");
+            //}
+            //else
+            //{
+            //    animator.SetTrigger("getHit");
+            //}
 
 
             nowArmor -= 1;
@@ -854,6 +856,7 @@ public class GolemWeakState : GolemBaseState
 
     public override AiState SwitchState()
     {
+
         //切至Dead (血量歸0
         if (npcData.Hp < 0.0001f)
         {
@@ -870,6 +873,8 @@ public class GolemWeakState : GolemBaseState
             animator.SetTrigger("SetShield");
             Once.CanSetShield = false;
             gm.dizzy = false;
+
+            animator.ResetTrigger("getHit");
             return new GolemRoarState(target, animator, selfTransform, nowArmor, npcHelper);
         }
 
@@ -878,6 +883,7 @@ public class GolemWeakState : GolemBaseState
         {
             animator.SetBool("ShowWeakness", false);
             gm.dizzy = false;
+            animator.ResetTrigger("getHit");
             return new GolemIdleState(target, animator, selfTransform, nowArmor, npcHelper);
         }
         //Armor被擊破 切至ArmorBreak
@@ -887,6 +893,7 @@ public class GolemWeakState : GolemBaseState
         {
             animator.SetBool("ShowWeakness", false);
             animator.SetTrigger("ArmorBreak");
+            animator.ResetTrigger("getHit");
             return new GolemArmorBreakState(target, animator, selfTransform, npcHelper);
         }
 
@@ -918,6 +925,7 @@ public class GolemArmorBreakState : GolemBaseState
         time += Time.deltaTime;
         if (getHit != null)
         {
+            animator.ResetTrigger("getHit");
             animator.SetTrigger("getHit");
             GolemManager gm = (GolemManager)npcHelper;
             if (gm.Shield <= 0)
@@ -935,6 +943,7 @@ public class GolemArmorBreakState : GolemBaseState
         if (npcData.Hp < 0.0001f)
         {
             animator.SetTrigger("Dead");
+            animator.ResetTrigger("getHit");
             return new GolemDeadState(target, animator, selfTransform, npcHelper);
         }
         //暈眩時間結束 切回idle
@@ -943,6 +952,7 @@ public class GolemArmorBreakState : GolemBaseState
         {
             animator.SetTrigger("ArmorRecover");
             gm.dizzy = false;
+            animator.ResetTrigger("getHit");
             return new GolemIdleState(target, animator, selfTransform, armorValue, npcHelper);
         }
         if (time <= 5)

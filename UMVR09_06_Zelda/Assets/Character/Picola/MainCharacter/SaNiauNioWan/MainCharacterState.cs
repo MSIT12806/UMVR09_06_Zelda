@@ -147,6 +147,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
             SwordEffect2.SetActive(true);
             Sword.SetActive(true);
             pressControlTime = 0f;
+            animator.SetTrigger("DodgeToIdle");
             animator.SetFloat("dodge", pressControlTime);
         }
         DodgeTranslate();
