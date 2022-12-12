@@ -615,7 +615,7 @@ public class GolemIdleState : GolemBaseState
             GolemManager gm = (GolemManager)npcHelper;
             if(gm.Shield <= 0)
             {
-                npcData.Hp -= getHit.Damage / 10;
+                npcData.Hp -= getHit.Damage;
             }
             if (getHit.DamageState.damageState == DamageState.Fever)
             {
@@ -722,7 +722,7 @@ public class GolemChaseState : GolemBaseState
             GolemManager gm = (GolemManager)npcHelper;
             if (gm.Shield <= 0)
             {
-                npcData.Hp -= getHit.Damage / 10;
+                npcData.Hp -= getHit.Damage;
             }
             if (getHit.DamageState.damageState == DamageState.Fever)
             {
@@ -841,7 +841,7 @@ public class GolemWeakState : GolemBaseState
         {
             if (gm.Shield <= 0)
             {
-                npcData.Hp -= getHit.Damage / 10;
+                npcData.Hp -= getHit.Damage;
             }
             animator.ResetTrigger("getHit");
             animator.SetTrigger("getHit");
@@ -936,7 +936,7 @@ public class GolemArmorBreakState : GolemBaseState
             GolemManager gm = (GolemManager)npcHelper;
             if (gm.Shield <= 0)
             {
-                npcData.Hp -= getHit.Damage / 10 +3;
+                npcData.Hp -= getHit.Damage;
             }
             getHit = null;
         }
@@ -1006,7 +1006,7 @@ public class GolemAttackState : GolemBaseState
             GolemManager gm = (GolemManager)npcHelper;
             if (gm.Shield <= 0)
             {
-                npcData.Hp -= getHit.Damage / 10;
+                npcData.Hp -= getHit.Damage;
             }
             if (getHit.DamageState.damageState == DamageState.Fever)
             {
@@ -1185,7 +1185,7 @@ public class GolemSkillState : GolemBaseState
 
             if (gm.Shield <= 0)
             {
-                npcData.Hp -= getHit.Damage / 10;
+                npcData.Hp -= getHit.Damage;
             }
             //else if(gm.Shield > 0 && getHit.DamageState.damageState == DamageState.Ice)
             //{

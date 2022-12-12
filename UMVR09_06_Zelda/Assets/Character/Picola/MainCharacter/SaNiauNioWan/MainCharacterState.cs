@@ -90,7 +90,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
         }
 
 
-        if (Input.GetKeyDown(KeyCode.E))//斬殺技
+        if (Input.GetKeyDown(KeyCode.E) && currentAnimation.IsName("Finishing"))//斬殺技
         {
             CheckWeakEnemy();
         }
