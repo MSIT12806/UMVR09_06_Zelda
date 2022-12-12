@@ -122,7 +122,6 @@ public class ObjectManager : MonoBehaviour
         foreach (var usao in StageDeathPool[1].Values)
         {
             usao.transform.position = position + new Vector3(UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1), 1, UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1));
-            usao.transform.forward = ObjectManager.MainCharacter.position - usao.transform.position;
             var npc = usao.GetComponent<Npc>();
             npc.Hp = npc.MaxHp;
             var ator = usao.GetComponent<Animator>();

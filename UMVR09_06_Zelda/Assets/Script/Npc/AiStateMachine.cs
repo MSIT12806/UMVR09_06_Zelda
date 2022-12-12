@@ -602,6 +602,11 @@ public class GolemIdleState : GolemBaseState
     }
     public override void SetAnimation()
     {
+        if (false)//第一波小怪殺完
+        {
+            animator.SetFloat("StandSpeed", 0.5f);
+        }
+
         //Debug.Log("111111");
         if (getHit != null)
         {
