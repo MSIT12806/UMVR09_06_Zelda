@@ -70,11 +70,11 @@ public class UiManager : MonoBehaviour
     public void ShowSikaTip(string sikaType)
     {
         //初始化        
-        var ItemLockTips = SikaTools.FindAnyChild<RectTransform>("ItemLockTips");
+        var ItemLockTips = SikaTools.FindAnyChild<RectTransform>("TimeStopTipsRing");
         ItemLockTips.gameObject.SetActive(false);
-        var ItemBombTips = SikaTools.FindAnyChild<RectTransform>("ItemBombTips");
+        var ItemBombTips = SikaTools.FindAnyChild<RectTransform>("BombTipsRing");
         ItemBombTips.gameObject.SetActive(false);
-        var ItemIceTips = SikaTools.FindAnyChild<RectTransform>("ItemIceTips");
+        var ItemIceTips = SikaTools.FindAnyChild<RectTransform>("IceTipsRing");
         ItemIceTips.gameObject.SetActive(false);
 
         SikaTools.gameObject.SetActive(true);
@@ -98,6 +98,10 @@ public class UiManager : MonoBehaviour
         }
 
         ImgToShow.gameObject.SetActive(true);
+        if(ImgToShow.TryGetComponent<ParticleSystem>(out var p))
+        {
+            p.Play();
+        }
     }
 
     public void HideTip()
