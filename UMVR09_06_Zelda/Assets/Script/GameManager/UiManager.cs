@@ -103,7 +103,7 @@ public class UiManager : MonoBehaviour
         }
 
         ImgToShow.gameObject.SetActive(true);
-        if(ImgToShow.TryGetComponent<ParticleSystem>(out var p))
+        if (ImgToShow.TryGetComponent<ParticleSystem>(out var p))
         {
             p.Play();
         }
@@ -166,17 +166,18 @@ public class UiManager : MonoBehaviour
         //大怪--弱點槽 //希卡指示器？
         for (int i = 0; i < WeakableMonsters.Length; i++)
         {
+            if ((int)picoState.gameState - 2 != 0 && (int)picoState.gameState - 2 != 1) return;
             var item = WeakableMonsters[i];
             if (item == null) break;
+            if (item.name != WeakableMonsters[(int)picoState.gameState - 2].name) continue;
             var nh = ObjectManager.StateManagers[item.gameObject.GetInstanceID()];
             if (nh.Dizzy)
             {
                 ShowSikaTip("");
                 SetWeakPoint(nh);
-                if (tipShow == true) return;
+                if (tipShow == true) continue;
                 ImgToShow.gameObject.SetActive(true);
                 tipShow = true;
-                return;
             }
             else
             {

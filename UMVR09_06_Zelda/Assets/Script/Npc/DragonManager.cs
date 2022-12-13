@@ -17,7 +17,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
     float weakPoint;
     public float WeakPoint { get => weakPoint; set => weakPoint = value; }
 
-    public float MaxWeakPoint => npc.MaxHp / 5;
+    public float MaxWeakPoint =>12;
 
     public float Radius => 1.8f;
 
@@ -54,12 +54,23 @@ public class DragonManager : MonoBehaviour, NpcHelper
     bool flyState;
     public void GetHurt(DamageData damageData)
     {
+        var dState = damageData.DamageState;
+        if (flyState)
+        {
+            if (dState.damageState == DamageState.Bomb || dState.damageState == DamageState.Fever)
+            {
+                Hp -= damageData.Damage;
+            }
+        }
+        else
+        {
+            Hp -= damageData.Damage;
+        }
         if (Hp <= 0)
         {
             Die();
             return;
         }
-        var dState = damageData.DamageState;
         if (dState.damageState == DamageState.Fever)
         {
             animator.Play("Dizzy2");
@@ -80,7 +91,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
         }
         if (dizzy)
         {
-            weakPoint -= damageData.Damage;
+            weakPoint --;
             if (weakPoint <= 0)
             {
                 animator.Play("ArmorBreak");
@@ -94,22 +105,6 @@ public class DragonManager : MonoBehaviour, NpcHelper
                 ResetWeakPoint();
             }
         }
-        var currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
-        if (flyState)
-        {
-            if (dState.damageState == DamageState.Bomb || dState.damageState == DamageState.Fever)
-            {
-                Hp -= damageData.Damage;
-            }
-
-            return;
-        }
-        else
-        {
-            Hp -= damageData.Damage;
-            //aiState = new UsaoHurtState(transform.GetComponent<Animator>(), transform, damageData);
-        }
-
     }
 
     public void ResetWeakPoint()

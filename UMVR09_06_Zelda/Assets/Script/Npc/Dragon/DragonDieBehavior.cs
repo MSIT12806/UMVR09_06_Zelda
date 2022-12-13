@@ -7,7 +7,7 @@ public class DragonDieBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        UiManager.singleton.HideTip();
     }
 
     // Update is called once per frame
