@@ -11,6 +11,8 @@ public class DragonIdleBehavior : StateMachineBehaviour
     float dazeSeconds;
     Transform head;
     bool fightState { get => (int)state.gameState == 2; }
+
+    float flyStateWeight;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -33,11 +35,13 @@ public class DragonIdleBehavior : StateMachineBehaviour
 
         if (fightState)
         {
-            if (manager.Hp > manager.MaxHp / 2)
+            if (flyStateWeight > 0.5)
             {
                 animator.SetBool("Fly", true);
                 return;
             }
+
+           
 
             if (dazeSeconds > 0)
             {
@@ -47,6 +51,11 @@ public class DragonIdleBehavior : StateMachineBehaviour
             // do attack
             var distance = Vector3.Distance(target.position, animator.transform.position);
             //還差衝鋒...然後要用隨機來處理
+            if (manager.Hp < manager.MaxHp / 2 && UnityEngine.Random.value > 0.5)
+            {
+                animator.SetTrigger("Sprint");
+            }
+
             if (distance <= 3f)
             {
                 animator.SetTrigger("TailHit");
@@ -64,7 +73,8 @@ public class DragonIdleBehavior : StateMachineBehaviour
     }
     void RefreshDazeTime()
     {
-        dazeSeconds = UnityEngine.Random.Range(3, 6);
+        dazeSeconds = UnityEngine.Random.Range(2, 4);
+        flyStateWeight = UnityEngine.Random.value;
     }
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
