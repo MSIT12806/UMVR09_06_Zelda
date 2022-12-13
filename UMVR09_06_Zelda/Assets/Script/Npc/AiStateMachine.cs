@@ -586,7 +586,7 @@ public abstract class GolemBaseState : AiState
 }
 public class GolemIdleState : GolemBaseState
 {
-    float attackDistance = 3.3f;
+    float attackDistance = 4.5f;
     Transform target;
     PicoState picoState;
     bool goWeakState = false;
@@ -595,6 +595,7 @@ public class GolemIdleState : GolemBaseState
     {
         animator.ResetTrigger("Attack01");
         animator.ResetTrigger("Attack02");
+        animator.ResetTrigger("Attack03");
         animator.ResetTrigger("Skill");
         animator.ResetTrigger("SheikahDefense");
         animator.ResetTrigger("getHit");
@@ -663,6 +664,28 @@ public class GolemIdleState : GolemBaseState
 
         float distance = (target.position - selfTransform.position).magnitude;
 
+        //切至Skill (血量到特定%? 或亂數決定
+
+        System.Random random = new System.Random();
+        //int rnd = random.Next(1, 3);//判斷要不要用技能
+
+
+        //if (rnd < 3 && distance <= 15)
+        //{
+        //    //animator.SetTrigger("Skill");
+        //}
+
+        //切至Attack (追到後就打? 或亂數決定
+        if (distance <= attackDistance)
+        {
+            int rnd = random.Next(1, 4);
+            if (rnd < 3)
+                return new GolemAttackState(target, animator, selfTransform, nowArmor, npcHelper);
+            if(rnd == 3)
+                return new GolemSkillState(target, animator, selfTransform, nowArmor, npcHelper);
+
+        }
+
         //切至Chase (距離玩家 > 攻擊範圍
         if (distance > attackDistance)
         {
@@ -670,24 +693,6 @@ public class GolemIdleState : GolemBaseState
             animator.SetBool("NotReach", true);
             return new GolemChaseState(target, animator, selfTransform, npcHelper, nowArmor);
         }
-        //切至Skill (血量到特定%? 或亂數決定
-
-        System.Random random = new System.Random();
-        int rnd = random.Next(1, 11);//判斷要不要用技能
-
-        if (rnd < 3 && distance <= 15)
-        {
-            //animator.SetTrigger("Skill");
-            return new GolemSkillState(target, animator, selfTransform, nowArmor, npcHelper);
-        }
-
-        //切至Attack (追到後就打? 或亂數決定
-        if (distance <= attackDistance)
-        {
-            //animator.SetTrigger("Attack01");
-            return new GolemAttackState(target, animator, selfTransform, nowArmor, npcHelper);
-        }
-
 
 
 
@@ -697,7 +702,7 @@ public class GolemIdleState : GolemBaseState
 public class GolemChaseState : GolemBaseState
 {
     Transform target;
-    float attackDistance = 3.3f;
+    float attackDistance = 4.5f;
     AnimatorStateInfo currentAnimation;
     private bool goWeakState;
 
@@ -793,13 +798,22 @@ public class GolemChaseState : GolemBaseState
         float distance = (selfTransform.position - target.position).magnitude;
 
         System.Random random = new System.Random();
-        int rnd = random.Next(1, 100);//判斷要不要用技能
+        int rnd = random.Next(1, 150);//判斷要不要用技能
         //Debug.Log(rnd);
         if (distance <= 12f && rnd < 4)
         {
             RemoveChasingNpc();
-            animator.SetBool("NotReach", false);
-            return new GolemSkillState(target, animator, selfTransform, nowArmor, npcHelper);
+
+            if(rnd < 3)
+            {
+                animator.SetBool("NotReach", false);
+                return new GolemSkillState(target, animator, selfTransform, nowArmor, npcHelper);
+            }
+            else
+            {
+                animator.SetBool("NotReach", false);
+                return new GolemAttackState(target, animator, selfTransform, nowArmor, npcHelper);
+            }
         }
 
         //到玩家旁邊切回idle
@@ -992,13 +1006,23 @@ public class GolemAttackState : GolemBaseState
         target = t;
         System.Random random = new System.Random();
         int attackType = random.Next(1, 3);
-        if (attackType == 1)
+
+        float distance = (target.position - selfTransform.position).magnitude;
+
+        if (distance > 4.5f)
         {
-            animator.SetTrigger("Attack01");
+            animator.SetTrigger("Attack03");
         }
-        else if (attackType == 2)
+        if(distance <= 4.5f)
         {
-            animator.SetTrigger("Attack02");
+            if (attackType == 1 )
+            {
+                animator.SetTrigger("Attack01");
+            }
+            else if (attackType == 2)
+            {
+                animator.SetTrigger("Attack02");
+            }
         }
         //npcData = selfTransform.GetComponent<Npc>();
     }
@@ -1051,7 +1075,9 @@ public class GolemAttackState : GolemBaseState
         }
 
         inStateTime += Time.deltaTime;
-        if (!animator.IsInTransition(0) && !currentAnimation.IsName("Attack02") && !currentAnimation.IsName("Attack02 0") && !currentAnimation.IsName("Attack01") && inStateTime > 1)
+        
+        //if (!animator.IsInTransition(0) && !currentAnimation.IsName("Attack02") && !currentAnimation.IsName("Attack02 0") && !currentAnimation.IsName("Attack01") && inStateTime > 1)
+        if (!animator.IsInTransition(0) && !currentAnimation.IsTag("Attack") && inStateTime > 1)
         {
             if (finish && gm.Shield <= 0)
             {
@@ -1075,7 +1101,7 @@ public class GolemSkillState : GolemBaseState
 
     bool canInterrupt = false;
     GolemManager gm;
-    float moveSpeed;
+    float moveSpeed = 0;
     //float canMoveFramesOne = 50f;//Skill1
     float canMoveFramesTwo = 27f;//Skill2
     public bool canMove = false;
@@ -1090,15 +1116,15 @@ public class GolemSkillState : GolemBaseState
         currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
 
         System.Random random = new System.Random();
-        int attackType = random.Next(1, 11);
+        int attackType = random.Next(1, 3);
         Debug.Log(attackType);
-        if (attackType < 8)
+        if (attackType == 1)
         {
             animator.SetTrigger("Skill");
             //UiManager.singleton.ShowSikaTip("ItemIceTips");
             Debug.Log("Showwwwwwwwwwwwwwwwwwwwwww");
         }
-        else if (attackType < 11  && npcData.Hp <= npcHelper.MaxHp / 2)//低於一半血
+        else if (attackType == 2  && npcData.Hp <= npcHelper.MaxHp / 2)//低於一半血
         {
             animator.SetTrigger("Skill2");
             //UiManager.singleton.ShowSikaTip("ItemLockTips");
@@ -1106,6 +1132,7 @@ public class GolemSkillState : GolemBaseState
         }
         else
         {
+            attackType = random.Next(1, 3);
             animator.SetTrigger("Skill");
             //UiManager.singleton.ShowSikaTip("ItemIceTips");
             Debug.Log("Showwwwwwwwwwwwwwwwwwwwwww");
