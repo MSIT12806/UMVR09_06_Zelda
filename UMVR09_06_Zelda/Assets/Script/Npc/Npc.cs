@@ -236,11 +236,7 @@ public class Npc : MonoBehaviour
                 var closestPoint = hitInfos[0].ClosestPoint(transform.position);
                 transform.position -= (closestPoint - transform.position).normalized * 0.1f;
             }
-            if(name == "Blue Variant")
-            {
-                DebugExtension.DebugWireSphere(hitInfos[0].ClosestPoint(transform.position));
-                Debug.Log(hitInfos[0].name);
-            }
+            
             return hitSomethingWhenMoving || hitSomething;//回報碰撞，取消美術位移
         }
         return false;
