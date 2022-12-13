@@ -24,15 +24,16 @@ public class TPSCamera : MonoBehaviour
     public float m_FollowDistance = 5.0f;
     [Range(0.1f, 1000f)]
     public float m_CameraSensitivity = 1.0f;
-
+    public Camera[] cameras;
     public LayerMask avoidLayer;
     public LayerMask transparentLayer;
     public float m_HitMoveDistance = 0.1f;
     private Vector3 m_RefVel = Vector3.zero;
-
+    Camera thisCamera;
     Vector3 lookDirection;
     public int stage;
     CameraState state;
+    PicoState gameState;
     public string cameraState { get => state.Name; }
     private float fMX;
     private float fMY;
@@ -46,6 +47,8 @@ public class TPSCamera : MonoBehaviour
     {
         state = new Default(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance);
         state.CameraDirection = m_FollowTarget.forward;
+        thisCamera = GetComponent<Camera>();
+        gameState = ObjectManager.MainCharacter.GetComponent<PicoState>();
     }
 
     // Update is called once per frame
@@ -86,6 +89,10 @@ public class TPSCamera : MonoBehaviour
                 state = state.Name == "Default" ? new Stare(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance, m_StareTarget[stage]) : new Default(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance);
             else
                 state = new Default(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance);
+        }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            cameras[(int)gameState.gameState].gameObject.SetActive(!cameras[(int)gameState.gameState].gameObject.activeSelf);
         }
     }
 
@@ -133,16 +140,8 @@ public class TPSCamera : MonoBehaviour
     }
     private void AdjustPositionToAvoidObstruct(Vector3 lookDirection)
     {
-        //lookDirection = this.transform.position - m_LookPoint.position;
         Ray r = new Ray(m_LookPoint.position, -lookDirection);
-        // first method.
-        //if(Physics.Raycast(r, out rh, m_FollowDistance, m_HitLayers))
-        //{
-        //    Vector3 t = rh.point + finialVec* m_HitMoveDistance;
-        //    transform.position = t;
-        //}
-
-        if (Physics.SphereCast(r, 0.5f, out RaycastHit rh, state.GetFollowDistance(this.transform), avoidLayer))//形成一個圓柱體？
+        if (Physics.SphereCast(r, 0.2f, out RaycastHit rh, state.GetFollowDistance(this.transform), avoidLayer))//形成一個圓柱體？
         {
             Vector3 t = m_LookPoint.position - lookDirection * (rh.distance);// - m_HitMoveDistance
             transform.position = t;

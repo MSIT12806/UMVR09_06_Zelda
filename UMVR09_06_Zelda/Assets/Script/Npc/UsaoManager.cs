@@ -46,6 +46,8 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
 
     public float CollisionDisplacement => 0.06f;
 
+    public string Name => throw new NotImplementedException();
+
     void Awake()
     {
         ObjectManager.StateManagers.Add(this.gameObject.GetInstanceID(), this);
@@ -185,5 +187,10 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
     void FootR()
     {
 
+    }
+
+    public void Die()
+    {
+        GetHurt(new DamageData(Hp, Vector3.zero, HitType.light, DamageStateInfo.NormalAttack));
     }
 }

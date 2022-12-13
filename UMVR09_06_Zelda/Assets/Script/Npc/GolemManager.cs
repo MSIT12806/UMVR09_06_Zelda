@@ -6,6 +6,8 @@ public class GolemManager : MonoBehaviour, NpcHelper
 {
     AiState aiState;
     Npc npc;
+    GameObject apple;
+    GameObject heart;
     public bool dizzy = false;
     public float Hp { get => npc.Hp; set => npc.Hp = value; }
 
@@ -25,10 +27,15 @@ public class GolemManager : MonoBehaviour, NpcHelper
 
     public float CollisionDisplacement => 0;
 
+    public string Name => "克里曼魔像";
+
     // Start is called before the first frame update
     Animator animator;
     void Awake()
     {
+
+        apple = (GameObject)Resources.Load("Apple");
+        heart = (GameObject)Resources.Load("Obj_Heart");
         ObjectManager.StateManagers.Add(this.gameObject.GetInstanceID(), this);
         animator = transform.GetComponent<Animator>();
         npc = transform.GetComponent<Npc>();
@@ -71,19 +78,19 @@ public class GolemManager : MonoBehaviour, NpcHelper
     public void AnimationAttack(int attackType)
     {
         if (attackType == 1)//普攻1
-            NpcCommon.AttackDetection("", transform.position, transform.forward, 360, 4f, false, new DamageData(10f, transform.forward * 0.6f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");//
+            NpcCommon.AttackDetection("", transform.position, transform.forward, 360, 4f, false, new DamageData(30f, transform.forward * 0.6f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");//
         if (attackType == 2)//技能2
         {
-            NpcCommon.AttackDetection("", transform.position, transform.forward, 360, 8f, false, new DamageData(10f, transform.forward * 0.3f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");//
+            NpcCommon.AttackDetection("", transform.position, transform.forward, 360, 8f, false, new DamageData(50f, transform.forward * 0.3f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");//
             //Once.CanMove = false;
         }        
         if(attackType == 5)//技能2的第二段傷害
-            NpcCommon.AttackDetection("", transform.position, transform.forward, 360, 10f, false, new DamageData(10f, transform.forward * 0.3f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");//
+            NpcCommon.AttackDetection("", transform.position, transform.forward, 360, 10f, false, new DamageData(50f, transform.forward * 0.3f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");//
 
         if (attackType == 3)//技能1
-            NpcCommon.AttackDetection("", transform.position, transform.forward, 360, 5f, false, new DamageData(5f, transform.forward * 0.3f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");//
+            NpcCommon.AttackDetection("", transform.position, transform.forward, 360, 4f, false, new DamageData(50f, transform.forward * 0.3f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");//
         if (attackType == 4)//普攻2
-            NpcCommon.AttackDetection("", transform.position, transform.forward, 90, 5f, false, new DamageData(5f, transform.forward * 0.3f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
+            NpcCommon.AttackDetection("", transform.position, transform.forward, 90, 5f, false, new DamageData(30f, transform.forward * 0.3f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
 
     }
     public void SetShield()
@@ -94,6 +101,36 @@ public class GolemManager : MonoBehaviour, NpcHelper
     public void ArmorUi()
     {
         dizzy = true;
+    }
+
+    public void Die()
+    {
+        //掉蘋果跟掉愛心
+        int heartCount = UnityEngine.Random.Range(1, 3);
+        for (int i = 0; i < heartCount; i++)
+        {
+            var go = Instantiate(heart);
+            go.transform.position = transform.position + Vector3Extension.GetRandomDirection().AddY(1).normalized;
+
+        }
+        int appleCount = UnityEngine.Random.Range(2, 5);
+        for (int i = 0; i < heartCount; i++)
+        {
+            var go = Instantiate(apple);
+            go.transform.position = transform.position + Vector3Extension.GetRandomDirection().AddY(1).normalized;
+        }
+
+
+        ObjectManager.myCamera.SetDefault();
+        ObjectManager.myCamera.m_StareTarget[3] = null;
+        UiManager.singleton.HideTip();
+
+        //animator.Play("Die");
+        var usaosBelongThirdStage = ObjectManager.StagePools[3];
+        foreach (var item in usaosBelongThirdStage)
+        {
+            item.Die();
+        }
     }
 
     //public void OnDrawGizmos()

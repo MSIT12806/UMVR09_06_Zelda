@@ -58,7 +58,7 @@ public class DragonFlyBehavior : StateMachineBehaviour
 
         if (manager.Hp <= 0)
         {
-            animator.Play("Die");
+            manager.Die();
         }
 
         if (fightState)
@@ -90,7 +90,10 @@ public class DragonFlyBehavior : StateMachineBehaviour
                     dazeSeconds -= Time.deltaTime;
                     return;
                 }
-                animator.SetTrigger("FireHit");
+                if (UnityEngine.Random.value > 0.7)
+                    animator.SetTrigger("FireHit");
+                else
+                    animator.SetTrigger("Sprint");
             }
 
         }

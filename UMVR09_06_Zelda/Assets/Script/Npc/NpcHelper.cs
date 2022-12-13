@@ -5,6 +5,7 @@ using UnityEngine;
 
 public interface NpcHelper
 {
+    public string Name { get; }
     public float Hp { get; set; }
     public float Radius { get; }
     public float CollisionDisplacement { get; }
@@ -17,6 +18,7 @@ public interface NpcHelper
     public void Move();
     public void Turn(Vector3 direction);
     public void Look(Transform target);
+    public void Die();
 }
 public class AnimationWeight
 {

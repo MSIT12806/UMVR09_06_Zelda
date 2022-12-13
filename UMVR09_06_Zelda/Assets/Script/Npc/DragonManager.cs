@@ -17,13 +17,15 @@ public class DragonManager : MonoBehaviour, NpcHelper
     float weakPoint;
     public float WeakPoint { get => weakPoint; set => weakPoint = value; }
 
-    public float MaxWeakPoint => npc.MaxHp / 5;
+    public float MaxWeakPoint =>12;
 
     public float Radius => 1.8f;
 
     public float CollisionDisplacement => 0;
 
     public Vector3 ArrivePoint { get; set; }
+
+    public string Name => "克圖格亞";
 
     bool canBeKnockedOut;
     bool dizzy;
@@ -35,6 +37,8 @@ public class DragonManager : MonoBehaviour, NpcHelper
         ObjectManager.StateManagers.Add(this.gameObject.GetInstanceID(), this);
         animator = transform.GetComponent<Animator>();
         npc = transform.GetComponent<Npc>();
+        apple = (GameObject)Resources.Load("Apple");
+        heart = (GameObject)Resources.Load("Obj_Heart");
     }
     void Start()
     {
@@ -52,11 +56,23 @@ public class DragonManager : MonoBehaviour, NpcHelper
     bool flyState;
     public void GetHurt(DamageData damageData)
     {
+        var dState = damageData.DamageState;
+        if (flyState)
+        {
+            if (dState.damageState == DamageState.Bomb || dState.damageState == DamageState.Fever)
+            {
+                Hp -= damageData.Damage;
+            }
+        }
+        else
+        {
+            Hp -= damageData.Damage;
+        }
         if (Hp <= 0)
         {
+            Die();
             return;
         }
-        var dState = damageData.DamageState;
         if (dState.damageState == DamageState.Fever)
         {
             animator.Play("Dizzy2");
@@ -77,36 +93,20 @@ public class DragonManager : MonoBehaviour, NpcHelper
         }
         if (dizzy)
         {
-            weakPoint -= damageData.Damage;
-            if(weakPoint <= 0)
+            weakPoint --;
+            if (weakPoint <= 0)
             {
                 animator.Play("ArmorBreak");
             }
         }
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("ArmorBreak"))
         {
-            if(damageData.Hit == HitType.finishing)
+            if (damageData.Hit == HitType.finishing)
             {
-                animator.CrossFade("Idle",0.25f,0);
+                animator.CrossFade("Idle", 0.25f, 0);
                 ResetWeakPoint();
             }
         }
-        var currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
-        if (flyState)
-        {
-            if (dState.damageState == DamageState.Bomb || dState.damageState == DamageState.Fever)
-            {
-                Hp -= damageData.Damage;
-            }
-
-            return;
-        }
-        else
-        {
-            Hp -= damageData.Damage;
-            //aiState = new UsaoHurtState(transform.GetComponent<Animator>(), transform, damageData);
-        }
-
     }
 
     public void ResetWeakPoint()
@@ -197,6 +197,37 @@ public class DragonManager : MonoBehaviour, NpcHelper
     public void TailAttack()
     {
         NpcCommon.AttackDetection("Dragon", transform.position, transform.forward, /*15*/360f, 8, false, new DamageData(30, Vector3.zero, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
+    }
+    GameObject apple;
+    GameObject heart;
+    public void Die()
+    {
+        //掉蘋果跟掉愛心
+        int heartCount = UnityEngine.Random.Range(1, 3);
+        for (int i = 0; i < heartCount; i++)
+        {
+            var go = Instantiate(heart);
+            go.transform.position = transform.position + Vector3Extension.GetRandomDirection().AddY(1).normalized;
+
+        }
+        int appleCount = UnityEngine.Random.Range(2, 5);
+        for (int i = 0; i < heartCount; i++)
+        {
+            var go = Instantiate(apple);
+            go.transform.position = transform.position + Vector3Extension.GetRandomDirection().AddY(1).normalized;
+        }
+
+        ObjectManager.myCamera.SetDefault();
+        ObjectManager.myCamera.m_StareTarget[2] = null;
+        UiManager.singleton.HideTip();
+        animator.Play("Die");
+        //把小怪都殺死
+        var usaosBelongSecondStage = ObjectManager.StagePools[2];
+        foreach (var item in usaosBelongSecondStage)
+        {
+            item.Die();
+        }
+
     }
     #endregion
 }

@@ -35,7 +35,7 @@ public class DragonChaseBehavior : StateMachineBehaviour
     // OnStateMove is called right after Animator.OnAnimatorMove()
     override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (manager.Hp <= 0) animator.Play("Die");
+        if (manager.Hp <= 0) manager.Die();
         var d = Vector3.Distance(targetPoint, animator.transform.position);
         if (lastDistance - d > 0.05f)
         {

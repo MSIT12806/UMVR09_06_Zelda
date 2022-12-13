@@ -45,6 +45,8 @@ public class Throw : MonoBehaviour
     private float ItemExistTimer = 0.0f;
     private bool isStartTime = false;
 
+    public float appleCount = 6;
+
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -59,6 +61,18 @@ public class Throw : MonoBehaviour
         else isRunning = false;
 
         ThrowBreakOff();
+
+
+
+        if (Input.GetKeyDown(KeyCode.Alpha1) && appleCount > 0 && PicoManager.Hp != PicoManager.MaxHp)
+        {
+            PicoManager.Hp += 200;
+            if(PicoManager.Hp > PicoManager.MaxHp)
+            {
+                PicoManager.Hp = PicoManager.MaxHp;
+            }
+            appleCount -= 1;
+        }
 
         if (CanThrow == true && isRunning == false)
         {
@@ -280,6 +294,7 @@ public class Throw : MonoBehaviour
         //else 
         //{
         ItemEffect_obj.transform.position = itemEffect_pos;
+
         //}
         if(Explode == "FX_Explosion")
         {
@@ -288,7 +303,8 @@ public class Throw : MonoBehaviour
         }
         else if (Explode == "Obj_Ice")
         {
-            NpcCommon.AttackDetection("Pico", itemEffect_pos, ItemEffect_obj.transform.forward, 360.0f, 8f, false, new DamageData(5, Vector3.zero, HitType.Heavy, new DamageStateInfo(DamageState.Ice, 3)), "Npc");
+            Once.IcePosision = itemEffect_pos;//紀錄冰塊位置
+            NpcCommon.AttackDetection("Pico", itemEffect_pos, ItemEffect_obj.transform.forward, 360.0f, 10.0f, false, new DamageData(5, Vector3.zero, HitType.Heavy, new DamageStateInfo(DamageState.Ice, 3)), "Npc");
         }
         else if(Explode == "FX_TimeStop")
         {
@@ -312,6 +328,7 @@ public class Throw : MonoBehaviour
         if (timer > t)
         {
             Destroy(ItemEffect_obj);
+            Once.IcePosision = Vector3.zero;//
             Object o = Resources.Load(destroyEffect);
             GameObject go = Instantiate((GameObject)o);
             go.transform.position = itemEffect_pos;

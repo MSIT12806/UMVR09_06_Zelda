@@ -6,17 +6,22 @@ using System;
 using UnityEngine.UI;
 using Microsoft.Cci;
 using static UnityEngine.Rendering.DebugUI;
+using TMPro;
 
 public class UiManager : MonoBehaviour
 {
     // Start is called before the first frame update
+    public static UiManager singleton;
     Transform MainCharacterHp;
     Transform GreatEnemyState;
     Transform StrongholdState;
     Transform WeakUi;
     Transform PowerOneKey;
+    Transform PowerOneLight;
     Image PowerOne;
     Transform PowerTwoKey;
+    Transform PowerTwoLight;
+    public Transform SikaTools;
     Image PowerTwo;
     PicoState picoState;
     float currentHp;
@@ -36,19 +41,27 @@ public class UiManager : MonoBehaviour
 
     public Transform[] WeakableMonsters;
     public Transform[] WeakPoints;
-    public RectTransform WeakImg;
+    RectTransform ImgToShow;
     public Image WeakFull;
     public Image WeakCrack;
+    private void Awake()
+    {
+        singleton = this;
+    }
     void Start()
     {
+
         MainCharacterHp = transform.FindAnyChild<Transform>("MainCharacterHP");
         GreatEnemyState = transform.FindAnyChild<Transform>("GreatEnemyState");
         StrongholdState = transform.FindAnyChild<Transform>("StrongholdState");
-        WeakUi = transform.FindAnyChild<Transform>("WeakUi");
+        WeakUi = transform.FindAnyChild<Transform>("Weakness");
         PowerOne = transform.FindAnyChild<Transform>("Power").FindAnyChild<Image>("PowerFull");
         PowerOneKey = transform.FindAnyChild<Transform>("Power").FindAnyChild<Transform>("Key");
+        PowerOneLight = transform.FindAnyChild<Transform>("Power").FindAnyChild<Transform>("PowerLight");
         PowerTwo = transform.FindAnyChild<Transform>("Power (1)").FindAnyChild<Image>("PowerFull");
         PowerTwoKey = transform.FindAnyChild<Transform>("Power (1)").FindAnyChild<Transform>("Key");
+        PowerTwoLight = transform.FindAnyChild<Transform>("Power (1)").FindAnyChild<Transform>("PowerLight");
+        SikaTools = transform.FindAnyChild<Transform>("ItemTips");
         picoState = ObjectManager.MainCharacter.GetComponent<PicoState>();
         myCamera = ObjectManager.myCamera;//可以順便拿怪
         ItemUI = transform.FindAnyChild<Transform>("SiKaStone");
@@ -58,8 +71,50 @@ public class UiManager : MonoBehaviour
         ItemCD = mainCharacter.GetComponent<Throw>().coldTime;
         ItemUI.FindAnyChild<Image>("CanLock").fillAmount = 1;
         InitPicoHp();
+        currentPower = float.MinValue;
+    }
+    public void ShowSikaTip(string sikaType)
+    {
+        //初始化        
+        var ItemLockTips = SikaTools.FindAnyChild<RectTransform>("TimeStopTipsRing");
+        ItemLockTips.gameObject.SetActive(false);
+        var ItemBombTips = SikaTools.FindAnyChild<RectTransform>("BombTipsRing");
+        ItemBombTips.gameObject.SetActive(false);
+        var ItemIceTips = SikaTools.FindAnyChild<RectTransform>("IceTipsRing");
+        ItemIceTips.gameObject.SetActive(false);
+
+        SikaTools.gameObject.SetActive(true);
+
+
+        switch (sikaType)
+        {
+            case "ItemLockTips":
+                ImgToShow = ItemLockTips;
+                break;
+            case "ItemBombTips":
+                ImgToShow = ItemBombTips;
+                break;
+            case "ItemIceTips":
+                ImgToShow = ItemIceTips;
+                break;
+            default:
+                ImgToShow = WeakUi.GetComponent<RectTransform>();
+                SikaTools.gameObject.SetActive(false);
+                break;
+        }
+
+        ImgToShow.gameObject.SetActive(true);
+        if (ImgToShow.TryGetComponent<ParticleSystem>(out var p))
+        {
+            p.Play();
+        }
     }
 
+    public void HideTip()
+    {
+        if (ImgToShow == null) return;
+        ImgToShow.gameObject.SetActive(false);
+    }
     void SetWeakPoint(NpcHelper nh)
     {
         var Value = nh.WeakPoint;
@@ -78,13 +133,18 @@ public class UiManager : MonoBehaviour
         //放完終結技、重新填充的議題？
     }
 
-    bool weakShow = true;
+    bool tipShow = true;
     // Update is called once per frame
     void Update()
     {
         SetHpBar();
         SetFeverBar();
-        currentItemCD = mainCharacter.GetComponent<Throw>().timer;
+        var ScriptThrow = mainCharacter.GetComponent<Throw>();
+        currentItemCD = ScriptThrow.timer;
+
+        float appleFill = ScriptThrow.appleCount / 6;
+        ItemUI.FindAnyChild<Image>("CanEatApple").fillAmount = appleFill;//蘋果ui控制
+
         if (currentItemCD != 0)
         {
             SikaStoneCD();
@@ -107,39 +167,48 @@ public class UiManager : MonoBehaviour
         //大怪--弱點槽 //希卡指示器？
         for (int i = 0; i < WeakableMonsters.Length; i++)
         {
+            if ((int)picoState.gameState - 2 != 0 && (int)picoState.gameState - 2 != 1) return;
             var item = WeakableMonsters[i];
             if (item == null) break;
+            if (item.name != WeakableMonsters[(int)picoState.gameState - 2].name) continue;
             var nh = ObjectManager.StateManagers[item.gameObject.GetInstanceID()];
             if (nh.Dizzy)
             {
+                ShowSikaTip("");
                 SetWeakPoint(nh);
-                Vector2 v = Camera.main.WorldToScreenPoint(WeakPoints[i].position);
-                WeakImg.position = v;
-                if (weakShow == true) return;
-
-                WeakImg.gameObject.SetActive(true);
-                weakShow = true;
-                return;
+                if (tipShow == true) continue;
+                ImgToShow.gameObject.SetActive(true);
+                tipShow = true;
             }
             else
             {
-                if (weakShow == false) continue;
+                if (tipShow == false) continue;
 
-                WeakImg.gameObject.SetActive(false);
-                weakShow = false;
-
-
+                tipShow = false;
+                ImgToShow.gameObject.SetActive(false);
             }
         }
-
+        ImageFollow((int)picoState.gameState - 2);
 
     }
-
+    void ImageFollow(int mosterType)
+    {
+        if (ImgToShow == null) return;
+        if (mosterType == 0 || mosterType == 1)
+        {
+            Vector2 v = Camera.main.WorldToScreenPoint(WeakPoints[mosterType].position);
+            ImgToShow.position = v;
+        }
+    }
     private void RefreshGreatEnemyState()
     {
+        var a = GreatEnemyState.transform.FindAnyChild<Transform>("GreatEnemyBar");
+        var b = a.FindAnyChild<Transform>("GreatEnemyName");
+        var nameUi = b.GetComponent<TextMeshProUGUI>();
         var hp = GreatEnemyState.transform.FindAnyChild<Image>("GreatEnemyHpBarFull");
         var hpInfo = myCamera.m_StareTarget[(int)picoState.gameState].GetComponent<Npc>();
         hp.fillAmount = hpInfo.Hp / hpInfo.MaxHp;
+        nameUi.text = ObjectManager.StateManagers[ myCamera.m_StareTarget[(int)picoState.gameState].gameObject.GetInstanceID()].Name;
     }
 
     void SetHpBar()
@@ -206,21 +275,27 @@ public class UiManager : MonoBehaviour
             PowerOne.fillAmount = 1;
             PowerTwo.fillAmount = 1;
             PowerOneKey.gameObject.SetActive(false);
+            PowerOneLight.gameObject.SetActive(false);
             PowerTwoKey.gameObject.SetActive(true);
+            PowerTwoLight.gameObject.SetActive(true);
         }
         else if (PicoManager.Power >= 100)
         {
             PowerOne.fillAmount = 1;
             PowerTwo.fillAmount = (PicoManager.Power - 100) / 100;
             PowerOneKey.gameObject.SetActive(true);
+            PowerOneLight.gameObject.SetActive(true);
             PowerTwoKey.gameObject.SetActive(false);
+            PowerTwoLight.gameObject.SetActive(false);
         }
         else
         {
             PowerTwo.fillAmount = 0;
             PowerOne.fillAmount = (PicoManager.Power) / 100;
             PowerOneKey.gameObject.SetActive(false);
+            PowerOneLight.gameObject.SetActive(false);
             PowerTwoKey.gameObject.SetActive(false);
+            PowerTwoLight.gameObject.SetActive(false);
         }
     }
 
@@ -232,4 +307,5 @@ public class UiManager : MonoBehaviour
         ItemUI.FindAnyChild<Image>("CanBomb").fillAmount = sCD;
         // 現在的CD時間/總CD時間 = 道具中cando 的fill amount
     }
+
 }
