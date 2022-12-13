@@ -598,7 +598,6 @@ public class GolemIdleState : GolemBaseState
         animator.ResetTrigger("Skill");
         animator.ResetTrigger("SheikahDefense");
         animator.ResetTrigger("getHit");
-        animator.ResetTrigger("ArmorRecover");
         animator.ResetTrigger("ArmorBreak");
         animator.ResetTrigger("SetShield");
         animator.ResetTrigger("FeverAttack");
@@ -966,6 +965,7 @@ public class GolemArmorBreakState : GolemBaseState
         //Armor補滿
         if (time > 5)
         {
+            Debug.Log("Backkkk");
             animator.SetTrigger("ArmorRecover");
             gm.dizzy = false;
             animator.ResetTrigger("getHit");
