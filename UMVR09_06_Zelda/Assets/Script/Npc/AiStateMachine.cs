@@ -630,6 +630,7 @@ public class GolemIdleState : GolemBaseState
                 goWeakState = true;
             }
             getHit = null;
+            
         }
     }
 
@@ -725,7 +726,6 @@ public class GolemChaseState : GolemBaseState
         currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
         if (!animator.IsInTransition(0) && currentAnimation.IsName("Walk"))
             selfTransform.Translate(0, 0, 0.05f);
-
         if (getHit != null)
         {
             GolemManager gm = (GolemManager)npcHelper;
@@ -1095,19 +1095,19 @@ public class GolemSkillState : GolemBaseState
         if (attackType < 8)
         {
             animator.SetTrigger("Skill");
-            UiManager.singleton.ShowSikaTip("ItemIceTips");
+            //UiManager.singleton.ShowSikaTip("ItemIceTips");
             Debug.Log("Showwwwwwwwwwwwwwwwwwwwwww");
         }
         else if (attackType < 11  && npcData.Hp <= npcHelper.MaxHp / 2)//低於一半血
         {
             animator.SetTrigger("Skill2");
-            UiManager.singleton.ShowSikaTip("ItemLockTips");
+            //UiManager.singleton.ShowSikaTip("ItemLockTips");
             Debug.Log("Showwwwwwwwwwwwwwwwwwwwwww");
         }
         else
         {
             animator.SetTrigger("Skill");
-            UiManager.singleton.ShowSikaTip("ItemIceTips");
+            //UiManager.singleton.ShowSikaTip("ItemIceTips");
             Debug.Log("Showwwwwwwwwwwwwwwwwwwwwww");
         }
     }
@@ -1122,31 +1122,33 @@ public class GolemSkillState : GolemBaseState
         if (!(currentAnimation.IsName("Skill") || currentAnimation.IsName("Skill 0")))// && !currentAnimation.IsName("Skill2 0")
             LookAt();
 
+
+        //if(currentAnimation.IsName("Skill") || currentAnimation.IsName("Skill 0"))//希卡之石使用提示
+        //{
+        //    //UiManager.singleton.ShowSikaTip("ItemIceTips");
+        //    Debug.Log(" ");
+        //}
+        //else if (currentAnimation.IsName("Skill2") )
+        //{
+        //    //UiManager.singleton.ShowSikaTip("ItemLockTips");
+        //    Debug.Log("  ");
+        //}
+        //else
+        //{
+        //    //UiManager.singleton.HideTip();
+        //    //Debug.Log("hideeeeeeeeeeeeeeeeeeee");
+        //}
         freezeTime -= Time.deltaTime;
         if (currentAnimation.IsName("Skill 0"))//Skill1 程式位移
         {
             float dis = (target.position - selfTransform.position).magnitude;
             if (dis > 3f && freezeTime <= 0)
             {
-                LookAt();
+                if(dis>5f)//太近就不會追蹤
+                    LookAt();
+
                 selfTransform.Translate(0, 0, moveSpeed);
             }
-        }
-
-        if(currentAnimation.IsName("Skill") || currentAnimation.IsName("Skill 0"))//希卡之石使用提示
-        {
-            //UiManager.singleton.ShowSikaTip("ItemIceTips");
-            Debug.Log(" ");
-        }
-        else if (currentAnimation.IsName("Skill2") )
-        {
-            //UiManager.singleton.ShowSikaTip("ItemLockTips");
-            Debug.Log("  ");
-        }
-        else
-        {
-            //UiManager.singleton.HideTip();
-            //Debug.Log("hideeeeeeeeeeeeeeeeeeee");
         }
 
         if (currentAnimation.IsName("Skill2 0"))//Skill2 程式位移
@@ -1192,7 +1194,7 @@ public class GolemSkillState : GolemBaseState
             //    Debug.Log("HIIIII");
             //    AttackFlaw = true;
             //}
-            if (getHit.DamageState.damageState == DamageState.TimePause && currentAnimation.IsName("Skill2"))
+            if (getHit.DamageState.damageState == DamageState.TimePause && currentAnimation.IsName("Skill2 0 0 0"))
             {
                 AttackFlaw = true;
             }
