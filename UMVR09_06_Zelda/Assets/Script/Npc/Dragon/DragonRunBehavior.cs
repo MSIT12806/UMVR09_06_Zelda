@@ -12,6 +12,8 @@ public class DragonRunBehavior : StateMachineBehaviour
     Vector3 targetPosition;
     Vector3 direction;
     float currentDistance;
+    private bool alreadyHit;
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -41,12 +43,13 @@ public class DragonRunBehavior : StateMachineBehaviour
     {
         Debug.Log(Vector3.Distance(animator.transform.position, ObjectManager.MainCharacter.position));
         var isHit = Vector3.Distance(animator.transform.position, ObjectManager.MainCharacter.position) <= 2f;
-        if (isHit)
+        if (isHit && alreadyHit == false)
         {
-            NpcCommon.AttackDetection("Dragon", animator.transform.position, animator.transform.forward,35, 2f, false, new DamageData(100, animator.transform.forward, HitType.Heavy, DamageStateInfo.NormalAttack),"Player");
+            NpcCommon.AttackDetection("Dragon", animator.transform.position, animator.transform.forward, 35, 2f, false, new DamageData(100, animator.transform.forward, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
+            alreadyHit = true;
         }
         var newDistance = Vector3.Distance(animator.transform.position, targetPosition);
-        if (currentDistance > newDistance && npc.collide==false)
+        if (currentDistance > newDistance && npc.collide == false)
         {
             currentDistance = newDistance;
             animator.transform.position += direction * 0.3f;

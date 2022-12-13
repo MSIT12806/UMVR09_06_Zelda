@@ -5,6 +5,7 @@ using UnityEngine;
 
 public interface NpcHelper
 {
+    public string Name { get; }
     public float Hp { get; set; }
     public float Radius { get; }
     public float CollisionDisplacement { get; }

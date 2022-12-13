@@ -662,6 +662,14 @@ public class GolemIdleState : GolemBaseState
         }
 
         float distance = (target.position - selfTransform.position).magnitude;
+
+        //切至Chase (距離玩家 > 攻擊範圍
+        if (distance > attackDistance)
+        {
+            //Debug.Log((target.position - selfTransform.position).magnitude);
+            animator.SetBool("NotReach", true);
+            return new GolemChaseState(target, animator, selfTransform, npcHelper, nowArmor);
+        }
         //切至Skill (血量到特定%? 或亂數決定
 
         System.Random random = new System.Random();
@@ -682,13 +690,6 @@ public class GolemIdleState : GolemBaseState
 
 
 
-        //切至Chase (距離玩家 > 攻擊範圍
-        if (distance > attackDistance)
-        {
-            //Debug.Log((target.position - selfTransform.position).magnitude);
-            animator.SetBool("NotReach", true);
-            return new GolemChaseState(target, animator, selfTransform, npcHelper, nowArmor);
-        }
 
         return this;
     }
@@ -1050,7 +1051,7 @@ public class GolemAttackState : GolemBaseState
         }
 
         inStateTime += Time.deltaTime;
-        if (!currentAnimation.IsName("Attack02") && !currentAnimation.IsName("Attack01") && inStateTime > 1)
+        if (!animator.IsInTransition(0) && !currentAnimation.IsName("Attack02") && !currentAnimation.IsName("Attack02 0") && !currentAnimation.IsName("Attack01") && inStateTime > 1)
         {
             if (finish && gm.Shield <= 0)
             {
@@ -1094,14 +1095,20 @@ public class GolemSkillState : GolemBaseState
         if (attackType < 8)
         {
             animator.SetTrigger("Skill");
+            UiManager.singleton.ShowSikaTip("ItemIceTips");
+            Debug.Log("Showwwwwwwwwwwwwwwwwwwwwww");
         }
         else if (attackType < 11  && npcData.Hp <= npcHelper.MaxHp / 2)//低於一半血
         {
             animator.SetTrigger("Skill2");
+            UiManager.singleton.ShowSikaTip("ItemLockTips");
+            Debug.Log("Showwwwwwwwwwwwwwwwwwwwwww");
         }
         else
         {
             animator.SetTrigger("Skill");
+            UiManager.singleton.ShowSikaTip("ItemIceTips");
+            Debug.Log("Showwwwwwwwwwwwwwwwwwwwwww");
         }
     }
 
@@ -1128,15 +1135,18 @@ public class GolemSkillState : GolemBaseState
 
         if(currentAnimation.IsName("Skill") || currentAnimation.IsName("Skill 0"))//希卡之石使用提示
         {
-            UiManager.singleton.ShowSikaTip("ItemIceTips");
+            //UiManager.singleton.ShowSikaTip("ItemIceTips");
+            Debug.Log(" ");
         }
         else if (currentAnimation.IsName("Skill2") )
         {
-            UiManager.singleton.ShowSikaTip("ItemLockTips");
+            //UiManager.singleton.ShowSikaTip("ItemLockTips");
+            Debug.Log("  ");
         }
         else
         {
-            UiManager.singleton.HideTip();
+            //UiManager.singleton.HideTip();
+            //Debug.Log("hideeeeeeeeeeeeeeeeeeee");
         }
 
         if (currentAnimation.IsName("Skill2 0"))//Skill2 程式位移
@@ -1263,12 +1273,14 @@ public class GolemSkillState : GolemBaseState
         else if (AttackFlaw)
         {
             animator.SetTrigger("HaveShieldGetHit");
+            
             return new GolemIdleState(target, animator, selfTransform, nowArmor, npcHelper);
         }
         //技能施放結束 切回idle
         inStateTime += Time.deltaTime;
         if (!animator.IsInTransition(0) && currentAnimation.IsName("Idle") && inStateTime > 1) //|| currentAnimation.IsName("Skill 0") || currentAnimation.IsName("Skill2") || currentAnimation.IsName("Skill2 0")
         {
+            Debug.Log("hiiiiii");
             //Debug.Log(currentAnimation.IsName("Skill 0"));
             //Debug.Log(currentAnimation.IsName("Skill2"));
             //Debug.Log(currentAnimation.IsName("Skill2 0"));

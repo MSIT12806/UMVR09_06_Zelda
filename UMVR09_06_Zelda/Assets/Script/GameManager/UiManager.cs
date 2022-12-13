@@ -6,6 +6,7 @@ using System;
 using UnityEngine.UI;
 using Microsoft.Cci;
 using static UnityEngine.Rendering.DebugUI;
+using TMPro;
 
 public class UiManager : MonoBehaviour
 {
@@ -103,7 +104,7 @@ public class UiManager : MonoBehaviour
         }
 
         ImgToShow.gameObject.SetActive(true);
-        if(ImgToShow.TryGetComponent<ParticleSystem>(out var p))
+        if (ImgToShow.TryGetComponent<ParticleSystem>(out var p))
         {
             p.Play();
         }
@@ -166,17 +167,18 @@ public class UiManager : MonoBehaviour
         //大怪--弱點槽 //希卡指示器？
         for (int i = 0; i < WeakableMonsters.Length; i++)
         {
+            if ((int)picoState.gameState - 2 != 0 && (int)picoState.gameState - 2 != 1) return;
             var item = WeakableMonsters[i];
             if (item == null) break;
+            if (item.name != WeakableMonsters[(int)picoState.gameState - 2].name) continue;
             var nh = ObjectManager.StateManagers[item.gameObject.GetInstanceID()];
             if (nh.Dizzy)
             {
                 ShowSikaTip("");
                 SetWeakPoint(nh);
-                if (tipShow == true) return;
+                if (tipShow == true) continue;
                 ImgToShow.gameObject.SetActive(true);
                 tipShow = true;
-                return;
             }
             else
             {
@@ -200,9 +202,13 @@ public class UiManager : MonoBehaviour
     }
     private void RefreshGreatEnemyState()
     {
+        var a = GreatEnemyState.transform.FindAnyChild<Transform>("GreatEnemyBar");
+        var b = a.FindAnyChild<Transform>("GreatEnemyName");
+        var nameUi = b.GetComponent<TextMeshProUGUI>();
         var hp = GreatEnemyState.transform.FindAnyChild<Image>("GreatEnemyHpBarFull");
         var hpInfo = myCamera.m_StareTarget[(int)picoState.gameState].GetComponent<Npc>();
         hp.fillAmount = hpInfo.Hp / hpInfo.MaxHp;
+        nameUi.text = ObjectManager.StateManagers[ myCamera.m_StareTarget[(int)picoState.gameState].gameObject.GetInstanceID()].Name;
     }
 
     void SetHpBar()
