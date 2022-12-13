@@ -461,11 +461,9 @@ public class UsaoDeathState : UsaoAiState
 
             //移入備用池
             ObjectManager.StageDeathPool[(int)npc.gameState].Add(selfTransform.gameObject.GetInstanceID(), selfTransform.gameObject);
-            Debug.Log((int)npc.gameState);
 
             //怪物數量監控
             ObjectManager.StageMonsterMonitor[(int)npc.gameState]--;
-            Debug.Log(ObjectManager.StageMonsterMonitor[(int)npc.gameState]);
 
             //死亡消失與特效
             selfTransform.gameObject.SetActive(false);
@@ -595,6 +593,17 @@ public class GolemIdleState : GolemBaseState
     GolemManager gm;
     public GolemIdleState(Transform t, Animator a, Transform self, float armor, NpcHelper nh) : base(a, self, nh, armor)
     {
+        animator.ResetTrigger("Attack01");
+        animator.ResetTrigger("Attack02");
+        animator.ResetTrigger("Skill");
+        animator.ResetTrigger("SheikahDefense");
+        animator.ResetTrigger("getHit");
+        animator.ResetTrigger("ArmorRecover");
+        animator.ResetTrigger("ArmorBreak");
+        animator.ResetTrigger("SetShield");
+        animator.ResetTrigger("FeverAttack");
+        animator.ResetTrigger("Skill2");
+        animator.ResetTrigger("HaveShieldGetHit");
         target = t;
         nowArmor = armor;
         picoState = target.GetComponent<PicoState>();

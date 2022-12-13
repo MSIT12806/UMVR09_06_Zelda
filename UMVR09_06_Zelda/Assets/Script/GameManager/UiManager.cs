@@ -16,8 +16,10 @@ public class UiManager : MonoBehaviour
     Transform StrongholdState;
     Transform WeakUi;
     Transform PowerOneKey;
+    Transform PowerOneLight;
     Image PowerOne;
     Transform PowerTwoKey;
+    Transform PowerTwoLight;
     public Transform SikaTools;
     Image PowerTwo;
     PicoState picoState;
@@ -54,8 +56,10 @@ public class UiManager : MonoBehaviour
         WeakUi = transform.FindAnyChild<Transform>("Weakness");
         PowerOne = transform.FindAnyChild<Transform>("Power").FindAnyChild<Image>("PowerFull");
         PowerOneKey = transform.FindAnyChild<Transform>("Power").FindAnyChild<Transform>("Key");
+        PowerOneLight = transform.FindAnyChild<Transform>("Power").FindAnyChild<Transform>("PowerLight");
         PowerTwo = transform.FindAnyChild<Transform>("Power (1)").FindAnyChild<Image>("PowerFull");
         PowerTwoKey = transform.FindAnyChild<Transform>("Power (1)").FindAnyChild<Transform>("Key");
+        PowerTwoLight = transform.FindAnyChild<Transform>("Power (1)").FindAnyChild<Transform>("PowerLight");
         SikaTools = transform.FindAnyChild<Transform>("ItemTips");
         picoState = ObjectManager.MainCharacter.GetComponent<PicoState>();
         myCamera = ObjectManager.myCamera;//可以順便拿怪
@@ -66,15 +70,16 @@ public class UiManager : MonoBehaviour
         ItemCD = mainCharacter.GetComponent<Throw>().coldTime;
         ItemUI.FindAnyChild<Image>("CanLock").fillAmount = 1;
         InitPicoHp();
+        currentPower = float.MinValue;
     }
     public void ShowSikaTip(string sikaType)
     {
         //初始化        
-        var ItemLockTips = SikaTools.FindAnyChild<RectTransform>("ItemLockTips");
+        var ItemLockTips = SikaTools.FindAnyChild<RectTransform>("TimeStopTipsRing");
         ItemLockTips.gameObject.SetActive(false);
-        var ItemBombTips = SikaTools.FindAnyChild<RectTransform>("ItemBombTips");
+        var ItemBombTips = SikaTools.FindAnyChild<RectTransform>("BombTipsRing");
         ItemBombTips.gameObject.SetActive(false);
-        var ItemIceTips = SikaTools.FindAnyChild<RectTransform>("ItemIceTips");
+        var ItemIceTips = SikaTools.FindAnyChild<RectTransform>("IceTipsRing");
         ItemIceTips.gameObject.SetActive(false);
 
         SikaTools.gameObject.SetActive(true);
@@ -98,6 +103,10 @@ public class UiManager : MonoBehaviour
         }
 
         ImgToShow.gameObject.SetActive(true);
+        if(ImgToShow.TryGetComponent<ParticleSystem>(out var p))
+        {
+            p.Play();
+        }
     }
 
     public void HideTip()
@@ -260,21 +269,27 @@ public class UiManager : MonoBehaviour
             PowerOne.fillAmount = 1;
             PowerTwo.fillAmount = 1;
             PowerOneKey.gameObject.SetActive(false);
+            PowerOneLight.gameObject.SetActive(false);
             PowerTwoKey.gameObject.SetActive(true);
+            PowerTwoLight.gameObject.SetActive(true);
         }
         else if (PicoManager.Power >= 100)
         {
             PowerOne.fillAmount = 1;
             PowerTwo.fillAmount = (PicoManager.Power - 100) / 100;
             PowerOneKey.gameObject.SetActive(true);
+            PowerOneLight.gameObject.SetActive(true);
             PowerTwoKey.gameObject.SetActive(false);
+            PowerTwoLight.gameObject.SetActive(false);
         }
         else
         {
             PowerTwo.fillAmount = 0;
             PowerOne.fillAmount = (PicoManager.Power) / 100;
             PowerOneKey.gameObject.SetActive(false);
+            PowerOneLight.gameObject.SetActive(false);
             PowerTwoKey.gameObject.SetActive(false);
+            PowerTwoLight.gameObject.SetActive(false);
         }
     }
 
