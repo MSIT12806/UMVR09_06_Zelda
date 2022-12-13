@@ -27,6 +27,8 @@ public class GolemManager : MonoBehaviour, NpcHelper
 
     public float CollisionDisplacement => 0;
 
+    public string Name => "戈倫巨人";
+
     // Start is called before the first frame update
     Animator animator;
     void Awake()

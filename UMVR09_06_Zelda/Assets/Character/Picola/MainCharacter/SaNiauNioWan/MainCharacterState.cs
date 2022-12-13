@@ -50,6 +50,8 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
 
     public float CollisionDisplacement => 0.04f;
 
+    public string Name =>"莉可";
+
     void Awake()
     {
         ObjectManager.StateManagers.Add(this.gameObject.GetInstanceID(), this);

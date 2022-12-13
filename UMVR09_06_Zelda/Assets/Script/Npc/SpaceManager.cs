@@ -22,6 +22,8 @@ public class SpaceManager : MonoBehaviour, NpcHelper
 
     public float CollisionDisplacement => 0;
 
+    public string Name =>"ªüÄõ®R";
+
     // Start is called before the first frame update
     Animator animator;
     void Awake()
