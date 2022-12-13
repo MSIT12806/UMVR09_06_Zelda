@@ -6,6 +6,7 @@ using System;
 using UnityEngine.UI;
 using Microsoft.Cci;
 using static UnityEngine.Rendering.DebugUI;
+using TMPro;
 
 public class UiManager : MonoBehaviour
 {
@@ -201,9 +202,13 @@ public class UiManager : MonoBehaviour
     }
     private void RefreshGreatEnemyState()
     {
+        var a = GreatEnemyState.transform.FindAnyChild<Transform>("GreatEnemyBar");
+        var b = a.FindAnyChild<Transform>("GreatEnemyName");
+        var nameUi = b.GetComponent<TextMeshProUGUI>();
         var hp = GreatEnemyState.transform.FindAnyChild<Image>("GreatEnemyHpBarFull");
         var hpInfo = myCamera.m_StareTarget[(int)picoState.gameState].GetComponent<Npc>();
         hp.fillAmount = hpInfo.Hp / hpInfo.MaxHp;
+        nameUi.text = ObjectManager.StateManagers[ myCamera.m_StareTarget[(int)picoState.gameState].gameObject.GetInstanceID()].Name;
     }
 
     void SetHpBar()

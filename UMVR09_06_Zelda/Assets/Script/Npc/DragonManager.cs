@@ -25,7 +25,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
 
     public Vector3 ArrivePoint { get; set; }
 
-    public string Name => "帕迪撒斯";
+    public string Name => "克圖格亞";
 
     bool canBeKnockedOut;
     bool dizzy;
