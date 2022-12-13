@@ -593,6 +593,17 @@ public class GolemIdleState : GolemBaseState
     GolemManager gm;
     public GolemIdleState(Transform t, Animator a, Transform self, float armor, NpcHelper nh) : base(a, self, nh, armor)
     {
+        animator.ResetTrigger("Attack01");
+        animator.ResetTrigger("Attack02");
+        animator.ResetTrigger("Skill");
+        animator.ResetTrigger("SheikahDefense");
+        animator.ResetTrigger("getHit");
+        animator.ResetTrigger("ArmorRecover");
+        animator.ResetTrigger("ArmorBreak");
+        animator.ResetTrigger("SetShield");
+        animator.ResetTrigger("FeverAttack");
+        animator.ResetTrigger("Skill2");
+        animator.ResetTrigger("HaveShieldGetHit");
         target = t;
         nowArmor = armor;
         picoState = target.GetComponent<PicoState>();
