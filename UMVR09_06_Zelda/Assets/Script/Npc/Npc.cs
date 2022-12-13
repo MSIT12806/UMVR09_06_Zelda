@@ -218,7 +218,7 @@ public class Npc : MonoBehaviour
         collideFront = false;
         animator.applyRootMotion = true;
         var hitSomethingWhenMoving = Physics.SphereCast(this.transform.position + new Vector3(0, 0.7f, 0), radius, transform.forward, out var hitInfo, 0.5f, layerMask);
-        var hitInfos = Physics.OverlapSphere(transform.position + new Vector3(0, 0.7f, 0), stateManager.Radius, layerMask);
+        var hitInfos = Physics.OverlapSphere(transform.position + new Vector3(0, 0.7f, 0), stateManager.Radius, layerMask).Where(i => i.name != name).ToList();
         var hitSomething = hitSomethingWhenMoving || hitInfos.Count() > 0;
         if (hitSomething && hitInfo.transform != this.transform)
         {
@@ -236,6 +236,7 @@ public class Npc : MonoBehaviour
                 var closestPoint = hitInfos[0].ClosestPoint(transform.position);
                 transform.position -= (closestPoint - transform.position).normalized * 0.1f;
             }
+            
             return hitSomethingWhenMoving || hitSomething;//回報碰撞，取消美術位移
         }
         return false;
@@ -254,11 +255,6 @@ public class Npc : MonoBehaviour
 
             var distance = Vector3.Distance(this.transform.position, item.transform.position);
             if (distance > nh.Radius + stateManager.Radius) continue;
-            if (name == "MainCharacter" && item.name == "Blue Variant")
-            {
-                print("aaa");
-                print(nh.Radius + stateManager.Radius);
-            }
             var direction = (item.transform.position - this.transform.position).normalized;
             this.transform.position -= direction * stateManager.CollisionDisplacement;
         }

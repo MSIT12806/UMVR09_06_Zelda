@@ -23,6 +23,7 @@ public class DragonRunBehavior : StateMachineBehaviour
         direction = (ObjectManager.MainCharacter.position - animator.transform.position).normalized;
         var distance = Vector3.Distance(ObjectManager.MainCharacter.position, animator.transform.position) + 2f;
         targetPosition = animator.transform.position + direction * distance;
+        currentDistance = float.MaxValue;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -38,10 +39,11 @@ public class DragonRunBehavior : StateMachineBehaviour
     // OnStateMove is called right after Animator.OnAnimatorMove()
     override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        Debug.Log(Vector3.Distance(animator.transform.position, ObjectManager.MainCharacter.position));
         var isHit = Vector3.Distance(animator.transform.position, ObjectManager.MainCharacter.position) <= 2f;
         if (isHit)
         {
-            NpcCommon.AttackDetection("Dragon", animator.transform.position, animator.transform.forward, 22, 2f, false, new DamageData(100, animator.transform.forward, HitType.Heavy, DamageStateInfo.NormalAttack));
+            NpcCommon.AttackDetection("Dragon", animator.transform.position, animator.transform.forward,35, 2f, false, new DamageData(100, animator.transform.forward, HitType.Heavy, DamageStateInfo.NormalAttack),"Player");
         }
         var newDistance = Vector3.Distance(animator.transform.position, targetPosition);
         if (currentDistance > newDistance && npc.collide==false)

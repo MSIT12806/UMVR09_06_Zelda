@@ -461,11 +461,9 @@ public class UsaoDeathState : UsaoAiState
 
             //移入備用池
             ObjectManager.StageDeathPool[(int)npc.gameState].Add(selfTransform.gameObject.GetInstanceID(), selfTransform.gameObject);
-            Debug.Log((int)npc.gameState);
 
             //怪物數量監控
             ObjectManager.StageMonsterMonitor[(int)npc.gameState]--;
-            Debug.Log(ObjectManager.StageMonsterMonitor[(int)npc.gameState]);
 
             //死亡消失與特效
             selfTransform.gameObject.SetActive(false);
