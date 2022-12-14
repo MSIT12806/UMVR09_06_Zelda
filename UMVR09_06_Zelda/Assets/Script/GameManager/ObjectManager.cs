@@ -25,6 +25,7 @@ public class ObjectManager : MonoBehaviour
     public static List<GameObject> Statics;
     public static Queue<GameObject> AttackFx;
     public static Queue<GameObject> DieFx;
+    public static Queue<GameObject> BornFx;
     public static Dictionary<int, NpcHelper> StateManagers = new Dictionary<int, NpcHelper>();
     public static HashSet<AiState> ChasingNpc;
     public static TPSCamera myCamera;
@@ -61,6 +62,8 @@ public class ObjectManager : MonoBehaviour
         InitAttackFx();
         DieFx = new Queue<GameObject>(20);
         InitDieFx();
+        BornFx = new Queue<GameObject>(20);
+        InitBornFx();
 
         //載入短暫浮現的特效或物件
         DragonFireBallExplosionFx = (GameObject)Resources.Load("BigExplosion"); //龍龍火球爆炸特效
@@ -89,6 +92,16 @@ public class ObjectManager : MonoBehaviour
         //ThirdStage
         GenUsaoSword(stageThreeSpawnPoint.position, 10, 15, GameState.ThridStage);
         StageMonsterMonitor[3] = 10;
+    }
+
+    private void InitBornFx()
+    {
+        var fx = (GameObject)Resources.Load("FX_MobBorn");
+        for (int i = 0; i < 20; i++)
+        {
+            var go = Instantiate(fx);
+            BornFx.Enqueue(go);
+        }
     }
 
     private void InitDieFx()
@@ -121,6 +134,15 @@ public class ObjectManager : MonoBehaviour
     {
         var position = stageOneSpawnPoint.position;
         var range = 10;
+
+        for (int i = 0; i < 10; i++)
+        {
+            var bornFx = BornFx.Dequeue();
+            bornFx.transform.position = position + new Vector3(UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1), 1, UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1));
+
+            bornFx.SetActive(true);
+            BornFx.Enqueue(bornFx);
+        }
         //全體復活
         foreach (var usao in StageDeathPool[1].Values)
         {
