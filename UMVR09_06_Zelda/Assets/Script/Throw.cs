@@ -189,6 +189,8 @@ public class Throw : MonoBehaviour
     public void GetBomb()  //取得炸彈（動作事件）
     {
         ItemExistMaxTime = 2;
+        ItemExistTimer = 0;
+
 
         var IK = this.GetComponent<IKController>();
         IK.Weight_Up = 0.0f;
@@ -203,6 +205,7 @@ public class Throw : MonoBehaviour
     public void GetIce() //取得冰（動作事件）
     {
         ItemExistMaxTime = 2;
+        ItemExistTimer = 0;
 
         var IK = this.GetComponent<IKController>();
         IK.Weight_Up = 0.0f;
@@ -217,6 +220,7 @@ public class Throw : MonoBehaviour
     public void GetTimeStop()  //取得時停（動作事件）
     {
         ItemExistMaxTime = 2;
+        ItemExistTimer = 0;
 
         var IK = this.GetComponent<IKController>();
         IK.Weight_Up = 0.0f;
@@ -246,7 +250,6 @@ public class Throw : MonoBehaviour
         vel = start_vel;
 
         initVel = vel;
-        print(initVel);
         //阻力 = - 初始速度 * 0.X
         resistance = -(vel) * 0.05f;
 
@@ -284,18 +287,7 @@ public class Throw : MonoBehaviour
     {
         Object o = Resources.Load(Explode);
         ItemEffect_obj = Instantiate((GameObject)o);
-
-        //if (ItemEffect_obj.name == "Obj_Ice(Clone)") 
-        //{
-        //    Vector3 vec = itemEffect_pos;
-        //    vec.y = 0;
-        //    ItemEffect_obj.transform.position = vec;
-        //}
-        //else 
-        //{
         ItemEffect_obj.transform.position = itemEffect_pos;
-
-        //}
         if(Explode == "FX_Explosion")
         {
             NpcCommon.AttackDetection("Pico", itemEffect_pos, ItemEffect_obj.transform.forward, 360.0f, 5.0f, false, new DamageData(20, Vector3.zero, HitType.Heavy, new DamageStateInfo(DamageState.Bomb, 0)), "Npc");

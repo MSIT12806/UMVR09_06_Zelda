@@ -20,7 +20,7 @@ public class DragonIdleBehavior : StateMachineBehaviour
         manager = animator.transform.GetComponent<DragonManager>();
         state = target.GetComponent<PicoState>();
         head = animator.transform.FindAnyChild<Transform>("Head");
-
+        animator.SetBool("Fly", false);
         RefreshDazeTime();
     }
 
@@ -35,7 +35,7 @@ public class DragonIdleBehavior : StateMachineBehaviour
 
         if (fightState)
         {
-            if (flyStateWeight > 0.5)
+            if (flyStateWeight > 0.3)
             {
                 animator.SetBool("Fly", true);
                 return;
