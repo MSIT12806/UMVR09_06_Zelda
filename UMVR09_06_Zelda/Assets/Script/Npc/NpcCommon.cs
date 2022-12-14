@@ -6,7 +6,7 @@ using UnityEngine;
 
 public static class NpcCommon
 {
-    public static void AttackDetection(string attacker, Vector3 attackCenter, Vector3 attackForward, float angle, float distance,bool repelDirection, DamageData damageData, params string[] tags)//攻擊範圍偵測
+    public static void AttackDetection(string attacker, Vector3 attackCenter, Vector3 attackForward ,float angle, float distance,bool repelDirection, DamageData damageData, params string[] tags)//攻擊範圍偵測
     {
         var lst = ObjectManager.NpcsAlive.Values.Where(i => tags.Contains(i.tag));
         foreach (var item in lst)
@@ -89,4 +89,41 @@ public static class NpcCommon
         //}
     }
 
+    public static void AttackDetectionRectangle(string attacker, Vector3 attackCenter, Vector3 attackForward, Vector3 attackRight, float Width, float distance, bool repelDirection, DamageData damageData, params string[] tags)//攻擊範圍偵測
+    {
+        var lst = ObjectManager.NpcsAlive.Values.Where(i => tags.Contains(i.tag));
+        foreach (var item in lst)
+        {
+            Transform nowNpc = item.transform;
+            var vec = nowNpc.position - attackCenter;
+            vec.Normalize();
+            Vector3 cornor1 = attackCenter + attackForward*distance + attackRight*(Width/2);
+            Vector3 cornor2 = attackCenter + attackRight*-(Width/2);
+
+            bool inAttackRange = Mathf.Max(cornor1.x, cornor2.x) > nowNpc.position.x && Mathf.Min(cornor1.x, cornor2.x) < nowNpc.position.x;
+            bool inAttackRange2 = Mathf.Max(cornor1.z, cornor2.z) > nowNpc.position.z && Mathf.Min(cornor1.z, cornor2.z) < nowNpc.position.z;
+            if (inAttackRange && inAttackRange2)
+            {
+                if (!repelDirection)
+                {
+                    damageData.Force = vec.normalized * 0.15f;
+                }
+
+                var attackReturn = nowNpc.gameObject.GetComponent<Npc>();
+                attackReturn.GetHurt(damageData);
+                if (attacker == "Pico")
+                {
+                    PicoManager.Power++;
+                    var fx = ObjectManager.AttackFx.Dequeue();
+                    if (fx != null)
+                    {
+                        fx.transform.position = item.transform.position.AddY(1);
+                        fx.SetActive(true);
+                        fx.GetComponent<ParticleSystem>().Play();
+                        ObjectManager.AttackFx.Enqueue(fx);
+                    }
+                }
+            }
+        }
+    }
 }
