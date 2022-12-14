@@ -13,8 +13,6 @@ public static class NpcCommon
         {
             Transform nowNpc = item.transform;
 
-
-
             var vec = nowNpc.position - attackCenter;
 
             if (distance > Vector3.Distance(nowNpc.position.WithY(), attackCenter.WithY()))
