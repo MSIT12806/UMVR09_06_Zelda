@@ -7,7 +7,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Standing_2H_Magic_Area_Attack_02
+  m_Name: Attack02
   m_Speed: 1.6
   m_CycleOffset: 0
   m_Transitions:
@@ -131,7 +131,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Standing_1H_Magic_Attack_02
+  m_Name: Attack01
   m_Speed: 1.5
   m_CycleOffset: 0
   m_Transitions:
@@ -361,7 +361,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Standing_1H_Magic_Attack_02 0
+  m_Name: Attack04
   m_Speed: 0.6
   m_CycleOffset: 0
   m_Transitions:
@@ -411,7 +411,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Standing_2H_Magic_Attack_03
+  m_Name: Skill02
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -439,7 +439,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Standing_2H_Magic_Attack_04
+  m_Name: Attack03
   m_Speed: 1.5
   m_CycleOffset: 0
   m_Transitions:
@@ -492,7 +492,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Dizzy
+  m_Name: ArmorBreak
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -545,7 +545,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GetHit01_SwordAndShield
+  m_Name: GetHit
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -597,7 +597,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: standing_idle 0
+  m_Name: Week
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -650,7 +650,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Standing_2H_Magic_Area_Attack_01
+  m_Name: Skill03 0
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -853,7 +853,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Standing_2H_Cast_Spell_01
+  m_Name: Skill03
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -896,19 +896,19 @@ AnimatorStateMachine:
     m_Position: {x: 320, y: 280, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4054429875994521027}
-    m_Position: {x: -100, y: 240, z: 0}
+    m_Position: {x: -100, y: 230, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2887794070630444597}
     m_Position: {x: 90, y: 280, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1149540329113997784}
-    m_Position: {x: 210, y: -90, z: 0}
+    m_Position: {x: 220, y: -100, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -376689633089924037}
-    m_Position: {x: 80, y: -160, z: 0}
+    m_Position: {x: 130, y: -190, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3054144557262795971}
-    m_Position: {x: 350, y: -180, z: 0}
+    m_Position: {x: 370, y: -120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6424263095168268012}
     m_Position: {x: 590, y: 30, z: 0}
@@ -917,13 +917,13 @@ AnimatorStateMachine:
     m_Position: {x: 580, y: -120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2394602084319600627}
-    m_Position: {x: -150, y: -90, z: 0}
+    m_Position: {x: -240, y: -140, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1209684847458264383}
-    m_Position: {x: 20, y: -320, z: 0}
+    m_Position: {x: -90, y: -340, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2526235235073393007}
-    m_Position: {x: -90, y: 40, z: 0}
+    m_Position: {x: -160, y: 40, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -1158,7 +1158,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: standing_1H_cast_spell_01
+  m_Name: Skill01
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
