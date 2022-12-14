@@ -13,6 +13,12 @@ public static class PicoManager
     public static float MaxPower { get; } = 200;
     public static readonly float PowerCost = 100;
 
+
+    //public static float AppleCount = 6;
+    public static float MaxApple { get; } = 6;
+    public static float AppleCount { get => _appleCount; set { _appleCount = value > MaxApple ? MaxApple : value; } }
+    static float _appleCount = 6;
+
     static PicoManager()
     {
         _hp = MaxHp;

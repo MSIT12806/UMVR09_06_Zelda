@@ -111,7 +111,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
         //無雙條測試
         if (Input.GetKey(KeyCode.P))//增加無雙值
             AddPowerValue();
-
+        
         if (Input.GetKeyDown(KeyCode.F) && !animator.IsInTransition(0) && 
             !(currentAnimation.IsName("Fever")
             || currentAnimation.IsName("Finishing")
