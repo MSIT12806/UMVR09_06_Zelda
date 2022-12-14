@@ -172,6 +172,7 @@ public class Npc : MonoBehaviour
         //請善用狀態機處理攻擊判定
         return DamageData.NoDamage;
     }
+    public float PauseTime => pauseTime;
     float pauseTime;
     public void GetHurt(DamageData damageData)
     {
@@ -196,7 +197,6 @@ public class Npc : MonoBehaviour
             }
             if (materials != null)
             {
-                print("LIGHT");
                 foreach (var item in materials)
                 {
                     item.SetColor("_RimLightColor", new Color(255, 255, 0));
@@ -236,7 +236,7 @@ public class Npc : MonoBehaviour
                 var closestPoint = hitInfos[0].ClosestPoint(transform.position);
                 transform.position -= (closestPoint - transform.position).normalized * 0.1f;
             }
-            
+
             return hitSomethingWhenMoving || hitSomething;//回報碰撞，取消美術位移
         }
         return false;
@@ -300,7 +300,6 @@ public class Npc : MonoBehaviour
         {
             if (collide)
             {
-                print("touch");
                 initVel.x = 0;
                 initVel.z = 0;
             }

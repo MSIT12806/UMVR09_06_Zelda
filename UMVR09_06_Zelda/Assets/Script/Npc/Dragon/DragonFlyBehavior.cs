@@ -64,14 +64,13 @@ public class DragonFlyBehavior : StateMachineBehaviour
         if (fightState)
         {
 
-            if (manager.Hp < manager.MaxHp / 2) //血量低於一半，降落
-            {
-                animator.SetBool("Fly", false);
-                return;
-            }
+            //if (manager.Hp < manager.MaxHp / 2) //血量低於一半，降落
+            //{
+            //    animator.SetBool("Fly", false);
+            //    return;
+            //}
 
             // do attack
-            //還差衝鋒
             if (distance > 10 || distance < 5)
             {
                 //轉向飛行目標，轉完就切換成飛行模式

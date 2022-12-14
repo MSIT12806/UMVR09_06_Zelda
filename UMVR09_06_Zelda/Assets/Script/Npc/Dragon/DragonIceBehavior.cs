@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DragonFireBallBehavior : StateMachineBehaviour
+public class DragonIceBehavior : StateMachineBehaviour
 {
     Transform target;
     DragonManager manager;
@@ -13,7 +13,7 @@ public class DragonFireBallBehavior : StateMachineBehaviour
     {
         target = ObjectManager.MainCharacter;
         manager = animator.transform.GetComponent<DragonManager>();
-        manager.fireballShooting = true;
+        manager.sprinting = true;
         manager.canBeKnockedOut = true;
         head = animator.transform.FindAnyChild<Transform>("Head");
     }
@@ -27,7 +27,7 @@ public class DragonFireBallBehavior : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        manager.fireballShooting = false;
+        manager.sprinting = false;
         manager.canBeKnockedOut = false;
     }
 
