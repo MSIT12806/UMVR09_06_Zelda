@@ -87,17 +87,31 @@ public class GolemManager : MonoBehaviour, NpcHelper
         {
             NpcCommon.AttackDetection("", transform.position, transform.forward, 90, 4.5f, false, new DamageData(30f, transform.forward * 0.6f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");//
             this.transform.Find("FX_GolemAttack01").gameObject.GetComponent<ParticleSystem>().Play();
-        }   
+        }
         if (attackType == 2)//技能2
+        {
             NpcCommon.AttackDetection("", transform.position, transform.forward, 360, 8f, false, new DamageData(50f, transform.forward * 0.3f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");//
-        if(attackType == 5)//技能2的第二段傷害
+            this.transform.Find("FX_GolemSkill0201").gameObject.GetComponent<ParticleSystem>().Play();
+        }
+        if (attackType == 5)//技能2的第二段傷害
+        {
             NpcCommon.AttackDetection("", transform.position, transform.forward, 360, 10f, false, new DamageData(50f, transform.forward * 0.3f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");//
+            this.transform.Find("FX_GolemSkill0202").gameObject.GetComponent<ParticleSystem>().Play();
+        }
         if (attackType == 3)//技能1
+        {
             NpcCommon.AttackDetection("", transform.position, transform.forward, 360, 4f, false, new DamageData(50f, transform.forward * 0.3f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");//
+        }
         if (attackType == 4)//普攻2 之後要改成長方形的攻擊判定
+        {
             NpcCommon.AttackDetection("", transform.position, transform.forward, 90, 5f, false, new DamageData(30f, transform.forward * 0.3f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
+        }
         if (attackType == 6)//普攻3 之後要改成長方形的攻擊判定
+        {
             NpcCommon.AttackDetection("", transform.position, transform.forward, 90, 10f, false, new DamageData(30f, transform.forward * 0.3f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
+            this.transform.Find("FX_GolemAttack03").gameObject.GetComponent<ParticleSystem>().Play();
+        }
+
     }
     public void SetShield()
     {
