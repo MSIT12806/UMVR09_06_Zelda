@@ -54,7 +54,7 @@ public class Default : CameraState
 
     public override float GetFollowDistance(Transform cameraTransform)
     {
-        return Vector3.Distance(_followTarget.position, cameraTransform.position);
+        return FollowDistance;
     }
 
     public override void SetRotateDegree(float fMX, float fMY, float sensitivity)
