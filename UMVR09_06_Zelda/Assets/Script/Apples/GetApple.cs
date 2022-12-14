@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class GetApple : MonoBehaviour
 {
-    Throw whyIsThrow;
     // Start is called before the first frame update
     void Start()
     {
-        whyIsThrow = ObjectManager.MainCharacter.GetComponent<Throw>();
     }
     int floatFrameCount = 150;
     // Update is called once per frame
@@ -18,7 +16,7 @@ public class GetApple : MonoBehaviour
         if (distance <= 2)
         {
             Debug.Log("¸ÉÄ«ªG");
-            whyIsThrow.appleCount++;
+            PicoManager.AppleCount++;
             Destroy(gameObject);
         }
     }
