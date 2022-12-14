@@ -12,6 +12,10 @@ public class ShootMagic : MonoBehaviour
     {
 
     }
+    private void OnEnable()
+    {
+        force = (ObjectManager.MainCharacter.position - transform.position).normalized;
+    }
     public LayerMask terrainMask;
     // Update is called once per frame
     void Update()
@@ -21,7 +25,7 @@ public class ShootMagic : MonoBehaviour
         {
             offset = 2f;
         }
-        force += (ObjectManager.MainCharacter.position + (ObjectManager.MainCharacter.forward - (ObjectManager.MainCharacter.position - transform.position)) * offset - transform.position).WithY(-1.5f).normalized * 5;
+        force += (ObjectManager.MainCharacter.position + (ObjectManager.MainCharacter.forward - (ObjectManager.MainCharacter.position - transform.position).normalized) * offset - transform.position).WithY(-1.5f).normalized * 5;
         transform.Translate(force.normalized / 5f);
         existSeconds -= Time.deltaTime;
         bool land = Physics.Raycast(transform.position, -Vector3.up, out var hit, 0.3f, terrainMask);
