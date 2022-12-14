@@ -94,7 +94,16 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
         }
 
 
-        if (Input.GetKeyDown(KeyCode.E) && !currentAnimation.IsName("Finishing"))//斬殺技
+        if (Input.GetKeyDown(KeyCode.E) && !animator.IsInTransition(0) &&
+            !(currentAnimation.IsName("Fever")
+            || currentAnimation.IsName("Finishing")
+            || currentAnimation.IsName("ThrowTimeStop")
+            || currentAnimation.IsName("ThrowIce")
+            || currentAnimation.IsName("ThrowBomb")
+            || currentAnimation.IsName("Flying Back Death")
+            || currentAnimation.IsName("GettingUp03")
+            || currentAnimation.IsName("GetHit1")
+            ))//斬殺技
         {
             CheckWeakEnemy();
         }
@@ -102,8 +111,17 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
         //無雙條測試
         if (Input.GetKey(KeyCode.P))//增加無雙值
             AddPowerValue();
-
-        if (Input.GetKeyDown(KeyCode.F))//使用無雙
+        
+        if (Input.GetKeyDown(KeyCode.F) && !animator.IsInTransition(0) && 
+            !(currentAnimation.IsName("Fever")
+            || currentAnimation.IsName("Finishing")
+            || currentAnimation.IsName("ThrowTimeStop")
+            || currentAnimation.IsName("ThrowIce")
+            || currentAnimation.IsName("ThrowBomb")
+            || currentAnimation.IsName("Flying Back Death")
+            || currentAnimation.IsName("GettingUp03")
+            || currentAnimation.IsName("GetHit1"))
+            )//使用無雙
         {
             if (PicoManager.Power >= 100)
             {

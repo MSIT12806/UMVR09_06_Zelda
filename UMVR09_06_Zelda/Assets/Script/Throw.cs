@@ -45,7 +45,6 @@ public class Throw : MonoBehaviour
     private float ItemExistTimer = 0.0f;
     private bool isStartTime = false;
 
-    public float appleCount = 6;
 
     private void Start()
     {
@@ -64,14 +63,14 @@ public class Throw : MonoBehaviour
 
 
 
-        if (Input.GetKeyDown(KeyCode.Alpha1) && appleCount > 0 && PicoManager.Hp != PicoManager.MaxHp)
+        if (Input.GetKeyDown(KeyCode.Alpha1) && PicoManager.AppleCount > 0 && PicoManager.Hp != PicoManager.MaxHp)
         {
             PicoManager.Hp += 200;
             if(PicoManager.Hp > PicoManager.MaxHp)
             {
                 PicoManager.Hp = PicoManager.MaxHp;
             }
-            appleCount -= 1;
+            PicoManager.AppleCount -= 1;
         }
 
         if (CanThrow == true && isRunning == false)
