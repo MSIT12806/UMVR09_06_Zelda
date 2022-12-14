@@ -67,7 +67,10 @@ public class TPSCamera : MonoBehaviour
     {
         state = new Default(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance);
     }
-
+    public void SetStare()
+    {
+        state = new Stare(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance, m_StareTarget[stage]);
+    }
     private void LateUpdate()
     {
         state.OperateLookDirection();
@@ -86,7 +89,10 @@ public class TPSCamera : MonoBehaviour
         if (Input.GetMouseButtonDown(2))
         {
             if (m_StareTarget[stage] != null)
-                state = state.Name == "Default" ? new Stare(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance, m_StareTarget[stage]) : new Default(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance);
+            {
+                if (state.Name == "Default") SetStare();
+                else SetDefault();
+            }
             else
                 state = new Default(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance);
         }
