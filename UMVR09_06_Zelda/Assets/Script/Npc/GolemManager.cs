@@ -9,6 +9,8 @@ public class GolemManager : MonoBehaviour, NpcHelper
     GameObject apple;
     GameObject heart;
     public bool dizzy = false;
+
+    public GameObject ShieldEffect;
     public float Hp { get => npc.Hp; set => npc.Hp = value; }
 
     public float Shield = 0f;
@@ -50,6 +52,9 @@ public class GolemManager : MonoBehaviour, NpcHelper
     {
         aiState.SetAnimation();
         aiState = aiState.SwitchState();
+
+        ShieldEffectControl();
+
         Debug.DrawLine(transform.position, transform.position + transform.forward * 5f, Color.green);
         //Debug.Log(Shield);
         //Debug.Log(Dizzy);
@@ -93,6 +98,18 @@ public class GolemManager : MonoBehaviour, NpcHelper
     public void SetShield()
     {
         Shield = 10;
+    }
+
+    public void ShieldEffectControl()
+    {
+        if (Shield > 0 && ShieldEffect.active == false)
+        {
+            ShieldEffect.SetActive(true);
+        }
+        else if(Shield <= 0 && ShieldEffect.active == true)
+        {
+            ShieldEffect.SetActive(false);
+        }
     }
 
     public void ArmorUi()
