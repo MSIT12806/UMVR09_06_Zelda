@@ -988,6 +988,11 @@ public class GolemArmorBreakState : GolemBaseState
                 time -= 5f;
             }
 
+            if(getHit.Hit == HitType.finishing)
+            {
+                time += 20f;
+            }
+
             animator.ResetTrigger("getHit");
             animator.SetTrigger("getHit");
             GolemManager gm = (GolemManager)npcHelper;
