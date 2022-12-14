@@ -193,8 +193,6 @@ public class DragonManager : MonoBehaviour, NpcHelper
 
     public void Fly()  //Scream
     {
-        print(MaxHp);
-        print(Hp);
         flyState = Hp >= MaxHp / 2;
         animator.SetBool("Fly", flyState);
     }
