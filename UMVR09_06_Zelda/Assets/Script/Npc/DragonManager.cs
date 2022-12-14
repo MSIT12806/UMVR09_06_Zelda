@@ -17,7 +17,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
     float weakPoint;
     public float WeakPoint { get => weakPoint; set => weakPoint = value; }
 
-    public float MaxWeakPoint =>12;
+    public float MaxWeakPoint => 12;
 
     public float Radius => 1.8f;
 
@@ -27,7 +27,10 @@ public class DragonManager : MonoBehaviour, NpcHelper
 
     public string Name => "克圖格亞";
 
-    bool canBeKnockedOut;
+    public bool fireballShooting;
+    public bool sprinting;
+
+    public bool canBeKnockedOut;
     bool dizzy;
 
     // Start is called before the first frame update
@@ -81,7 +84,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
             flyState = false;
         }
 
-        if (canBeKnockedOut)
+        if (canBeKnockedOut && fireballShooting)
         {
             if (dState.damageState == DamageState.Bomb)
             {
@@ -91,9 +94,19 @@ public class DragonManager : MonoBehaviour, NpcHelper
                 flyState = false;
             }
         }
+        if (canBeKnockedOut && sprinting)
+        {
+            if (dState.damageState == DamageState.Ice)
+            {
+                animator.Play("Dizzy2");
+                canBeKnockedOut = false;
+                dizzy = true;
+                flyState = false;
+            }
+        }
         if (dizzy)
         {
-            weakPoint --;
+            weakPoint--;
             if (weakPoint <= 0)
             {
                 animator.Play("ArmorBreak");
@@ -200,6 +213,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
     }
     GameObject apple;
     GameObject heart;
+
     public void Die()
     {
         //掉蘋果跟掉愛心
@@ -227,6 +241,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
         {
             item.Die();
         }
+
 
     }
     #endregion

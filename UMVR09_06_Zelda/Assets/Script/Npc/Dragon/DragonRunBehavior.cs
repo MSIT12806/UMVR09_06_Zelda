@@ -31,6 +31,11 @@ public class DragonRunBehavior : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        var d = Vector3.Distance(Once.IcePosision, animator.transform.position);
+        if (d <= 3)
+        {
+            npc.GetHurt(new DamageData(20, Vector3.zero, HitType.light, DamageStateInfo.NormalAttack));
+        }
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
@@ -41,7 +46,6 @@ public class DragonRunBehavior : StateMachineBehaviour
     // OnStateMove is called right after Animator.OnAnimatorMove()
     override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Debug.Log(Vector3.Distance(animator.transform.position, ObjectManager.MainCharacter.position));
         var isHit = Vector3.Distance(animator.transform.position, ObjectManager.MainCharacter.position) <= 2f;
         if (isHit && alreadyHit == false)
         {
@@ -52,7 +56,7 @@ public class DragonRunBehavior : StateMachineBehaviour
         if (currentDistance > newDistance && npc.collide == false)
         {
             currentDistance = newDistance;
-            animator.transform.position += direction * 0.3f;
+            animator.transform.position += animator.transform.forward * 0.3f;
         }
         else
         {

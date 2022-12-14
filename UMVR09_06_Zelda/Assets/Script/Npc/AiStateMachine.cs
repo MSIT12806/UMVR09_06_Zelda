@@ -492,13 +492,13 @@ public static class AiStateCommon
         var degree = Vector3.SignedAngle(body.forward.WithY(), direction.WithY(), Vector3.up);
         if (degree < -4)
         {
-            body.Rotate(Vector3.up, -4);
+            body.Rotate(Vector3.up, -2);
             return true;
 
         }
         else if (degree > 4)
         {
-            body.Rotate(Vector3.up, 4);
+            body.Rotate(Vector3.up, 2);
             return true;
         }
 
@@ -858,7 +858,6 @@ public class GolemWeakState : GolemBaseState
         animator.SetBool("ShowWeakness", true);
         //Debug.Log(showWeaknessTime);
         //animator.SetFloat("WeakTime", showWeaknessTime);
-        Debug.Log(gm.dizzy);
 
         if (getHit != null)
         {
@@ -917,7 +916,6 @@ public class GolemWeakState : GolemBaseState
         }
         //Armor被擊破 切至ArmorBreak
         //if (armor < 0)
-        Debug.Log(nowArmor);
         if (nowArmor <= 0)
         {
             animator.SetBool("ShowWeakness", false);
@@ -1212,15 +1210,6 @@ public class GolemSkillState : GolemBaseState
                 freezeTime = 5f;
             }
             
-            Debug.Log(getHit.DamageState.damageState);
-
-
-            //待修改
-            //if (getHit.DamageState.damageState == DamageState.Ice && (currentAnimation.IsName("Skill") || currentAnimation.IsName("Skill 0")))
-            //{
-            //    Debug.Log("HIIIII");
-            //    AttackFlaw = true;
-            //}
             if (getHit.DamageState.damageState == DamageState.TimePause && currentAnimation.IsName("Skill2 0 0 0"))
             {
                 AttackFlaw = true;
