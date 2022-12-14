@@ -971,6 +971,8 @@ public class GolemArmorBreakState : GolemBaseState
 
     public GolemArmorBreakState(Transform t, Animator a, Transform self, NpcHelper nh) : base(a, self, nh, 0)
     {
+        var mcs = ObjectManager.MainCharacter.GetComponent<MainCharacterState>();
+        mcs.FinishingReleased = true;
         target = t;
         time = 0;
         gm = (GolemManager)npcHelper;
@@ -986,6 +988,11 @@ public class GolemArmorBreakState : GolemBaseState
             if(getHit.DamageState.damageState == DamageState.TimePause)
             {
                 time -= 5f;
+            }
+
+            if(getHit.Hit == HitType.finishing)
+            {
+                time += 20f;
             }
 
             animator.ResetTrigger("getHit");

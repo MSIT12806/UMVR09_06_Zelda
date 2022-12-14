@@ -142,9 +142,8 @@ public class UiManager : MonoBehaviour
         var ScriptThrow = mainCharacter.GetComponent<Throw>();
         currentItemCD = ScriptThrow.timer;
 
-        float appleFill = ScriptThrow.appleCount / 6;
+        float appleFill = PicoManager.AppleCount / 6;
         ItemUI.FindAnyChild<Image>("CanEatApple").fillAmount = appleFill;//蘋果ui控制
-
         if (currentItemCD != 0)
         {
             SikaStoneCD();

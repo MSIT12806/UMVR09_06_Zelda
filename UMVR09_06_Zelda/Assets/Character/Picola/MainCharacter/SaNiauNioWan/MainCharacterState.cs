@@ -29,7 +29,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     Npc npc;
     ThirdPersonCharacter tpc;
 
-    
+
 
     bool FeverIk = false;
     private bool canRoll = true;
@@ -50,7 +50,9 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
 
     public float CollisionDisplacement => 0.04f;
 
-    public string Name =>"莉可";
+    public string Name => "莉可";
+
+    public bool FinishingReleased { get; set; }
 
     void Awake()
     {
@@ -71,7 +73,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
         if (noHurt > 0) noHurt--;
 
         //處理美術位移
-            currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
+        currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
         if (currentAnimation.IsName("Attack01") ||
             currentAnimation.IsName("Attack01 0") ||
             currentAnimation.IsName("Attack01 1") ||
@@ -92,7 +94,16 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
         }
 
 
-        if (Input.GetKeyDown(KeyCode.E) && !currentAnimation.IsName("Finishing"))//斬殺技
+        if (Input.GetKeyDown(KeyCode.E) && !animator.IsInTransition(0) &&
+            !(currentAnimation.IsName("Fever")
+            || currentAnimation.IsName("Finishing")
+            || currentAnimation.IsName("ThrowTimeStop")
+            || currentAnimation.IsName("ThrowIce")
+            || currentAnimation.IsName("ThrowBomb")
+            || currentAnimation.IsName("Flying Back Death")
+            || currentAnimation.IsName("GettingUp03")
+            || currentAnimation.IsName("GetHit1")
+            ))//斬殺技
         {
             CheckWeakEnemy();
         }
@@ -100,8 +111,17 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
         //無雙條測試
         if (Input.GetKey(KeyCode.P))//增加無雙值
             AddPowerValue();
-
-        if (Input.GetKeyDown(KeyCode.F))//使用無雙
+        
+        if (Input.GetKeyDown(KeyCode.F) && !animator.IsInTransition(0) && 
+            !(currentAnimation.IsName("Fever")
+            || currentAnimation.IsName("Finishing")
+            || currentAnimation.IsName("ThrowTimeStop")
+            || currentAnimation.IsName("ThrowIce")
+            || currentAnimation.IsName("ThrowBomb")
+            || currentAnimation.IsName("Flying Back Death")
+            || currentAnimation.IsName("GettingUp03")
+            || currentAnimation.IsName("GetHit1"))
+            )//使用無雙
         {
             if (PicoManager.Power >= 100)
             {
@@ -243,9 +263,10 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
             {
                 Animator NpcAnimator = i.GetComponent<Animator>();
                 AnimatorStateInfo currentAnimation = NpcAnimator.GetCurrentAnimatorStateInfo(0);
-                if (currentAnimation.IsName("ArmorBreak"))
+                if (FinishingReleased == false && currentAnimation.IsName("ArmorBreak"))
                 {
                     animator.SetTrigger("Finishing");
+                    FinishingReleased = true;
                     break;
                 }
             }
@@ -291,7 +312,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
         if (attackType == 4)//終結技
             NpcCommon.AttackDetection("Pico", transform.position, transform.forward, 180, 4f, true, new DamageData(100f, transform.forward * 0.15f, HitType.finishing, DamageStateInfo.NormalAttack), "Npc");
         if (attackType == 5)//無雙
-            NpcCommon.AttackDetection("Pico", transform.position, transform.forward, 360, 13f, true, new DamageData(200f, transform.forward * 0.15f, HitType.Heavy, new DamageStateInfo(DamageState.Fever,0)), "Npc");
+            NpcCommon.AttackDetection("Pico", transform.position, transform.forward, 360, 13f, true, new DamageData(200f, transform.forward * 0.15f, HitType.Heavy, new DamageStateInfo(DamageState.Fever, 0)), "Npc");
 
 
 
@@ -383,10 +404,10 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     {
         canRoll = true;
     }
-    void FootL() 
+    void FootL()
     {
     }
-    void FootR() 
+    void FootR()
     {
     }
 
