@@ -7,6 +7,8 @@ public class SpaceMoveBehavior : StateMachineBehaviour
     Transform selfTransform;
     Transform target;
     bool awake;
+    bool TpTrigger = false;
+    float inStateTime = 0;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if (awake == false)
@@ -19,7 +21,17 @@ public class SpaceMoveBehavior : StateMachineBehaviour
 
     public override void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-
+        inStateTime += Time.deltaTime;
+        if (inStateTime > 0.5f)
+        {
+            Teleport();
+            inStateTime = 0;
+        }
+        //if (TpTrigger)
+        //{
+        //    Teleport();
+        //    TpTrigger = false;
+        //}
     }
 
     /// <summary>
@@ -47,6 +59,7 @@ public class SpaceMoveBehavior : StateMachineBehaviour
     }
     public void CanTp()
     {
-
+        TpTrigger = true;
+        Debug.Log("hiiiiiii");
     }
 }

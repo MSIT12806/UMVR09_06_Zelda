@@ -13,10 +13,10 @@ public class Scene2CubeDrawLine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 point1 = transform.position + transform.forward * 10f + transform.right * -10f;
-        Vector3 point2 = point1 + transform.right * 20f;
-        Vector3 point3 = point2 + transform.forward * -20f;
-        Vector3 point4 = point3 + transform.right * -20f;
+        Vector3 point1 = transform.position + transform.forward * 11f + transform.right * -15f;
+        Vector3 point2 = point1 + transform.right * 30f;
+        Vector3 point3 = point2 + transform.forward * -22f;
+        Vector3 point4 = point3 + transform.right * -30f;
         Debug.DrawLine(point1, point2, Color.red);
         Debug.DrawLine(point2, point3, Color.blue);
         Debug.DrawLine(point3, point4, Color.green);
