@@ -297,6 +297,11 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
         animator.SetFloat("FeverAttackSpeed", speed);
     }
 
+    public void FinshAttackSpeed(float speed)//事件觸發
+    {
+        animator.SetFloat("FinshAttackSpeed", speed);
+    }
+
     public void AttackSpeedChange(float f)//事件觸發
     {
         animator.SetFloat("attackSpeed", f * 1.5f * 1.5f);
