@@ -7,8 +7,9 @@ public class SpaceFightBehavior : StateMachineBehaviour
     SpaceManager manager;
     Transform target;
     bool awake;
-    float dazeSeconds;
+    //float dazeSeconds;
     float weight;
+    bool move;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if (awake == false)
@@ -17,36 +18,139 @@ public class SpaceFightBehavior : StateMachineBehaviour
             target = ObjectManager2.MainCharacter;
             awake = true;
         }
-        dazeSeconds = UnityEngine.Random.value * 3;
+        //dazeSeconds = UnityEngine.Random.value * 3;
         weight = UnityEngine.Random.value;
+        Debug.Log(move);
+
+        if (!move)
+        {
+            animator.SetTrigger("ToMove");
+            return;
+        }
+
+        var distance = Vector3.Distance(animator.transform.position, target.position);
+
+        Attack(distance, animator);
     }
 
     public override void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         AiStateCommon.Turn(animator.transform, (target.position - animator.transform.position).normalized);
-        dazeSeconds -= Time.deltaTime;
-        if(dazeSeconds <= 0)
+        //dazeSeconds -= Time.deltaTime;
+        //if(dazeSeconds <= 0)
+
+
+    }
+
+    public void Attack(float dis , Animator animator)
+    {
+        if (dis > 15) animator.SetTrigger("ToMove");
+
+
+        else if(dis > 10)
         {
-            animator.SetTrigger("Move");
+            if(weight <= 0.5)
+            {
+                animator.SetTrigger("Attack01");
+            }
+            else if (weight <= 1.0)
+            {
+                animator.SetTrigger("Attack04");
+            }
         }
 
-        var distance = Vector3.Distance(animator.transform.position, target.position);
+        else if (dis > 7)
+        {
+            if (weight <= 0.15)
+            {
+                animator.SetTrigger("Attack04");
+            }
+            else if (weight <= 0.3)
+            {
+                animator.SetTrigger("Attack01");
+            }
+            else if (weight <= 0.53)
+            {
+                animator.SetTrigger("Skill01");
+            }
+            else if (weight <= 0.76)
+            {
+                animator.SetTrigger("Skill02");
+            }
+            else if (weight <= 1.0)
+            {
+                animator.SetTrigger("Skill03");
+            }
+        }
 
-        if (distance <= 15 && weight > 0.8)
+        else if (dis > 4)
         {
-            animator.SetTrigger("Attack04");//15m內都可以追蹤小球
+            if (weight <= 0.1)
+            {
+                animator.SetTrigger("Attack04");
+            }
+            else if (weight <= 0.2)
+            {
+                animator.SetTrigger("Attack01");
+            }
+            else if (weight <= 0.35)
+            {
+                animator.SetTrigger("Skill01");
+            }
+            else if (weight <= 0.5)
+            {
+                animator.SetTrigger("Skill02");
+            }
+            else if (weight <= 0.65)
+            {
+                animator.SetTrigger("Skill03");
+            }
+            else if (weight <= 1.0)
+            {
+                animator.SetTrigger("Attack03");
+            }
         }
-        else if(distance<=10 && weight > 0.8)
+
+        else
         {
-            animator.SetTrigger("Attack03");//10m內可以發射氣功
+            if (weight <= 0.05)
+            {
+                animator.SetTrigger("Attack04");
+            }
+            else if (weight <= 0.1)
+            {
+                animator.SetTrigger("Attack01");
+            }
+            else if (weight <= 0.2)
+            {
+                animator.SetTrigger("Skill01");
+            }
+            else if (weight <= 0.3)
+            {
+                animator.SetTrigger("Skill02");
+            }
+            else if (weight <= 0.4)
+            {
+                animator.SetTrigger("Skill03");
+            }
+            else if (weight <= 0.5)
+            {
+                animator.SetTrigger("Attack03");
+            }
+            else if (weight <= 1.0)
+            {
+                animator.SetTrigger("Attack02");
+            }
         }
-        else if (distance <= 6)
-        {
-            animator.SetTrigger("Attack02");//6m內爆炸？
-        }
+    }
+
+    public void CanAttackType()
+    {
+
     }
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        move = !move;
     }
 }

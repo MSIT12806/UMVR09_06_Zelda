@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Throw : MonoBehaviour
 {
@@ -45,10 +46,22 @@ public class Throw : MonoBehaviour
     private float ItemExistTimer = 0.0f;
     private bool isStartTime = false;
 
-
+    GameObject Chain;
     private void Start()
     {
         animator = GetComponent<Animator>();
+
+        var currentScene = SceneManager.GetActiveScene();
+        var currentSceneName = currentScene.name;
+        if(currentSceneName== "NightScene")
+        {
+            Chain = ObjectManager.TimeStopChain;
+        }
+        else
+        {
+            Chain = ObjectManager2.TimeStopChain;
+        }
+        
     }
 
     // Update is called once per frame
@@ -300,14 +313,14 @@ public class Throw : MonoBehaviour
         else if(Explode == "FX_TimeStop")
         {
             NpcCommon.AttackDetection("Pico", itemEffect_pos, ItemEffect_obj.transform.forward, 360.0f, 5.0f, false, new DamageData(0, Vector3.zero, HitType.Heavy, new DamageStateInfo(DamageState.TimePause, 5)), "Npc");
-            ObjectManager.TimeStopChain.transform.position = itemEffect_pos;
-            ObjectManager.TimeStopChain.SetActive(true);
+            Chain.transform.position = itemEffect_pos;
+            Chain.SetActive(true);
             Invoke("ChainDisable", 5);
         }
     }
     void ChainDisable()
     {
-        ObjectManager.TimeStopChain.SetActive(false);
+        Chain.SetActive(false);
     }
     private void OnDrawGizmos()
     {

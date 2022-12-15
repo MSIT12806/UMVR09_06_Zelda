@@ -972,7 +972,7 @@ public class GolemArmorBreakState : GolemBaseState
     public GolemArmorBreakState(Transform t, Animator a, Transform self, NpcHelper nh) : base(a, self, nh, 0)
     {
         var mcs = ObjectManager.MainCharacter.GetComponent<MainCharacterState>();
-        mcs.FinishingReleased = true;
+        mcs.FinishingReleased = false;
         target = t;
         time = 0;
         gm = (GolemManager)npcHelper;

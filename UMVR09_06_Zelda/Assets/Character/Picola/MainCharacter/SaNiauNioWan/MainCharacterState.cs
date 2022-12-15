@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityStandardAssets.Characters.ThirdPerson;
 
 public class MainCharacterState : MonoBehaviour, NpcHelper
@@ -53,14 +54,45 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     public string Name => "莉可";
 
     public bool FinishingReleased { get; set; }
-
+    bool isNightScene;
     void Awake()
     {
-        ObjectManager.StateManagers.Add(this.gameObject.GetInstanceID(), this);
+
+        var currentScene = SceneManager.GetActiveScene();
+        var currentSceneName = currentScene.name;
+        if (currentSceneName == "NightScene")
+        {
+            isNightScene = true;
+        }
+        else
+        {
+            isNightScene = false;
+        }
+
+        if (isNightScene)
+        {
+            ObjectManager.StateManagers.Add(this.gameObject.GetInstanceID(), this);
+        }
+        else
+        {
+            ObjectManager2.StateManagers.Add(this.gameObject.GetInstanceID(), this);
+        }
+
     }
     // Start is called before the first frame update
     void Start()
     {
+        if (isNightScene)
+        {
+
+            lst = ObjectManager.NpcsAlive.Values;
+        }
+        else
+        {
+
+            lst = ObjectManager2.NpcsAlive.Values;
+        }
+
         npc = GetComponent<Npc>();
         tpc = GetComponent<ThirdPersonCharacter>();
         IK = GetComponent<IKController>();
@@ -112,8 +144,8 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
         //無雙條測試
         if (Input.GetKey(KeyCode.P))//增加無雙值
             AddPowerValue();
-        
-        if (Input.GetKeyDown(KeyCode.F) && !animator.IsInTransition(0) && 
+
+        if (Input.GetKeyDown(KeyCode.F) && !animator.IsInTransition(0) &&
             !(currentAnimation.IsName("Fever")
             || currentAnimation.IsName("Finishing")
             || currentAnimation.IsName("ThrowTimeStop")
@@ -257,7 +289,6 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
 
     public void CheckWeakEnemy()
     {
-        var lst = ObjectManager.NpcsAlive.Values;
         foreach (var i in lst)
         {
             if ((i.transform.position - transform.position).magnitude < 4f)
@@ -382,6 +413,8 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
         }
     }
     int noHurt;
+    private Dictionary<int, GameObject>.ValueCollection lst;
+
     public void SetNoHurt(int keepFrame)
     {
         noHurt = keepFrame;

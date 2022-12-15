@@ -83,7 +83,7 @@ public class GolemManager : MonoBehaviour, NpcHelper
     }
     public void AnimationAttack(int attackType)
     {
-        if (attackType == 1)//普攻1 之後要改成長方形的攻擊判定
+        if (attackType == 1)//普攻1 
         {
             NpcCommon.AttackDetection("", transform.position, transform.forward, 90, 4.5f, false, new DamageData(30f, transform.forward * 0.6f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");//
             this.transform.Find("FX_GolemAttack01").gameObject.GetComponent<ParticleSystem>().Play();
@@ -104,11 +104,13 @@ public class GolemManager : MonoBehaviour, NpcHelper
         }
         if (attackType == 4)//普攻2 之後要改成長方形的攻擊判定
         {
-            NpcCommon.AttackDetection("", transform.position, transform.forward, 90, 5f, false, new DamageData(30f, transform.forward * 0.3f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
+            NpcCommon.AttackDetectionRectangle("", transform.position, transform.forward, transform.right, 2, 4, false, new DamageData(30f, transform.forward * 0.3f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
+            //NpcCommon.AttackDetection("", transform.position, transform.forward, 90, 5f, false, new DamageData(30f, transform.forward * 0.3f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
         }
         if (attackType == 6)//普攻3 之後要改成長方形的攻擊判定
         {
-            NpcCommon.AttackDetection("", transform.position, transform.forward, 90, 10f, false, new DamageData(30f, transform.forward * 0.3f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
+            NpcCommon.AttackDetectionRectangle("", transform.position, transform.forward, transform.right, 3, 10, false, new DamageData(30f, transform.forward * 0.3f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
+            //NpcCommon.AttackDetection("", transform.position, transform.forward, 90, 10f, false, new DamageData(30f, transform.forward * 0.3f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
             this.transform.Find("FX_GolemAttack03").gameObject.GetComponent<ParticleSystem>().Play();
         }
 

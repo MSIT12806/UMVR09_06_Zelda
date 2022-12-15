@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using Microsoft.Cci;
 using static UnityEngine.Rendering.DebugUI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class UiManager : MonoBehaviour
 {
@@ -44,10 +45,24 @@ public class UiManager : MonoBehaviour
     RectTransform ImgToShow;
     public Image WeakFull;
     public Image WeakCrack;
+
+    bool isNightScene;
     private void Awake()
     {
         singleton = this;
+
+        var currentScene = SceneManager.GetActiveScene();
+        var currentSceneName = currentScene.name;
+        if (currentSceneName == "NightScene")
+        {
+            isNightScene = true;
+        }
+        else
+        {
+            isNightScene = false;
+        }
     }
+
     void Start()
     {
 
@@ -62,10 +77,19 @@ public class UiManager : MonoBehaviour
         PowerTwoKey = transform.FindAnyChild<Transform>("Power (1)").FindAnyChild<Transform>("Key");
         PowerTwoLight = transform.FindAnyChild<Transform>("Power (1)").FindAnyChild<Transform>("PowerLight");
         SikaTools = transform.FindAnyChild<Transform>("ItemTips");
-        picoState = ObjectManager.MainCharacter.GetComponent<PicoState>();
-        myCamera = ObjectManager.myCamera;//可以順便拿怪
+        if (isNightScene)
+        {
+            picoState = ObjectManager.MainCharacter.GetComponent<PicoState>();
+            myCamera = ObjectManager.myCamera;//可以順便拿怪
+            mainCharacter = ObjectManager.MainCharacter.GetComponent<Npc>();
+        }
+        else
+        {
+            picoState = ObjectManager2.MainCharacter.GetComponent<PicoState>();
+            myCamera = ObjectManager2.myCamera;//可以順便拿怪
+            mainCharacter = ObjectManager2.MainCharacter.GetComponent<Npc>();
+        }
         ItemUI = transform.FindAnyChild<Transform>("SiKaStone");
-        mainCharacter = ObjectManager.MainCharacter.GetComponent<Npc>();
         heart = (GameObject)Resources.Load(heartPath);
         currentHp = PicoManager.Hp;
         ItemCD = mainCharacter.GetComponent<Throw>().coldTime;
@@ -207,7 +231,10 @@ public class UiManager : MonoBehaviour
         var hp = GreatEnemyState.transform.FindAnyChild<Image>("GreatEnemyHpBarFull");
         var hpInfo = myCamera.m_StareTarget[(int)picoState.gameState].GetComponent<Npc>();
         hp.fillAmount = hpInfo.Hp / hpInfo.MaxHp;
-        nameUi.text = ObjectManager.StateManagers[ myCamera.m_StareTarget[(int)picoState.gameState].gameObject.GetInstanceID()].Name;
+        if (isNightScene)
+            nameUi.text = ObjectManager.StateManagers[myCamera.m_StareTarget[(int)picoState.gameState].gameObject.GetInstanceID()].Name;
+        else
+            nameUi.text = ObjectManager2.StateManagers[myCamera.m_StareTarget[(int)picoState.gameState].gameObject.GetInstanceID()].Name;
     }
 
     void SetHpBar()

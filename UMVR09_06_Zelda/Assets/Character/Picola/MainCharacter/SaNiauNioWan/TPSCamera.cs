@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// 此元件會同步於一個會平滑跟隨的點(m_LookPoint)，並看向m_FollowTarget。
@@ -37,10 +38,24 @@ public class TPSCamera : MonoBehaviour
     public string cameraState { get => state.Name; }
     private float fMX;
     private float fMY;
-
+    bool isNightScene;
     private void Awake()
     {
-        ObjectManager.myCamera = this;
+        var currentScene = SceneManager.GetActiveScene();
+        var currentSceneName = currentScene.name;
+        if (currentSceneName == "NightScene")
+        {
+            isNightScene = true;
+        }
+        else
+        {
+            isNightScene = false;
+        }
+
+        if (isNightScene)
+            ObjectManager.myCamera = this;
+        else
+            ObjectManager2.myCamera = this;
     }
     // Start is called before the first frame update
     void Start()
@@ -48,7 +63,18 @@ public class TPSCamera : MonoBehaviour
         state = new Default(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance);
         state.CameraDirection = m_FollowTarget.forward;
         thisCamera = GetComponent<Camera>();
-        gameState = ObjectManager.MainCharacter.GetComponent<PicoState>();
+
+        var currentScene = SceneManager.GetActiveScene();
+
+        if (currentScene.name == "NightScene")
+        {
+            gameState = ObjectManager.MainCharacter.GetComponent<PicoState>();
+        }
+        else
+        {
+            gameState = ObjectManager2.MainCharacter.GetComponent<PicoState>();
+        }
+
     }
 
     // Update is called once per frame
