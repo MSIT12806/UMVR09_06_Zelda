@@ -388,8 +388,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Colliders:
-  - Offset: {x: -0.00000008940697, y: 0.08706677, z: -0.011577606}
-    Radius: 0.08693669
+  - Offset: {x: 0, y: 0, z: 0}
+    Radius: 0.1
   m_gizmoColor: {r: 1, g: 0, b: 1, a: 1}
 --- !u!1 &375168482231101295
 GameObject:
@@ -660,8 +660,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Colliders:
-  - Offset: {x: 0, y: 0.025275946, z: 0.014757156}
-    Radius: 0.04475951
+  - Offset: {x: 0, y: 0, z: 0}
+    Radius: 0.1
   m_gizmoColor: {r: 1, g: 0, b: 1, a: 1}
 --- !u!1 &703817261450370251
 GameObject:
@@ -710,14 +710,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Colliders:
-  - Offset: {x: -0.00000011920929, y: -0.00000035762787, z: 0}
-    Radius: 0.026862461
-  - Offset: {x: -0.0447706, y: -0.0001360178, z: 0.000064373016}
-    Radius: 0.031339537
-  - Offset: {x: -0.08954108, y: -0.0002719164, z: 0.00012874603}
-    Radius: 0.026862461
-  - Offset: {x: -0.13431162, y: -0.00040769577, z: 0.00019264221}
-    Radius: 0.026862461
+  - Offset: {x: 0, y: 0, z: 0}
+    Radius: 0.1
   m_gizmoColor: {r: 1, g: 0, b: 1, a: 1}
 --- !u!1 &741716994263431724
 GameObject:
@@ -1201,9 +1195,9 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 407495757394094007}
   m_AABB:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
-  m_DirtyAABB: 1
+    m_Center: {x: 0.00060625, y: 0.083764896, z: 0.03884702}
+    m_Extent: {x: 0.08446218, y: 0.082416415, z: 0.11054986}
+  m_DirtyAABB: 0
 --- !u!1 &936931557962745958
 GameObject:
   m_ObjectHideFlags: 0
@@ -1725,9 +1719,9 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 407495757394094007}
   m_AABB:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
-  m_DirtyAABB: 1
+    m_Center: {x: -0.0059773326, y: 1.3188548, z: -0.12477409}
+    m_Extent: {x: 0.5227265, y: 0.42782396, z: 0.26047707}
+  m_DirtyAABB: 0
 --- !u!1 &1025539577705904222
 GameObject:
   m_ObjectHideFlags: 0
@@ -1869,12 +1863,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Colliders:
-  - Offset: {x: -0.000047296286, y: -0.008942366, z: -0.00046348572}
-    Radius: 0.04477014
-  - Offset: {x: 0.0671069, y: -0.009295106, z: -0.00051403046}
-    Radius: 0.04477014
-  - Offset: {x: 0.13426119, y: -0.009647846, z: -0.00056505203}
-    Radius: 0.04477014
+  - Offset: {x: 0, y: 0, z: 0}
+    Radius: 0.1
   m_gizmoColor: {r: 1, g: 0, b: 1, a: 1}
 --- !u!1 &1165111823292645968
 GameObject:
@@ -2561,8 +2551,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Colliders:
-  - Offset: {x: 0.019652668, y: -0.00019931793, z: -0.00001335144}
-    Radius: 0.029480625
+  - Offset: {x: 0, y: 0, z: 0}
+    Radius: 0.1
   m_gizmoColor: {r: 1, g: 0, b: 1, a: 1}
 --- !u!1 &1720148984699047904
 GameObject:
@@ -3365,9 +3355,9 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 407495757394094007}
   m_AABB:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
-  m_DirtyAABB: 1
+    m_Center: {x: 0.0006073639, y: 1.6380415, z: -0.020444896}
+    m_Extent: {x: 0.08352446, y: 0.109749675, z: 0.092208385}
+  m_DirtyAABB: 0
 --- !u!1 &2221369631808275333
 GameObject:
   m_ObjectHideFlags: 0
@@ -3477,8 +3467,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Colliders:
-  - Offset: {x: 0.05033326, y: 0.032873273, z: -0.0002155304}
-    Radius: 0.10571001
+  - Offset: {x: 0, y: 0, z: 0}
+    Radius: 0.1
   m_gizmoColor: {r: 1, g: 0, b: 1, a: 1}
 --- !u!1 &2299978371167424045
 GameObject:
@@ -3868,9 +3858,9 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 407495757394094007}
   m_AABB:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
-  m_DirtyAABB: 1
+    m_Center: {x: 0.00060755014, y: 0.90729785, z: 0.0150847435}
+    m_Extent: {x: 0.6526229, y: 0.83572745, z: 0.12365672}
+  m_DirtyAABB: 0
 --- !u!1 &2320224884481451098
 GameObject:
   m_ObjectHideFlags: 0
@@ -4353,9 +4343,9 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 407495757394094007}
   m_AABB:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
-  m_DirtyAABB: 1
+    m_Center: {x: 0.00060607493, y: 1.1322441, z: 0.0051638484}
+    m_Extent: {x: 0.44926494, y: 0.40712523, z: 0.35559243}
+  m_DirtyAABB: 0
 --- !u!1 &2412137529642175465
 GameObject:
   m_ObjectHideFlags: 0
@@ -5022,12 +5012,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Colliders:
-  - Offset: {x: 0, y: -0.00000035762787, z: 0}
-    Radius: 0.0725104
-  - Offset: {x: 0.0035986304, y: -0.107352555, z: -0.0014805794}
-    Radius: 0.0725104
-  - Offset: {x: 0.006597519, y: -0.19681293, z: -0.002714157}
-    Radius: 0.0725104
+  - Offset: {x: 0, y: 0, z: 0}
+    Radius: 0.1
   m_gizmoColor: {r: 1, g: 0, b: 1, a: 1}
 --- !u!1 &3306297403928482142
 GameObject:
@@ -6175,9 +6161,9 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 407495757394094007}
   m_AABB:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
-  m_DirtyAABB: 1
+    m_Center: {x: 0.0006062016, y: 0.36959153, z: -0.026695546}
+    m_Extent: {x: 0.10022422, y: 0.21995693, z: 0.06162924}
+  m_DirtyAABB: 0
 --- !u!1 &4193683066698562858
 GameObject:
   m_ObjectHideFlags: 0
@@ -6534,9 +6520,9 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 407495757394094007}
   m_AABB:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
-  m_DirtyAABB: 1
+    m_Center: {x: 0.00060743093, y: 1.4660072, z: -0.0038593411}
+    m_Extent: {x: 0.23032299, y: 0.093342066, z: 0.07797977}
+  m_DirtyAABB: 0
 --- !u!1 &4204928442992012302
 GameObject:
   m_ObjectHideFlags: 0
@@ -6904,8 +6890,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Colliders:
-  - Offset: {x: -0.019652843, y: -0.00019943714, z: -0.00001335144}
-    Radius: 0.029480621
+  - Offset: {x: 0, y: 0, z: 0}
+    Radius: 0.1
   m_gizmoColor: {r: 1, g: 0, b: 1, a: 1}
 --- !u!1 &4566659566489735212
 GameObject:
@@ -7144,8 +7130,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Colliders:
-  - Offset: {x: 0, y: -0.00000035762787, z: 0}
-    Radius: 0.10742283
+  - Offset: {x: 0, y: 0, z: 0}
+    Radius: 0.1
   m_gizmoColor: {r: 1, g: 0, b: 1, a: 1}
 --- !u!1 &4856480754289060135
 GameObject:
@@ -7758,9 +7744,9 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 407495757394094007}
   m_AABB:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
-  m_DirtyAABB: 1
+    m_Center: {x: 0.016058505, y: 1.1830404, z: 0.019153237}
+    m_Extent: {x: 0.17912485, y: 0.12747759, z: 0.1563642}
+  m_DirtyAABB: 0
 --- !u!1 &5021409288862613325
 GameObject:
   m_ObjectHideFlags: 0
@@ -8275,9 +8261,9 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 407495757394094007}
   m_AABB:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
-  m_DirtyAABB: 1
+    m_Center: {x: 0.0006057322, y: 1.1123452, z: 0.006557405}
+    m_Extent: {x: 0.48072037, y: 0.42402768, z: 0.38152575}
+  m_DirtyAABB: 0
 --- !u!1 &5130104226050672672
 GameObject:
   m_ObjectHideFlags: 0
@@ -8821,9 +8807,9 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 407495757394094007}
   m_AABB:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
-  m_DirtyAABB: 1
+    m_Center: {x: 0.0006058812, y: 1.1332109, z: 0.0057295263}
+    m_Extent: {x: 0.45120114, y: 0.40809703, z: 0.357013}
+  m_DirtyAABB: 0
 --- !u!1 &5420690269355574575
 GameObject:
   m_ObjectHideFlags: 0
@@ -9351,12 +9337,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Colliders:
-  - Offset: {x: 0, y: 0.0029697418, z: 0.008444786}
-    Radius: 0.08951902
-  - Offset: {x: -0.044759482, y: 0.05192113, z: -0.027750015}
-    Radius: 0.06266331
-  - Offset: {x: 0.044759512, y: 0.05192113, z: -0.027750015}
-    Radius: 0.06266331
+  - Offset: {x: 0, y: 0, z: 0}
+    Radius: 0.1
   m_gizmoColor: {r: 1, g: 0, b: 1, a: 1}
 --- !u!1 &5771701568784075848
 GameObject:
@@ -9723,14 +9705,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Colliders:
-  - Offset: {x: 0, y: -0.00000035762787, z: 0}
-    Radius: 0.026862461
-  - Offset: {x: 0.04477051, y: -0.0001360178, z: 0.00006389618}
-    Radius: 0.031339537
-  - Offset: {x: 0.08954103, y: -0.00027155876, z: 0.0001282692}
-    Radius: 0.026862461
-  - Offset: {x: 0.13431156, y: -0.00040721893, z: 0.00019216537}
-    Radius: 0.026862461
+  - Offset: {x: 0, y: 0, z: 0}
+    Radius: 0.1
   m_gizmoColor: {r: 1, g: 0, b: 1, a: 1}
 --- !u!1 &6131213666025430601
 GameObject:
@@ -10194,6 +10170,9 @@ GameObject:
   - component: {fileID: 5612593495855358595}
   - component: {fileID: 1543267633757891367}
   - component: {fileID: 3300812335300250644}
+  - component: {fileID: 863375989}
+  - component: {fileID: 863375990}
+  - component: {fileID: 863375991}
   m_Layer: 0
   m_Name: space3
   m_TagString: Untagged
@@ -10210,8 +10189,8 @@ Transform:
   m_GameObject: {fileID: 6693822401497605088}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 407495757394094007}
   - {fileID: 1860392306688398039}
@@ -10243,7 +10222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 690ea0146224b8b4694a1925dddeb352, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Meta: {fileID: 11400000, guid: 22334dd3bb3298946b6571e48274f09d, type: 2}
+  Meta: {fileID: 0}
 --- !u!114 &7037055237988027252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10256,8 +10235,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3869812175467a143ab9cd865752b4a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Avatar: {fileID: 9000000, guid: 4b8b844b25e795b469d762ead391e008, type: 2}
-  Description: {fileID: 11400000, guid: c37e7f19a2051514e815641a482fcf5e, type: 2}
+  Avatar: {fileID: 0}
+  Description: {fileID: 0}
 --- !u!95 &1518997875328002179
 Animator:
   serializedVersion: 4
@@ -10268,7 +10247,7 @@ Animator:
   m_GameObject: {fileID: 6693822401497605088}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 4b8b844b25e795b469d762ead391e008, type: 2}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3184a2c095abf344d8674bf04024cf0e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -10290,7 +10269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b678c1df50cfb547990db24a32856da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlendShapeAvatar: {fileID: 11400000, guid: af7ce9f411447414784d93ef8e5dc82b, type: 2}
+  BlendShapeAvatar: {fileID: 0}
 --- !u!114 &5612593495855358595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10303,39 +10282,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dedba1309bdf12b42af2362f52eea134, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FirstPersonBone: {fileID: 3119009095516448028}
-  FirstPersonOffset: {x: 0, y: 0.06, z: 0}
-  Renderers:
-  - Renderer: {fileID: 8928860366665541515}
-    FirstPersonFlag: 0
-  - Renderer: {fileID: 4296370272071657083}
-    FirstPersonFlag: 0
-  - Renderer: {fileID: 6270810865811155243}
-    FirstPersonFlag: 0
-  - Renderer: {fileID: 2913185042729601620}
-    FirstPersonFlag: 0
-  - Renderer: {fileID: 3544064092351593187}
-    FirstPersonFlag: 0
-  - Renderer: {fileID: 538093477766097699}
-    FirstPersonFlag: 0
-  - Renderer: {fileID: 2369545133563227304}
-    FirstPersonFlag: 0
-  - Renderer: {fileID: 6219064399522530893}
-    FirstPersonFlag: 0
-  - Renderer: {fileID: 3078519485398507817}
-    FirstPersonFlag: 0
-  - Renderer: {fileID: 3969691224129486405}
-    FirstPersonFlag: 0
-  - Renderer: {fileID: 3942201175828940965}
-    FirstPersonFlag: 0
-  - Renderer: {fileID: 6946793041923738748}
-    FirstPersonFlag: 0
-  - Renderer: {fileID: 3965458122213458744}
-    FirstPersonFlag: 0
-  - Renderer: {fileID: 8052911802372162779}
-    FirstPersonFlag: 0
-  - Renderer: {fileID: 3765406280002196653}
-    FirstPersonFlag: 0
+  FirstPersonBone: {fileID: 0}
+  FirstPersonOffset: {x: 0, y: 0, z: 0}
+  Renderers: []
 --- !u!114 &1543267633757891367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10368,43 +10317,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DrawGizmo: 0
   LeftEye:
-    Transform: {fileID: 555413173142099723}
+    Transform: {fileID: 0}
     OffsetRotation:
-      e00: 1
+      e00: 0
       e01: 0
       e02: 0
       e03: 0
       e10: 0
-      e11: 1
+      e11: 0
       e12: 0
       e13: 0
       e20: 0
       e21: 0
-      e22: 1
+      e22: 0
       e23: 0
       e30: 0
       e31: 0
       e32: 0
-      e33: 1
+      e33: 0
   RightEye:
-    Transform: {fileID: 452151920643739466}
+    Transform: {fileID: 0}
     OffsetRotation:
-      e00: 1
+      e00: 0
       e01: 0
       e02: 0
       e03: 0
       e10: 0
-      e11: 1
+      e11: 0
       e12: 0
       e13: 0
       e20: 0
       e21: 0
-      e22: 1
+      e22: 0
       e23: 0
       e30: 0
       e31: 0
       e32: 0
-      e33: 1
+      e33: 0
   HorizontalOuter:
     Curve:
       serializedVersion: 2
@@ -10431,7 +10380,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     CurveXRangeDegree: 90
-    CurveYRangeDegree: 12
+    CurveYRangeDegree: 10
   HorizontalInner:
     Curve:
       serializedVersion: 2
@@ -10458,7 +10407,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     CurveXRangeDegree: 90
-    CurveYRangeDegree: 8
+    CurveYRangeDegree: 10
   VerticalDown:
     Curve:
       serializedVersion: 2
@@ -10513,6 +10462,65 @@ MonoBehaviour:
       m_RotationOrder: 4
     CurveXRangeDegree: 90
     CurveYRangeDegree: 10
+--- !u!136 &863375989
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6693822401497605088}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2.9349065
+  m_Direction: 1
+  m_Center: {x: -0, y: 0.9674529, z: 0}
+--- !u!114 &863375990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6693822401497605088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9f6c11a6345888498622957e1896247, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1665
+  terrainLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  nextPosition: {x: 0, y: 0, z: 0}
+  gameState: 1
+  OnGround: 0
+  MaxHp: 0
+  Hp: 2000
+  MaterialAddress: 
+  initVel: {x: 0, y: 0, z: 0}
+  grounded: 0
+--- !u!114 &863375991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6693822401497605088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41065e052c548b3438e6c2c039cdfc06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smallBalls:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &6752036131287690739
 GameObject:
   m_ObjectHideFlags: 0
@@ -11221,12 +11229,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Colliders:
-  - Offset: {x: 0, y: -0.00000023841858, z: 0}
-    Radius: 0.07251041
-  - Offset: {x: -0.0035988986, y: -0.107352495, z: -0.0014801025}
-    Radius: 0.07251041
-  - Offset: {x: -0.0065980256, y: -0.19681293, z: -0.0027136803}
-    Radius: 0.07251041
+  - Offset: {x: 0, y: 0, z: 0}
+    Radius: 0.1
   m_gizmoColor: {r: 1, g: 0, b: 1, a: 1}
 --- !u!1 &7448020609110083151
 GameObject:
@@ -11787,9 +11791,9 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 407495757394094007}
   m_AABB:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
-  m_DirtyAABB: 1
+    m_Center: {x: -0.0121540725, y: 1.4578246, z: -0.011681899}
+    m_Extent: {x: 0.24171847, y: 0.09576166, z: 0.08035285}
+  m_DirtyAABB: 0
 --- !u!1 &7692755411654710406
 GameObject:
   m_ObjectHideFlags: 0
@@ -12175,12 +12179,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Colliders:
-  - Offset: {x: 0.000047326088, y: -0.008942127, z: -0.00046348572}
-    Radius: 0.04477014
-  - Offset: {x: -0.06710696, y: -0.009295225, z: -0.00051403046}
-    Radius: 0.04477014
-  - Offset: {x: -0.13426119, y: -0.009647965, z: -0.00056505203}
-    Radius: 0.04477014
+  - Offset: {x: 0, y: 0, z: 0}
+    Radius: 0.1
   m_gizmoColor: {r: 1, g: 0, b: 1, a: 1}
 --- !u!1 &7985383426917835781
 GameObject:
@@ -12545,9 +12545,9 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 407495757394094007}
   m_AABB:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
-  m_DirtyAABB: 1
+    m_Center: {x: 0.00060743093, y: 1.6359293, z: 0.023118403}
+    m_Extent: {x: 0.09038404, y: 0.10082173, z: 0.06130435}
+  m_DirtyAABB: 0
 --- !u!1 &7992916607831441486
 GameObject:
   m_ObjectHideFlags: 0
@@ -12623,17 +12623,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_comment: Bust
+  m_comment: 
   m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 4
+  m_stiffnessForce: 1
   m_gravityPower: 0
   m_gravityDir: {x: 0, y: -1, z: 0}
-  m_dragForce: 0.05
-  m_center: {fileID: 407495757394094007}
-  RootBones:
-  - {fileID: 5166044599049766624}
-  - {fileID: 8209569076545978505}
-  m_hitRadius: 0.01354704
+  m_dragForce: 0.4
+  m_center: {fileID: 0}
+  RootBones: []
+  m_hitRadius: 0.02
   ColliderGroups: []
   m_updateType: 0
 --- !u!114 &8900301121235709649
@@ -12648,21 +12646,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_comment: TopsUpperArm
+  m_comment: 
   m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 4
+  m_stiffnessForce: 1
   m_gravityPower: 0
   m_gravityDir: {x: 0, y: -1, z: 0}
-  m_dragForce: 0
-  m_center: {fileID: 407495757394094007}
-  RootBones:
-  - {fileID: 5817408446727236969}
-  - {fileID: 3020871165497070449}
-  - {fileID: 7052716595769831015}
-  - {fileID: 1786490384222898141}
-  - {fileID: 1880039737469164072}
-  - {fileID: 9104571612748904604}
-  m_hitRadius: 0.018235477
+  m_dragForce: 0.4
+  m_center: {fileID: 0}
+  RootBones: []
+  m_hitRadius: 0.02
   ColliderGroups: []
   m_updateType: 0
 --- !u!114 &1388184343266096814
@@ -12677,21 +12669,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_comment: TopsUpperArm
+  m_comment: 
   m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 4
+  m_stiffnessForce: 1
   m_gravityPower: 0
   m_gravityDir: {x: 0, y: -1, z: 0}
-  m_dragForce: 0
-  m_center: {fileID: 407495757394094007}
-  RootBones:
-  - {fileID: 8806567110256085882}
-  - {fileID: 1028533253112316553}
-  - {fileID: 2025620756431066052}
-  - {fileID: 3317549275856464616}
-  - {fileID: 5756578618182568760}
-  - {fileID: 78585702085742289}
-  m_hitRadius: 0.018235477
+  m_dragForce: 0.4
+  m_center: {fileID: 0}
+  RootBones: []
+  m_hitRadius: 0.02
   ColliderGroups: []
   m_updateType: 0
 --- !u!114 &9059478232983074676
@@ -12706,21 +12692,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_comment: TopsUpperArm
+  m_comment: 
   m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 4
+  m_stiffnessForce: 1
   m_gravityPower: 0
   m_gravityDir: {x: 0, y: -1, z: 0}
-  m_dragForce: 0
-  m_center: {fileID: 407495757394094007}
-  RootBones:
-  - {fileID: 5004065199113145127}
-  - {fileID: 6558852919428021320}
-  - {fileID: 5396628196152595924}
-  - {fileID: 7540797549765406435}
-  - {fileID: 1530666169326383499}
-  - {fileID: 1238578773664798263}
-  m_hitRadius: 0.018235477
+  m_dragForce: 0.4
+  m_center: {fileID: 0}
+  RootBones: []
+  m_hitRadius: 0.02
   ColliderGroups: []
   m_updateType: 0
 --- !u!114 &3029374929136583835
@@ -12735,21 +12715,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_comment: TopsUpperArm
+  m_comment: 
   m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 4
+  m_stiffnessForce: 1
   m_gravityPower: 0
   m_gravityDir: {x: 0, y: -1, z: 0}
-  m_dragForce: 0
-  m_center: {fileID: 407495757394094007}
-  RootBones:
-  - {fileID: 4900471976710730584}
-  - {fileID: 6428007351518384299}
-  - {fileID: 7147826817665547624}
-  - {fileID: 1495298142359540681}
-  - {fileID: 2666208559268608199}
-  - {fileID: 6802569273938395562}
-  m_hitRadius: 0.018235477
+  m_dragForce: 0.4
+  m_center: {fileID: 0}
+  RootBones: []
+  m_hitRadius: 0.02
   ColliderGroups: []
   m_updateType: 0
 --- !u!114 &3385420633961054685
@@ -12764,21 +12738,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_comment: TopsUpperArm
+  m_comment: 
   m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 4
+  m_stiffnessForce: 1
   m_gravityPower: 0
   m_gravityDir: {x: 0, y: -1, z: 0}
-  m_dragForce: 0
-  m_center: {fileID: 407495757394094007}
-  RootBones:
-  - {fileID: 4639575332423964377}
-  - {fileID: 700378057564873129}
-  - {fileID: 2437281691223825482}
-  - {fileID: 7761390154038249526}
-  - {fileID: 5133972060662247550}
-  - {fileID: 3992022742907653889}
-  m_hitRadius: 0.018235477
+  m_dragForce: 0.4
+  m_center: {fileID: 0}
+  RootBones: []
+  m_hitRadius: 0.02
   ColliderGroups: []
   m_updateType: 0
 --- !u!114 &4643738359001945638
@@ -12793,19 +12761,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_comment: Sleeve
+  m_comment: 
   m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 4
+  m_stiffnessForce: 1
   m_gravityPower: 0
   m_gravityDir: {x: 0, y: -1, z: 0}
-  m_dragForce: 0.05
-  m_center: {fileID: 407495757394094007}
-  RootBones:
-  - {fileID: 456832300269752746}
-  - {fileID: 2607034143224768647}
-  - {fileID: 4318003555590774694}
-  - {fileID: 3326008413594426447}
-  m_hitRadius: 0.013153147
+  m_dragForce: 0.4
+  m_center: {fileID: 0}
+  RootBones: []
+  m_hitRadius: 0.02
   ColliderGroups: []
   m_updateType: 0
 --- !u!114 &7193788627364992298
@@ -12820,24 +12784,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_comment: Skirt
+  m_comment: 
   m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 4
+  m_stiffnessForce: 1
   m_gravityPower: 0
   m_gravityDir: {x: 0, y: -1, z: 0}
-  m_dragForce: 0.05
-  m_center: {fileID: 407495757394094007}
-  RootBones:
-  - {fileID: 5513729143167154292}
-  - {fileID: 7538264589995296788}
-  - {fileID: 3276090100574205153}
-  - {fileID: 8971975848574519107}
-  - {fileID: 8787985176234869241}
-  - {fileID: 3552787049250105339}
-  m_hitRadius: 0.010875554
-  ColliderGroups:
-  - {fileID: 1160527664850089406}
-  - {fileID: 5009469112723278936}
+  m_dragForce: 0.4
+  m_center: {fileID: 0}
+  RootBones: []
+  m_hitRadius: 0.02
+  ColliderGroups: []
   m_updateType: 0
 --- !u!114 &2707214817223560378
 MonoBehaviour:
@@ -12851,27 +12807,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_comment: Hair
+  m_comment: 
   m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 0.7433329
+  m_stiffnessForce: 1
   m_gravityPower: 0
   m_gravityDir: {x: 0, y: -1, z: 0}
   m_dragForce: 0.4
-  m_center: {fileID: 407495757394094007}
-  RootBones:
-  - {fileID: 5487340364926422801}
-  m_hitRadius: 0
-  ColliderGroups:
-  - {fileID: 4051606728881697162}
-  - {fileID: 2205628676741615454}
-  - {fileID: 4940080004340880320}
-  - {fileID: 3021724243687898114}
-  - {fileID: 238634813258907399}
-  - {fileID: 8733342367735977624}
-  - {fileID: 240082541223779057}
-  - {fileID: 5344730153609476462}
-  - {fileID: 5112064387750382306}
-  - {fileID: 3110545241639943302}
+  m_center: {fileID: 0}
+  RootBones: []
+  m_hitRadius: 0.02
+  ColliderGroups: []
   m_updateType: 0
 --- !u!114 &3427389603419120882
 MonoBehaviour:
@@ -12885,27 +12830,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_comment: Hair
+  m_comment: 
   m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 0.70333254
+  m_stiffnessForce: 1
   m_gravityPower: 0
   m_gravityDir: {x: 0, y: -1, z: 0}
   m_dragForce: 0.4
-  m_center: {fileID: 407495757394094007}
-  RootBones:
-  - {fileID: 3096799763438098136}
-  m_hitRadius: 0.0040434883
-  ColliderGroups:
-  - {fileID: 4051606728881697162}
-  - {fileID: 2205628676741615454}
-  - {fileID: 4940080004340880320}
-  - {fileID: 3021724243687898114}
-  - {fileID: 238634813258907399}
-  - {fileID: 8733342367735977624}
-  - {fileID: 240082541223779057}
-  - {fileID: 5344730153609476462}
-  - {fileID: 5112064387750382306}
-  - {fileID: 3110545241639943302}
+  m_center: {fileID: 0}
+  RootBones: []
+  m_hitRadius: 0.02
+  ColliderGroups: []
   m_updateType: 0
 --- !u!114 &4629244784814475323
 MonoBehaviour:
@@ -12919,27 +12853,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_comment: Hair
+  m_comment: 
   m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 0.79333293
+  m_stiffnessForce: 1
   m_gravityPower: 0
   m_gravityDir: {x: 0, y: -1, z: 0}
   m_dragForce: 0.4
-  m_center: {fileID: 407495757394094007}
-  RootBones:
-  - {fileID: 1479865478955351636}
-  m_hitRadius: 0.0040435
-  ColliderGroups:
-  - {fileID: 4051606728881697162}
-  - {fileID: 2205628676741615454}
-  - {fileID: 4940080004340880320}
-  - {fileID: 3021724243687898114}
-  - {fileID: 238634813258907399}
-  - {fileID: 8733342367735977624}
-  - {fileID: 240082541223779057}
-  - {fileID: 5344730153609476462}
-  - {fileID: 5112064387750382306}
-  - {fileID: 3110545241639943302}
+  m_center: {fileID: 0}
+  RootBones: []
+  m_hitRadius: 0.02
+  ColliderGroups: []
   m_updateType: 0
 --- !u!114 &5389807386353963677
 MonoBehaviour:
@@ -12953,27 +12876,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_comment: Hair
+  m_comment: 
   m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 0.27666625
+  m_stiffnessForce: 1
   m_gravityPower: 0
   m_gravityDir: {x: 0, y: -1, z: 0}
   m_dragForce: 0.4
-  m_center: {fileID: 407495757394094007}
-  RootBones:
-  - {fileID: 3086409097718285121}
-  m_hitRadius: 0.0040434934
-  ColliderGroups:
-  - {fileID: 4051606728881697162}
-  - {fileID: 2205628676741615454}
-  - {fileID: 4940080004340880320}
-  - {fileID: 3021724243687898114}
-  - {fileID: 238634813258907399}
-  - {fileID: 8733342367735977624}
-  - {fileID: 240082541223779057}
-  - {fileID: 5344730153609476462}
-  - {fileID: 5112064387750382306}
-  - {fileID: 3110545241639943302}
+  m_center: {fileID: 0}
+  RootBones: []
+  m_hitRadius: 0.02
+  ColliderGroups: []
   m_updateType: 0
 --- !u!114 &6658022682743207037
 MonoBehaviour:
@@ -12987,27 +12899,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_comment: Hair
+  m_comment: 
   m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 0.3133334
+  m_stiffnessForce: 1
   m_gravityPower: 0
   m_gravityDir: {x: 0, y: -1, z: 0}
   m_dragForce: 0.4
-  m_center: {fileID: 407495757394094007}
-  RootBones:
-  - {fileID: 3007267925700951324}
-  m_hitRadius: 0.0040434934
-  ColliderGroups:
-  - {fileID: 4051606728881697162}
-  - {fileID: 2205628676741615454}
-  - {fileID: 4940080004340880320}
-  - {fileID: 3021724243687898114}
-  - {fileID: 238634813258907399}
-  - {fileID: 8733342367735977624}
-  - {fileID: 240082541223779057}
-  - {fileID: 5344730153609476462}
-  - {fileID: 5112064387750382306}
-  - {fileID: 3110545241639943302}
+  m_center: {fileID: 0}
+  RootBones: []
+  m_hitRadius: 0.02
+  ColliderGroups: []
   m_updateType: 0
 --- !u!114 &471126107428048772
 MonoBehaviour:
@@ -13021,27 +12922,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_comment: Hair
+  m_comment: 
   m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 0.4
+  m_stiffnessForce: 1
   m_gravityPower: 0
   m_gravityDir: {x: 0, y: -1, z: 0}
   m_dragForce: 0.4
-  m_center: {fileID: 407495757394094007}
-  RootBones:
-  - {fileID: 9112524105600967517}
-  m_hitRadius: 0.00404349
-  ColliderGroups:
-  - {fileID: 4051606728881697162}
-  - {fileID: 2205628676741615454}
-  - {fileID: 4940080004340880320}
-  - {fileID: 3021724243687898114}
-  - {fileID: 238634813258907399}
-  - {fileID: 8733342367735977624}
-  - {fileID: 240082541223779057}
-  - {fileID: 5344730153609476462}
-  - {fileID: 5112064387750382306}
-  - {fileID: 3110545241639943302}
+  m_center: {fileID: 0}
+  RootBones: []
+  m_hitRadius: 0.02
+  ColliderGroups: []
   m_updateType: 0
 --- !u!114 &4125734553469604862
 MonoBehaviour:
@@ -13055,27 +12945,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_comment: Hair
+  m_comment: 
   m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 0.4
+  m_stiffnessForce: 1
   m_gravityPower: 0
   m_gravityDir: {x: 0, y: -1, z: 0}
   m_dragForce: 0.4
-  m_center: {fileID: 407495757394094007}
-  RootBones:
-  - {fileID: 1469494989536588636}
-  m_hitRadius: 0.0040434934
-  ColliderGroups:
-  - {fileID: 4051606728881697162}
-  - {fileID: 2205628676741615454}
-  - {fileID: 4940080004340880320}
-  - {fileID: 3021724243687898114}
-  - {fileID: 238634813258907399}
-  - {fileID: 8733342367735977624}
-  - {fileID: 240082541223779057}
-  - {fileID: 5344730153609476462}
-  - {fileID: 5112064387750382306}
-  - {fileID: 3110545241639943302}
+  m_center: {fileID: 0}
+  RootBones: []
+  m_hitRadius: 0.02
+  ColliderGroups: []
   m_updateType: 0
 --- !u!114 &7631540030894377711
 MonoBehaviour:
@@ -13089,27 +12968,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_comment: Hair
+  m_comment: 
   m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 0.4
+  m_stiffnessForce: 1
   m_gravityPower: 0
   m_gravityDir: {x: 0, y: -1, z: 0}
   m_dragForce: 0.4
-  m_center: {fileID: 407495757394094007}
-  RootBones:
-  - {fileID: 397943760826250457}
-  m_hitRadius: 0.0040434916
-  ColliderGroups:
-  - {fileID: 4051606728881697162}
-  - {fileID: 2205628676741615454}
-  - {fileID: 4940080004340880320}
-  - {fileID: 3021724243687898114}
-  - {fileID: 238634813258907399}
-  - {fileID: 8733342367735977624}
-  - {fileID: 240082541223779057}
-  - {fileID: 5344730153609476462}
-  - {fileID: 5112064387750382306}
-  - {fileID: 3110545241639943302}
+  m_center: {fileID: 0}
+  RootBones: []
+  m_hitRadius: 0.02
+  ColliderGroups: []
   m_updateType: 0
 --- !u!114 &4880527301600294291
 MonoBehaviour:
@@ -13123,27 +12991,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_comment: Hair
+  m_comment: 
   m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 0.4
+  m_stiffnessForce: 1
   m_gravityPower: 0
   m_gravityDir: {x: 0, y: -1, z: 0}
   m_dragForce: 0.4
-  m_center: {fileID: 407495757394094007}
-  RootBones:
-  - {fileID: 1765082192221450311}
-  m_hitRadius: 0.0040435
-  ColliderGroups:
-  - {fileID: 4051606728881697162}
-  - {fileID: 2205628676741615454}
-  - {fileID: 4940080004340880320}
-  - {fileID: 3021724243687898114}
-  - {fileID: 238634813258907399}
-  - {fileID: 8733342367735977624}
-  - {fileID: 240082541223779057}
-  - {fileID: 5344730153609476462}
-  - {fileID: 5112064387750382306}
-  - {fileID: 3110545241639943302}
+  m_center: {fileID: 0}
+  RootBones: []
+  m_hitRadius: 0.02
+  ColliderGroups: []
   m_updateType: 0
 --- !u!114 &3194971611631797207
 MonoBehaviour:
@@ -13157,27 +13014,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_comment: Hair
+  m_comment: 
   m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 0.5666664
+  m_stiffnessForce: 1
   m_gravityPower: 0
   m_gravityDir: {x: 0, y: -1, z: 0}
   m_dragForce: 0.4
-  m_center: {fileID: 407495757394094007}
-  RootBones:
-  - {fileID: 339687049939724012}
-  m_hitRadius: 0.0040434934
-  ColliderGroups:
-  - {fileID: 4051606728881697162}
-  - {fileID: 2205628676741615454}
-  - {fileID: 4940080004340880320}
-  - {fileID: 3021724243687898114}
-  - {fileID: 238634813258907399}
-  - {fileID: 8733342367735977624}
-  - {fileID: 240082541223779057}
-  - {fileID: 5344730153609476462}
-  - {fileID: 5112064387750382306}
-  - {fileID: 3110545241639943302}
+  m_center: {fileID: 0}
+  RootBones: []
+  m_hitRadius: 0.02
+  ColliderGroups: []
   m_updateType: 0
 --- !u!114 &5839156488148789756
 MonoBehaviour:
@@ -13191,27 +13037,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_comment: Hair
+  m_comment: 
   m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 0.52333295
+  m_stiffnessForce: 1
   m_gravityPower: 0
   m_gravityDir: {x: 0, y: -1, z: 0}
   m_dragForce: 0.4
-  m_center: {fileID: 407495757394094007}
-  RootBones:
-  - {fileID: 155362473487159732}
-  m_hitRadius: 0.004043485
-  ColliderGroups:
-  - {fileID: 4051606728881697162}
-  - {fileID: 2205628676741615454}
-  - {fileID: 4940080004340880320}
-  - {fileID: 3021724243687898114}
-  - {fileID: 238634813258907399}
-  - {fileID: 8733342367735977624}
-  - {fileID: 240082541223779057}
-  - {fileID: 5344730153609476462}
-  - {fileID: 5112064387750382306}
-  - {fileID: 3110545241639943302}
+  m_center: {fileID: 0}
+  RootBones: []
+  m_hitRadius: 0.02
+  ColliderGroups: []
   m_updateType: 0
 --- !u!114 &1352401421512704921
 MonoBehaviour:
@@ -13225,27 +13060,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_comment: Hair
+  m_comment: 
   m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 0.4
+  m_stiffnessForce: 1
   m_gravityPower: 0
   m_gravityDir: {x: 0, y: -1, z: 0}
   m_dragForce: 0.4
-  m_center: {fileID: 407495757394094007}
-  RootBones:
-  - {fileID: 7318681832567632592}
-  m_hitRadius: 0.0040434934
-  ColliderGroups:
-  - {fileID: 4051606728881697162}
-  - {fileID: 2205628676741615454}
-  - {fileID: 4940080004340880320}
-  - {fileID: 3021724243687898114}
-  - {fileID: 238634813258907399}
-  - {fileID: 8733342367735977624}
-  - {fileID: 240082541223779057}
-  - {fileID: 5344730153609476462}
-  - {fileID: 5112064387750382306}
-  - {fileID: 3110545241639943302}
+  m_center: {fileID: 0}
+  RootBones: []
+  m_hitRadius: 0.02
+  ColliderGroups: []
   m_updateType: 0
 --- !u!114 &7291200136743192564
 MonoBehaviour:
@@ -13259,27 +13083,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_comment: Hair
+  m_comment: 
   m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 0.4
+  m_stiffnessForce: 1
   m_gravityPower: 0
   m_gravityDir: {x: 0, y: -1, z: 0}
   m_dragForce: 0.4
-  m_center: {fileID: 407495757394094007}
-  RootBones:
-  - {fileID: 644614602315264758}
-  m_hitRadius: 0.00404349
-  ColliderGroups:
-  - {fileID: 4051606728881697162}
-  - {fileID: 2205628676741615454}
-  - {fileID: 4940080004340880320}
-  - {fileID: 3021724243687898114}
-  - {fileID: 238634813258907399}
-  - {fileID: 8733342367735977624}
-  - {fileID: 240082541223779057}
-  - {fileID: 5344730153609476462}
-  - {fileID: 5112064387750382306}
-  - {fileID: 3110545241639943302}
+  m_center: {fileID: 0}
+  RootBones: []
+  m_hitRadius: 0.02
+  ColliderGroups: []
   m_updateType: 0
 --- !u!114 &8009386799842110445
 MonoBehaviour:
@@ -13293,27 +13106,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_comment: Hair
+  m_comment: 
   m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 0.4
+  m_stiffnessForce: 1
   m_gravityPower: 0
   m_gravityDir: {x: 0, y: -1, z: 0}
   m_dragForce: 0.4
-  m_center: {fileID: 407495757394094007}
-  RootBones:
-  - {fileID: 5567605942046917629}
-  m_hitRadius: 0.004043482
-  ColliderGroups:
-  - {fileID: 4051606728881697162}
-  - {fileID: 2205628676741615454}
-  - {fileID: 4940080004340880320}
-  - {fileID: 3021724243687898114}
-  - {fileID: 238634813258907399}
-  - {fileID: 8733342367735977624}
-  - {fileID: 240082541223779057}
-  - {fileID: 5344730153609476462}
-  - {fileID: 5112064387750382306}
-  - {fileID: 3110545241639943302}
+  m_center: {fileID: 0}
+  RootBones: []
+  m_hitRadius: 0.02
+  ColliderGroups: []
   m_updateType: 0
 --- !u!114 &8656882257233162332
 MonoBehaviour:
@@ -13327,27 +13129,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_comment: Hair
+  m_comment: 
   m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 0.4
+  m_stiffnessForce: 1
   m_gravityPower: 0
   m_gravityDir: {x: 0, y: -1, z: 0}
   m_dragForce: 0.4
-  m_center: {fileID: 407495757394094007}
-  RootBones:
-  - {fileID: 2770260121240255728}
-  m_hitRadius: 0.0040434883
-  ColliderGroups:
-  - {fileID: 4051606728881697162}
-  - {fileID: 2205628676741615454}
-  - {fileID: 4940080004340880320}
-  - {fileID: 3021724243687898114}
-  - {fileID: 238634813258907399}
-  - {fileID: 8733342367735977624}
-  - {fileID: 240082541223779057}
-  - {fileID: 5344730153609476462}
-  - {fileID: 5112064387750382306}
-  - {fileID: 3110545241639943302}
+  m_center: {fileID: 0}
+  RootBones: []
+  m_hitRadius: 0.02
+  ColliderGroups: []
   m_updateType: 0
 --- !u!114 &3153971958323145631
 MonoBehaviour:
@@ -13361,27 +13152,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_comment: Hair
+  m_comment: 
   m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 0.8333333
+  m_stiffnessForce: 1
   m_gravityPower: 0
   m_gravityDir: {x: 0, y: -1, z: 0}
   m_dragForce: 0.4
-  m_center: {fileID: 407495757394094007}
-  RootBones:
-  - {fileID: 211647409134522130}
-  m_hitRadius: 0.0040434883
-  ColliderGroups:
-  - {fileID: 4051606728881697162}
-  - {fileID: 2205628676741615454}
-  - {fileID: 4940080004340880320}
-  - {fileID: 3021724243687898114}
-  - {fileID: 238634813258907399}
-  - {fileID: 8733342367735977624}
-  - {fileID: 240082541223779057}
-  - {fileID: 5344730153609476462}
-  - {fileID: 5112064387750382306}
-  - {fileID: 3110545241639943302}
+  m_center: {fileID: 0}
+  RootBones: []
+  m_hitRadius: 0.02
+  ColliderGroups: []
   m_updateType: 0
 --- !u!114 &8989356157200012632
 MonoBehaviour:
@@ -13395,27 +13175,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_comment: Hair
+  m_comment: 
   m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 0.4459842
+  m_stiffnessForce: 1
   m_gravityPower: 0
   m_gravityDir: {x: 0, y: -1, z: 0}
   m_dragForce: 0.4
-  m_center: {fileID: 407495757394094007}
-  RootBones:
-  - {fileID: 803890918751771945}
-  m_hitRadius: 0.0040434864
-  ColliderGroups:
-  - {fileID: 4051606728881697162}
-  - {fileID: 2205628676741615454}
-  - {fileID: 4940080004340880320}
-  - {fileID: 3021724243687898114}
-  - {fileID: 238634813258907399}
-  - {fileID: 8733342367735977624}
-  - {fileID: 240082541223779057}
-  - {fileID: 5344730153609476462}
-  - {fileID: 5112064387750382306}
-  - {fileID: 3110545241639943302}
+  m_center: {fileID: 0}
+  RootBones: []
+  m_hitRadius: 0.02
+  ColliderGroups: []
   m_updateType: 0
 --- !u!114 &2261217533017279805
 MonoBehaviour:
@@ -13429,27 +13198,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_comment: Hair
+  m_comment: 
   m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 0.47645214
+  m_stiffnessForce: 1
   m_gravityPower: 0
   m_gravityDir: {x: 0, y: -1, z: 0}
   m_dragForce: 0.4
-  m_center: {fileID: 407495757394094007}
-  RootBones:
-  - {fileID: 2824282317169864496}
-  m_hitRadius: 0.00404349
-  ColliderGroups:
-  - {fileID: 4051606728881697162}
-  - {fileID: 2205628676741615454}
-  - {fileID: 4940080004340880320}
-  - {fileID: 3021724243687898114}
-  - {fileID: 238634813258907399}
-  - {fileID: 8733342367735977624}
-  - {fileID: 240082541223779057}
-  - {fileID: 5344730153609476462}
-  - {fileID: 5112064387750382306}
-  - {fileID: 3110545241639943302}
+  m_center: {fileID: 0}
+  RootBones: []
+  m_hitRadius: 0.02
+  ColliderGroups: []
   m_updateType: 0
 --- !u!114 &6883678252667512859
 MonoBehaviour:
@@ -13463,27 +13221,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_comment: Hair
+  m_comment: 
   m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 0.46626246
+  m_stiffnessForce: 1
   m_gravityPower: 0
   m_gravityDir: {x: 0, y: -1, z: 0}
   m_dragForce: 0.4
-  m_center: {fileID: 407495757394094007}
-  RootBones:
-  - {fileID: 1568992128879536571}
-  m_hitRadius: 0.0040434934
-  ColliderGroups:
-  - {fileID: 4051606728881697162}
-  - {fileID: 2205628676741615454}
-  - {fileID: 4940080004340880320}
-  - {fileID: 3021724243687898114}
-  - {fileID: 238634813258907399}
-  - {fileID: 8733342367735977624}
-  - {fileID: 240082541223779057}
-  - {fileID: 5344730153609476462}
-  - {fileID: 5112064387750382306}
-  - {fileID: 3110545241639943302}
+  m_center: {fileID: 0}
+  RootBones: []
+  m_hitRadius: 0.02
+  ColliderGroups: []
   m_updateType: 0
 --- !u!114 &5911948753382588872
 MonoBehaviour:
@@ -13497,27 +13244,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_comment: Hair
+  m_comment: 
   m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 0.6768631
+  m_stiffnessForce: 1
   m_gravityPower: 0
   m_gravityDir: {x: 0, y: -1, z: 0}
   m_dragForce: 0.4
-  m_center: {fileID: 407495757394094007}
-  RootBones:
-  - {fileID: 5718464609630657392}
-  m_hitRadius: 0.004043495
-  ColliderGroups:
-  - {fileID: 4051606728881697162}
-  - {fileID: 2205628676741615454}
-  - {fileID: 4940080004340880320}
-  - {fileID: 3021724243687898114}
-  - {fileID: 238634813258907399}
-  - {fileID: 8733342367735977624}
-  - {fileID: 240082541223779057}
-  - {fileID: 5344730153609476462}
-  - {fileID: 5112064387750382306}
-  - {fileID: 3110545241639943302}
+  m_center: {fileID: 0}
+  RootBones: []
+  m_hitRadius: 0.02
+  ColliderGroups: []
   m_updateType: 0
 --- !u!114 &2138121684352222473
 MonoBehaviour:
@@ -13531,27 +13267,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_comment: Hair
+  m_comment: 
   m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 0.73999965
+  m_stiffnessForce: 1
   m_gravityPower: 0
   m_gravityDir: {x: 0, y: -1, z: 0}
   m_dragForce: 0.4
-  m_center: {fileID: 407495757394094007}
-  RootBones:
-  - {fileID: 4321285006389350073}
-  m_hitRadius: 0.0040434916
-  ColliderGroups:
-  - {fileID: 4051606728881697162}
-  - {fileID: 2205628676741615454}
-  - {fileID: 4940080004340880320}
-  - {fileID: 3021724243687898114}
-  - {fileID: 238634813258907399}
-  - {fileID: 8733342367735977624}
-  - {fileID: 240082541223779057}
-  - {fileID: 5344730153609476462}
-  - {fileID: 5112064387750382306}
-  - {fileID: 3110545241639943302}
+  m_center: {fileID: 0}
+  RootBones: []
+  m_hitRadius: 0.02
+  ColliderGroups: []
   m_updateType: 0
 --- !u!114 &8317479654261043337
 MonoBehaviour:
@@ -13565,27 +13290,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_comment: Hair
+  m_comment: 
   m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 0.6633329
+  m_stiffnessForce: 1
   m_gravityPower: 0
   m_gravityDir: {x: 0, y: -1, z: 0}
   m_dragForce: 0.4
-  m_center: {fileID: 407495757394094007}
-  RootBones:
-  - {fileID: 7865873738004896794}
-  m_hitRadius: 0.0040434916
-  ColliderGroups:
-  - {fileID: 4051606728881697162}
-  - {fileID: 2205628676741615454}
-  - {fileID: 4940080004340880320}
-  - {fileID: 3021724243687898114}
-  - {fileID: 238634813258907399}
-  - {fileID: 8733342367735977624}
-  - {fileID: 240082541223779057}
-  - {fileID: 5344730153609476462}
-  - {fileID: 5112064387750382306}
-  - {fileID: 3110545241639943302}
+  m_center: {fileID: 0}
+  RootBones: []
+  m_hitRadius: 0.02
+  ColliderGroups: []
   m_updateType: 0
 --- !u!114 &434204958690468184
 MonoBehaviour:
@@ -13599,27 +13313,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_comment: Hair
+  m_comment: 
   m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 0.933
+  m_stiffnessForce: 1
   m_gravityPower: 0
   m_gravityDir: {x: 0, y: -1, z: 0}
   m_dragForce: 0.4
-  m_center: {fileID: 407495757394094007}
-  RootBones:
-  - {fileID: 5395074958544867715}
-  m_hitRadius: 0.0040434967
-  ColliderGroups:
-  - {fileID: 4051606728881697162}
-  - {fileID: 2205628676741615454}
-  - {fileID: 4940080004340880320}
-  - {fileID: 3021724243687898114}
-  - {fileID: 238634813258907399}
-  - {fileID: 8733342367735977624}
-  - {fileID: 240082541223779057}
-  - {fileID: 5344730153609476462}
-  - {fileID: 5112064387750382306}
-  - {fileID: 3110545241639943302}
+  m_center: {fileID: 0}
+  RootBones: []
+  m_hitRadius: 0.02
+  ColliderGroups: []
   m_updateType: 0
 --- !u!114 &2160045895887207810
 MonoBehaviour:
@@ -13633,27 +13336,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ea06e1753e16f4ca870c39c067c86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_comment: Hair
+  m_comment: 
   m_gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_stiffnessForce: 0.83666635
+  m_stiffnessForce: 1
   m_gravityPower: 0
   m_gravityDir: {x: 0, y: -1, z: 0}
   m_dragForce: 0.4
-  m_center: {fileID: 407495757394094007}
-  RootBones:
-  - {fileID: 6741397659683434315}
-  m_hitRadius: 0.0040434916
-  ColliderGroups:
-  - {fileID: 4051606728881697162}
-  - {fileID: 2205628676741615454}
-  - {fileID: 4940080004340880320}
-  - {fileID: 3021724243687898114}
-  - {fileID: 238634813258907399}
-  - {fileID: 8733342367735977624}
-  - {fileID: 240082541223779057}
-  - {fileID: 5344730153609476462}
-  - {fileID: 5112064387750382306}
-  - {fileID: 3110545241639943302}
+  m_center: {fileID: 0}
+  RootBones: []
+  m_hitRadius: 0.02
+  ColliderGroups: []
   m_updateType: 0
 --- !u!1 &8024018231025350036
 GameObject:
@@ -14392,9 +14084,9 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 407495757394094007}
   m_AABB:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
-  m_DirtyAABB: 1
+    m_Center: {x: 0.0029643178, y: 0.7576586, z: 0.010418832}
+    m_Extent: {x: 0.45277935, y: 0.032998204, z: 0.35610014}
+  m_DirtyAABB: 0
 --- !u!1 &8385005421537465211
 GameObject:
   m_ObjectHideFlags: 0

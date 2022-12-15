@@ -32,11 +32,11 @@ public class SpaceFightBehavior : StateMachineBehaviour
 
         var distance = Vector3.Distance(animator.transform.position, target.position);
 
-        if (distance <= 15 && weight > 0.8)
+        if (distance <= 15 && weight > 0.6)
         {
             animator.SetTrigger("Attack04");//15m內都可以追蹤小球
         }
-        else if(distance<=10 && weight > 0.8)
+        else if(distance<=10 && weight > 0.6)
         {
             animator.SetTrigger("Attack03");//10m內可以發射氣功
         }

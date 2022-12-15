@@ -6,7 +6,7 @@ public class SmallBall : MonoBehaviour
 {
     // Start is called before the first frame update
     float speedPerSecond = 8.4f;
-    readonly float Radius = 3f;
+    readonly float Radius = 1f;
     readonly float Angle = 160f;
     readonly float attackSeconds = 4f;
     float nowAttackSecond;
@@ -18,10 +18,10 @@ public class SmallBall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        attackDirection = (ObjectManager2.Elena.position - transform.position).normalized;
         if (nowAttackSecond > 0)
         {
             nowAttackSecond -= Time.deltaTime;
+            transform.forward = attackDirection;
             AttackBehavior();
             return;
         }
@@ -30,16 +30,18 @@ public class SmallBall : MonoBehaviour
 
     void AroundBehavior()
     {
+        attackDirection = (ObjectManager2.MainCharacter.position.WithY() - transform.position.WithY()).normalized;
+
         var distance = Vector3.Distance(transform.position.WithY(), ObjectManager2.Elena.position.WithY());
         var directionFaceSpace = (ObjectManager2.Elena.position.WithY() - transform.position.WithY()).normalized;
-        if (distance >= 3.1)
+        if (distance >= Radius + 0.1)
         {
             transform.forward = directionFaceSpace;
             transform.position += transform.forward * speedPerSecond * Time.deltaTime;
             return;
         }
 
-        if (distance <= 2.9)
+        if (distance <= Radius - 0.1)
         {
             transform.forward = -directionFaceSpace;
             transform.position += transform.forward * speedPerSecond * Time.deltaTime;
@@ -48,13 +50,13 @@ public class SmallBall : MonoBehaviour
 
         transform.RotateAround(ObjectManager2.Elena.position, ObjectManager2.Elena.up, Time.deltaTime * Angle);
 
-        
+
     }
     Vector3 attackDirection;
     void AttackBehavior()
     {
 
-        transform.forward = attackDirection;//+ (ObjectManager2.Elena.position + ObjectManager2.Elena.forward)
+        transform.forward += ((ObjectManager2.MainCharacter.position + ObjectManager2.MainCharacter.forward) - transform.position).normalized;//
         transform.position += transform.forward * speedPerSecond * Time.deltaTime;
         //
         //1.¥HSpace¬°¶ê¤ß
