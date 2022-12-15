@@ -17,7 +17,6 @@ public class LicoFeverBehavior : StateMachineBehaviour
             awake = true;
         }
 
-        ObjectManager.myCamera.SetDefault();
         feverFx.SetActive(true);
     }
 

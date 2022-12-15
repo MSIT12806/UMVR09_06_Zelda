@@ -17,7 +17,6 @@ public class LicoFinishBehavior : StateMachineBehaviour
             awake = true;
         }
 
-        ObjectManager.myCamera.SetDefault();
         finishFx.SetActive(true);
     }
 

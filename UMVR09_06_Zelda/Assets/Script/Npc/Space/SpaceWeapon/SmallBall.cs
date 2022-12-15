@@ -8,6 +8,7 @@ public class SmallBall : MonoBehaviour
     float speedPerSecond = 8.4f;
     readonly float Radius = 3f;
     readonly float Angle = 160f;
+
     void Start()
     {
 
