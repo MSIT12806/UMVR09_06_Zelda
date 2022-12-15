@@ -13,7 +13,7 @@ public class SpaceMoveBehavior : StateMachineBehaviour
     {
         if (awake == false)
         {
-            target = ObjectManager.MainCharacter;
+            target = ObjectManager2.MainCharacter;
             selfTransform = animator.transform;
             awake = true;
         }

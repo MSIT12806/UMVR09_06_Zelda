@@ -79,6 +79,7 @@ public class ObjectManager : MonoBehaviour
             item.enabled = false;
         }
 
+        //場景一的東西
         //FirstStage
         GenUsao(stageOneSpawnPoint.position, 10, 15, GameState.FirstStage);
         GenUsao2(stageOneSpawnPoint.position, 10, 5, GameState.FirstStage);

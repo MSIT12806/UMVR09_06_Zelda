@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SpaceManager : MonoBehaviour, NpcHelper
 {
@@ -22,13 +23,22 @@ public class SpaceManager : MonoBehaviour, NpcHelper
 
     public float CollisionDisplacement => 0;
 
-    public string Name =>"ªüÄõ®R";
+    public string Name => "ªüÄõ®R";
 
     // Start is called before the first frame update
     Animator animator;
     void Awake()
     {
-        ObjectManager.StateManagers.Add(this.gameObject.GetInstanceID(), this);
+        var currentScene = SceneManager.GetActiveScene();
+        var currentSceneName = currentScene.name;
+        if (currentSceneName == "NightScene")
+        {
+            ObjectManager.StateManagers.Add(this.gameObject.GetInstanceID(), this);
+        }
+        else
+        {
+            ObjectManager2.StateManagers.Add(this.gameObject.GetInstanceID(), this);
+        }
         animator = transform.GetComponent<Animator>();
         npc = transform.GetComponent<Npc>();
     }
