@@ -114,7 +114,7 @@ public class Throw : MonoBehaviour
 
         if (ItemEffect_obj != null)
         {
-            if (useItem == Item.Ice) DestroyItem(3.5f, "CFXR3 Hit Ice B (Air)");
+            if (useItem == Item.Ice) DestroyItem(Once.IceDestroyTime, "CFXR3 Hit Ice B (Air)");//冰塊持續時間3.5f
         }
 
     }
@@ -332,6 +332,7 @@ public class Throw : MonoBehaviour
         if (timer > t)
         {
             Destroy(ItemEffect_obj);
+            Once.IceDestroyTime = 3.5f;//冰塊持續時間條回初始直
             Once.IcePosision = Vector3.zero;//
             Object o = Resources.Load(destroyEffect);
             GameObject go = Instantiate((GameObject)o);

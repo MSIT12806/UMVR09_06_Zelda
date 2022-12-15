@@ -555,6 +555,7 @@ public static class AiStateCommon
 #region Golem State Machine
 public static class Once
 {
+    public static float IceDestroyTime = 3.5f;//冰塊在場上持續時間
     public static bool CanSetShield = true;
     public static bool CanMove = true;
     public static Vector3 IcePosision;
@@ -1244,6 +1245,7 @@ public class GolemSkillState : GolemBaseState
             float iceToGolem = (Once.IcePosision - selfTransform.position).magnitude;
             if(iceToGolem <= 3 && (currentAnimation.IsName("Skill") || currentAnimation.IsName("Skill 0")))
             {
+                Once.IceDestroyTime = 0f;
                 AttackFlaw = true;
                 if (gm.Shield > 0)//解護盾的方法
                 {
