@@ -75,4 +75,20 @@ public class SpaceManager : MonoBehaviour, NpcHelper
     {
         throw new System.NotImplementedException();
     }
+
+    public void AnimationAttack(int attackType)
+    {
+        if(attackType == 2)//普通攻擊2
+        {
+            NpcCommon.AttackDetection("", transform.position, transform.forward, 360, 4, false, new DamageData(30, transform.forward * 0.6f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
+        }
+        if (attackType == 3)//普通攻擊3
+        {
+            NpcCommon.AttackDetectionRectangle("", transform.position, transform.forward,transform.right, 4, 7, false, new DamageData(30, transform.forward * 0.6f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
+        }
+        if (attackType == 7)//技能3
+        {
+            NpcCommon.AttackDetection("", transform.position, transform.forward, 360, 10, false, new DamageData(80, transform.forward * 0.6f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
+        }
+    }
 }
