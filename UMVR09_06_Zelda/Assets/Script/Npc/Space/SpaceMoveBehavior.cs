@@ -22,7 +22,7 @@ public class SpaceMoveBehavior : StateMachineBehaviour
     public override void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         inStateTime += Time.deltaTime;
-        if (inStateTime > 0.5f)
+        if (inStateTime >= 0.4f)
         {
             Teleport();
             inStateTime = 0;
