@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityStandardAssets.Characters.ThirdPerson;
 
 [RequireComponent(typeof(Collider))]
@@ -32,6 +33,8 @@ public class Npc : MonoBehaviour
     public bool Alive { get => Hp > 0; }
     public bool OnGround;
     NpcHelper stateManager;
+    Dictionary<int, GameObject> alives;
+    Dictionary<int, NpcHelper> stateManagers;
     List<Material> materials;
     Color oriColor = new Color(209, 209, 209);
     float oriPower = 0.254f;
@@ -71,7 +74,22 @@ public class Npc : MonoBehaviour
     }
     void Start()
     {
-        stateManager = ObjectManager.StateManagers[this.gameObject.GetInstanceID()];
+        var currentScene = SceneManager.GetActiveScene();
+        var currentSceneName = currentScene.name;
+
+        if(currentSceneName == "NightScene")
+        {
+            stateManager = ObjectManager.StateManagers[this.gameObject.GetInstanceID()];
+            alives = ObjectManager.NpcsAlive;
+            stateManagers = ObjectManager.StateManagers;
+        }
+        else
+        {
+            stateManager = ObjectManager2.StateManagers[this.gameObject.GetInstanceID()];
+            alives = ObjectManager2.NpcsAlive;
+            stateManagers = ObjectManager2.StateManagers;
+        }
+        
     }
 
     // Update is called once per frame
@@ -246,12 +264,12 @@ public class Npc : MonoBehaviour
     {
         if (collide) return;
         if (pause) return;
-        if (ObjectManager.NpcsAlive == null) return;
-        foreach (var item in ObjectManager.NpcsAlive.Values)
+        if (alives == null) return;
+        foreach (var item in alives.Values)
         {
             if (item == this) continue;
 
-            var nh = ObjectManager.StateManagers[item.gameObject.GetInstanceID()];
+            var nh = stateManagers[item.gameObject.GetInstanceID()];
 
             var distance = Vector3.Distance(this.transform.position, item.transform.position);
             if (distance > nh.Radius + stateManager.Radius) continue;
