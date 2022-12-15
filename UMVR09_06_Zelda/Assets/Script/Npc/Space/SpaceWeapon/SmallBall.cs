@@ -17,7 +17,6 @@ public class SmallBall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Around();
     }
 
     public void Around()
@@ -39,14 +38,18 @@ public class SmallBall : MonoBehaviour
         }
 
         transform.RotateAround(ObjectManager2.Elena.position, ObjectManager2.Elena.up, Time.deltaTime * Angle);
-    }
 
+        attackDirection = (ObjectManager2.Elena.position - transform.position).normalized;
+    }
+    Vector3 attackDirection;
     public void Attack()
     {
-     //以二者中間點為圓心，Lico位置為半徑旋轉
-     //1.選定圓心
-     //2.計算半徑
-     //3.進行旋轉
-     //預計攻擊4秒
+        transform.forward = attackDirection + (ObjectManager2.Elena.position + ObjectManager2.Elena.forward);
+        transform.position += transform.forward * speedPerSecond * Time.deltaTime;
+        //
+        //1.以Space為圓心
+        //2.以lico 為半徑
+        //3.進行旋轉
+        //預計攻擊4秒
     }
 }

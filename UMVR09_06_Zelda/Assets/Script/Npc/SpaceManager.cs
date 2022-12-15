@@ -6,6 +6,7 @@ public class SpaceManager : MonoBehaviour, NpcHelper
 {
     AiState aiState;
     Npc npc;
+    public SmallBall[] smallBalls;
     public float Hp { get => npc.Hp; set => npc.Hp = value; }
 
     public bool CanBeKockedOut => throw new System.NotImplementedException();
@@ -42,6 +43,7 @@ public class SpaceManager : MonoBehaviour, NpcHelper
     {
         aiState.SetAnimation();
         aiState = aiState.SwitchState();
+        
     }
     public void GetHurt(DamageData damageData)
     {
