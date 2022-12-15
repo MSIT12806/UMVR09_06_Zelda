@@ -231,6 +231,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
 
         ObjectManager.myCamera.SetDefault();
         ObjectManager.myCamera.m_StareTarget[2] = null;
+        dizzy = false;
         UiManager.singleton.HideTip();
         animator.Play("Die");
         //把小怪都殺死
