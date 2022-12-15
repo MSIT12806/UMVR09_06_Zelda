@@ -105,7 +105,8 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
             || currentAnimation.IsName("GetHit1")
             ))//斬殺技
         {
-            CheckWeakEnemy();
+            //CheckWeakEnemy();
+            animator.SetTrigger("Finishing");
         }
 
         //無雙條測試
