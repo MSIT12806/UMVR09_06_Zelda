@@ -62,7 +62,7 @@ public class UiManager : MonoBehaviour
             isNightScene = false;
         }
     }
-    
+
     void Start()
     {
 
@@ -231,7 +231,10 @@ public class UiManager : MonoBehaviour
         var hp = GreatEnemyState.transform.FindAnyChild<Image>("GreatEnemyHpBarFull");
         var hpInfo = myCamera.m_StareTarget[(int)picoState.gameState].GetComponent<Npc>();
         hp.fillAmount = hpInfo.Hp / hpInfo.MaxHp;
-        nameUi.text = ObjectManager.StateManagers[ myCamera.m_StareTarget[(int)picoState.gameState].gameObject.GetInstanceID()].Name;
+        if (isNightScene)
+            nameUi.text = ObjectManager.StateManagers[myCamera.m_StareTarget[(int)picoState.gameState].gameObject.GetInstanceID()].Name;
+        else
+            nameUi.text = ObjectManager2.StateManagers[myCamera.m_StareTarget[(int)picoState.gameState].gameObject.GetInstanceID()].Name;
     }
 
     void SetHpBar()
