@@ -51,7 +51,7 @@ public class DragonRunBehavior : StateMachineBehaviour
         if (distanceBetweenIce <= 3)
         {
             Debug.Log(distanceBetweenIce);
-            
+            Once.IceDestroyTime = 0f;//Åý¦B¶ô®ø¥¢
             npc.GetHurt(new DamageData(20, Vector3.zero, HitType.light, new DamageStateInfo(DamageState.Ice, 3)));
             alreadyHit = true;
         }
