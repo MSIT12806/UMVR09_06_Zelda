@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class SpaceManager : MonoBehaviour, NpcHelper
 {
-    AiState aiState;
     Npc npc;
     public SmallBall[] smallBalls;
     public float Hp { get => npc.Hp; set => npc.Hp = value; }
@@ -35,20 +34,15 @@ public class SpaceManager : MonoBehaviour, NpcHelper
     }
     void Start()
     {
-        aiState = new SpaceIdleState(ObjectManager.MainCharacter, animator, transform, this);
     }
 
     // Update is called once per frame
     void Update()
     {
-        aiState.SetAnimation();
-        aiState = aiState.SwitchState();
-        
     }
     public void GetHurt(DamageData damageData)
     {
         Debug.Log("hit");
-        aiState.getHit = damageData;
         //aiState = new UsaoHurtState(transform.GetComponent<Animator>(), transform, damageData);
     }
 

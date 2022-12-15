@@ -8,7 +8,8 @@ public class SmallBall : MonoBehaviour
     float speedPerSecond = 8.4f;
     readonly float Radius = 3f;
     readonly float Angle = 160f;
-
+    readonly float attackSeconds = 4f;
+    float nowAttackSecond;
     void Start()
     {
 
@@ -17,9 +18,17 @@ public class SmallBall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        attackDirection = (ObjectManager2.Elena.position - transform.position).normalized;
+        if (nowAttackSecond > 0)
+        {
+            nowAttackSecond -= Time.deltaTime;
+            AttackBehavior();
+            return;
+        }
+        AroundBehavior();
     }
 
-    public void Around()
+    void AroundBehavior()
     {
         var distance = Vector3.Distance(transform.position.WithY(), ObjectManager2.Elena.position.WithY());
         var directionFaceSpace = (ObjectManager2.Elena.position.WithY() - transform.position.WithY()).normalized;
@@ -39,17 +48,23 @@ public class SmallBall : MonoBehaviour
 
         transform.RotateAround(ObjectManager2.Elena.position, ObjectManager2.Elena.up, Time.deltaTime * Angle);
 
-        attackDirection = (ObjectManager2.Elena.position - transform.position).normalized;
+        
     }
     Vector3 attackDirection;
-    public void Attack()
+    void AttackBehavior()
     {
-        transform.forward = attackDirection + (ObjectManager2.Elena.position + ObjectManager2.Elena.forward);
+
+        transform.forward = attackDirection;//+ (ObjectManager2.Elena.position + ObjectManager2.Elena.forward)
         transform.position += transform.forward * speedPerSecond * Time.deltaTime;
         //
         //1.以Space為圓心
         //2.以lico 為半徑
         //3.進行旋轉
         //預計攻擊4秒
+    }
+
+    public void Attack()
+    {
+        nowAttackSecond = attackSeconds;
     }
 }
