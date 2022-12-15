@@ -71,20 +71,28 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
 
         if (isNightScene)
         {
-            lst = ObjectManager.NpcsAlive.Values;
             ObjectManager.StateManagers.Add(this.gameObject.GetInstanceID(), this);
         }
-        
         else
         {
-            lst = ObjectManager2.NpcsAlive.Values;
             ObjectManager2.StateManagers.Add(this.gameObject.GetInstanceID(), this);
         }
-            
+
     }
     // Start is called before the first frame update
     void Start()
     {
+        if (isNightScene)
+        {
+
+            lst = ObjectManager.NpcsAlive.Values;
+        }
+        else
+        {
+
+            lst = ObjectManager2.NpcsAlive.Values;
+        }
+
         npc = GetComponent<Npc>();
         tpc = GetComponent<ThirdPersonCharacter>();
         IK = GetComponent<IKController>();
