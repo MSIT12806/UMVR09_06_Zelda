@@ -70,7 +70,9 @@ public class DragonRunBehavior : StateMachineBehaviour
         }
         else
         {
-            animator.SetBool("Move", false);
+            var aniInfo = animator.GetCurrentAnimatorStateInfo(0);
+            if (aniInfo.IsName("Run"))
+                animator.SetTrigger("Stop");
         }
     }
 

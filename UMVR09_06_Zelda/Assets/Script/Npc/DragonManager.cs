@@ -68,6 +68,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
     public bool flyState;
     public void GetHurt(DamageData damageData)
     {
+        if (Hp <= 0) return;
         var dState = damageData.DamageState;
         if (flyState)
         {

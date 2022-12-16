@@ -21,6 +21,7 @@ public class DragonIdleBehavior : StateMachineBehaviour
         state = target.GetComponent<PicoState>();
         head = animator.transform.FindAnyChild<Transform>("Head");
         animator.SetBool("Fly", false);
+        manager.DizzyEnd();
         RefreshDazeTime();
     }
 
