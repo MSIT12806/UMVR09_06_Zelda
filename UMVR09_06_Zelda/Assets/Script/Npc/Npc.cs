@@ -274,7 +274,7 @@ public class Npc : MonoBehaviour
             var distance = Vector3.Distance(this.transform.position, item.transform.position);
             if (distance > nh.Radius + stateManager.Radius) continue;
             var direction = (item.transform.position - this.transform.position).normalized;
-            //this.transform.position -= direction * stateManager.CollisionDisplacement;
+            this.transform.position -= direction * stateManager.CollisionDisplacement;
         }
     }
     bool StandOnTerrain()

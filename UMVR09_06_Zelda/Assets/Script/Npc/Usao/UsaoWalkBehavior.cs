@@ -25,8 +25,7 @@ public class UsaoWalkBehavior : StateMachineBehaviour
         ik.LookAtObj = ObjectManager.MainCharacterHead;
         ik.IkActive = true;
     }
-
-    override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if (npc.collide)
         {
@@ -37,5 +36,6 @@ public class UsaoWalkBehavior : StateMachineBehaviour
             animator.applyRootMotion = true;
             AiStateCommon.Turn(animator.transform, ObjectManager.MainCharacter.position - animator.transform.position);
         }
+
     }
 }
