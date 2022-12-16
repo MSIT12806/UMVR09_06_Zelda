@@ -838,7 +838,7 @@ public class GolemWeakState : GolemBaseState
         if (nowArmor <= 0)
         {
             animator.SetBool("ShowWeakness", false);
-            animator.SetTrigger("ArmorBreak");
+            animator.CrossFade("ArmorBreak", 0.1f);
             animator.ResetTrigger("getHit");
             return new GolemArmorBreakState(target, animator, selfTransform, npcHelper);
         }
