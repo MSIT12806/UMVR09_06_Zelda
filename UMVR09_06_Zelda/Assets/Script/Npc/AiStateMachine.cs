@@ -35,104 +35,6 @@ public abstract class AiState
     public abstract void SetAnimation();
 }
 
-#region Common State Machine
-//public class IdelState : AiState
-//{
-//    public IdelStateInfo SetAnimations;
-//    int randomAnimation;
-//    //switch state
-//    ////切到 fight
-
-//    //SetAnimation
-//    ////當動作播完  幾種動作的切換  還是要每偵都要檢查捏  不然寫個事件好惹
-
-//還是會有一個兜底的動作，其他的動作用 trigger觸發
-//}
-//public class FightState : AiState
-//{
-//    //可以有很多種攻擊方式
-//    //但是只有一種追擊型態
-//    //透過重新更新fightstate 來轉換追擊型態 => RefreshFightState
-//    public AttackStateInfo[] attackStateInfos;
-
-//    //發呆時間
-
-//    //switch state
-//    ////是否丟失目標
-//    //////切到Idle
-//    ////getHit != null
-//    //////切到受傷
-
-//    ////是否超過發呆時間
-//    //////返回 fight
-
-//    ////距離判定
-//    //////切到attack
-//    /////*切到chase
-
-//    ////目標死亡 or 消失
-//    //////切到 chase
-
-
-
-//    //SetAnimation
-//    ////面向目標
-
-//    // private RefreshDazeTime()
-//}
-//public class AttackState : AiState
-//{
-//    AttackStateInfo attackStateInfo;
-//    FightState fightState;
-//    //建構子
-//    //// 發動攻擊  setTrigger
-
-//    //switch state
-//    ////getHit != null
-//    //////切到受傷
-//    ////返回 fight(更新發呆時間)
-//}
-//public class ChaseState : AiState
-//{
-
-//    //建構子
-//    ////朝著npcHelper.target移動
-//    /// //setBoolean
-
-//    //switch state
-
-//    //setAnimation
-//    //// 更新目標位置 1. npcHelper.originPosition; 2. targetPosition; 3. 
-
-//}
-
-//public class HurtState : AiState
-//{
-//    FightState fightState;
-//    //建構子
-//    //// 取得 damagedata
-//    //// 扣血
-
-//    //set animation
-//    ////還是要判斷現在播動畫到幾成?
-//    ////播放受傷動畫、擊退位移
-
-//    //switch state
-//    //// hp>=0
-//    //////返回 fight
-//    /////*死亡
-//}
-//public class DeathState : AiState
-//{
-//    public float deathTime;
-//    public Action dosomething;
-//    //物件消失
-//}
-#endregion
-
-#region Pico Machine
-
-#endregion
 
 #region Usao State Machine
 public abstract class UsaoAiState : AiState
@@ -206,12 +108,12 @@ public class UsaoFightState : UsaoAiState
         if (keepOrAttack > 0.3)
         {
             if (distance > keepDistance) return new UsaoChaseState(target, animator, selfTransform, this, npcHelper);
-            else if (distance <= keepDistance) return new UsaoAttackState(animator, selfTransform, this, npcHelper);
+            else if (distance <= keepDistance) return new UsaoAttackState(target, animator, selfTransform, this, npcHelper);
         }
         else
         {
             if (distance > attackDistance) return new UsaoChaseState(target, animator, selfTransform, this, npcHelper);
-            else if (distance <= attackDistance) return new UsaoAttackState(animator, selfTransform, this, npcHelper);
+            else if (distance <= attackDistance) return new UsaoAttackState(target, animator, selfTransform, this, npcHelper);
         }
 
         RefreshDazeTime();
@@ -220,7 +122,7 @@ public class UsaoFightState : UsaoAiState
 
     public void RefreshDazeTime()
     {
-        dazeSeconds = UnityEngine.Random.Range(1, 5);
+        dazeSeconds = UnityEngine.Random.Range(1, 3);
     }
 
     private int GetChasingNpcCount()
@@ -230,13 +132,7 @@ public class UsaoFightState : UsaoAiState
 
     public override void SetAnimation()
     {
-        //1. 總是面對主角
-
-
-        //AiStateCommon.Look(head, ObjectManager.MainCharacterHead);
-
         TauntRandomly();
-
     }
 
     private void TauntRandomly()
@@ -324,8 +220,10 @@ public class UsaoChaseState : UsaoAiState
 public class UsaoAttackState : UsaoAiState
 {
     UsaoFightState fightState;
-    public UsaoAttackState(Animator a, Transform self, UsaoFightState fightState, NpcHelper nh) : base(a, self, nh, "Attack", null)
+    Transform target;
+    public UsaoAttackState(Transform t, Animator a, Transform self, UsaoFightState fightState, NpcHelper nh) : base(a, self, nh, "Attack", null)
     {
+        target = t;
         this.fightState = fightState;
     }
 
@@ -343,7 +241,13 @@ public class UsaoAttackState : UsaoAiState
     public override void SetAnimation()
     {
         animator.SetTrigger("attack");
-        animator.SetInteger("attackWay", UnityEngine.Random.Range(0, 7));
+
+        var distance = Vector3.Distance(target.position, selfTransform.position);
+        if (distance <= 2.5f)
+            animator.SetInteger("attackWay", UnityEngine.Random.Range(0, 3));
+        else
+            animator.SetInteger("attackWay", UnityEngine.Random.Range(3, 7));
+
 
         //攻擊判定交給動作事件處理
         //NpcCommon.AttackDetection(selfTransform.position, selfTransform.forward, 5f, 2f, false, new DamageData(5, Vector3.zero, HitType.light), "Player");
@@ -457,7 +361,7 @@ public class UsaoDeathState : UsaoAiState
             selfTransform.position.AddY(-1000);
 
             //移出活人池增益效能
-            ObjectManager.NpcsAlive.Remove(selfTransform.gameObject.GetInstanceID()); 
+            ObjectManager.NpcsAlive.Remove(selfTransform.gameObject.GetInstanceID());
 
             //移入備用池
             ObjectManager.StageDeathPool[(int)npc.gameState].Add(selfTransform.gameObject.GetInstanceID(), selfTransform.gameObject);
@@ -626,7 +530,7 @@ public class GolemIdleState : GolemBaseState
         {
             Debug.Log($"before {npcData.Hp}");
             GolemManager gm = (GolemManager)npcHelper;
-            if(gm.Shield <= 0)
+            if (gm.Shield <= 0)
             {
                 npcData.Hp -= getHit.Damage;
             }
@@ -636,7 +540,7 @@ public class GolemIdleState : GolemBaseState
                 gm.Shield -= 5;
             }
             getHit = null;
-            
+
         }
     }
 
@@ -660,7 +564,7 @@ public class GolemIdleState : GolemBaseState
 
         //被無雙技打
 
-        if (goWeakState && gm.Shield <= 0 )
+        if (goWeakState && gm.Shield <= 0)
         {
             goWeakState = false;
             animator.SetTrigger("FeverAttack");
@@ -686,7 +590,7 @@ public class GolemIdleState : GolemBaseState
             int rnd = random.Next(1, 4);
             if (rnd < 3)
                 return new GolemAttackState(target, animator, selfTransform, nowArmor, npcHelper);
-            if(rnd == 3)
+            if (rnd == 3)
                 return new GolemSkillState(target, animator, selfTransform, nowArmor, npcHelper);
 
         }
@@ -734,7 +638,7 @@ public class GolemChaseState : GolemBaseState
     {
 
         FreezeTime -= Time.deltaTime;
-        if(FreezeTime <= 0)
+        if (FreezeTime <= 0)
             LookAt();
 
         currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
@@ -742,7 +646,7 @@ public class GolemChaseState : GolemBaseState
             selfTransform.Translate(0, 0, 0.05f);
         if (getHit != null)
         {
-            if(getHit.DamageState.damageState == DamageState.TimePause)
+            if (getHit.DamageState.damageState == DamageState.TimePause)
             {
                 FreezeTime = 5;
             }
@@ -819,7 +723,7 @@ public class GolemChaseState : GolemBaseState
         {
             RemoveChasingNpc();
 
-            if(rnd < 3)
+            if (rnd < 3)
             {
                 animator.SetBool("NotReach", false);
                 return new GolemSkillState(target, animator, selfTransform, nowArmor, npcHelper);
@@ -876,7 +780,7 @@ public class GolemWeakState : GolemBaseState
 
         if (getHit != null)
         {
-            if(getHit.DamageState.damageState == DamageState.TimePause)
+            if (getHit.DamageState.damageState == DamageState.TimePause)
             {
                 showWeaknessTime -= 5f;
             }
@@ -932,7 +836,7 @@ public class GolemWeakState : GolemBaseState
             return new GolemRoarState(target, animator, selfTransform, nowArmor, npcHelper);
         }
 
-        if(GoWeakState)//被無雙打
+        if (GoWeakState)//被無雙打
         {
             animator.SetTrigger("FeverAttack");
             return new GolemWeakState(target, animator, selfTransform, nowArmor, npcHelper);
@@ -986,18 +890,18 @@ public class GolemArmorBreakState : GolemBaseState
         time += Time.deltaTime;
         if (getHit != null)
         {
-            if(getHit.DamageState.damageState == DamageState.TimePause)
+            animator.ResetTrigger("getHit");
+            animator.SetTrigger("getHit");
+            if (getHit.DamageState.damageState == DamageState.TimePause)
             {
                 time -= 5f;
             }
 
-            if(getHit.Hit == HitType.finishing)
+            if (getHit.Hit == HitType.finishing)
             {
-                time += 20f;
+                time = 5.2f;
             }
 
-            animator.ResetTrigger("getHit");
-            animator.SetTrigger("getHit");
             GolemManager gm = (GolemManager)npcHelper;
             if (gm.Shield <= 0)
             {
@@ -1019,7 +923,7 @@ public class GolemArmorBreakState : GolemBaseState
         }
         //暈眩時間結束 切回idle
         //Armor補滿
-        if (time > 5)
+        if (time > 7)
         {
             Debug.Log("Backkkk");
             animator.SetTrigger("ArmorRecover");
@@ -1027,7 +931,7 @@ public class GolemArmorBreakState : GolemBaseState
             animator.ResetTrigger("getHit");
             return new GolemIdleState(target, animator, selfTransform, armorValue, npcHelper);
         }
-        if (time <= 5)
+        if (time <= 7)
         {
             return this;
         }
@@ -1055,9 +959,9 @@ public class GolemAttackState : GolemBaseState
         {
             animator.SetTrigger("Attack03");
         }
-        if(distance <= 4.5f)
+        if (distance <= 4.5f)
         {
-            if (attackType == 1 )
+            if (attackType == 1)
             {
                 animator.SetTrigger("Attack01");
             }
@@ -1118,7 +1022,7 @@ public class GolemAttackState : GolemBaseState
         }
 
         inStateTime += Time.deltaTime;
-        
+
         //if (!animator.IsInTransition(0) && !currentAnimation.IsName("Attack02") && !currentAnimation.IsName("Attack02 0") && !currentAnimation.IsName("Attack01") && inStateTime > 1)
         if (!animator.IsInTransition(0) && !currentAnimation.IsTag("Attack") && inStateTime > 1)
         {
@@ -1150,7 +1054,7 @@ public class GolemSkillState : GolemBaseState
     public bool canMove = false;
 
     //float freezeTime = 0;
-    public GolemSkillState(Transform t, Animator a, Transform self, float armor, NpcHelper nh) :  base(a, self, nh, armor)
+    public GolemSkillState(Transform t, Animator a, Transform self, float armor, NpcHelper nh) : base(a, self, nh, armor)
     {
         gm = (GolemManager)npcHelper;
         //npcData = selfTransform.GetComponent<Npc>();
@@ -1167,7 +1071,7 @@ public class GolemSkillState : GolemBaseState
             //UiManager.singleton.ShowSikaTip("ItemIceTips");
             Debug.Log("Showwwwwwwwwwwwwwwwwwwwwww");
         }
-        else if (attackType == 2  && npcData.Hp <= npcHelper.MaxHp / 2)//低於一半血
+        else if (attackType == 2 && npcData.Hp <= npcHelper.MaxHp / 2)//低於一半血
         {
             animator.SetTrigger("Skill2");
             //UiManager.singleton.ShowSikaTip("ItemLockTips");
@@ -1191,9 +1095,9 @@ public class GolemSkillState : GolemBaseState
         if (currentAnimation.IsName("Skill 0")) moveSpeed = 0.3f;
         else if (currentAnimation.IsName("Skill2 0")) moveSpeed = 0.5f;
 
-        
+
         if (!(currentAnimation.IsName("Skill") || currentAnimation.IsName("Skill 0")))// && !currentAnimation.IsName("Skill2 0")
-            if(FreezeTime <= 5)
+            if (FreezeTime <= 5)
                 LookAt();
 
 
@@ -1219,7 +1123,7 @@ public class GolemSkillState : GolemBaseState
             float dis = (target.position - selfTransform.position).magnitude;
             if (dis > 3f && FreezeTime <= 0)
             {
-                if(dis>5f)//太近就不會追蹤
+                if (dis > 5f)//太近就不會追蹤
                     LookAt();
 
                 selfTransform.Translate(0, 0, moveSpeed);
@@ -1240,10 +1144,10 @@ public class GolemSkillState : GolemBaseState
             }
         }
 
-        if(Once.IcePosision != Vector3.zero)
+        if (Once.IcePosision != Vector3.zero)
         {
             float iceToGolem = (Once.IcePosision - selfTransform.position).magnitude;
-            if(iceToGolem <= 3 && (currentAnimation.IsName("Skill") || currentAnimation.IsName("Skill 0")))
+            if (iceToGolem <= 3 && (currentAnimation.IsName("Skill") || currentAnimation.IsName("Skill 0")))
             {
                 Once.IceDestroyTime = 0f;
                 AttackFlaw = true;
@@ -1256,12 +1160,12 @@ public class GolemSkillState : GolemBaseState
 
         if (getHit != null)
         {
-            if(getHit.DamageState.damageState == DamageState.TimePause)
+            if (getHit.DamageState.damageState == DamageState.TimePause)
             {
                 FreezeTime = 5f;
                 //freezeTime = 5f;
             }
-            
+
             if (getHit.DamageState.damageState == DamageState.TimePause && currentAnimation.IsName("Skill2 0 0 0"))
             {
                 AttackFlaw = true;

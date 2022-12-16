@@ -10448,52 +10448,52 @@ PrefabInstance:
     - target: {fileID: 6942378765527368337, guid: 4f320ab5e1c207d479610b23bcf76d58,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 23.830597
+      value: 23.62
       objectReference: {fileID: 0}
     - target: {fileID: 6942378765527368337, guid: 4f320ab5e1c207d479610b23bcf76d58,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.9219999
+      value: 1.652
       objectReference: {fileID: 0}
     - target: {fileID: 6942378765527368337, guid: 4f320ab5e1c207d479610b23bcf76d58,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 19.189001
+      value: 13.37
       objectReference: {fileID: 0}
     - target: {fileID: 6942378765527368337, guid: 4f320ab5e1c207d479610b23bcf76d58,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.045923423
+      value: 0.9997188
       objectReference: {fileID: 0}
     - target: {fileID: 6942378765527368337, guid: 4f320ab5e1c207d479610b23bcf76d58,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.001874296
+      value: -0.023715096
       objectReference: {fileID: 0}
     - target: {fileID: 6942378765527368337, guid: 4f320ab5e1c207d479610b23bcf76d58,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.99811226
+      value: -0.000015539119
       objectReference: {fileID: 0}
     - target: {fileID: 6942378765527368337, guid: 4f320ab5e1c207d479610b23bcf76d58,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.04073646
+      value: -0.00000036384884
       objectReference: {fileID: 0}
     - target: {fileID: 6942378765527368337, guid: 4f320ab5e1c207d479610b23bcf76d58,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -4.853
+      value: -2.718
       objectReference: {fileID: 0}
     - target: {fileID: 6942378765527368337, guid: 4f320ab5e1c207d479610b23bcf76d58,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 712.437
+      value: 359.998
       objectReference: {fileID: 0}
     - target: {fileID: 6942378765527368337, guid: 4f320ab5e1c207d479610b23bcf76d58,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 5.135
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6942378765527368338, guid: 4f320ab5e1c207d479610b23bcf76d58,
         type: 3}
@@ -24507,6 +24507,10 @@ PrefabInstance:
       value: FTME03_ArrowFX_Fire_Loop (2)
       objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: fe86dba709536364c94f79fc57950e55, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: fe86dba709536364c94f79fc57950e55, type: 3}
       propertyPath: m_TagString
       value: FireBall
       objectReference: {fileID: 0}
@@ -25707,6 +25711,10 @@ PrefabInstance:
     - target: {fileID: 100004, guid: fe86dba709536364c94f79fc57950e55, type: 3}
       propertyPath: m_Name
       value: FTME03_ArrowFX_Fire_Loop (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: fe86dba709536364c94f79fc57950e55, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: fe86dba709536364c94f79fc57950e55, type: 3}
       propertyPath: m_TagString
@@ -48208,6 +48216,23 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4027431758635851014, guid: e4e06a1de23194f4883ea55c319edeb7,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: ba13cf9f47707a74686136720a8b3b3b,
+        type: 2}
+    - target: {fileID: 4027431758635851014, guid: e4e06a1de23194f4883ea55c319edeb7,
+        type: 3}
+      propertyPath: m_fontStyle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4027431758635851014, guid: e4e06a1de23194f4883ea55c319edeb7,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -5663757740503161499, guid: ba13cf9f47707a74686136720a8b3b3b,
+        type: 2}
     - target: {fileID: 4511771536001945318, guid: e4e06a1de23194f4883ea55c319edeb7,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -48320,6 +48345,10 @@ PrefabInstance:
     - target: {fileID: 100004, guid: fe86dba709536364c94f79fc57950e55, type: 3}
       propertyPath: m_Name
       value: FTME03_ArrowFX_Fire_Loop
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: fe86dba709536364c94f79fc57950e55, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: fe86dba709536364c94f79fc57950e55, type: 3}
       propertyPath: m_RootOrder
