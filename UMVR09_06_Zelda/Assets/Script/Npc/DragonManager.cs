@@ -191,11 +191,6 @@ public class DragonManager : MonoBehaviour, NpcHelper
         //一段時間後爆炸/消失
     }
 
-    public void Fly()  //Scream
-    {
-        flyState = Hp >= MaxHp / 2;
-        animator.SetBool("Fly", flyState);
-    }
     public void Land()
     {
         flyState = false;
