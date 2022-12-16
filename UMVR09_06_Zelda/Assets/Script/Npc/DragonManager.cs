@@ -52,6 +52,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
     void Start()
     {
         weakPoint = MaxWeakPoint;
+        gameObject.SetActive(false);
     }
     void Update()
     {

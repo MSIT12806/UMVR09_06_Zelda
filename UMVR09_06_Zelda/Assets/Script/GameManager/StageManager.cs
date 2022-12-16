@@ -1,6 +1,8 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 
 public class StageManager : MonoBehaviour
@@ -10,10 +12,13 @@ public class StageManager : MonoBehaviour
     public float distance = 10;
     PicoState picoState;
     int stageOneWave;
-    DragonManager Dragon;
-    GolemManager Golem;
-
+    public DragonManager Dragon;
+    public GolemManager Golem;
+    public PlayableDirector director;
+    public CinemachineVirtualCamera camera;
     bool isNightScene;
+    private bool play;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,8 +43,6 @@ public class StageManager : MonoBehaviour
         }
 
 
-        Dragon = GameObject.Find("Blue Variant").GetComponent<DragonManager>();
-        Golem = GameObject.Find("PBR_Golem (1)").GetComponent<GolemManager>();
     }
 
     // Update is called once per frame
@@ -67,7 +70,13 @@ public class StageManager : MonoBehaviour
                     }
                     return;
                 case 2:
-                    if (Dragon.Hp > 0&& Dragon.Show && ObjectManager.StageMonsterMonitor[2] < 10)
+                    if (!play && ObjectManager.StageMonsterMonitor[2] <= 0)
+                    {
+                        play = true;
+                        camera.Priority = 20;
+                        director.Play();
+                    }
+                    if (Dragon.Hp > 0 && Dragon.Show && ObjectManager.StageMonsterMonitor[2] < 10)
                     {
                         ObjectManager.StageTwoResurrection();
                     }
@@ -85,7 +94,10 @@ public class StageManager : MonoBehaviour
 
         }
     }
-
+    public void StageTwoShowFinished()
+    {
+        camera.Priority = 5;
+    }
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, distance);
