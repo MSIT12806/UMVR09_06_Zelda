@@ -304,6 +304,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
                 {
                     managers = ObjectManager2.StateManagers;
                 }
+                transform.forward = i.transform.position - transform.position;
                 var nh = managers[i.GetInstanceID()];
                 if (nh.WeakPoint <=0)
                 {
@@ -357,7 +358,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
         if (attackType == 3)//重擊2
             NpcCommon.AttackDetection("Pico", transform.position + transform.forward * -0.2f, transform.forward, 180, 4.5f, true, new DamageData(20f, transform.forward * 0.15f, HitType.Heavy, DamageStateInfo.NormalAttack), "Npc");
         if (attackType == 4)//終結技
-            NpcCommon.AttackDetection("Pico", transform.position, transform.forward, 180, 4f, true, new DamageData(100f, transform.forward * 0.15f, HitType.finishing, DamageStateInfo.NormalAttack), "Npc");
+            NpcCommon.AttackDetection("Pico", transform.position, transform.forward, 360, 4f, true, new DamageData(100f, transform.forward * 0.15f, HitType.finishing, DamageStateInfo.NormalAttack), "Npc");
         if (attackType == 5)//無雙
             NpcCommon.AttackDetection("Pico", transform.position, transform.forward, 360, 13f, true, new DamageData(200f, transform.forward * 0.15f, HitType.Heavy, new DamageStateInfo(DamageState.Fever, 0)), "Npc");
 
