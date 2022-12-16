@@ -10,7 +10,7 @@ public class DragonIdleBehavior : StateMachineBehaviour
     PicoState state;
     float dazeSeconds;
     Transform head;
-    bool fightState { get => (int)state.gameState == 2; }
+    bool fightState { get => (int)state.gameState == 2 && manager.Show; }
 
     float flyStateWeight;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
@@ -31,7 +31,7 @@ public class DragonIdleBehavior : StateMachineBehaviour
         if (manager.Hp <= 0)
         {
             manager.Die();
-            
+
         }
 
         if (fightState)
@@ -42,7 +42,7 @@ public class DragonIdleBehavior : StateMachineBehaviour
                 return;
             }
 
-           
+
 
             if (dazeSeconds > 0)
             {

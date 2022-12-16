@@ -80,38 +80,6 @@ public static class NpcCommon
             }
         }
 
-
-
-        //print("Attack");
-        //HashSet<Transform> hitInfoList = new HashSet<Transform>();
-        //RaycastHit[] hitInfos;
-        //for (int i = 0; i <= angle / 2; i += 5)
-        //{
-
-        //    hitInfos = Physics.RaycastAll(transform.position + (Vector3.up * 0.6f), Quaternion.Euler(0, i, 0) * transform.forward, distance, LY);//1 << LayerMask.NameToLayer("NPC")
-        //    for (int j = 0; j < hitInfos.Length; j++)
-        //    {
-
-        //        //if(hitInfos[j].transform.tag == "Npc")
-        //        hitInfoList.Add(hitInfos[j].transform);
-        //    }
-
-        //    hitInfos = Physics.RaycastAll(transform.position + (Vector3.up * 0.6f), Quaternion.Euler(0, -i, 0) * transform.forward, distance, LY);
-        //    for (int j = 0; j < hitInfos.Length; j++)
-        //    {
-        //        //if (hitInfos[j].transform.tag == "Npc")
-        //        hitInfoList.Add(hitInfos[j].transform);
-        //    }
-        //}
-        //if (hitInfoList.Count > 0)
-        //{
-        //    foreach (Transform i in hitInfoList)
-        //    {
-        //        var attackReturn = i.gameObject.GetComponent<Npc>();
-        //        print(i.transform);
-        //        attackReturn.GetHurt(new DamageData(transform, 10f, HitType.light));
-        //    }
-        //}
     }
 
     public static void AttackDetectionRectangle(string attacker, Vector3 attackCenter, Vector3 attackForward, Vector3 attackRight, float Width, float distance, bool repelDirection, DamageData damageData, params string[] tags)//攻擊範圍偵測

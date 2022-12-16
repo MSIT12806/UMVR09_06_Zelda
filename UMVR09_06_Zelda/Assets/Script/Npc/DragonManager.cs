@@ -18,6 +18,11 @@ public class DragonManager : MonoBehaviour, NpcHelper
     float weakPoint;
     public float WeakPoint { get => weakPoint; set => weakPoint = value; }
 
+    internal void DizzyStart()
+    {
+        dizzy = true;
+    }
+
     public float MaxWeakPoint => 12;
 
     public float Radius => 1.8f;
@@ -47,10 +52,10 @@ public class DragonManager : MonoBehaviour, NpcHelper
     void Start()
     {
         weakPoint = MaxWeakPoint;
+        gameObject.SetActive(false);
     }
     void Update()
     {
-        DebugExtension.DebugWireSphere(ArrivePoint, 1);
     }
     // Update is called once per frame
     void FixedUpdate()
