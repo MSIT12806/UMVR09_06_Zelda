@@ -401,7 +401,6 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     {
         if (noHurt > 0) return;
         PicoManager.Hp -= damageData.Damage;
-        print("pico被揍");
 
         //被打
         if (damageData.Hit == HitType.light) //改成 l & h 區分輕擊 & 重擊
