@@ -43,12 +43,13 @@ public class SpaceMoveBehavior : StateMachineBehaviour
         //1. 不能順移出場地
         //2. 不能卡住或無限墜落
         //3. 不能讓 Lico 打不到的位置
-        Vector3 NewPos;
+        Vector3 NewPos; 
         NewPos = selfTransform.position;
         NewPos.x = RandomFloat(TeleportSpace.Point4.x ,TeleportSpace.Point2.x);
         NewPos.z = RandomFloat(TeleportSpace.Point4.z, TeleportSpace.Point2.z);
 
-        selfTransform.position = NewPos;
+        Vector3.Lerp(selfTransform.position, NewPos, 1f);
+        //selfTransform.position = NewPos;
 
     }
     public float RandomFloat(float min, float max)
