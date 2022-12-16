@@ -10387,9 +10387,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 474436618, guid: 4f320ab5e1c207d479610b23bcf76d58, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.406477
+      objectReference: {fileID: 0}
+    - target: {fileID: 474436618, guid: 4f320ab5e1c207d479610b23bcf76d58, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.3298002
+      objectReference: {fileID: 0}
+    - target: {fileID: 474436618, guid: 4f320ab5e1c207d479610b23bcf76d58, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.3298002
+      objectReference: {fileID: 0}
     - target: {fileID: 971141860, guid: 4f320ab5e1c207d479610b23bcf76d58, type: 3}
       propertyPath: m_DefaultBlend.m_Time
       value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2076720071, guid: 4f320ab5e1c207d479610b23bcf76d58, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.406477
+      objectReference: {fileID: 0}
+    - target: {fileID: 2076720071, guid: 4f320ab5e1c207d479610b23bcf76d58, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.3298002
+      objectReference: {fileID: 0}
+    - target: {fileID: 2076720071, guid: 4f320ab5e1c207d479610b23bcf76d58, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.3298002
       objectReference: {fileID: 0}
     - target: {fileID: 6942378765527368332, guid: 4f320ab5e1c207d479610b23bcf76d58,
         type: 3}
@@ -10399,22 +10423,22 @@ PrefabInstance:
     - target: {fileID: 6942378765527368334, guid: 4f320ab5e1c207d479610b23bcf76d58,
         type: 3}
       propertyPath: field of view
-      value: 60
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 6942378765527368334, guid: 4f320ab5e1c207d479610b23bcf76d58,
         type: 3}
       propertyPath: far clip plane
-      value: 1000
+      value: 5000
       objectReference: {fileID: 0}
     - target: {fileID: 6942378765527368334, guid: 4f320ab5e1c207d479610b23bcf76d58,
         type: 3}
       propertyPath: near clip plane
-      value: 0.01
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 6942378765527368334, guid: 4f320ab5e1c207d479610b23bcf76d58,
         type: 3}
       propertyPath: orthographic size
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6942378765527368337, guid: 4f320ab5e1c207d479610b23bcf76d58,
         type: 3}
@@ -43311,6 +43335,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1256162608, guid: 510be0e958e2ffe4bb58cb4fc9c1be5e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2046102329827991577, guid: 510be0e958e2ffe4bb58cb4fc9c1be5e,
         type: 3}
       propertyPath: m_RootOrder
