@@ -233,7 +233,7 @@ public class TPSCamera : MonoBehaviour
         }
         for (int i = 0; i < renderer.materials.Length; i++)
         {
-            renderer.materials[i].SetFloat("_MinDistance", 0.2f);
+            renderer.materials[i].SetFloat("_MinDistance", 0.15f);
         }
     }
     #endregion

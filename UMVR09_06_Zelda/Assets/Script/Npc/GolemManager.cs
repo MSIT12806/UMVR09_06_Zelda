@@ -62,7 +62,7 @@ public class GolemManager : MonoBehaviour, NpcHelper
     }
     public void GetHurt(DamageData damageData)
     {
-        Debug.Log("hit");
+        if (Hp <= 0) return;
         aiState.getHit = damageData;
         //aiState = new UsaoHurtState(transform.GetComponent<Animator>(), transform, damageData);
     }
