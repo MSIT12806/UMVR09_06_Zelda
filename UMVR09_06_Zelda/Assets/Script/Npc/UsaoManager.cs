@@ -44,7 +44,7 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
 
     public float Radius => 0.4f;
 
-    public float CollisionDisplacement => 0.06f;
+    public float CollisionDisplacement => 0.15f;
 
     public string Name => throw new NotImplementedException();
 

@@ -268,11 +268,17 @@ public class Npc : MonoBehaviour
         foreach (var item in alives.Values)
         {
             if (item == this) continue;
-
             var nh = stateManagers[item.gameObject.GetInstanceID()];
 
             var distance = Vector3.Distance(this.transform.position, item.transform.position);
             if (distance > nh.Radius + stateManager.Radius) continue;
+
+
+            if (item.name == "MainCharacter" && name == "Blue Variant")
+            {
+                Debug.Log("???");
+            }
+
             var direction = (item.transform.position - this.transform.position).normalized;
             this.transform.position -= direction * stateManager.CollisionDisplacement;
         }
