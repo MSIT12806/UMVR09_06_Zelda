@@ -67,7 +67,7 @@ public class StageManager : MonoBehaviour
                     }
                     return;
                 case 2:
-                    if (Dragon.Hp > 0 && ObjectManager.StageMonsterMonitor[2] < 10)
+                    if (Dragon.Hp > 0&& Dragon.Show && ObjectManager.StageMonsterMonitor[2] < 10)
                     {
                         ObjectManager.StageTwoResurrection();
                     }

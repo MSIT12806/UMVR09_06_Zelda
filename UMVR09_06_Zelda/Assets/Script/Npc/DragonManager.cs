@@ -9,6 +9,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
     Npc npc;
     public float Hp { get => npc.Hp; set => npc.Hp = value; }
     public float MaxHp => npc.MaxHp;
+    public bool Show;//表演完設為true
 
     public bool CanBeKockedOut => canBeKnockedOut;
 
