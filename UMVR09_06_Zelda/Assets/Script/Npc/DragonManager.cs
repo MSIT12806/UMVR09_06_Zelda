@@ -9,6 +9,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
     Npc npc;
     public float Hp { get => npc.Hp; set => npc.Hp = value; }
     public float MaxHp => npc.MaxHp;
+    public bool Show;//表演完設為true
 
     public bool CanBeKockedOut => canBeKnockedOut;
 
@@ -56,7 +57,15 @@ public class DragonManager : MonoBehaviour, NpcHelper
     {
 
     }
-    bool flyState;
+    public void StartFly()
+    {
+        flyState = true;
+    }
+    public void EndFly()
+    {
+        flyState = true;
+    }
+    public bool flyState;
     public void GetHurt(DamageData damageData)
     {
         var dState = damageData.DamageState;
@@ -64,6 +73,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
         {
             if (dState.damageState == DamageState.Bomb || dState.damageState == DamageState.Fever)
             {
+                flyState = false;
                 Hp -= damageData.Damage;
             }
         }
@@ -78,7 +88,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
         }
         if (dState.damageState == DamageState.Fever)
         {
-            animator.CrossFade("Dizzy2",0.1f);
+            animator.CrossFade("Dizzy2", 0.1f);
             canBeKnockedOut = false;
             dizzy = true;
             flyState = false;
@@ -109,14 +119,14 @@ public class DragonManager : MonoBehaviour, NpcHelper
             weakPoint--;
             if (weakPoint <= 0)
             {
-                animator.CrossFade("ArmorBreak",0.1f);
+                animator.CrossFade("ArmorBreak", 0.1f);
             }
         }
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("ArmorBreak"))
         {
             if (damageData.Hit == HitType.finishing)
             {
-                animator.CrossFade("Idle", 0.25f, 0);
+                animator.CrossFade("Get Hit 2", 0.25f, 0);
                 ResetWeakPoint();
             }
         }
@@ -191,11 +201,6 @@ public class DragonManager : MonoBehaviour, NpcHelper
         //一段時間後爆炸/消失
     }
 
-    public void Fly()  //Scream
-    {
-        flyState = Hp >= MaxHp / 2;
-        animator.SetBool("Fly", flyState);
-    }
     public void Land()
     {
         flyState = false;

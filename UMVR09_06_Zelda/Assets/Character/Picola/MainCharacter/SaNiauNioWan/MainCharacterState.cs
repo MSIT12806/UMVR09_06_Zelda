@@ -49,7 +49,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
 
     public float Radius => 0.4f;
 
-    public float CollisionDisplacement => 0.04f;
+    public float CollisionDisplacement => 0.1f;
 
     public string Name => "莉可";
 
@@ -137,8 +137,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
             || currentAnimation.IsName("GetHit1")
             ))//斬殺技
         {
-            //CheckWeakEnemy();
-            animator.SetTrigger("Finishing");
+            CheckWeakEnemy();
         }
 
         //無雙條測試
