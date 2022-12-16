@@ -191,7 +191,10 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
                 }
                 if (currentAnimation.IsName("Fast run"))
                     SwordEffect1.SetActive(false);
-                if (roll) animator.Play("Front Dodge");
+                if (roll && !(currentAnimation.IsName("Fever") || currentAnimation.IsName("Finishing")))
+                {
+                    animator.Play("Front Dodge");
+                }
                 animator.SetFloat("dodge", pressControlTime);
             }
         }
