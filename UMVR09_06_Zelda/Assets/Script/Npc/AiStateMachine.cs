@@ -890,6 +890,8 @@ public class GolemArmorBreakState : GolemBaseState
         time += Time.deltaTime;
         if (getHit != null)
         {
+            animator.ResetTrigger("getHit");
+            animator.SetTrigger("getHit");
             if (getHit.DamageState.damageState == DamageState.TimePause)
             {
                 time -= 5f;
@@ -897,11 +899,9 @@ public class GolemArmorBreakState : GolemBaseState
 
             if (getHit.Hit == HitType.finishing)
             {
-                time += 20f;
+                time = 5.2f;
             }
 
-            animator.ResetTrigger("getHit");
-            animator.SetTrigger("getHit");
             GolemManager gm = (GolemManager)npcHelper;
             if (gm.Shield <= 0)
             {
@@ -923,7 +923,7 @@ public class GolemArmorBreakState : GolemBaseState
         }
         //暈眩時間結束 切回idle
         //Armor補滿
-        if (time > 5)
+        if (time > 7)
         {
             Debug.Log("Backkkk");
             animator.SetTrigger("ArmorRecover");
@@ -931,7 +931,7 @@ public class GolemArmorBreakState : GolemBaseState
             animator.ResetTrigger("getHit");
             return new GolemIdleState(target, animator, selfTransform, armorValue, npcHelper);
         }
-        if (time <= 5)
+        if (time <= 7)
         {
             return this;
         }
