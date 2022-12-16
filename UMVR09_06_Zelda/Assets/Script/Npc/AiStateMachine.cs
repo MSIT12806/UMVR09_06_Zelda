@@ -160,7 +160,7 @@ public class UsaoChaseState : UsaoAiState
     public UsaoChaseState(Transform alertObject, Animator a, Transform self, UsaoFightState fightState, NpcHelper nh) : base(a, self, nh, "Chase", alertObject.GetComponent<PicoState>())
     {
         var r = UnityEngine.Random.value;
-        attackRange = r > 0.3 ? 10f : 3f;
+        attackRange = r > 0.2 ? 10f : 3f;
         alertTarget = alertObject;
         animator.SetBool("notReach", true);
         AddChasingNpc();
@@ -384,9 +384,6 @@ public class UsaoDeathState : UsaoAiState
 #endregion
 
 
-/// <summary>
-/// 可以說是 飛翔狀態的 FightState
-/// </summary>
 public static class AiStateCommon
 {
 
