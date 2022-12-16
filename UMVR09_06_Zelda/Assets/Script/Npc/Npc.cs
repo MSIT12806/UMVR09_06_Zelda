@@ -252,7 +252,7 @@ public class Npc : MonoBehaviour
             if (hitInfos.Count() > 0)
             {
                 var closestPoint = hitInfos[0].ClosestPoint(transform.position);
-                transform.position -= (closestPoint - transform.position).normalized * 0.1f;
+                transform.position += (closestPoint - transform.position).normalized * 0.1f;
             }
 
             return hitSomethingWhenMoving || hitSomething;//回報碰撞，取消美術位移
@@ -274,7 +274,7 @@ public class Npc : MonoBehaviour
             var distance = Vector3.Distance(this.transform.position, item.transform.position);
             if (distance > nh.Radius + stateManager.Radius) continue;
             var direction = (item.transform.position - this.transform.position).normalized;
-            this.transform.position -= direction * stateManager.CollisionDisplacement;
+            //this.transform.position -= direction * stateManager.CollisionDisplacement;
         }
     }
     bool StandOnTerrain()
