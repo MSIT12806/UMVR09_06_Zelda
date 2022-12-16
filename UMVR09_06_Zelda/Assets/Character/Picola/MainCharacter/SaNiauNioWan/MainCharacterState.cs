@@ -295,9 +295,17 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
         {
             if ((i.transform.position - transform.position).magnitude < 4f)
             {
-                Animator NpcAnimator = i.GetComponent<Animator>();
-                AnimatorStateInfo currentAnimation = NpcAnimator.GetCurrentAnimatorStateInfo(0);
-                if (FinishingReleased == false && currentAnimation.IsName("ArmorBreak"))
+                Dictionary<int, NpcHelper> managers;
+                if (isNightScene)
+                {
+                    managers = ObjectManager.StateManagers;
+                }
+                else
+                {
+                    managers = ObjectManager2.StateManagers;
+                }
+                var nh = managers[i.GetInstanceID()];
+                if (nh.WeakPoint <=0)
                 {
                     animator.SetTrigger("Finishing");
                     FinishingReleased = true;
@@ -399,7 +407,11 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
 
     public void GetHurt(DamageData damageData)
     {
+        Debug.Log(noHurt);
         if (noHurt > 0) return;
+
+        Debug.Log("hurt");
+
         PicoManager.Hp -= damageData.Damage;
 
         //被打
