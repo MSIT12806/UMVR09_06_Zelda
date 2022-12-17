@@ -45,52 +45,7 @@ public class Npc : MonoBehaviour
     public float Hp;
     public string MaterialAddress;
     Transform renderer;
-    private void Awake()
-    {
-        nextPosition = Vector3.zero;
-        animator = GetComponent<Animator>();
-        picoState = GetComponent<PicoState>();
-        MaxHp = Hp;
-        ik = GetComponent<IKController>();
-        materials = new List<Material>();
-        if (string.IsNullOrEmpty(MaterialAddress) == false)
-        {
-            renderer = transform.FindAnyChild<Transform>(MaterialAddress);
-            var r = renderer.GetComponent<Renderer>();
-            materials.Add(r.materials[0]);
-            if (r.materials.Length >= 4)
-            {
-                materials.Add(r.materials[2]);
-                materials.Add(r.materials[3]);
-            }
-            oriColor = materials[0].GetColor("_RimLightColor");
-            oriPower = materials[0].GetFloat("_RimLight_Power");
-            oriMask = materials[0].GetFloat("_RimLight_InsideMask");
-
-            oriEnabled = renderer.gameObject.activeSelf;
-            //  print(c.name);
-            //material = b.FirstOrDefault(i => i.name == "Mt_usao_Main");
-        }
-    }
-    void Start()
-    {
-        var currentScene = SceneManager.GetActiveScene();
-        var currentSceneName = currentScene.name;
-
-        if(currentSceneName == "NightScene")
-        {
-            stateManager = ObjectManager.StateManagers[this.gameObject.GetInstanceID()];
-            alives = ObjectManager.NpcsAlive;
-            stateManagers = ObjectManager.StateManagers;
-        }
-        else
-        {
-            stateManager = ObjectManager2.StateManagers[this.gameObject.GetInstanceID()];
-            alives = ObjectManager2.NpcsAlive;
-            stateManagers = ObjectManager2.StateManagers;
-        }
-        
-    }
+  
 
     // Update is called once per frame
     void Update()
@@ -233,6 +188,11 @@ public class Npc : MonoBehaviour
 
     bool StaticCollision(float radius = 0.23f, float maxDistance = 0.3f)
     {
+        if (stateManager == null)
+        {
+            Debug.Log("stateManager is null");
+            return false;
+        }
         collideFront = false;
         animator.applyRootMotion = true;
         var hitSomethingWhenMoving = Physics.SphereCast(this.transform.position + new Vector3(0, 0.7f, 0), radius, transform.forward, out var hitInfo, 0.5f, layerMask);
@@ -370,6 +330,72 @@ public class Npc : MonoBehaviour
     {
         stateManager.Die();
     }
+
+    private void Awake()
+    {
+        nextPosition = Vector3.zero;
+        animator = GetComponent<Animator>();
+        picoState = GetComponent<PicoState>();
+        MaxHp = Hp;
+        ik = GetComponent<IKController>();
+        materials = new List<Material>();
+        if (string.IsNullOrEmpty(MaterialAddress) == false)
+        {
+            renderer = transform.FindAnyChild<Transform>(MaterialAddress);
+            var r = renderer.GetComponent<Renderer>();
+            materials.Add(r.materials[0]);
+            if (r.materials.Length >= 4)
+            {
+                materials.Add(r.materials[2]);
+                materials.Add(r.materials[3]);
+            }
+            oriColor = materials[0].GetColor("_RimLightColor");
+            oriPower = materials[0].GetFloat("_RimLight_Power");
+            oriMask = materials[0].GetFloat("_RimLight_InsideMask");
+
+            oriEnabled = renderer.gameObject.activeSelf;
+            //  print(c.name);
+            //material = b.FirstOrDefault(i => i.name == "Mt_usao_Main");
+        }
+    }
+    void Start()
+    {
+
+
+    }
+
+    private void OnEnable()
+    {
+        //OnEnable 跟其他物件的 Awake 可能會同時進行，導致 ObjectManager 的內容沒有被初始化就被調用。
+        // 先睡一回合，看看會不會好一點。
+        StartCoroutine(WaitForAWhile());
+    }
+    IEnumerator WaitForAWhile()
+    {
+        yield return 0;
+        var currentScene = SceneManager.GetActiveScene();
+        var currentSceneName = currentScene.name;
+
+        if (currentSceneName == "NightScene")
+        {
+            stateManager = ObjectManager.StateManagers[this.gameObject.GetInstanceID()];
+            alives = ObjectManager.NpcsAlive;
+            stateManagers = ObjectManager.StateManagers;
+        }
+        else
+        {
+            stateManager = ObjectManager2.StateManagers[this.gameObject.GetInstanceID()];
+            alives = ObjectManager2.NpcsAlive;
+            stateManagers = ObjectManager2.StateManagers;
+        }
+        alives.TryAdd(gameObject.GetInstanceID(), gameObject);
+        
+    }
+    private void OnDisable()
+    {
+        alives.Remove(gameObject.GetInstanceID());
+    }
+
     //private void OnDrawGizmos()
     //{
     //    //檢查球射線是否有交點

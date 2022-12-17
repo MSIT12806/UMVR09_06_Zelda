@@ -43,7 +43,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
     Animator animator;
     void Awake()
     {
-        ObjectManager.StateManagers.Add(this.gameObject.GetInstanceID(), this);
+        ObjectManager.StateManagers.Add(this.gameObject.GetInstanceID(), this);  
         animator = transform.GetComponent<Animator>();
         npc = transform.GetComponent<Npc>();
         apple = (GameObject)Resources.Load("Apple");
@@ -53,6 +53,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
     {
         weakPoint = MaxWeakPoint;
         gameObject.SetActive(false);
+        ObjectManager.NpcsAlive.Remove(gameObject.GetInstanceID());
     }
     void Update()
     {

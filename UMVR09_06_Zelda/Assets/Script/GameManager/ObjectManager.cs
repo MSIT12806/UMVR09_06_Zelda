@@ -10,7 +10,7 @@ using UnityEngine.UIElements;
 
 public class ObjectManager : MonoBehaviour
 {
-    public static Dictionary<int, GameObject> NpcsAlive;//碰撞偵測、攻擊判定用。
+    public static Dictionary<int, GameObject> NpcsAlive = new Dictionary<int, GameObject>();//碰撞偵測、攻擊判定用。
     public static Dictionary<int, GameObject>[] StageDeathPool = new Dictionary<int, GameObject>[4]
     {
         new Dictionary<int, GameObject>(),
@@ -54,8 +54,8 @@ public class ObjectManager : MonoBehaviour
         stageThreeSpawnPoint = transform.FindAnyChild<Transform>("StageThreeSpawnPoint");
 
         //npc 池 初始化
-        NpcsAlive = GameObject.FindGameObjectsWithTag("Npc").ToDictionary(i => i.GetInstanceID());
-        GameObject.FindGameObjectsWithTag("Player").ToList().ForEach(i => NpcsAlive.Add(i.GetInstanceID(), i));
+        //NpcsAlive = GameObject.FindGameObjectsWithTag("Npc").ToDictionary(i => i.GetInstanceID());
+        //GameObject.FindGameObjectsWithTag("Player").ToList().ForEach(i => NpcsAlive.Add(i.GetInstanceID(), i));
 
         //特效池
         AttackFx = new Queue<GameObject>(20);
