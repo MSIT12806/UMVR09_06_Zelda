@@ -19,7 +19,7 @@ public class Scene2CubeDrawLine : MonoBehaviour
         TeleportSpace.Point3 = point3;
         TeleportSpace.Point4 = point4;
 
-        TeleportSpace.Center = transform.position;
+        TeleportSpace.Center = transform;
     }
 
     // Update is called once per frame
@@ -43,7 +43,7 @@ public static class TeleportSpace
     public static Vector3 Point2;
     public static Vector3 Point3;
     public static Vector3 Point4;
-    public static Vector3 Center;
+    public static Transform Center;
     //space.posision > point4
     //space.posision < point2
 }

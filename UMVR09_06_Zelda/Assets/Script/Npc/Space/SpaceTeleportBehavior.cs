@@ -9,7 +9,7 @@ public class SpaceTeleportBehavior : StateMachineBehaviour
     bool awake;
     bool TpTrigger = false;
     float inStateTime = 0;
-    float movePerframe = 0.8f;
+    float movePerframe = 1f;
 
     Vector3 MoveTo;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -56,6 +56,11 @@ public class SpaceTeleportBehavior : StateMachineBehaviour
         NewPos = selfTransform.position;
         NewPos.x = RandomFloat(TeleportSpace.Point4.x, TeleportSpace.Point2.x);
         NewPos.z = RandomFloat(TeleportSpace.Point4.z, TeleportSpace.Point2.z);
+        float dis = (NewPos - selfTransform.position).magnitude;
+        if (dis < 5f || dis > 10)
+            GetWalkPoint();
+        if ((target.position - selfTransform.position).magnitude > 10 && (target.position - selfTransform.position).magnitude < 1)
+            GetWalkPoint();
         return NewPos;
     }
     /// <summary>

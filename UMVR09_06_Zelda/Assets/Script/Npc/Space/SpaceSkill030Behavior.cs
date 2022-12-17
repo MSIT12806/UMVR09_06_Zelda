@@ -9,7 +9,6 @@ public class SpaceSkill030Behavior : StateMachineBehaviour
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         target = ObjectManager2.MainCharacter.transform;
-        UiManager.singleton.ShowSikaTip("ItemIceTips");
     }
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -17,6 +16,5 @@ public class SpaceSkill030Behavior : StateMachineBehaviour
     }
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        UiManager.singleton.HideTip();
     }
 }

@@ -8,6 +8,7 @@ public class SpaceSkill02Behavior : StateMachineBehaviour
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         target = ObjectManager2.MainCharacter.transform;
+        UiManager.singleton.ShowSikaTip("ItemBombTips");
     }
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
