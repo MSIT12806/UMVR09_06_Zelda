@@ -19,6 +19,13 @@ public class StageManager : MonoBehaviour
     bool isNightScene;
     private bool play;
 
+
+    private void Awake()
+    {
+        Dragon = GameObject.Find("Blue Variant").GetComponent<DragonManager>();
+        Golem = GameObject.Find("PBR_Golem (1)").GetComponent<GolemManager>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,7 +48,6 @@ public class StageManager : MonoBehaviour
         {
             stageOneWave = 4;//第一關會有四波
         }
-
 
     }
 
