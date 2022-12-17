@@ -15,7 +15,7 @@ public class StageManager : MonoBehaviour
     public DragonManager Dragon;
     public GolemManager Golem;
     public PlayableDirector director;
-    public CinemachineVirtualCamera camera;
+    public CinemachineVirtualCamera virtualCamera;
     bool isNightScene;
     private bool play;
 
@@ -24,6 +24,7 @@ public class StageManager : MonoBehaviour
     {
         Dragon = GameObject.Find("Blue Variant").GetComponent<DragonManager>();
         Golem = GameObject.Find("PBR_Golem (1)").GetComponent<GolemManager>();
+        virtualCamera = GameObject.Find("CM vcam3").GetComponent<CinemachineVirtualCamera>();
     }
 
     // Start is called before the first frame update
@@ -79,7 +80,7 @@ public class StageManager : MonoBehaviour
                     if (!play && ObjectManager.StageMonsterMonitor[2] <= 0)
                     {
                         play = true;
-                        camera.Priority = 20;
+                        virtualCamera.Priority = 20;
                         director.Play();
                     }
                     if (Dragon.Hp > 0 && Dragon.Show && ObjectManager.StageMonsterMonitor[2] < 10)
@@ -102,7 +103,7 @@ public class StageManager : MonoBehaviour
     }
     public void StageTwoShowFinished()
     {
-        camera.Priority = 5;
+        virtualCamera.Priority = 5;
     }
     private void OnDrawGizmos()
     {

@@ -16,6 +16,7 @@ public class DragonIdleBehavior : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        if (animator.name == "Blue Variant 2") return;
         target = ObjectManager.MainCharacter;
         manager = animator.transform.GetComponent<DragonManager>();
         state = target.GetComponent<PicoState>();
@@ -28,6 +29,7 @@ public class DragonIdleBehavior : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        if (animator.name == "Blue Variant 2") return;
         if (manager.Hp <= 0)
         {
             manager.Die();
@@ -86,6 +88,7 @@ public class DragonIdleBehavior : StateMachineBehaviour
     // OnStateMove is called right after Animator.OnAnimatorMove()
     override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        if (animator.name == "Blue Variant 2") return;
         if (fightState)
         {
 
