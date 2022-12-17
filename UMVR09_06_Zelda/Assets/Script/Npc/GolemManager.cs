@@ -34,6 +34,8 @@ public class GolemManager : MonoBehaviour, NpcHelper
 
     // Start is called before the first frame update
     Animator animator;
+    public  bool Stand;
+
     void Awake()
     {
 

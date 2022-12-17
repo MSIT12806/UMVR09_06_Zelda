@@ -1,4 +1,5 @@
 using Cinemachine;
+using Ron;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,8 +18,8 @@ public class StageManager : MonoBehaviour
     public PlayableDirector director;
     public CinemachineVirtualCamera virtualCamera;
     bool isNightScene;
-    private bool play;
-
+    private bool dragonPlay;
+    private bool golemStand;
 
     private void Awake()
     {
@@ -77,9 +78,9 @@ public class StageManager : MonoBehaviour
                     }
                     return;
                 case 2:
-                    if (!play && ObjectManager.StageMonsterMonitor[2] <= 0)
+                    if (!dragonPlay && ObjectManager.StageMonsterMonitor[2] <= 0)
                     {
-                        play = true;
+                        dragonPlay = true;
                         virtualCamera.Priority = 20;
                         director.Play();
                     }
@@ -89,7 +90,17 @@ public class StageManager : MonoBehaviour
                     }
                     return;
                 case 3:
-                    if (Golem.Hp > 0 && ObjectManager.StageMonsterMonitor[3] < 10)
+                    if (!golemStand && ObjectManager.StageMonsterMonitor[3] <= 0)
+                    {
+                        golemStand = true;
+                        Golem.Stand = true;
+                        var a = Golem.GetComponent<Animator>();
+                        a.SetFloat("StandSpeed", 1);
+                        var r = Golem.transform.FindAnyChild<Transform>("RockGolemMesh").GetComponent<Renderer>();
+                        var m = r.materials[0];
+                        m.SetColor("_Emissive_Color", new Color(0.737f, 0.737f, 0.737f, 1));
+                    }
+                    if (golemStand && Golem.Hp > 0 && ObjectManager.StageMonsterMonitor[3] < 10)
                     {
                         ObjectManager.StageThreeResurrection();
                     }

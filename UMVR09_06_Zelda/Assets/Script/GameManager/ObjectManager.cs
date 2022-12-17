@@ -87,11 +87,11 @@ public class ObjectManager : MonoBehaviour
         StageMonsterMonitor[1] = 30;
 
         //SecondStage
-        GenUsao2(stageTwoSpawnPoint.position, 10, 15, GameState.SecondStage);
+        GenUsao2(stageTwoSpawnPoint.position, 10, 10, GameState.SecondStage);
         StageMonsterMonitor[2] = 10;
 
         //ThirdStage
-        GenUsaoSword(stageThreeSpawnPoint.position, 10, 15, GameState.ThridStage);
+        GenUsaoSword(stageThreeSpawnPoint.position, 10, 10, GameState.ThridStage);
         StageMonsterMonitor[3] = 10;
     }
 

@@ -52,7 +52,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
     }
     void Start()
     {
-        if (animator.name == "Blue Variant 2") return;
+        if (name == "Blue Variant 2") return;
         weakPoint = MaxWeakPoint;
         gameObject.SetActive(false);
         ObjectManager.NpcsAlive.Remove(gameObject.GetInstanceID());

@@ -549,6 +549,7 @@ public class GolemIdleState : GolemBaseState
         }
         if (picoState.gameState != GameState.ThridStage)
             return this;
+        if (gm.Stand == false) return this;
 
         //切至Roar (血量低於50% //do once
         if (npcData.Hp <= npcHelper.MaxHp / 2 && Once.CanSetShield)

@@ -190,7 +190,6 @@ public class Npc : MonoBehaviour
     {
         if (stateManager == null)
         {
-            Debug.Log("stateManager is null");
             return false;
         }
         collideFront = false;
