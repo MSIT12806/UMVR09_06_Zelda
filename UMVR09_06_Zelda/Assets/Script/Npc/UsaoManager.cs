@@ -38,9 +38,9 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
 
     public float MaxHp => throw new NotImplementedException();
 
-    public float WeakPoint => throw new NotImplementedException();
+    public float WeakPoint => 1f;
 
-    public float MaxWeakPoint => throw new NotImplementedException();
+    public float MaxWeakPoint => 10f;
 
     public float Radius => 0.4f;
 
