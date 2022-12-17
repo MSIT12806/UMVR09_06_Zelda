@@ -9,25 +9,28 @@ public class SpaceSmallBallBehavior : StateMachineBehaviour
     bool awake;
     float dazeSeconds;
     float weight;
+
     GameObject SmallBalls;
+    Transform selfTransform;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         SmallBalls = animator.transform.Find("SpaceWeapons").gameObject;
         SmallBalls.SetActive(true);
+
         if (awake == false)
         {
             manager = animator.GetComponent<SpaceManager>();
             target = ObjectManager2.MainCharacter;
             awake = true;
         }
+        selfTransform = animator.transform;
         dazeSeconds = UnityEngine.Random.value * 3;
         weight = UnityEngine.Random.value;
     }
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-
-        float dis = (target.position - animator.transform.position).magnitude;
+        float dis = (target.position - selfTransform.position).magnitude;//lico貼太進會移動
         if (dis < 3.5f)
             animator.transform.RotateAround(TeleportSpace.Center.position, TeleportSpace.Center.up, Time.deltaTime * 160);
     }

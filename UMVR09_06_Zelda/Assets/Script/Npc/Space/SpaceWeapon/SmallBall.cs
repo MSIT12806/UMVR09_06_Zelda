@@ -50,7 +50,6 @@ public class SmallBall : MonoBehaviour
 
         transform.RotateAround(ObjectManager2.Elena.position, ObjectManager2.Elena.up, Time.deltaTime * Angle);
 
-
     }
     Vector3 attackDirection;
     void AttackBehavior()

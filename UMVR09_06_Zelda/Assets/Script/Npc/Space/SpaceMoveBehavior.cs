@@ -28,7 +28,6 @@ public class SpaceMoveBehavior : StateMachineBehaviour
 
         if (selfTransform.position == MoveTo)
         {
-            Debug.Log(111);
             animator.SetTrigger("MoveFinish");
         }
         else if(selfTransform.position != MoveTo)

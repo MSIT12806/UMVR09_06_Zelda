@@ -16,8 +16,12 @@ public class SpaceSkill010Behavior : StateMachineBehaviour
     {
         float dis = (target.transform.position - selfTransform.position).magnitude;
         if (dis < 2)
+        {
             NpcCommon.AttackDetection("", selfTransform.position, selfTransform.forward, 90, 2, true, new DamageData(80, selfTransform.forward * 0.6f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
-        animator.transform.LookAt(target);
+            animator.SetTrigger("Skill01HitTarget");
+        }
+        if(dis > 4)
+            animator.transform.LookAt(target);
     }
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
