@@ -86,9 +86,18 @@ public class SpaceManager : MonoBehaviour, NpcHelper
         {
             NpcCommon.AttackDetectionRectangle("", transform.position, transform.forward,transform.right, 4, 7, false, new DamageData(30, transform.forward * 0.6f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
         }
+        if (attackType == 6)//技能2
+        {
+            NpcCommon.AttackDetection("", transform.position, transform.forward, 360, 5, false, new DamageData(80, transform.forward * 0.6f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
+            this.transform.Find("BlackHoll").gameObject.SetActive(false);
+        }
         if (attackType == 7)//技能3
         {
             NpcCommon.AttackDetection("", transform.position, transform.forward, 360, 10, false, new DamageData(80, transform.forward * 0.6f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
         }
+    }
+    public void BlackHollOn()
+    {
+        this.transform.Find("BlackHoll").gameObject.SetActive(true);
     }
 }

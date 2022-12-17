@@ -2,17 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpaceSkill02Behavior : MonoBehaviour
+public class SpaceSkill02Behavior : StateMachineBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    Transform target;
+    public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
+        target = ObjectManager2.MainCharacter.transform;
     }
-
-    // Update is called once per frame
-    void Update()
+    public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
+        animator.transform.LookAt(target);
     }
 }
