@@ -12,7 +12,7 @@ public class SpaceSmallBallBehavior : StateMachineBehaviour
     GameObject SmallBalls;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        SmallBalls = animator.transform.GetChild(0).GetChild(1).gameObject;
+        SmallBalls = animator.transform.Find("SpaceWeapons").gameObject;
         SmallBalls.SetActive(true);
         if (awake == false)
         {
@@ -24,6 +24,13 @@ public class SpaceSmallBallBehavior : StateMachineBehaviour
         weight = UnityEngine.Random.value;
     }
 
+    public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+
+        float dis = (target.position - animator.transform.position).magnitude;
+        if (dis < 3.5f)
+            animator.transform.RotateAround(TeleportSpace.Center.position, TeleportSpace.Center.up, Time.deltaTime * 160);
+    }
     public override void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
 

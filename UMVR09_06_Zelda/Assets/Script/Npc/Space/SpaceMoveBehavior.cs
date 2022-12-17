@@ -57,6 +57,11 @@ public class SpaceMoveBehavior : StateMachineBehaviour
         NewPos = selfTransform.position;
         NewPos.x = RandomFloat(TeleportSpace.Point4.x, TeleportSpace.Point2.x);
         NewPos.z = RandomFloat(TeleportSpace.Point4.z, TeleportSpace.Point2.z);
+        float dis = (NewPos - selfTransform.position).magnitude;
+        if (dis < 5f || dis > 10 )
+            GetWalkPoint();
+        if ((target.position - selfTransform.position).magnitude > 10 && (target.position - selfTransform.position).magnitude < 1)
+            GetWalkPoint();
         return NewPos;
     }
     /// <summary>
