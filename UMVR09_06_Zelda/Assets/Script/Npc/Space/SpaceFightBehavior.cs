@@ -24,7 +24,11 @@ public class SpaceFightBehavior : StateMachineBehaviour
 
         if (!move)
         {
-            animator.SetTrigger("ToMove");
+            float rnd = UnityEngine.Random.value;
+            if (rnd <= 0.7)
+                animator.SetTrigger("ToMove");
+            else
+                animator.SetTrigger("ToTeleport");
             return;
         }
 

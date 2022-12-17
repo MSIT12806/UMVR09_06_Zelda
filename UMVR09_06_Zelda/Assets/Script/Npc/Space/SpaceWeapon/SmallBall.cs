@@ -7,7 +7,7 @@ public class SmallBall : MonoBehaviour
     // Start is called before the first frame update
     float speedPerSecond = 8.4f;
     readonly float Radius = 1f;
-    readonly float Angle = 160f;
+    readonly float Angle = 360f;
     readonly float attackSeconds = 4f;
     float nowAttackSecond;
     void Start()

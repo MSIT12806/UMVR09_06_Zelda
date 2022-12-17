@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpaceMoveBehavior : StateMachineBehaviour
+public class SpaceTeleportBehavior : StateMachineBehaviour
 {
     Transform selfTransform;
     Transform target;
     bool awake;
     bool TpTrigger = false;
     float inStateTime = 0;
-    float movePerframe = 0.4f;
+    float movePerframe = 0.8f;
 
     Vector3 MoveTo;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -25,17 +25,16 @@ public class SpaceMoveBehavior : StateMachineBehaviour
 
     public override void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        //selfTransform.position = Vector3.Lerp(selfTransform.position, MoveTo, 0.1f);
 
         if (selfTransform.position == MoveTo)
         {
-            Debug.Log(111);
-            animator.SetTrigger("MoveFinish");
+            animator.SetTrigger("TeleportFinish");
         }
         else if(selfTransform.position != MoveTo)
         {
             selfTransform.LookAt(MoveTo);
         }
-        Vector3 dir = MoveTo - selfTransform.position;
         float dis = (MoveTo - selfTransform.position).magnitude;
         selfTransform.Translate(0, 0, movePerframe);
         if(dis <= movePerframe)

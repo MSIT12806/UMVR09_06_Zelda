@@ -9,8 +9,11 @@ public class SpaceSmallBallBehavior : StateMachineBehaviour
     bool awake;
     float dazeSeconds;
     float weight;
+    GameObject SmallBalls;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        SmallBalls = animator.transform.GetChild(0).GetChild(1).gameObject;
+        SmallBalls.SetActive(true);
         if (awake == false)
         {
             manager = animator.GetComponent<SpaceManager>();
@@ -23,12 +26,12 @@ public class SpaceSmallBallBehavior : StateMachineBehaviour
 
     public override void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
+
         AiStateCommon.Turn(animator.transform, (target.position - animator.transform.position).normalized);
         foreach (var item in manager.smallBalls)
         {
             item.Attack();
-        } 
+        }
     }
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
