@@ -30,7 +30,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     Npc npc;
     ThirdPersonCharacter tpc;
 
-
+    public GameObject MoonTp;//之後要刪除
 
     bool FeverIk = false;
     private bool canRoll = true;
@@ -102,6 +102,11 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            MoonTp.SetActive(true);
+        }
+
         if (noHurt > 0) noHurt--;
 
         //處理美術位移
