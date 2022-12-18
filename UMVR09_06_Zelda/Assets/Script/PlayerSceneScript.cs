@@ -31,7 +31,7 @@ public class PlayerSceneScript : MonoBehaviour
                 PicoManager.Hp = PicoManager.MaxHp;
                 PicoManager.Power = 0;
                 PicoManager.AppleCount = PicoManager.MaxApple;
-                Invoke("StartGame", 0.1f);
+                Invoke("StartGame", 0.3f);
                 ChangeScene = false;
             }
         }
