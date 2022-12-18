@@ -127,13 +127,6 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
             tpc.CanRotate = false;
         else tpc.CanRotate = true;
 
-        //死亡
-        if (PicoManager.Hp <= 0)
-        {
-            animator.SetTrigger("died");
-        }
-
-
         if (canOperate && Input.GetKeyDown(KeyCode.E) && !animator.IsInTransition(0) &&
             !(currentAnimation.IsName("Fever")
             || currentAnimation.IsName("Finishing")
@@ -491,7 +484,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
         canOperate = false;
         die = true;
         //顯示失敗的 Ui
-        //etc
+        UiManager.singleton.Fail();
     }
 }
 
