@@ -78,7 +78,7 @@ public class Throw : MonoBehaviour
 
 
 
-        if (Input.GetKeyDown(KeyCode.Alpha1) && PicoManager.AppleCount > 0 && PicoManager.Hp != PicoManager.MaxHp)
+        if (mainState.canOperate && Input.GetKeyDown(KeyCode.Alpha1) && PicoManager.AppleCount > 0 && PicoManager.Hp != PicoManager.MaxHp)
         {
             PicoManager.Hp += 200;
             if (PicoManager.Hp > PicoManager.MaxHp)

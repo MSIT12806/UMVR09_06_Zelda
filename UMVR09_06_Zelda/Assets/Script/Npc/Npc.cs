@@ -45,7 +45,7 @@ public class Npc : MonoBehaviour
     public float Hp;
     public string MaterialAddress;
     Transform renderer;
-  
+
 
     // Update is called once per frame
     void Update()
@@ -232,12 +232,6 @@ public class Npc : MonoBehaviour
             var distance = Vector3.Distance(this.transform.position, item.transform.position);
             if (distance > nh.Radius + stateManager.Radius) continue;
 
-
-            if (item.name == "MainCharacter" && name == "Blue Variant")
-            {
-                Debug.Log("???");
-            }
-
             var direction = (item.transform.position - this.transform.position).normalized;
             this.transform.position -= direction * stateManager.CollisionDisplacement;
         }
@@ -388,10 +382,11 @@ public class Npc : MonoBehaviour
             stateManagers = ObjectManager2.StateManagers;
         }
         alives.TryAdd(gameObject.GetInstanceID(), gameObject);
-        
+
     }
     private void OnDisable()
     {
+        if (alives == null) return;
         alives.Remove(gameObject.GetInstanceID());
     }
 

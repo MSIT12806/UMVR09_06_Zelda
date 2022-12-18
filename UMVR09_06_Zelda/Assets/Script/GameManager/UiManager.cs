@@ -13,6 +13,7 @@ public class UiManager : MonoBehaviour
 {
     // Start is called before the first frame update
     public static UiManager singleton;
+    public  BlackFade BlackMask;
     Transform MainCharacterHp;
     Transform GreatEnemyState;
     Transform StrongholdState;
@@ -22,7 +23,7 @@ public class UiManager : MonoBehaviour
     Image PowerOne;
     Transform PowerTwoKey;
     Transform PowerTwoLight;
-    public Transform SikaTools;
+    [HideInInspector] public Transform SikaTools;
     Image PowerTwo;
     PicoState picoState;
     float currentHp;
@@ -96,6 +97,24 @@ public class UiManager : MonoBehaviour
         ItemUI.FindAnyChild<Image>("CanLock").fillAmount = 1;
         InitPicoHp();
         currentPower = float.MinValue;
+    }
+    public void Fail()
+    {
+        transform.FindAnyChild<Transform>("Fail").gameObject.SetActive(true);
+        Invoke("FadeOut", 2);
+        Invoke("SwitchToMainScene", 3.5f);
+    }
+    public void SwitchToMainScene()
+    {
+        SceneManager.LoadScene(0);
+    }
+    public void FadeOut()
+    {
+        BlackMask.FadeOut();
+    }
+    public void Success()
+    {
+        transform.FindAnyChild<Transform>("Success").gameObject.SetActive(true);
     }
     public void ShowSikaTip(string sikaType)
     {
