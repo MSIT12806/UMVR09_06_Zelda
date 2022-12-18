@@ -26,11 +26,13 @@ public class PlayerSceneScript : MonoBehaviour
             Alpha += 0.05f;
             BlackScreen.color = new Color(BlackScreen.color.r, BlackScreen.color.g, BlackScreen.color.b, Alpha);
 
-            if (Alpha >= 1)
+            if (Alpha >= 1 )
             {
                 PicoManager.Hp = PicoManager.MaxHp;
                 PicoManager.Power = 0;
+                PicoManager.AppleCount = PicoManager.MaxApple;
                 Invoke("StartGame", 0.1f);
+                ChangeScene = false;
             }
         }
     }
