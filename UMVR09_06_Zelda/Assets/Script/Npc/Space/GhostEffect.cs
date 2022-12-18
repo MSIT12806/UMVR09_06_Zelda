@@ -4,21 +4,23 @@ using UnityEngine;
 
 public class GhostEffect : MonoBehaviour
 {
-    [Header("是否開啓殘影效果")]
+    [Header("openGhoseEffect")] //是否開啟殘影
     public bool openGhoseEffect;
 
     private SkinnedMeshRenderer smr;//SkinnedMeshRenderer
 
     private List<Ghost> ghostList = new List<Ghost>();//殘影列表
 
-    [Header("顯示殘影的持續時間")]
+    [Header("durationTime")] //顯示殘影的持續時間
     public float durationTime;
-    [Header("生成殘影與殘影之間的時間間隔")]
+    [Header("spawnTimeval")] //生成殘影與殘影之間的時間間隔
     public float spawnTimeval;
     private float spawnTimer;//生成殘影的時間計時器
 
-    [Header("殘影顏色")]
+    [Header("ghostColor")] //殘影顏色
     public Color ghostColor;
+
+    public Material GhostMaterial; //殘影材質球
 
     public enum RenderingMode 
     {
@@ -56,7 +58,7 @@ public class GhostEffect : MonoBehaviour
 
             Mesh mesh = new Mesh();
             smr.BakeMesh(mesh);
-            Material mat = new Material(smr.material);
+            Material mat = new Material(GhostMaterial);
             mat.color = ghostColor;
             SetMaterialRenderingMode(mat, RenderingMode.Fade);
 
