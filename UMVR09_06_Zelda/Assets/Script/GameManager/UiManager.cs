@@ -101,9 +101,13 @@ public class UiManager : MonoBehaviour
     public void Fail()
     {
         transform.FindAnyChild<Transform>("Fail").gameObject.SetActive(true);
-        Invoke("FadeOut", 3);
+        Invoke("FadeOut", 2);
+        Invoke("SwitchToMainScene", 3.5f);
     }
-
+    public void SwitchToMainScene()
+    {
+        SceneManager.LoadScene(0);
+    }
     public void FadeOut()
     {
         BlackMask.FadeOut();
