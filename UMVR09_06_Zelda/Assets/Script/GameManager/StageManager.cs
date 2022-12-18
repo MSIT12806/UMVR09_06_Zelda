@@ -23,14 +23,6 @@ public class StageManager : MonoBehaviour
 
     private void Awake()
     {
-        Dragon = GameObject.Find("Blue Variant").GetComponent<DragonManager>();
-        Golem = GameObject.Find("PBR_Golem (1)").GetComponent<GolemManager>();
-        virtualCamera = GameObject.Find("CM vcam3").GetComponent<CinemachineVirtualCamera>();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
         var currentScene = SceneManager.GetActiveScene();
         var currentSceneName = currentScene.name;
         if (currentSceneName == "NightScene")
@@ -41,6 +33,16 @@ public class StageManager : MonoBehaviour
         {
             isNightScene = false;
         }
+        if (!isNightScene) return;
+        Dragon = GameObject.Find("Blue Variant").GetComponent<DragonManager>();
+        Golem = GameObject.Find("PBR_Golem (1)").GetComponent<GolemManager>();
+        virtualCamera = GameObject.Find("CM vcam3").GetComponent<CinemachineVirtualCamera>();
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
 
 
 
@@ -60,6 +62,7 @@ public class StageManager : MonoBehaviour
         if (d <= distance)
         {
             picoState.gameState = (GameState)TriggerType;
+            Debug.Log(picoState.gameState);
             if (isNightScene)
                 ObjectManager.myCamera.stage = TriggerType;
             else

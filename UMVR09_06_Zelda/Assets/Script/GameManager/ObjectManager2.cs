@@ -10,6 +10,7 @@ using UnityEngine.UIElements;
 
 public class ObjectManager2 : MonoBehaviour
 {
+
     public static Dictionary<int, GameObject> NpcsAlive;//碰撞偵測、攻擊判定用。
     public static List<GameObject> Statics;
     public static Queue<GameObject> AttackFx;

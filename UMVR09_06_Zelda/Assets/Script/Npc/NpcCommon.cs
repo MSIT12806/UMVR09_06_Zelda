@@ -66,6 +66,7 @@ public static class NpcCommon
                     if (attacker == "Pico")
                     {
                         PicoManager.Power++;
+                        if (ObjectManager.AttackFx == null) return;
                         var fx = ObjectManager.AttackFx.Dequeue();
                         if (fx != null)
                         {
@@ -84,7 +85,29 @@ public static class NpcCommon
 
     public static void AttackDetectionRectangle(string attacker, Vector3 attackCenter, Vector3 attackForward, Vector3 attackRight, float Width, float distance, bool repelDirection, DamageData damageData, params string[] tags)//攻擊範圍偵測
     {
-        var lst = ObjectManager.NpcsAlive.Values.Where(i => tags.Contains(i.tag));
+
+        if (awake == false)
+        {
+            var currentScene = SceneManager.GetActiveScene();
+            var currentSceneName = currentScene.name;
+            if (currentSceneName == "NightScene")
+            {
+                isNightScene = true;
+            }
+            else
+            {
+                isNightScene = false;
+            }
+            awake = true;
+        }
+
+        IEnumerable<GameObject> lst = null;
+        if (isNightScene)
+            lst = ObjectManager.NpcsAlive.Values.Where(i => tags.Contains(i.tag));
+        else
+            lst = ObjectManager2.NpcsAlive.Values.Where(i => tags.Contains(i.tag));
+
+
         foreach (var item in lst)
         {
             Transform nowNpc = item.transform;
@@ -104,18 +127,19 @@ public static class NpcCommon
 
                 var attackReturn = nowNpc.gameObject.GetComponent<Npc>();
                 attackReturn.GetHurt(damageData);
-                if (attacker == "Pico")
-                {
-                    PicoManager.Power++;
-                    var fx = ObjectManager.AttackFx.Dequeue();
-                    if (fx != null)
-                    {
-                        fx.transform.position = item.transform.position.AddY(1);
-                        fx.SetActive(true);
-                        fx.GetComponent<ParticleSystem>().Play();
-                        ObjectManager.AttackFx.Enqueue(fx);
-                    }
-                }
+                //if (attacker == "Pico")
+                //{
+                //    PicoManager.Power++;
+                //    if (ObjectManager.AttackFx == null) return;
+                //    var fx = ObjectManager.AttackFx.Dequeue();
+                //    if (fx != null)
+                //    {
+                //        fx.transform.position = item.transform.position.AddY(1);
+                //        fx.SetActive(true);
+                //        fx.GetComponent<ParticleSystem>().Play();
+                //        ObjectManager.AttackFx.Enqueue(fx);
+                //    }
+                //}
             }
         }
     }

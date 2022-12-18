@@ -82,7 +82,6 @@ public class DragonManager : MonoBehaviour, NpcHelper
         {
             if (dState.damageState == DamageState.Bomb || dState.damageState == DamageState.Fever)
             {
-                flyState = false;
                 Hp -= damageData.Damage;
             }
         }

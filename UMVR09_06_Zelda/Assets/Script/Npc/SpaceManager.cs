@@ -25,6 +25,10 @@ public class SpaceManager : MonoBehaviour, NpcHelper
 
     public string Name => "ªüÄõ®R";
 
+    public bool InSkill1State;
+    public bool InSkill2State;
+    public bool InSkill3State;
+
     // Start is called before the first frame update
     Animator animator;
     void Awake()
@@ -52,6 +56,48 @@ public class SpaceManager : MonoBehaviour, NpcHelper
     }
     public void GetHurt(DamageData damageData)
     {
+        if (Hp <= 0) return;
+        Hp -= damageData.Damage;
+
+        if (InSkill1State)
+        {
+            if (damageData.DamageState.damageState == DamageState.Ice)
+            {
+                if (Once.IcePosision != Vector3.zero)
+                {
+                    if ((Once.IcePosision - transform.position).magnitude <= 3)
+                    {
+                        Once.IceDestroyTime = 0f;
+                        InSkill1State = false;
+                        animator.Play("GetHit");
+                        Debug.Log("innnnnnnnnnnnnnnnnnnnn");
+                    }
+                }
+            }
+        }
+
+        if (InSkill2State)
+        {
+            if(damageData.DamageState.damageState == DamageState.Bomb)
+            {
+                InSkill2State = false;
+                animator.Play("GetHit");
+                Debug.Log("innnnnnnnnnnnnnnnnnnnn");
+            }
+        }
+
+        if (InSkill3State)
+        {
+            if(damageData.DamageState.damageState == DamageState.TimePause)
+            {
+                InSkill3State = false;
+                animator.Play("GetHit");
+                Debug.Log("innnnnnnnnnnnnnnnnnnnn");
+            }
+        }
+
+
+
         Debug.Log("hit");
         //aiState = new UsaoHurtState(transform.GetComponent<Animator>(), transform, damageData);
     }

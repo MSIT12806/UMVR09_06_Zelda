@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpaceMoveBehavior : StateMachineBehaviour
 {
+    SpaceManager space;
     Transform selfTransform;
     Transform target;
     bool awake;

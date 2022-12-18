@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Ron;
 
 public class SpaceSmallBallBehavior : StateMachineBehaviour
 {
@@ -14,13 +15,13 @@ public class SpaceSmallBallBehavior : StateMachineBehaviour
     Transform selfTransform;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        SmallBalls = animator.transform.Find("SpaceWeapons").gameObject;
+        SmallBalls = animator.transform.FindAnyChild<Transform>("SpaceWeapons").gameObject;
         SmallBalls.SetActive(true);
+        target = ObjectManager2.MainCharacter;
 
         if (awake == false)
         {
             manager = animator.GetComponent<SpaceManager>();
-            target = ObjectManager2.MainCharacter;
             awake = true;
         }
         selfTransform = animator.transform;
@@ -46,5 +47,6 @@ public class SpaceSmallBallBehavior : StateMachineBehaviour
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        SmallBalls.SetActive(false);
     }
 }
