@@ -19,8 +19,7 @@ public class GetHeart : MonoBehaviour
         var distance = Vector3.Distance(ObjectManager.MainCharacter.position, transform.position);
         if (distance <= 2)
         {
-            Debug.Log("¸É¦å");
-            PicoManager.Hp += 50;
+            PicoManager.MaxHp += 50;
             Destroy(gameObject);
         }
     }

@@ -54,6 +54,7 @@ public class UsaoIdleState : UsaoAiState
     {
         target = t;
         manager = (UsaoManager)nh;
+        animator.CrossFade("Idle", 0.15f);
     }
     //Idle的啟動要是固定範圍 -- 要一直跟主角量距離
     //Idel 應該有個初始位置    

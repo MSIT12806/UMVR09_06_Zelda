@@ -214,8 +214,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			AnimatorStateInfo asi = m_Animator.GetCurrentAnimatorStateInfo(0);
 			// help the character turn faster (this is in addition to root rotation in the animation)
 			float turnSpeed = Mathf.Lerp(m_StationaryTurnSpeed, m_MovingTurnSpeed, m_ForwardAmount);
-			//if (!asi.IsName("Attack01") && !asi.IsName("Attack01 0") && !asi.IsName("Attack01 1") && !asi.IsName("Attack01 2") && !asi.IsName("gethit") && !asi.IsName("died"))
-			//	transform.Rotate(0, m_TurnAmount * turnSpeed * Time.deltaTime, 0);
 			if (CanRotate)
 			{
 				transform.Rotate(0, m_TurnAmount * turnSpeed * Time.deltaTime, 0);
