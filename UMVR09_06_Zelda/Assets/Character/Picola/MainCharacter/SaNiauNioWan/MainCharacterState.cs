@@ -35,6 +35,9 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     bool FeverIk = false;
     private bool canRoll = true;
 
+    public bool canOperate = true;
+    private bool die;
+
     public float Hp { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
     public bool CanBeKockedOut => throw new NotImplementedException();
@@ -131,7 +134,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
         }
 
 
-        if (Input.GetKeyDown(KeyCode.E) && !animator.IsInTransition(0) &&
+        if (canOperate && Input.GetKeyDown(KeyCode.E) && !animator.IsInTransition(0) &&
             !(currentAnimation.IsName("Fever")
             || currentAnimation.IsName("Finishing")
             || currentAnimation.IsName("ThrowTimeStop")
@@ -146,10 +149,10 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
         }
 
         //無雙條測試
-        if (Input.GetKey(KeyCode.P))//增加無雙值
+        if (canOperate && Input.GetKey(KeyCode.P))//增加無雙值
             AddPowerValue();
 
-        if (Input.GetKeyDown(KeyCode.F) && !animator.IsInTransition(0) &&
+        if (canOperate && Input.GetKeyDown(KeyCode.F) && !animator.IsInTransition(0) &&
             !(currentAnimation.IsName("Fever")
             || currentAnimation.IsName("Finishing")
             || currentAnimation.IsName("ThrowTimeStop")
@@ -170,17 +173,17 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
 
         if (animator.IsInTransition(0) == false) //判斷是否在過度動畫
         {
-            if (Input.GetMouseButtonDown(0) && (currentAnimation.IsName("Grounded") || currentAnimation.IsName("Attack01") || currentAnimation.IsName("Attack01 0") || currentAnimation.IsName("Attack01 1") || currentAnimation.IsName("Fast run")))
+            if (canOperate && Input.GetMouseButtonDown(0) && (currentAnimation.IsName("Grounded") || currentAnimation.IsName("Attack01") || currentAnimation.IsName("Attack01 0") || currentAnimation.IsName("Attack01 1") || currentAnimation.IsName("Fast run")))
             {
                 LeftMouseClick();
             }
-            if (Input.GetMouseButtonDown(1) && (currentAnimation.IsName("Attack01") || currentAnimation.IsName("Attack01 0") || currentAnimation.IsName("Attack01 1") || currentAnimation.IsName("Attack01 2")))
+            if (canOperate && Input.GetMouseButtonDown(1) && (currentAnimation.IsName("Attack01") || currentAnimation.IsName("Attack01 0") || currentAnimation.IsName("Attack01 1") || currentAnimation.IsName("Attack01 2")))
             {
                 RightMouseClick();
             }
         }
 
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (canOperate && Input.GetKey(KeyCode.LeftShift))
         {
             if (canRoll)
             {
@@ -202,7 +205,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
                 animator.SetFloat("dodge", pressControlTime);
             }
         }
-        if (Input.GetKeyUp(KeyCode.LeftShift))
+        if (canOperate && Input.GetKeyUp(KeyCode.LeftShift))
         {
 
             focusLine.SetActive(false);
@@ -249,7 +252,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     private void DodgeTranslate()
     {
         //何時 dodge 會被改成 true?
-        if (dodge)//(Input.GetKeyDown(KeyCode.LeftControl) && (currentAnimation.IsName("Grounded") || currentAnimation.IsName("Front Dodge")))
+        if (dodge)//
         {
             //print("dodge----------");
             frontMove = true;
@@ -415,13 +418,23 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
 
     public void GetHurt(DamageData damageData)
     {
-        Debug.Log(noHurt);
+        if (die) return;
         if (noHurt > 0) return;
 
-        Debug.Log("hurt");
-
         PicoManager.Hp -= damageData.Damage;
-
+        if(PicoManager.Hp <= 0)
+        {
+            if (damageData.Hit == HitType.light)
+            {
+                animator.CrossFade("Die", 0.15f);
+            }
+            else if (damageData.Hit == HitType.Heavy)
+            {
+                animator.CrossFade("Flying Back Death", 0.15f);
+            }
+            Die();
+            return;
+        }
         //被打
         if (damageData.Hit == HitType.light) //改成 l & h 區分輕擊 & 重擊
         {
@@ -473,7 +486,12 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
 
     public void Die()
     {
-        throw new NotImplementedException();
+        var gameState = GetComponent<PicoState>();
+        gameState.gameState = GameState.FailStage;
+        canOperate = false;
+        die = true;
+        //顯示失敗的 Ui
+        //etc
     }
 }
 

@@ -47,13 +47,15 @@ public class Throw : MonoBehaviour
     private bool isStartTime = false;
 
     GameObject Chain;
+
+    MainCharacterState mainState;
     private void Start()
     {
         animator = GetComponent<Animator>();
-
+        mainState = GetComponent<MainCharacterState>();
         var currentScene = SceneManager.GetActiveScene();
         var currentSceneName = currentScene.name;
-        if(currentSceneName== "NightScene")
+        if (currentSceneName == "NightScene")
         {
             Chain = ObjectManager.TimeStopChain;
         }
@@ -61,7 +63,7 @@ public class Throw : MonoBehaviour
         {
             Chain = ObjectManager2.TimeStopChain;
         }
-        
+
     }
 
     // Update is called once per frame
@@ -79,7 +81,7 @@ public class Throw : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1) && PicoManager.AppleCount > 0 && PicoManager.Hp != PicoManager.MaxHp)
         {
             PicoManager.Hp += 200;
-            if(PicoManager.Hp > PicoManager.MaxHp)
+            if (PicoManager.Hp > PicoManager.MaxHp)
             {
                 PicoManager.Hp = PicoManager.MaxHp;
             }
@@ -88,7 +90,7 @@ public class Throw : MonoBehaviour
 
         if (CanThrow == true && isRunning == false)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Alpha4))
+            if (mainState.canOperate && (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Alpha4)))
             {
                 GetThrowKeyIn();
 
@@ -138,9 +140,9 @@ public class Throw : MonoBehaviour
 
     void GetThrowKeyIn()  //按鍵切換enum
     {
-        if (Input.GetKeyDown(KeyCode.Alpha2)) useItem = Item.TimeStop;
-        else if (Input.GetKeyDown(KeyCode.Alpha3)) useItem = Item.Ice;
-        else if (Input.GetKeyDown(KeyCode.Alpha4)) useItem = Item.Bomb;
+        if (mainState.canOperate && Input.GetKeyDown(KeyCode.Alpha2)) useItem = Item.TimeStop;
+        else if (mainState.canOperate && Input.GetKeyDown(KeyCode.Alpha3)) useItem = Item.Ice;
+        else if (mainState.canOperate && Input.GetKeyDown(KeyCode.Alpha4)) useItem = Item.Bomb;
     }
 
     void UseTimeStop() //使用時停
@@ -189,7 +191,7 @@ public class Throw : MonoBehaviour
     {
         SwordEffect1.SetActive(true);
         Sword.SetActive(false);
-        
+
     }
     public void SwordTrue() //讓劍出現（動作事件）
     {
@@ -300,7 +302,7 @@ public class Throw : MonoBehaviour
         Object o = Resources.Load(Explode);
         ItemEffect_obj = Instantiate((GameObject)o);
         ItemEffect_obj.transform.position = itemEffect_pos;
-        if(Explode == "FX_Explosion")
+        if (Explode == "FX_Explosion")
         {
             NpcCommon.AttackDetection("Pico", itemEffect_pos, ItemEffect_obj.transform.forward, 360.0f, 5.0f, false, new DamageData(20, Vector3.zero, HitType.Heavy, new DamageStateInfo(DamageState.Bomb, 0)), "Npc");
             return;
@@ -310,7 +312,7 @@ public class Throw : MonoBehaviour
             Once.IcePosision = itemEffect_pos;//紀錄冰塊位置
             NpcCommon.AttackDetection("Pico", itemEffect_pos, ItemEffect_obj.transform.forward, 360.0f, 10.0f, false, new DamageData(5, Vector3.zero, HitType.Heavy, new DamageStateInfo(DamageState.Ice, 3)), "Npc");
         }
-        else if(Explode == "FX_TimeStop")
+        else if (Explode == "FX_TimeStop")
         {
             NpcCommon.AttackDetection("Pico", itemEffect_pos, ItemEffect_obj.transform.forward, 360.0f, 5.0f, false, new DamageData(0, Vector3.zero, HitType.Heavy, new DamageStateInfo(DamageState.TimePause, 5)), "Npc");
             Chain.transform.position = itemEffect_pos;

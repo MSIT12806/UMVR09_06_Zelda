@@ -7,7 +7,12 @@ public enum GameState
     ZeroStage,
     FirstStage,
     SecondStage,
-    ThridStage
+    ThridStage,
+    FourthStage,
+
+    FinishStage,
+    FailStage
+
 }
 public class PicoState : MonoBehaviour
 {

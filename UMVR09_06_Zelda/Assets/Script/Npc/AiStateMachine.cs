@@ -96,6 +96,10 @@ public class UsaoFightState : UsaoAiState
     }
     public override AiState SwitchState()
     {
+        if(picoState.gameState != npc.gameState)
+        {
+            return new UsaoIdleState(target, picoState, animator, selfTransform, npcHelper);
+        }
         //如果我被攻擊
         if (getHit != null) return new UsaoHurtState(animator, selfTransform, getHit, this, npcHelper);
 
