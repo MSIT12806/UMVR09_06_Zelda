@@ -34,7 +34,7 @@ public class GolemManager : MonoBehaviour, NpcHelper
 
     // Start is called before the first frame update
     Animator animator;
-    public  bool Stand;
+    public bool Stand { get; set; }
 
     void Awake()
     {
@@ -48,6 +48,10 @@ public class GolemManager : MonoBehaviour, NpcHelper
     void Start()
     {
         aiState = new GolemIdleState(ObjectManager.MainCharacter, animator, transform, 12f, this);
+
+
+        ObjectManager.NpcsAlive.Remove(gameObject.GetInstanceID());
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
