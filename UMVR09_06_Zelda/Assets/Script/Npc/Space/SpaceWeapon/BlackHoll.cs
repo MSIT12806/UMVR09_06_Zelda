@@ -15,7 +15,7 @@ public class BlackHoll : MonoBehaviour
     void Update()
     {
         float dis = (this.transform.position - ObjectManager2.MainCharacter.transform.position).magnitude;
-        if(dis <= 10 && dis > 0.5f)
+        if(dis <= 10 && dis > 1f)
         {
             ObjectManager2.MainCharacter.transform.position
                 = Vector3.Lerp(ObjectManager2.MainCharacter.transform.position, this.transform.position, 0.03f);

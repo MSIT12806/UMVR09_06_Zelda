@@ -7,7 +7,7 @@ public static class PicoManager
 
     public static float Hp { get => _hp; set { _hp = value > MaxHp ? MaxHp : value; } }
     static float _hp;
-    public static float MaxHp { get; set; } = 1000;
+    public static float MaxHp { get; set; } = 500;
     public static float Power { get => _power; set { _power = value > MaxPower ? MaxPower : value; } }
     static float _power;
     public static float MaxPower { get; } = 200;

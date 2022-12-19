@@ -459,7 +459,7 @@ public static class AiStateCommon
 }
 
 #region Golem State Machine
-public static class IceData//要把下面冰塊移上來
+public static class IceData//要把下面冰塊移上來 還沒移
 {
     public static float IceDestroyTime = 3.5f;//冰塊在場上持續時間
     public static Vector3 IcePosision;

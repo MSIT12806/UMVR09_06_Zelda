@@ -44,7 +44,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
     void Awake()
     {
         if (name == "Blue Variant 2") return;
-        ObjectManager.StateManagers.Add(this.gameObject.GetInstanceID(), this);  
+        ObjectManager.StateManagers.Add(this.gameObject.GetInstanceID(), this);
         animator = transform.GetComponent<Animator>();
         npc = transform.GetComponent<Npc>();
         apple = (GameObject)Resources.Load("Apple");
@@ -54,8 +54,8 @@ public class DragonManager : MonoBehaviour, NpcHelper
     {
         if (name == "Blue Variant 2") return;
         weakPoint = MaxWeakPoint;
-        gameObject.SetActive(false);
         ObjectManager.NpcsAlive.Remove(gameObject.GetInstanceID());
+        gameObject.SetActive(false);
     }
     void Update()
     {
@@ -228,7 +228,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
     public void Die()
     {
         //掉蘋果跟掉愛心
-        int heartCount = UnityEngine.Random.Range(1, 3);
+        int heartCount = UnityEngine.Random.Range(2, 4);
         for (int i = 0; i < heartCount; i++)
         {
             var go = Instantiate(heart);

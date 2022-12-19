@@ -10,22 +10,39 @@ public class SmallBall : MonoBehaviour
     readonly float Angle = 360f;
     readonly float attackSeconds = 4f;
     float nowAttackSecond;
+    public SpaceManager spaceManager;
+    public bool nowAttack;
     void Start()
     {
-
+        spaceManager.smallBallsAroundBody.Add(this.gameObject);
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (nowAttackSecond > 0)
+        //if (nowAttackSecond > 0)
+        //{
+        //    nowAttackSecond -= Time.deltaTime;
+        //    transform.forward = attackDirection;
+        //    AttackBehavior();
+        //    return;
+        //}
+        if (nowAttack)
         {
-            nowAttackSecond -= Time.deltaTime;
-            transform.forward = attackDirection;
-            AttackBehavior();
-            return;
+            Debug.Log(123456);
+            Attack();
         }
         AroundBehavior();
+    }
+
+    void Attack()
+    {
+        if(transform.localPosition.x>0 && transform.localPosition.z < 0.2)
+        {
+            nowAttack = false;
+            transform.gameObject.SetActive(false);
+        }
     }
 
     void AroundBehavior()
@@ -47,8 +64,8 @@ public class SmallBall : MonoBehaviour
             transform.position += transform.forward * speedPerSecond * Time.deltaTime;
             return;
         }
-
-        transform.RotateAround(ObjectManager2.Elena.position, ObjectManager2.Elena.up, Time.deltaTime * Angle);
+        
+        transform.RotateAround(ObjectManager2.Elena.position, ObjectManager2.Elena.up, Time.deltaTime * -Angle);
 
     }
     Vector3 attackDirection;
@@ -64,8 +81,8 @@ public class SmallBall : MonoBehaviour
         //¹w­p§ðÀ»4¬í
     }
 
-    public void Attack()
-    {
-        nowAttackSecond = attackSeconds;
-    }
+    //public void Attack()
+    //{
+    //    nowAttackSecond = attackSeconds;
+    //}
 }

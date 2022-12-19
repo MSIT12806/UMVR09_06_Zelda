@@ -41,7 +41,6 @@ public class SpaceSmallBallBehavior : StateMachineBehaviour
         AiStateCommon.Turn(animator.transform, (target.position - animator.transform.position).normalized);
         foreach (var item in manager.smallBalls)
         {
-            item.Attack();
         }
     }
 

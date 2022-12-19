@@ -99,15 +99,10 @@ public class StageManager : MonoBehaviour
                     {
                         golemVirtualCamera.gameObject.SetActive(true);
                         golemVirtualCamera.Priority = 20;
+                        golemDirector.Play();
                         golemStand = true;
-                        Golem.Stand = true;
-                        var a = Golem.GetComponent<Animator>();
-                        a.SetFloat("StandSpeed", 1);
-                        var r = Golem.transform.FindAnyChild<Transform>("RockGolemMesh").GetComponent<Renderer>();
-                        var m = r.materials[0];
-                        m.SetColor("_Emissive_Color", new Color(0.737f, 0.737f, 0.737f, 1));
                     }
-                    if (golemStand && Golem.Hp > 0 && ObjectManager.StageMonsterMonitor[3] < 10)
+                    if (Golem.Stand && Golem.Hp > 0 && ObjectManager.StageMonsterMonitor[3] < 10)
                     {
                         ObjectManager.StageThreeResurrection();
                     }

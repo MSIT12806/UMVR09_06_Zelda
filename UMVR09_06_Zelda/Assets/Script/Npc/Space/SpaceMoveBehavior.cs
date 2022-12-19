@@ -21,6 +21,8 @@ public class SpaceMoveBehavior : StateMachineBehaviour
             selfTransform = animator.transform;
             awake = true;
         }
+        selfTransform = animator.transform;
+        space = selfTransform.GetComponent<SpaceManager>();
         MoveTo = GetWalkPoint();
     }
 
@@ -33,7 +35,7 @@ public class SpaceMoveBehavior : StateMachineBehaviour
         }
         else if(selfTransform.position != MoveTo)
         {
-            selfTransform.LookAt(MoveTo);
+            space.FaceTarget(MoveTo, selfTransform, 20);
         }
         Vector3 dir = MoveTo - selfTransform.position;
         float dis = (MoveTo - selfTransform.position).magnitude;

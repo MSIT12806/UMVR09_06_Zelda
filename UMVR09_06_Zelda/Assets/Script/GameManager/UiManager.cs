@@ -46,7 +46,7 @@ public class UiManager : MonoBehaviour
     RectTransform ImgToShow;
     public Image WeakFull;
     public Image WeakCrack;
-
+    float licoMaxHp;
     bool isNightScene;
     private void Awake()
     {
@@ -83,19 +83,20 @@ public class UiManager : MonoBehaviour
             picoState = ObjectManager.MainCharacter.GetComponent<PicoState>();
             myCamera = ObjectManager.myCamera;//可以順便拿怪
             mainCharacter = ObjectManager.MainCharacter.GetComponent<Npc>();
+            StateManagers = ObjectManager.StateManagers;
         }
         else
         {
             picoState = ObjectManager2.MainCharacter.GetComponent<PicoState>();
             myCamera = ObjectManager2.myCamera;//可以順便拿怪
             mainCharacter = ObjectManager2.MainCharacter.GetComponent<Npc>();
+            StateManagers = ObjectManager2.StateManagers;
         }
         ItemUI = transform.FindAnyChild<Transform>("SiKaStone");
         heart = (GameObject)Resources.Load(heartPath);
         currentHp = PicoManager.Hp;
         ItemCD = mainCharacter.GetComponent<Throw>().coldTime;
         ItemUI.FindAnyChild<Image>("CanLock").fillAmount = 1;
-        InitPicoHp();
         currentPower = float.MinValue;
     }
     public void Fail()
@@ -177,9 +178,12 @@ public class UiManager : MonoBehaviour
     }
 
     bool tipShow = true;
+    private Dictionary<int, NpcHelper> StateManagers;
+
     // Update is called once per frame
     void Update()
     {
+        InitPicoHp();
         SetHpBar();
         SetFeverBar();
         var ScriptThrow = mainCharacter.GetComponent<Throw>();
@@ -213,7 +217,7 @@ public class UiManager : MonoBehaviour
             var item = WeakableMonsters[i];
             if (item == null) break;
             if (item.name != WeakableMonsters[(int)picoState.gameState - 2].name) continue;
-            var nh = ObjectManager.StateManagers[item.gameObject.GetInstanceID()];
+            var nh = StateManagers[item.gameObject.GetInstanceID()];
             if (nh.Dizzy)
             {
                 ShowSikaTip("");
@@ -269,8 +273,10 @@ public class UiManager : MonoBehaviour
 
     private void InitPicoHp()
     {
+        if (licoMaxHp == PicoManager.MaxHp) return;
+        var addHp = PicoManager.MaxHp - licoMaxHp;
         var nowHp = currentHp;
-        var heartCount = (int)Math.Ceiling(PicoManager.MaxHp / OneHeartHp);
+        var heartCount = (int)Math.Ceiling(addHp / OneHeartHp);
         for (int i = 0; i < heartCount; i++)
         {
             if (nowHp <= 0) break;
@@ -280,6 +286,10 @@ public class UiManager : MonoBehaviour
             heartList.Add(h);
             lastHeart = h;
         }
+        licoMaxHp = PicoManager.MaxHp;
+
+        currentHp = PicoManager.Hp;
+        FillHeart();
     }
 
     private void FillHeart()

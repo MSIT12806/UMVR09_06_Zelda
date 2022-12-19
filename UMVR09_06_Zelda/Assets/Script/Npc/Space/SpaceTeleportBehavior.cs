@@ -10,6 +10,7 @@ public class SpaceTeleportBehavior : StateMachineBehaviour
     bool TpTrigger = false;
     float inStateTime = 0;
     float movePerframe = 1f;
+    SpaceManager space;
 
     Vector3 MoveTo;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -20,6 +21,7 @@ public class SpaceTeleportBehavior : StateMachineBehaviour
             selfTransform = animator.transform;
             awake = true;
         }
+        space = selfTransform.GetComponent<SpaceManager>();
         MoveTo = GetWalkPoint();
     }
 
@@ -33,7 +35,7 @@ public class SpaceTeleportBehavior : StateMachineBehaviour
         }
         else if(selfTransform.position != MoveTo)
         {
-            selfTransform.LookAt(MoveTo);
+            space.FaceTarget(MoveTo,selfTransform,20);
         }
         float dis = (MoveTo - selfTransform.position).magnitude;
         selfTransform.Translate(0, 0, movePerframe);
