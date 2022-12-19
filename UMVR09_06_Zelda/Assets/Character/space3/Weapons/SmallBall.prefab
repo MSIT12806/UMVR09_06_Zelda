@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8575528000637942938}
   - component: {fileID: 4869766714475261502}
   - component: {fileID: 8619240124481488700}
-  - component: {fileID: 6164488597306451725}
+  - component: {fileID: 5814661347253436281}
   m_Layer: 0
   m_Name: SmallBall
   m_TagString: Untagged
@@ -84,7 +84,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &6164488597306451725
+--- !u!114 &5814661347253436281
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,6 +93,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3034536113446682650}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b5920310408912479bd177f058470df, type: 3}
+  m_Script: {fileID: 11500000, guid: 383713ec5895c1249bf9ebadf034e20b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  force: {x: 0, y: 0, z: 0}
+  existSeconds: 3
+  speedDecrease: 4
+  terrainMask:
+    serializedVersion: 2
+    m_Bits: 0
