@@ -7,18 +7,7 @@ public class DragonEffect : MonoBehaviour
     public GameObject FX_Yell;
     public GameObject FX_PerpareFireBall;
     public GameObject FX_Ascent;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public GameObject FX_ThrewFire;
 
     void Yell()
     {
@@ -33,6 +22,11 @@ public class DragonEffect : MonoBehaviour
     void AscentEffect()
     {
         FX_Ascent.GetComponent<ParticleSystem>().Play();
+    }
+
+    void ThrewFireEffect()
+    {
+        FX_ThrewFire.GetComponent<ParticleSystem>().Play();
     }
 
 }
