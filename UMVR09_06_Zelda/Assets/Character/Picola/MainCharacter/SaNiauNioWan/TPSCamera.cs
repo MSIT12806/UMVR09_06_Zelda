@@ -1,3 +1,4 @@
+using Ron;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -190,7 +191,19 @@ public class TPSCamera : MonoBehaviour
             {
                 if (hit.transform.gameObject.name != "MainCharacter" && hit.transform.gameObject.name != "Terrain")
                 {
-                    SetTransparent(hit.transform.gameObject, Vector3.Distance(this.transform.position, hit.point));
+                    if (hit.transform.gameObject.tag == "Npc")
+                    {
+                        var npc = hit.transform.GetComponent<Npc>();
+                        var oriSkin = npc.transform.FindAnyChild<Transform>(npc.MaterialAddress);
+                        var ditherSkin = npc.transform.FindAnyChild<Transform>(npc.DitherAddress);
+                        oriSkin.gameObject.SetActive(false);
+                        ditherSkin.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        SetTransparent(hit.transform.gameObject, Vector3.Distance(this.transform.position, hit.point));
+                    }
+
                     transparentObj.Add(hit.transform.gameObject);
                 }
             }
@@ -208,19 +221,29 @@ public class TPSCamera : MonoBehaviour
     }
     private void RecoverTransparentObj(GameObject g)
     {
-        var renderer = g.GetComponent<Renderer>();
-        for (int i = 0; i < g.transform.childCount; i++)
-            RecoverTransparentObj(g.transform.GetChild(i).gameObject);
-
-        if (renderer == null)
+        if (g.tag == "Npc")
         {
-            return;
+            var npc = g.transform.GetComponent<Npc>();
+            var oriSkin = npc.transform.FindAnyChild<Transform>(npc.MaterialAddress);
+            var ditherSkin = npc.transform.FindAnyChild<Transform>(npc.DitherAddress);
+            oriSkin.gameObject.SetActive(true);
+            ditherSkin.gameObject.SetActive(false);
+        }
+        else
+        {
+            var renderer = g.GetComponent<Renderer>();
+            for (int i = 0; i < g.transform.childCount; i++)
+                RecoverTransparentObj(g.transform.GetChild(i).gameObject);
+
+            if (renderer == null)
+                return;
+
+            for (int i = 0; i < renderer.materials.Length; i++)
+            {
+                renderer.materials[i].SetFloat("_MinDistance", 2);
+            }
         }
 
-        for (int i = 0; i < renderer.materials.Length; i++)
-        {
-            renderer.materials[i].SetFloat("_MinDistance", 2);
-        }
     }
     private void SetTransparent(GameObject g, float distance)
     {
@@ -228,9 +251,7 @@ public class TPSCamera : MonoBehaviour
             SetTransparent(g.transform.GetChild(i).gameObject, distance);
         var renderer = g.GetComponent<Renderer>();
         if (renderer == null)
-        {
             return;
-        }
         for (int i = 0; i < renderer.materials.Length; i++)
         {
             renderer.materials[i].SetFloat("_MinDistance", 0.15f);
