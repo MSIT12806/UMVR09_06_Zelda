@@ -44,6 +44,7 @@ public class Npc : MonoBehaviour
     [HideInInspector] public float MaxHp;
     public float Hp;
     public string MaterialAddress;
+    public string DitherAddress;
     Transform renderer;
 
 
