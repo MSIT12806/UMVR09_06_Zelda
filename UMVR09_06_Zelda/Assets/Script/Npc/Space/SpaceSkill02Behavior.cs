@@ -14,7 +14,7 @@ public class SpaceSkill02Behavior : StateMachineBehaviour
         space.InSkill2State = true;
         target = ObjectManager2.MainCharacter.transform;
         UiManager.singleton.ShowSikaTip("ItemBombTips");
-        space.FaceTarget(target, selfTransform, 360);
+        space.FaceTarget(target.position, selfTransform, 360);
     }
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {

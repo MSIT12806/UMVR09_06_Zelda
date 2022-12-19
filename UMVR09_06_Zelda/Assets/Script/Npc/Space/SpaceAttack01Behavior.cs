@@ -19,6 +19,6 @@ public class SpaceAttack01Behavior : StateMachineBehaviour
         float dis = (target.position - selfTransform.position).magnitude;
         if (dis < 3.5f)
             selfTransform.RotateAround(TeleportSpace.Center.position, TeleportSpace.Center.up, Time.deltaTime * 160);
-        space.FaceTarget(target,selfTransform,15);
+        space.FaceTarget(target.position,selfTransform,15);
     }
 }
