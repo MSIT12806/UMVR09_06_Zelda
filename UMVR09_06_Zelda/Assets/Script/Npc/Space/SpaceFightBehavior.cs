@@ -42,8 +42,6 @@ public class SpaceFightBehavior : StateMachineBehaviour
         AiStateCommon.Turn(animator.transform, (target.position - animator.transform.position).normalized);
         //dazeSeconds -= Time.deltaTime;
         //if(dazeSeconds <= 0)
-
-
     }
 
     public void Attack(float dis , Animator animator)

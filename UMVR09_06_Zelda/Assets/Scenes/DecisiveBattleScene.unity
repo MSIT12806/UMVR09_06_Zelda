@@ -5719,6 +5719,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 356123151, guid: ddba82b812a102f459855286607b391f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 812786200, guid: ddba82b812a102f459855286607b391f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1438836936, guid: ddba82b812a102f459855286607b391f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1438836939, guid: ddba82b812a102f459855286607b391f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6548521803294024614, guid: ddba82b812a102f459855286607b391f,
         type: 3}
       propertyPath: m_RootOrder
@@ -13343,7 +13359,8 @@ MonoBehaviour:
   distance: 10
   Dragon: {fileID: 0}
   Golem: {fileID: 0}
-  director: {fileID: 0}
+  dragonDirector: {fileID: 0}
+  golemDirector: {fileID: 0}
   dragonVirtualCamera: {fileID: 0}
   golemVirtualCamera: {fileID: 0}
 --- !u!4 &1251416857 stripped

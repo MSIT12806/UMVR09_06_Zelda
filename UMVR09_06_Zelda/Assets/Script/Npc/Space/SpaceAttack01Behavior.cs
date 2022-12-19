@@ -6,8 +6,11 @@ public class SpaceAttack01Behavior : StateMachineBehaviour
 {
     Transform target;
     Transform selfTransform;
+    SpaceManager space;
+
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        space = animator.transform.GetComponent<SpaceManager>();
         selfTransform = animator.transform;
         target = ObjectManager2.MainCharacter.transform;
     }
@@ -16,6 +19,6 @@ public class SpaceAttack01Behavior : StateMachineBehaviour
         float dis = (target.position - selfTransform.position).magnitude;
         if (dis < 3.5f)
             selfTransform.RotateAround(TeleportSpace.Center.position, TeleportSpace.Center.up, Time.deltaTime * 160);
-        animator.transform.LookAt(target);
+        space.FaceTarget(target,selfTransform,15);
     }
 }
