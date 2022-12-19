@@ -337,8 +337,7 @@ public class Npc : MonoBehaviour
         if (string.IsNullOrEmpty(MaterialAddress) == false)
         {
             var rendererParent = transform.FindAnyChild<Transform>(MaterialAddress);
-            renderer = rendererParent.transform.FindAnyChild<Transform>(RendererAddress);
-            Debug.Log(name);
+            renderer = transform.FindAnyChild<Transform>(RendererAddress);
             var r = renderer.GetComponent<Renderer>();
             materials.Add(r.materials[0]);
             if (r.materials.Length >= 4)
