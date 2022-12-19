@@ -4131,8 +4131,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8672976989278694363}
-  m_LocalRotation: {x: 0.00025125302, y: 0.9995678, z: -0.008970798, w: 0.027995775}
-  m_LocalPosition: {x: 20.330656, y: 1.843914, z: 75.43698}
+  m_LocalRotation: {x: 0.0019113931, y: 0.9854206, z: -0.011095018, w: 0.16976322}
+  m_LocalPosition: {x: 7.9813137, y: 1.843914, z: 60.9442}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -4205,6 +4205,7 @@ MonoBehaviour:
   MaxHp: 0
   Hp: 50
   MaterialAddress: OriSkinMesh
+  RendererAddress: Body7
   DitherAddress: DitherSkinMesh
   initVel: {x: 0, y: 0, z: 0}
   grounded: 0
