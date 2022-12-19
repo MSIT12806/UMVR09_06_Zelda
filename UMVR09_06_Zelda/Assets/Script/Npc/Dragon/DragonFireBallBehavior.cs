@@ -8,6 +8,7 @@ public class DragonFireBallBehavior : StateMachineBehaviour
     Transform target;
     DragonManager manager;
     Transform head;
+    Npc npc;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -16,6 +17,7 @@ public class DragonFireBallBehavior : StateMachineBehaviour
         manager.fireballShooting = true;
         manager.canBeKnockedOut = true;
         head = animator.transform.FindAnyChild<Transform>("Head");
+        npc = animator.GetComponent<Npc>();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -35,7 +37,8 @@ public class DragonFireBallBehavior : StateMachineBehaviour
     override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if (manager.Hp <= 0) manager.Die();
-        AiStateCommon.Turn(animator.transform, ObjectManager.MainCharacter.position - animator.transform.position);
+        if (npc.PauseTime <= 0)
+            AiStateCommon.Turn(animator.transform, ObjectManager.MainCharacter.position - animator.transform.position);
         Turn(head, ObjectManager.MainCharacter.position - head.transform.position);
     }
 
