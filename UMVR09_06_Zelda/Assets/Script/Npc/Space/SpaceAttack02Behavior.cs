@@ -15,7 +15,7 @@ public class SpaceAttack02Behavior : StateMachineBehaviour
     }
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        space.FaceTarget(target, selfTransform,15);
+        space.FaceTarget(target.position, selfTransform,15);
 
     }
 }

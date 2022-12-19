@@ -4,10 +4,10 @@ using UnityEngine;
 
 public static class MyLookAt
 {
-    public static void Look(Transform target , Transform selfTransform , float perFrameDegree)
+    public static void Look(Vector3 targetPosition , Transform selfTransform , float perFrameDegree)
     {
         //if (FreezeTime > 0) return;
-        Vector3 dir = target.position - selfTransform.position;
+        Vector3 dir = targetPosition - selfTransform.position;
         dir.y = 0;
         dir.Normalize();
         float dot = Vector3.Dot(selfTransform.forward, dir);

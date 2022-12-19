@@ -90,6 +90,10 @@ public class SpaceManager : MonoBehaviour, NpcHelper
         {
             if(damageData.DamageState.damageState == DamageState.Bomb)
             {
+                if (transform.Find("BlackHoll").gameObject.activeSelf)
+                {
+                    transform.Find("BlackHoll").gameObject.SetActive(false);
+                }
                 InSkill2State = false;
                 animator.Play("GetHit");
                 Debug.Log("innnnnnnnnnnnnnnnnnnnn");
@@ -117,10 +121,10 @@ public class SpaceManager : MonoBehaviour, NpcHelper
         throw new System.NotImplementedException();
     }
 
-    public void FaceTarget( Transform target, Transform selfTransform, float perFrameDegree)
+    public void FaceTarget( Vector3 targetPosition, Transform selfTransform, float perFrameDegree)
     {
         if (FreezeTime >= 0) return;
-        MyLookAt.Look( target, selfTransform, perFrameDegree);
+        MyLookAt.Look(targetPosition, selfTransform, perFrameDegree);
     }
 
     public void Look(Transform target)

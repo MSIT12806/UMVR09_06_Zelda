@@ -44,6 +44,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _DitherPattern:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 2800000, guid: 0deae70b00eb72c4383cfb85014cb6d1, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -181,6 +185,7 @@ Material:
     - _LightDirection_MaskOn: 0
     - _MToonVersion: 38
     - _MatCap: 0
+    - _MinDistance: 0
     - _Offset_X_Axis_BLD: -0.05
     - _Offset_Y_Axis_BLD: 0.09
     - _OutlineColorMode: 0
@@ -192,7 +197,7 @@ Material:
     - _ReceiveShadowRate: 1
     - _RimFresnelPower: 100
     - _RimLift: 0.1
-    - _RimLight: 0
+    - _RimLight: 1
     - _RimLight_FeatherOff: 0
     - _RimLight_InsideMask: 0.0001
     - _RimLight_Power: 0.1
