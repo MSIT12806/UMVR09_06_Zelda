@@ -71,7 +71,7 @@ Shader "Ron/DitherShader"
         //combine dither pattern with texture value to get final result
             clip(_MinDistance - ditherValue.r);
 
-        float4 col =  texColor;
+        float4 col =  _Color;
         return col;
           }
 
