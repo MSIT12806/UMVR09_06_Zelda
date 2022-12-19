@@ -24,7 +24,7 @@ public class SpaceSkill010Behavior : StateMachineBehaviour
             animator.SetTrigger("Skill01HitTarget");
         }
         //if (dis > 4)
-        space.FaceTarget(target.position, selfTransform, 5);
+        space.FaceTarget(target.position, selfTransform, 360);
     }
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {

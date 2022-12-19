@@ -83,12 +83,14 @@ public class UiManager : MonoBehaviour
             picoState = ObjectManager.MainCharacter.GetComponent<PicoState>();
             myCamera = ObjectManager.myCamera;//可以順便拿怪
             mainCharacter = ObjectManager.MainCharacter.GetComponent<Npc>();
+            StateManagers = ObjectManager.StateManagers;
         }
         else
         {
             picoState = ObjectManager2.MainCharacter.GetComponent<PicoState>();
             myCamera = ObjectManager2.myCamera;//可以順便拿怪
             mainCharacter = ObjectManager2.MainCharacter.GetComponent<Npc>();
+            StateManagers = ObjectManager2.StateManagers;
         }
         ItemUI = transform.FindAnyChild<Transform>("SiKaStone");
         heart = (GameObject)Resources.Load(heartPath);
@@ -176,6 +178,8 @@ public class UiManager : MonoBehaviour
     }
 
     bool tipShow = true;
+    private Dictionary<int, NpcHelper> StateManagers;
+
     // Update is called once per frame
     void Update()
     {
@@ -213,7 +217,7 @@ public class UiManager : MonoBehaviour
             var item = WeakableMonsters[i];
             if (item == null) break;
             if (item.name != WeakableMonsters[(int)picoState.gameState - 2].name) continue;
-            var nh = ObjectManager.StateManagers[item.gameObject.GetInstanceID()];
+            var nh = StateManagers[item.gameObject.GetInstanceID()];
             if (nh.Dizzy)
             {
                 ShowSikaTip("");

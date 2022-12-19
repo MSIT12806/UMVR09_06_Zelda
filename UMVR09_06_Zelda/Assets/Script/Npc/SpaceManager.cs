@@ -106,6 +106,9 @@ public class SpaceManager : MonoBehaviour, NpcHelper
             {
                 InSkill3State = false;
                 animator.Play("GetHit");
+                var effect = transform.GetComponent<AnimAfffectSpace>();
+                effect.FX_AttactSkill0301.GetComponent<ParticleSystem>().Stop();
+                effect.FX_AttactSkill0302.GetComponent<ParticleSystem>().Stop();
                 Debug.Log("innnnnnnnnnnnnnnnnnnnn");
             }
         }
