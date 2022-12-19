@@ -15,7 +15,6 @@ public class GetApple : MonoBehaviour
         var distance = Vector3.Distance(ObjectManager.MainCharacter.position, transform.position);
         if (distance <= 2)
         {
-            Debug.Log("¸ÉÄ«ªG");
             PicoManager.AppleCount++;
             Destroy(gameObject);
         }

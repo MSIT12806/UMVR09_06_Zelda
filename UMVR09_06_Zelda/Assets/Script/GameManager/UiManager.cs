@@ -46,7 +46,7 @@ public class UiManager : MonoBehaviour
     RectTransform ImgToShow;
     public Image WeakFull;
     public Image WeakCrack;
-
+    float licoMaxHp;
     bool isNightScene;
     private void Awake()
     {
@@ -95,7 +95,6 @@ public class UiManager : MonoBehaviour
         currentHp = PicoManager.Hp;
         ItemCD = mainCharacter.GetComponent<Throw>().coldTime;
         ItemUI.FindAnyChild<Image>("CanLock").fillAmount = 1;
-        InitPicoHp();
         currentPower = float.MinValue;
     }
     public void Fail()
@@ -180,6 +179,7 @@ public class UiManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        InitPicoHp();
         SetHpBar();
         SetFeverBar();
         var ScriptThrow = mainCharacter.GetComponent<Throw>();
@@ -269,8 +269,10 @@ public class UiManager : MonoBehaviour
 
     private void InitPicoHp()
     {
+        if (licoMaxHp == PicoManager.MaxHp) return;
+        var addHp = PicoManager.MaxHp - licoMaxHp;
         var nowHp = currentHp;
-        var heartCount = (int)Math.Ceiling(PicoManager.MaxHp / OneHeartHp);
+        var heartCount = (int)Math.Ceiling(addHp / OneHeartHp);
         for (int i = 0; i < heartCount; i++)
         {
             if (nowHp <= 0) break;
@@ -280,6 +282,10 @@ public class UiManager : MonoBehaviour
             heartList.Add(h);
             lastHeart = h;
         }
+        licoMaxHp = PicoManager.MaxHp;
+
+        currentHp = PicoManager.Hp;
+        FillHeart();
     }
 
     private void FillHeart()
