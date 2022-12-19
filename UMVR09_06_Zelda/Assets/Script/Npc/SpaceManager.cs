@@ -25,9 +25,12 @@ public class SpaceManager : MonoBehaviour, NpcHelper
 
     public string Name => "阿蘭娜";
 
+    public float FreezeTime = 0;
+
     public bool InSkill1State;
     public bool InSkill2State;
     public bool InSkill3State;
+    public bool CanGetHit;
 
     // Start is called before the first frame update
     Animator animator;
@@ -53,11 +56,18 @@ public class SpaceManager : MonoBehaviour, NpcHelper
     // Update is called once per frame
     void Update()
     {
+        FreezeTime -= Time.deltaTime;
     }
     public void GetHurt(DamageData damageData)
     {
         if (Hp <= 0) return;
+        if (CanGetHit == true) animator.Play("GetHit");
         Hp -= damageData.Damage;
+
+        if(damageData.DamageState.damageState == DamageState.TimePause)
+        {
+            FreezeTime = 5;
+        }
 
         if (InSkill1State)
         {
@@ -107,9 +117,10 @@ public class SpaceManager : MonoBehaviour, NpcHelper
         throw new System.NotImplementedException();
     }
 
-    public void Turn(Vector3 direction)
+    public void FaceTarget( Transform target, Transform selfTransform, float perFrameDegree)
     {
-        throw new System.NotImplementedException();
+        if (FreezeTime >= 0) return;
+        MyLookAt.Look( target, selfTransform, perFrameDegree);
     }
 
     public void Look(Transform target)
@@ -135,7 +146,7 @@ public class SpaceManager : MonoBehaviour, NpcHelper
         }
         if (attackType == 6)//技能2
         {
-            NpcCommon.AttackDetection("", transform.position, transform.forward, 360, 5, false, new DamageData(80, transform.forward * 0.6f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
+            NpcCommon.AttackDetection("", transform.position + transform.forward*2.5f, transform.forward, 360, 5, false, new DamageData(80, transform.forward * 0.6f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
             this.transform.Find("BlackHoll").gameObject.SetActive(false);
         }
         if (attackType == 7)//技能3
@@ -146,5 +157,10 @@ public class SpaceManager : MonoBehaviour, NpcHelper
     public void BlackHollOn()
     {
         this.transform.Find("BlackHoll").gameObject.SetActive(true);
+    }
+
+    public void Turn(Vector3 direction)
+    {
+        throw new System.NotImplementedException();
     }
 }
