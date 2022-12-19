@@ -13,10 +13,12 @@ public class StageManager : MonoBehaviour
     public float distance = 10;
     PicoState picoState;
     int stageOneWave;
-    public DragonManager Dragon;
-    public GolemManager Golem;
-    public PlayableDirector director;
-    public CinemachineVirtualCamera virtualCamera;
+    [HideInInspector] public DragonManager Dragon;
+    [HideInInspector] public GolemManager Golem;
+    public PlayableDirector dragonDirector;
+    public PlayableDirector golemDirector;
+    [HideInInspector]public CinemachineVirtualCamera dragonVirtualCamera;
+    [HideInInspector] public CinemachineVirtualCamera golemVirtualCamera;
     bool isNightScene;
     private bool dragonPlay;
     private bool golemStand;
@@ -36,23 +38,22 @@ public class StageManager : MonoBehaviour
         if (!isNightScene) return;
         Dragon = GameObject.Find("Blue Variant").GetComponent<DragonManager>();
         Golem = GameObject.Find("PBR_Golem (1)").GetComponent<GolemManager>();
-        virtualCamera = GameObject.Find("CM vcam3").GetComponent<CinemachineVirtualCamera>();
+        dragonVirtualCamera = GameObject.Find("CM vcam3").GetComponent<CinemachineVirtualCamera>();
+        golemVirtualCamera = GameObject.Find("CM vcam4").GetComponent<CinemachineVirtualCamera>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
-
-
-
-
         picoState = Pico.GetComponent<PicoState>();
         if (TriggerType == 1)
         {
             stageOneWave = 4;//第一關會有四波
         }
-
+        dragonVirtualCamera.Priority = 5;
+        dragonVirtualCamera.gameObject.SetActive(false);
+        golemVirtualCamera.Priority = 5;
+        golemVirtualCamera.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -83,9 +84,10 @@ public class StageManager : MonoBehaviour
                 case 2:
                     if (!dragonPlay && ObjectManager.StageMonsterMonitor[2] <= 0)
                     {
+                        dragonVirtualCamera.gameObject.SetActive(true);
                         dragonPlay = true;
-                        virtualCamera.Priority = 20;
-                        director.Play();
+                        dragonVirtualCamera.Priority = 20;
+                        dragonDirector.Play();
                     }
                     if (Dragon.Hp > 0 && Dragon.Show && ObjectManager.StageMonsterMonitor[2] < 10)
                     {
@@ -95,6 +97,8 @@ public class StageManager : MonoBehaviour
                 case 3:
                     if (!golemStand && ObjectManager.StageMonsterMonitor[3] <= 0)
                     {
+                        golemVirtualCamera.gameObject.SetActive(true);
+                        golemVirtualCamera.Priority = 20;
                         golemStand = true;
                         Golem.Stand = true;
                         var a = Golem.GetComponent<Animator>();
@@ -114,10 +118,6 @@ public class StageManager : MonoBehaviour
         {
 
         }
-    }
-    public void StageTwoShowFinished()
-    {
-        virtualCamera.Priority = 5;
     }
     private void OnDrawGizmos()
     {

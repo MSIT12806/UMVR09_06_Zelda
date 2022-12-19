@@ -11,7 +11,7 @@ Shader "Ron/DitherShader"
 
   SubShader{
     //the material is completely non-transparent and is rendered at the same time as the other opaque geometry
-    Tags{ "RenderType"="Opaque" "Queue"="Geometry" }
+    Tags{ "RenderType"="Transparent" "Queue"="Transparent" }
 
     Pass{
       CGPROGRAM
@@ -69,9 +69,7 @@ Shader "Ron/DitherShader"
         float ditherValue = tex2D(_DitherPattern, ditherCoordinate).r;
   //  return ditherValue;
         //combine dither pattern with texture value to get final result
-         float relDistance = i.screenPosition.w;
-            relDistance = relDistance - _MinDistance;
-            clip(relDistance - ditherValue.r);
+            clip(_MinDistance - ditherValue.r);
 
         float4 col =  texColor;
         return col;

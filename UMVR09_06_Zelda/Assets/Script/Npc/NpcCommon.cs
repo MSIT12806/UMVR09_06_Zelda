@@ -65,7 +65,7 @@ public static class NpcCommon
                     attackReturn.GetHurt(damageData);
                     if (attacker == "Pico")
                     {
-                        PicoManager.Power++;
+                        if (damageData.Hit != HitType.fever) PicoManager.Power++;
                         if (ObjectManager.AttackFx == null) return;
                         var fx = ObjectManager.AttackFx.Dequeue();
                         if (fx != null)

@@ -17,5 +17,7 @@ public class StageTwoController : MonoBehaviour
         camera.Priority = 5;
         Dragon = dragon2.GetComponent<DragonManager>();
         Dragon.Show = true;
+
+        camera.gameObject.SetActive(false);
     }
 }
