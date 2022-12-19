@@ -24878,7 +24878,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 419235578}
-  m_LocalRotation: {x: 0.12649624, y: -0.5663183, z: 0.08848455, w: 0.8096005}
+  m_LocalRotation: {x: 0.12649623, y: -0.5663183, z: 0.08848455, w: 0.8096005}
   m_LocalPosition: {x: 24.808594, y: 19.479134, z: 187.11383}
   m_LocalScale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
   m_ConstrainProportionsScale: 0
@@ -35411,6 +35411,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 812130047, guid: 5752f796e3e1390418365a49a0e90a84, type: 3}
+      propertyPath: RendererAddress
+      value: RockGolemMesh
+      objectReference: {fileID: 0}
     - target: {fileID: 509284550586355046, guid: 5752f796e3e1390418365a49a0e90a84,
         type: 3}
       propertyPath: m_Name
@@ -66943,6 +66947,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2564453280441697091, guid: e344ba4e5a1508a4a9133612aa1c3172,
+        type: 3}
+      propertyPath: RendererAddress
+      value: MyDragonSoulEater
       objectReference: {fileID: 0}
     - target: {fileID: 2564453280441697093, guid: e344ba4e5a1508a4a9133612aa1c3172,
         type: 3}
@@ -98642,7 +98651,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1686870173}
-  m_LocalRotation: {x: -0.0139261605, y: 0.9595801, z: 0.048257183, w: 0.27691767}
+  m_LocalRotation: {x: -0.0139261605, y: 0.9595801, z: 0.048257176, w: 0.2769177}
   m_LocalPosition: {x: -143.78519, y: 5.5879984, z: 91.187874}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -127857,6 +127866,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1445211803, guid: 7a751834fd4813c43b3d7db83eb92509, type: 3}
+      propertyPath: MaterialAddress
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1445211803, guid: 7a751834fd4813c43b3d7db83eb92509, type: 3}
+      propertyPath: RendererAddress
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6837751552782761146, guid: 7a751834fd4813c43b3d7db83eb92509,
         type: 3}
       propertyPath: m_Name

@@ -44,6 +44,7 @@ public class Npc : MonoBehaviour
     [HideInInspector] public float MaxHp;
     public float Hp;
     public string MaterialAddress;
+    public string RendererAddress;
     public string DitherAddress;
     Transform renderer;
 
@@ -335,7 +336,9 @@ public class Npc : MonoBehaviour
         materials = new List<Material>();
         if (string.IsNullOrEmpty(MaterialAddress) == false)
         {
-            renderer = transform.FindAnyChild<Transform>(MaterialAddress);
+            var rendererParent = transform.FindAnyChild<Transform>(MaterialAddress);
+            renderer = rendererParent.transform.FindAnyChild<Transform>(RendererAddress);
+            Debug.Log(name);
             var r = renderer.GetComponent<Renderer>();
             materials.Add(r.materials[0]);
             if (r.materials.Length >= 4)
