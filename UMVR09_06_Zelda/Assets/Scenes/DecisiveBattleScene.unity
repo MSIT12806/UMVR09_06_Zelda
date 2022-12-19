@@ -21796,6 +21796,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BigBall
       objectReference: {fileID: 0}
+    - target: {fileID: 7359991186780506171, guid: e59d0c8c1d6011e40972005ae948abf5,
+        type: 3}
+      propertyPath: terrainMask.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e59d0c8c1d6011e40972005ae948abf5, type: 3}
 --- !u!4 &3881144525175643945 stripped
