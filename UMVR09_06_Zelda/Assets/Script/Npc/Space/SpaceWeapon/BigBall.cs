@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SmallBall : MonoBehaviour
+public class BigBall : MonoBehaviour
 {
     // Start is called before the first frame update
     Transform target;
-    const float initVelocity = 12f;
+    const float initVelocity = 8f;
     void Start()
     {
         target = ObjectManager2.MainCharacter;
