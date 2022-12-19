@@ -7,6 +7,7 @@ using UnityEngine;
 public class SpaceWeapon : MonoBehaviour
 {
     public GameObject[] smallBalls;
+    public GameObject bigBall;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +25,11 @@ public class SpaceWeapon : MonoBehaviour
         GameObject smallBall = GetSmallBall();
         smallBall.transform.position = position;
         smallBall.SetActive(true);
+    }
+    public void BigBallAttack(Vector3 position)
+    {
+        bigBall.transform.position = position;
+        bigBall.SetActive(true);
     }
 
     private GameObject GetSmallBall()
