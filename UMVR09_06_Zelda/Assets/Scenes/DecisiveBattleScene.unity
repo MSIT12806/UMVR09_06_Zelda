@@ -5719,6 +5719,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 273739293, guid: ddba82b812a102f459855286607b391f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 273739300, guid: ddba82b812a102f459855286607b391f, type: 3}
       propertyPath: spaceManager
       value: 
@@ -5727,10 +5731,18 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 2.5
       objectReference: {fileID: 0}
+    - target: {fileID: 393774908, guid: ddba82b812a102f459855286607b391f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 393774914, guid: ddba82b812a102f459855286607b391f, type: 3}
       propertyPath: spaceManager
       value: 
       objectReference: {fileID: 1927881331}
+    - target: {fileID: 629960952, guid: ddba82b812a102f459855286607b391f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 629960959, guid: ddba82b812a102f459855286607b391f, type: 3}
       propertyPath: spaceManager
       value: 
@@ -5743,10 +5755,18 @@ PrefabInstance:
       propertyPath: RendererAddress
       value: kyuu
       objectReference: {fileID: 0}
+    - target: {fileID: 1050575888, guid: ddba82b812a102f459855286607b391f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1050575895, guid: ddba82b812a102f459855286607b391f, type: 3}
       propertyPath: spaceManager
       value: 
       objectReference: {fileID: 1927881331}
+    - target: {fileID: 1197061476, guid: ddba82b812a102f459855286607b391f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1197061483, guid: ddba82b812a102f459855286607b391f, type: 3}
       propertyPath: spaceManager
       value: 
@@ -5761,7 +5781,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1552279906, guid: ddba82b812a102f459855286607b391f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2027106370, guid: ddba82b812a102f459855286607b391f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2027106377, guid: ddba82b812a102f459855286607b391f, type: 3}
       propertyPath: spaceManager

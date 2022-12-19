@@ -177,21 +177,21 @@ public class SpaceManager : MonoBehaviour, NpcHelper
         {
             NpcCommon.AttackDetection("", transform.position, transform.forward, 360, 10, false, new DamageData(80, transform.forward * 0.6f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
         }
-        if(attackType == 8)//關掉小球
-        {
-            SmallBall ball1 = transform.FindAnyChild<SmallBall>("SmallBall");
-            SmallBall ball2 = transform.FindAnyChild<SmallBall>("SmallBall (1)");
-            SmallBall ball3 = transform.FindAnyChild<SmallBall>("SmallBall (2)");
-            SmallBall ball4 = transform.FindAnyChild<SmallBall>("SmallBall (3)");
-            SmallBall ball5 = transform.FindAnyChild<SmallBall>("SmallBall (4)");
-            SmallBall ball6 = transform.FindAnyChild<SmallBall>("SmallBall (5)");
-            ball1.nowAttack = false;
-            ball2.nowAttack = false;
-            ball3.nowAttack = false;
-            ball4.nowAttack = false;
-            ball5.nowAttack = false;
-            ball6.nowAttack = false;
-        }
+        //if(attackType == 8)//關掉小球
+        //{
+        //    SmallBall ball1 = transform.FindAnyChild<SmallBall>("SmallBall");
+        //    SmallBall ball2 = transform.FindAnyChild<SmallBall>("SmallBall (1)");
+        //    SmallBall ball3 = transform.FindAnyChild<SmallBall>("SmallBall (2)");
+        //    SmallBall ball4 = transform.FindAnyChild<SmallBall>("SmallBall (3)");
+        //    SmallBall ball5 = transform.FindAnyChild<SmallBall>("SmallBall (4)");
+        //    SmallBall ball6 = transform.FindAnyChild<SmallBall>("SmallBall (5)");
+        //    ball1.nowAttack = false;
+        //    ball2.nowAttack = false;
+        //    ball3.nowAttack = false;
+        //    ball4.nowAttack = false;
+        //    ball5.nowAttack = false;
+        //    ball6.nowAttack = false;
+        //}
     }
     public void BlackHollOn()
     {

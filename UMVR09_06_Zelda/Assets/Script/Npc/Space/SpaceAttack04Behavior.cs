@@ -14,15 +14,13 @@ public class SpaceAttack04Behavior : StateMachineBehaviour
 
         selfTransform = animator.transform;
         balls = selfTransform.FindAnyChild<Transform>("SpaceWeapons");
-        balls.gameObject.SetActive(true);
         space = selfTransform.GetComponent<SpaceManager>();
+        space.smallBallsAroundBody.ForEach(i => i.SetActive(true));
         target = ObjectManager2.MainCharacter.transform;
     }
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        space.smallBallsAroundBody.ForEach(i => i.SetActive(true));
-        balls.gameObject.SetActive(false);
     }
 
 }

@@ -15,6 +15,7 @@ public class SmallBall : MonoBehaviour
     void Start()
     {
         spaceManager.smallBallsAroundBody.Add(this.gameObject);
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -39,8 +40,8 @@ public class SmallBall : MonoBehaviour
     {
         if(transform.localPosition.x>0 && transform.localPosition.z < 0.2)
         {
-            transform.gameObject.SetActive(false);
             nowAttack = false;
+            transform.gameObject.SetActive(false);
         }
     }
 
