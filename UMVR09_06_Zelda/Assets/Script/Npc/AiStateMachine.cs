@@ -110,7 +110,7 @@ public class UsaoFightState : UsaoAiState
 
         var distance = Vector3.Distance(target.position, selfTransform.position);
         int count = GetChasingNpcCount();
-        if (keepOrAttack > 0.3)
+        if (keepOrAttack > 0.5)
         {
             if (distance > keepDistance) return new UsaoChaseState(target, animator, selfTransform, this, npcHelper);
             else if (distance <= keepDistance) return new UsaoAttackState(target, animator, selfTransform, this, npcHelper);
@@ -127,7 +127,7 @@ public class UsaoFightState : UsaoAiState
 
     public void RefreshDazeTime()
     {
-        dazeSeconds = UnityEngine.Random.Range(1, 3);
+        dazeSeconds = UnityEngine.Random.Range(0, 2);
     }
 
     private int GetChasingNpcCount()
