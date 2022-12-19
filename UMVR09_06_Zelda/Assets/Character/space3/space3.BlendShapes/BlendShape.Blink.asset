@@ -16,8 +16,14 @@ MonoBehaviour:
   BlendShapeName: Blink
   Preset: 7
   Values:
-  - RelativePath: Face
-    Index: 13
-    Weight: 100
+  - RelativePath: OriSkinMesh/Face
+    Index: 7
+    Weight: 50
+  - RelativePath: OriSkinMesh/Face
+    Index: 14
+    Weight: 90
+  - RelativePath: OriSkinMesh/Face
+    Index: 15
+    Weight: 90
   MaterialValues: []
   IsBinary: 0
