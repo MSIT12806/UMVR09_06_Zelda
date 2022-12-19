@@ -15,9 +15,9 @@ public class StageThreeController : MonoBehaviour
         Destroy(golem1);
         golem2.SetActive(true);
         golem = golem2.GetComponent<GolemManager>();
-        golem.Stand = true;
 
         camera.Priority = 5;
         camera.gameObject.SetActive(false);
+        golem.Stand = true;
     }
 }

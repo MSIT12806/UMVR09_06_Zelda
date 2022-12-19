@@ -102,7 +102,7 @@ public class StageManager : MonoBehaviour
                         golemDirector.Play();
                         golemStand = true;
                     }
-                    if (golemStand && Golem.Hp > 0 && ObjectManager.StageMonsterMonitor[3] < 10)
+                    if (Golem.Stand && Golem.Hp > 0 && ObjectManager.StageMonsterMonitor[3] < 10)
                     {
                         ObjectManager.StageThreeResurrection();
                     }
