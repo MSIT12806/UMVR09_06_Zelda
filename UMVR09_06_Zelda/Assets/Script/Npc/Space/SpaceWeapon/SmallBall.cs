@@ -34,7 +34,6 @@ public class SmallBall : MonoBehaviour
         //}
         if (nowAttack)
         {
-            Debug.Log(123456);
             Attack();
         }
         AroundBehavior();
@@ -47,6 +46,7 @@ public class SmallBall : MonoBehaviour
     {
         if(transform.localPosition.x>0 && transform.localPosition.z < 0.05)
         {
+            Debug.Log(123456);
             weapons.SmallBallAttack(transform.position);
             this.transform.localPosition = startPos;
             transform.gameObject.SetActive(false);
