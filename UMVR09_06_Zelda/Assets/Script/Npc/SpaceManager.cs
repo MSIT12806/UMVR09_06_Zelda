@@ -76,9 +76,12 @@ public class SpaceManager : MonoBehaviour, NpcHelper
     {
         if (Hp <= 0) return;
         if (CanGetHit == true) animator.Play("GetHit");
-        Hp -= damageData.Damage;
 
-
+        if (Hp <= 0)
+        {
+            animator.Play("Standing_React_Death_Right");
+            return;
+        }
         if (damageData.DamageState.damageState == DamageState.TimePause)
         {
             FreezeTime = 5;
