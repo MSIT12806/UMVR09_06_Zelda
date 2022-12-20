@@ -35,7 +35,7 @@ public class SpaceMoveBehavior : StateMachineBehaviour
         }
         else if(selfTransform.position != MoveTo)
         {
-            space.FaceTarget(MoveTo, selfTransform, 20);
+            space.FaceTarget(MoveTo, selfTransform, 360);
         }
         Vector3 dir = MoveTo - selfTransform.position;
         float dis = (MoveTo - selfTransform.position).magnitude;

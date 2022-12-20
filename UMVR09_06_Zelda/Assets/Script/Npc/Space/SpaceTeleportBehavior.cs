@@ -35,7 +35,7 @@ public class SpaceTeleportBehavior : StateMachineBehaviour
         }
         else if(selfTransform.position != MoveTo)
         {
-            space.FaceTarget(MoveTo,selfTransform,20);
+            space.FaceTarget(MoveTo,selfTransform,360);
         }
         float dis = (MoveTo - selfTransform.position).magnitude;
         selfTransform.Translate(0, 0, movePerframe);

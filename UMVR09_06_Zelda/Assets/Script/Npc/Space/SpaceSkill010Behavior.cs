@@ -24,7 +24,15 @@ public class SpaceSkill010Behavior : StateMachineBehaviour
             animator.SetTrigger("Skill01HitTarget");
         }
         //if (dis > 4)
-        space.FaceTarget(target.position, selfTransform, 360);
+    }
+    public override void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        float dis = (target.transform.position - selfTransform.position).magnitude;
+        if(dis > 4)
+        {
+            selfTransform.Translate(0,0,0.5f);
+            space.FaceTarget(target.position, selfTransform, 50);
+        }
     }
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
