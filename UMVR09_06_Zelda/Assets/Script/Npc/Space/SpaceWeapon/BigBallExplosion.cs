@@ -7,7 +7,7 @@ using UnityEngine;
 public class BigBallExplosion: MonoBehaviour
 {
     ParticleSystem keeping;
-    public ParticleSystem explosion;
+    public ParticleSystem[] explosions;
     // Start is called before the first frame update
 
     void Start()
@@ -34,7 +34,7 @@ public class BigBallExplosion: MonoBehaviour
     {
         //做一次攻擊判定
         //爆炸
-        var exp = explosion;
+        var exp = explosions.First(i=>i.gameObject.activeSelf==false);
         exp.transform.position = transform.position;
         exp.gameObject.SetActive(true);
     }
