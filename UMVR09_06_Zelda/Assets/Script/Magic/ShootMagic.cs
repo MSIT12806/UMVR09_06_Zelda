@@ -84,8 +84,13 @@ public class ShootMagic : MonoBehaviour
             }
             finally
             {
-                gameObject.SetActive(false);
+                End();
             }
         }
+    }
+
+    public void End()
+    {
+        gameObject.SetActive(false);
     }
 }
