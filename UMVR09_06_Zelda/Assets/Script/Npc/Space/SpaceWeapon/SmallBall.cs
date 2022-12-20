@@ -12,6 +12,7 @@ public class SmallBall : MonoBehaviour
     float nowAttackSecond;
     public SpaceManager spaceManager;
     public bool nowAttack;
+    public SpaceWeapon weapons;
     void Start()
     {
         spaceManager.smallBallsAroundBody.Add(this.gameObject);
@@ -35,12 +36,15 @@ public class SmallBall : MonoBehaviour
         }
         AroundBehavior();
     }
-
+    private void OnEnable()
+    {
+            nowAttack = false;
+    }
     void Attack()
     {
         if(transform.localPosition.x>0 && transform.localPosition.z < 0.2)
         {
-            nowAttack = false;
+            weapons.SmallBallAttack(transform.position);
             transform.gameObject.SetActive(false);
         }
     }
