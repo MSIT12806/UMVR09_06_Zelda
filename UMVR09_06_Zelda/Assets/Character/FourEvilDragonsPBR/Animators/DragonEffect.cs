@@ -12,6 +12,7 @@ public class DragonEffect : MonoBehaviour
     void Yell()
     {
         FX_Yell.GetComponent<ParticleSystem>().Play();
+        FX_Yell.GetComponent<AudioSource>().Play();
     }
 
     void PerpareFireBall()
