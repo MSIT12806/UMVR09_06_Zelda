@@ -125,6 +125,7 @@ public class StageManager : MonoBehaviour
                     if (!dragonPlay && ObjectManager2.StageMonsterMonitor[2] <= 0)
                     {
                         spaceDirector.Play();
+                        dragonPlay = true;
                     }
                     //if (Dragon.Hp > 0 && Dragon.Show && ObjectManager2.StageMonsterMonitor[2] < 10)
                     //{
