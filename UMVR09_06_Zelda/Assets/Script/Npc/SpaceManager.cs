@@ -6,6 +6,7 @@ using Ron;
 
 public class SpaceManager : MonoBehaviour, NpcHelper
 {
+    public HashSet<ParticleSystem> EffectPlaying = new HashSet<ParticleSystem>();
     Npc npc;
     public SpaceWeapon spaceWeapon;
     public List<GameObject> smallBallsAroundBody = new List<GameObject>();
@@ -59,6 +60,17 @@ public class SpaceManager : MonoBehaviour, NpcHelper
     void Update()
     {
         FreezeTime -= Time.deltaTime;
+        if(FreezeTime <= 0)
+        {
+            foreach (var i in EffectPlaying)
+            {
+                if (i.isPaused)
+                {
+                    i.Play();
+                    Debug.Log(2222222);
+                }
+            }
+        }
     }
     public void GetHurt(DamageData damageData)
     {
@@ -66,24 +78,27 @@ public class SpaceManager : MonoBehaviour, NpcHelper
         if (CanGetHit == true) animator.Play("GetHit");
         Hp -= damageData.Damage;
 
+
         if (damageData.DamageState.damageState == DamageState.TimePause)
         {
             FreezeTime = 5;
+            foreach(var i in EffectPlaying)
+            {
+                i.Pause();
+                Debug.Log(111111111);
+            }
         }
 
         if (InSkill1State)
         {
-            if (damageData.DamageState.damageState == DamageState.Ice)
+            if (Once.IcePosision != Vector3.zero)
             {
-                if (Once.IcePosision != Vector3.zero)
+                if ((Once.IcePosision - transform.position).magnitude <= 3.5)
                 {
-                    if ((Once.IcePosision - transform.position).magnitude <= 3)
-                    {
-                        Once.IceDestroyTime = 0f;
-                        InSkill1State = false;
-                        animator.Play("GetHit");
-                        Debug.Log("innnnnnnnnnnnnnnnnnnnn");
-                    }
+                    Once.IceDestroyTime = 0f;
+                    InSkill1State = false;
+                    animator.Play("GetHit");
+                    Debug.Log("innnnnnnnnnnnnnnnnnnnn");
                 }
             }
         }
@@ -109,11 +124,12 @@ public class SpaceManager : MonoBehaviour, NpcHelper
                 InSkill3State = false;
                 animator.Play("GetHit");
                 var effect = transform.GetComponent<AnimAfffectSpace>();
-                effect.FX_AttactSkill0301.GetComponent<ParticleSystem>().Stop();
-                effect.FX_AttactSkill0302.GetComponent<ParticleSystem>().Stop();
+                //effect.FX_AttactSkill0301.GetComponent<ParticleSystem>().Stop();
+                //effect.FX_AttactSkill0302.GetComponent<ParticleSystem>().Stop();
                 Debug.Log("innnnnnnnnnnnnnnnnnnnn");
             }
         }
+
 
 
 

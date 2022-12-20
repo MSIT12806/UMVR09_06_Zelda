@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Ron;
 
 public class SpaceSkill010Behavior : StateMachineBehaviour
 {
@@ -17,22 +18,38 @@ public class SpaceSkill010Behavior : StateMachineBehaviour
     }
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        float dis = (target.transform.position - selfTransform.position).magnitude;
-        if (dis < 2)
-        {
-            NpcCommon.AttackDetection("", selfTransform.position, selfTransform.forward, 90, 2, true, new DamageData(80, selfTransform.forward * 0.6f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
-            animator.SetTrigger("Skill01HitTarget");
-        }
-        //if (dis > 4)
+        //if (Once.IcePosision != Vector3.zero)
+        //{
+        //    float dis = (Once.IcePosision - selfTransform.position).magnitude;
+        //    if(dis <= 3.5)
+        //    {
+        //        Once.IceDestroyTime = 0;
+        //        animator.Play("GetHit");
+        //    }
+        //}
+
     }
     public override void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         float dis = (target.transform.position - selfTransform.position).magnitude;
         if(dis > 4)
         {
-            selfTransform.Translate(0,0,0.5f);
             space.FaceTarget(target.position, selfTransform, 50);
         }
+        if (dis < 2)
+        {
+            NpcCommon.AttackDetection("", selfTransform.position, selfTransform.forward, 360, 2, true, new DamageData(80, selfTransform.forward * 0.6f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
+            animator.SetTrigger("Skill01HitTarget");
+            Debug.Log("123");
+            Transform FX = selfTransform.FindAnyChild<Transform>("FX_SpaceSkill01");
+            Transform F = FX.Find("Glow_Ground_Skill01");
+            //F.gameObject.SetActive(false);
+            //F.GetComponent<ParticleSystem>().Stop();
+
+            //selfTransform.FindAnyChild<ParticleSystem>("Glow_Ground_Skill01").Stop();
+        }
+        else
+            selfTransform.Translate(0,0,0.2f);
     }
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {

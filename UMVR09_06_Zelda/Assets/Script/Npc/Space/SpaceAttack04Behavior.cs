@@ -18,6 +18,10 @@ public class SpaceAttack04Behavior : StateMachineBehaviour
         space.smallBallsAroundBody.ForEach(i => i.SetActive(true));
         target = ObjectManager2.MainCharacter.transform;
     }
+    public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        space.FaceTarget(target.position, selfTransform, 360);
+    }
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {

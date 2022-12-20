@@ -28,22 +28,22 @@ public class SpaceMoveBehavior : StateMachineBehaviour
 
     public override void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-
         if (selfTransform.position == MoveTo)
         {
             animator.SetTrigger("MoveFinish");
         }
         else if(selfTransform.position != MoveTo)
         {
-            space.FaceTarget(MoveTo, selfTransform, 360);
+            space.FaceTarget(MoveTo, selfTransform, 359);
         }
         Vector3 dir = MoveTo - selfTransform.position;
         float dis = (MoveTo - selfTransform.position).magnitude;
-        selfTransform.Translate(0, 0, movePerframe);
         if(dis <= movePerframe)
         {
             selfTransform.position = MoveTo;
         }
+        else 
+            selfTransform.Translate(0, 0, movePerframe);
         //inStateTime += Time.deltaTime;
         //if (inStateTime >= 0.4f)
         //{

@@ -110,14 +110,27 @@ public static class NpcCommon
 
         foreach (var item in lst)
         {
+            bool inAttackRange =false;
+            bool inAttackRange2 = false;
+
             Transform nowNpc = item.transform;
             var vec = nowNpc.position - attackCenter;
-            vec.Normalize();
-            Vector3 cornor1 = attackCenter + attackForward * distance + attackRight * (Width / 2);
-            Vector3 cornor2 = attackCenter + attackRight * -(Width / 2);
+            vec.y = 0;
+            float Dot = Vector3.Dot(attackForward, vec);
+            if(Dot >= 0)
+            {
+                float forwardProject = Vector3.Project(vec, attackForward).magnitude;
+                float RightProject = Vector3.Project(vec, attackRight).magnitude;
 
-            bool inAttackRange = Mathf.Max(cornor1.x, cornor2.x) > nowNpc.position.x && Mathf.Min(cornor1.x, cornor2.x) < nowNpc.position.x;
-            bool inAttackRange2 = Mathf.Max(cornor1.z, cornor2.z) > nowNpc.position.z && Mathf.Min(cornor1.z, cornor2.z) < nowNpc.position.z;
+                if (Mathf.Abs(RightProject) <= Width / 2) inAttackRange = true;
+
+                if (Mathf.Abs(forwardProject) <= distance) inAttackRange2 = true;
+            }
+            //Vector3 cornor1 = attackCenter + attackForward * distance + attackRight * (Width / 2);
+            //Vector3 cornor2 = attackCenter + attackRight * -(Width / 2);
+
+            //bool inAttackRange = Mathf.Max(cornor1.x, cornor2.x) > nowNpc.position.x && Mathf.Min(cornor1.x, cornor2.x) < nowNpc.position.x;
+            //bool inAttackRange2 = Mathf.Max(cornor1.z, cornor2.z) > nowNpc.position.z && Mathf.Min(cornor1.z, cornor2.z) < nowNpc.position.z;
             if (inAttackRange && inAttackRange2)
             {
                 if (!repelDirection)
