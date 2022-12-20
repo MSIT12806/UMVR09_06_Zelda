@@ -2407,7 +2407,7 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 15
+  m_Priority: 5
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
@@ -28252,7 +28252,7 @@ PlayableDirector:
   m_Enabled: 1
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: 7233b689ac5309f4e98bad406506489b, type: 2}
-  m_InitialState: 1
+  m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
@@ -53461,7 +53461,7 @@ PrefabInstance:
     - target: {fileID: 6942378765527368334, guid: 4f320ab5e1c207d479610b23bcf76d58,
         type: 3}
       propertyPath: field of view
-      value: 60
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 6942378765527368334, guid: 4f320ab5e1c207d479610b23bcf76d58,
         type: 3}
@@ -53496,27 +53496,27 @@ PrefabInstance:
     - target: {fileID: 6942378765527368337, guid: 4f320ab5e1c207d479610b23bcf76d58,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 13.2084675
+      value: 52.49
       objectReference: {fileID: 0}
     - target: {fileID: 6942378765527368337, guid: 4f320ab5e1c207d479610b23bcf76d58,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.9361642
+      value: 0.8512186
       objectReference: {fileID: 0}
     - target: {fileID: 6942378765527368337, guid: 4f320ab5e1c207d479610b23bcf76d58,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.35150093
+      value: 0.52388495
       objectReference: {fileID: 0}
     - target: {fileID: 6942378765527368337, guid: 4f320ab5e1c207d479610b23bcf76d58,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.0062196604
+      value: 0.026544737
       objectReference: {fileID: 0}
     - target: {fileID: 6942378765527368337, guid: 4f320ab5e1c207d479610b23bcf76d58,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0022458802
+      value: -0.016337035
       objectReference: {fileID: 0}
     - target: {fileID: 6942378765527368337, guid: 4f320ab5e1c207d479610b23bcf76d58,
         type: 3}
@@ -91331,7 +91331,7 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 14
+  m_Priority: 5
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 124018442}
   m_Follow: {fileID: 0}
@@ -91360,7 +91360,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1101610289}
-  m_LocalRotation: {x: 0.52388495, y: 0.026544737, z: -0.016337035, w: 0.8512186}
+  m_LocalRotation: {x: 0.52388495, y: 0.026544696, z: -0.016337011, w: 0.8512186}
   m_LocalPosition: {x: -4.01, y: 10.101424, z: 52.49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -97719,7 +97719,7 @@ GameObject:
   - component: {fileID: 1246163324}
   - component: {fileID: 1246163327}
   m_Layer: 0
-  m_Name: StageOneTrigger
+  m_Name: StageTwoTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97820,10 +97820,13 @@ MonoBehaviour:
   distance: 10
   Dragon: {fileID: 0}
   Golem: {fileID: 0}
+  Space: {fileID: 0}
   dragonDirector: {fileID: 0}
+  spaceDirector: {fileID: 348415366}
   golemDirector: {fileID: 0}
   dragonVirtualCamera: {fileID: 0}
   golemVirtualCamera: {fileID: 0}
+  spaceVirtualCamera: {fileID: 0}
 --- !u!1 &1248791033
 GameObject:
   m_ObjectHideFlags: 0
@@ -116693,7 +116696,7 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 14
+  m_Priority: 5
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}

@@ -15,10 +15,13 @@ public class StageManager : MonoBehaviour
     int stageOneWave;
     [HideInInspector] public DragonManager Dragon;
     [HideInInspector] public GolemManager Golem;
+    [HideInInspector] public SpaceManager Space;
     public PlayableDirector dragonDirector;
+    public PlayableDirector spaceDirector;
     public PlayableDirector golemDirector;
     [HideInInspector]public CinemachineVirtualCamera dragonVirtualCamera;
     [HideInInspector] public CinemachineVirtualCamera golemVirtualCamera;
+    [HideInInspector] public CinemachineVirtualCamera spaceVirtualCamera;
     bool isNightScene;
     private bool dragonPlay;
     private bool golemStand;
@@ -35,11 +38,17 @@ public class StageManager : MonoBehaviour
         {
             isNightScene = false;
         }
-        if (!isNightScene) return;
-        Dragon = GameObject.Find("Blue Variant").GetComponent<DragonManager>();
-        Golem = GameObject.Find("PBR_Golem (1)").GetComponent<GolemManager>();
-        dragonVirtualCamera = GameObject.Find("CM vcam3").GetComponent<CinemachineVirtualCamera>();
-        golemVirtualCamera = GameObject.Find("CM vcam4").GetComponent<CinemachineVirtualCamera>();
+        if (isNightScene)
+        {
+            Dragon = GameObject.Find("Blue Variant").GetComponent<DragonManager>();
+            Golem = GameObject.Find("PBR_Golem (1)").GetComponent<GolemManager>();
+            dragonVirtualCamera = GameObject.Find("CM vcam3").GetComponent<CinemachineVirtualCamera>();
+            golemVirtualCamera = GameObject.Find("CM vcam4").GetComponent<CinemachineVirtualCamera>();
+        }
+        else
+        {
+            Space = GameObject.Find("space3").GetComponent<SpaceManager>();
+        }
     }
 
     // Start is called before the first frame update
@@ -71,7 +80,7 @@ public class StageManager : MonoBehaviour
 
         if (isNightScene)
         {
-            switch (TriggerType)
+            switch ((int)picoState.gameState)
             {
                 case 1:
                     if (stageOneWave > 0 && ObjectManager.StageMonsterMonitor[1] < 10)
@@ -110,7 +119,19 @@ public class StageManager : MonoBehaviour
         }
         else
         {
-
+            switch ((int)picoState.gameState)
+            {
+                case 2:
+                    if (!dragonPlay && ObjectManager2.StageMonsterMonitor[2] <= 0)
+                    {
+                        spaceDirector.Play();
+                    }
+                    //if (Dragon.Hp > 0 && Dragon.Show && ObjectManager2.StageMonsterMonitor[2] < 10)
+                    //{
+                    //    ObjectManager.StageTwoResurrection();
+                    //}
+                    return;
+            }
         }
     }
     private void OnDrawGizmos()
