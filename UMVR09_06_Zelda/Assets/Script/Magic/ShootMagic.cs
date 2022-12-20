@@ -11,6 +11,7 @@ public class ShootMagic : MonoBehaviour
     float exist;
     public float speedDecrease = 5f;
     public float withY = -1.5f;
+    public float redius = 3f;
     Transform target;
     private void Awake()
     {
@@ -70,7 +71,7 @@ public class ShootMagic : MonoBehaviour
         bool land = Physics.Raycast(transform.position, -Vector3.up, out var hit, 0.3f, terrainMask);
         if (exist <= 0 || Vector3.Distance(transform.position, target.position.AddY(1)) < 0.4 || land)
         {
-            //NpcCommon.AttackDetection("Dragon", transform.position, transform.forward, 360f, 3f, false, new DamageData(50, Vector3.zero, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
+            NpcCommon.AttackDetection("Dragon", transform.position, transform.forward, 360f, redius, false, new DamageData(50, Vector3.zero, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
             try
             {
                 var fx = Instantiate(ObjectManager.DragonFireBallExplosionFx);

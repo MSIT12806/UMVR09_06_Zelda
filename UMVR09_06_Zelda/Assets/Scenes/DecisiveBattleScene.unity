@@ -34972,6 +34972,10 @@ PrefabInstance:
       propertyPath: RendererAddress
       value: kyuu
       objectReference: {fileID: 0}
+    - target: {fileID: 863375991, guid: ddba82b812a102f459855286607b391f, type: 3}
+      propertyPath: spaceWeapon
+      value: 
+      objectReference: {fileID: 1360516339}
     - target: {fileID: 1050575888, guid: ddba82b812a102f459855286607b391f, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -87180,6 +87184,11 @@ PrefabInstance:
       propertyPath: withY
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5814661347253436281, guid: 6335af703330d42478d3ca52b97f74d4,
+        type: 3}
+      propertyPath: redius
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 8575528000637942938, guid: 6335af703330d42478d3ca52b97f74d4,
         type: 3}
       propertyPath: m_RootOrder
@@ -92511,6 +92520,11 @@ PrefabInstance:
         type: 3}
       propertyPath: withY
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5814661347253436281, guid: 6335af703330d42478d3ca52b97f74d4,
+        type: 3}
+      propertyPath: redius
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 8575528000637942938, guid: 6335af703330d42478d3ca52b97f74d4,
         type: 3}
@@ -101082,6 +101096,11 @@ PrefabInstance:
       propertyPath: withY
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5814661347253436281, guid: 6335af703330d42478d3ca52b97f74d4,
+        type: 3}
+      propertyPath: redius
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 8575528000637942938, guid: 6335af703330d42478d3ca52b97f74d4,
         type: 3}
       propertyPath: m_RootOrder
@@ -102517,6 +102536,11 @@ PrefabInstance:
         type: 3}
       propertyPath: withY
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5814661347253436281, guid: 6335af703330d42478d3ca52b97f74d4,
+        type: 3}
+      propertyPath: redius
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 8575528000637942938, guid: 6335af703330d42478d3ca52b97f74d4,
         type: 3}
@@ -109090,6 +109114,11 @@ PrefabInstance:
         type: 3}
       propertyPath: withY
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5814661347253436281, guid: 6335af703330d42478d3ca52b97f74d4,
+        type: 3}
+      propertyPath: redius
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 8575528000637942938, guid: 6335af703330d42478d3ca52b97f74d4,
         type: 3}
@@ -116866,6 +116895,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7359991186780506171, guid: e59d0c8c1d6011e40972005ae948abf5,
         type: 3}
+      propertyPath: withY
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7359991186780506171, guid: e59d0c8c1d6011e40972005ae948abf5,
+        type: 3}
+      propertyPath: redius
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7359991186780506171, guid: e59d0c8c1d6011e40972005ae948abf5,
+        type: 3}
+      propertyPath: speedDecrease
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7359991186780506171, guid: e59d0c8c1d6011e40972005ae948abf5,
+        type: 3}
       propertyPath: terrainMask.m_Bits
       value: 64
       objectReference: {fileID: 0}
@@ -116910,6 +116954,11 @@ PrefabInstance:
         type: 3}
       propertyPath: withY
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5814661347253436281, guid: 6335af703330d42478d3ca52b97f74d4,
+        type: 3}
+      propertyPath: redius
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 8575528000637942938, guid: 6335af703330d42478d3ca52b97f74d4,
         type: 3}

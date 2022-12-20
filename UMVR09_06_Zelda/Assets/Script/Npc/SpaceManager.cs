@@ -7,7 +7,7 @@ using Ron;
 public class SpaceManager : MonoBehaviour, NpcHelper
 {
     Npc npc;
-    public SmallBall[] smallBalls;
+    public SpaceWeapon spaceWeapon;
     public List<GameObject> smallBallsAroundBody = new List<GameObject>();
     public float Hp { get => npc.Hp; set => npc.Hp = value; }
 
@@ -66,7 +66,7 @@ public class SpaceManager : MonoBehaviour, NpcHelper
         if (CanGetHit == true) animator.Play("GetHit");
         Hp -= damageData.Damage;
 
-        if(damageData.DamageState.damageState == DamageState.TimePause)
+        if (damageData.DamageState.damageState == DamageState.TimePause)
         {
             FreezeTime = 5;
         }
@@ -90,7 +90,7 @@ public class SpaceManager : MonoBehaviour, NpcHelper
 
         if (InSkill2State)
         {
-            if(damageData.DamageState.damageState == DamageState.Bomb)
+            if (damageData.DamageState.damageState == DamageState.Bomb)
             {
                 if (transform.Find("BlackHoll").gameObject.activeSelf)
                 {
@@ -104,7 +104,7 @@ public class SpaceManager : MonoBehaviour, NpcHelper
 
         if (InSkill3State)
         {
-            if(damageData.DamageState.damageState == DamageState.TimePause)
+            if (damageData.DamageState.damageState == DamageState.TimePause)
             {
                 InSkill3State = false;
                 animator.Play("GetHit");
@@ -126,7 +126,7 @@ public class SpaceManager : MonoBehaviour, NpcHelper
         throw new System.NotImplementedException();
     }
 
-    public void FaceTarget( Vector3 targetPosition, Transform selfTransform, float perFrameDegree)
+    public void FaceTarget(Vector3 targetPosition, Transform selfTransform, float perFrameDegree)
     {
         if (FreezeTime >= 0) return;
         MyLookAt.Look(targetPosition, selfTransform, perFrameDegree);
@@ -144,14 +144,19 @@ public class SpaceManager : MonoBehaviour, NpcHelper
 
     public void AnimationAttack(int attackType)
     {
-        if(attackType == 2)//普通攻擊2
+
+        if (attackType == 1)//普通攻擊1
+        {
+            spaceWeapon.BigBallAttack(transform.position + transform.right + Vector3.up);
+        }
+        if (attackType == 2)//普通攻擊2
         {
             NpcCommon.AttackDetection("", transform.position, transform.forward, 360, 4, false, new DamageData(30, transform.forward * 0.6f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
         }
         if (attackType == 3)//普通攻擊3
         {
             print(111);
-            NpcCommon.AttackDetectionRectangle("", transform.position, transform.forward,transform.right, 4, 7, false, new DamageData(30, transform.forward * 0.6f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
+            NpcCommon.AttackDetectionRectangle("", transform.position, transform.forward, transform.right, 4, 7, false, new DamageData(30, transform.forward * 0.6f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
         }
         if (attackType == 4)//普通攻擊4
         {
@@ -170,7 +175,7 @@ public class SpaceManager : MonoBehaviour, NpcHelper
         }
         if (attackType == 6)//技能2
         {
-            NpcCommon.AttackDetection("", transform.position + transform.forward*2.5f, transform.forward, 360, 5, false, new DamageData(80, transform.forward * 0.6f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
+            NpcCommon.AttackDetection("", transform.position + transform.forward * 2.5f, transform.forward, 360, 5, false, new DamageData(80, transform.forward * 0.6f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
             this.transform.Find("BlackHoll").gameObject.SetActive(false);
         }
         if (attackType == 7)//技能3

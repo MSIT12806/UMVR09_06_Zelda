@@ -29,6 +29,7 @@ public class SpaceWeapon : MonoBehaviour
     }
     public void BigBallAttack(Vector3 position)
     {
+        bigBall.existSeconds = 3f;
         bigBall.transform.position = position;
         bigBall.gameObject.SetActive(true);
     }
