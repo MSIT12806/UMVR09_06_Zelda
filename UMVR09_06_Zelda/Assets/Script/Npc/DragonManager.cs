@@ -132,7 +132,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
         }
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("ArmorBreak"))
         {
-            if (damageData.Hit == HitType.finishing)
+            if (damageData.DamageState.damageState == DamageState.Finishing)
             {
                 animator.CrossFade("Get Hit 2", 0.25f, 0);
                 ResetWeakPoint();

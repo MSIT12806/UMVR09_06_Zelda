@@ -85,6 +85,7 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
     }
     public void GetHurt(DamageData damageData)
     {
+        //audioSource.PlayDelayed(UnityEngine.Random.Range(0,0.1f));
         aiState = new UsaoHurtState(animator, transform, damageData, usaoFightState, this);
     }
     public float forward;
