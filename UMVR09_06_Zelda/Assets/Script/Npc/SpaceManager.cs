@@ -92,19 +92,19 @@ public class SpaceManager : MonoBehaviour, NpcHelper
             }
         }
 
-        if (InSkill1State)
-        {
-            if (Once.IcePosision != Vector3.zero)
-            {
-                if ((Once.IcePosision - transform.position).magnitude <= 3.5)
-                {
-                    Once.IceDestroyTime = 0f;
-                    InSkill1State = false;
-                    animator.Play("GetHit");
-                    Debug.Log("innnnnnnnnnnnnnnnnnnnn");
-                }
-            }
-        }
+        //if (InSkill1State)
+        //{
+        //    if (Once.IcePosision != Vector3.zero)
+        //    {
+        //        if ((Once.IcePosision - transform.position).magnitude <= 3.5)
+        //        {
+        //            Once.IceDestroyTime = 0f;
+        //            InSkill1State = false;
+        //            animator.Play("GetHit");
+        //            Debug.Log("innnnnnnnnnnnnnnnnnnnn");
+        //        }
+        //    }
+        //}
 
         if (InSkill2State)
         {
