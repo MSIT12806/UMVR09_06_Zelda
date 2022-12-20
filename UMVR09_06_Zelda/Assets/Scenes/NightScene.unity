@@ -24884,7 +24884,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 419235578}
-  m_LocalRotation: {x: 0.12649623, y: -0.5663183, z: 0.08848455, w: 0.8096005}
+  m_LocalRotation: {x: 0.12649624, y: -0.5663183, z: 0.08848455, w: 0.8096005}
   m_LocalPosition: {x: 24.808594, y: 19.479134, z: 187.11383}
   m_LocalScale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
   m_ConstrainProportionsScale: 0
@@ -34155,7 +34155,7 @@ GameObject:
   m_Component:
   - component: {fileID: 662196377}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: SoundManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67199,6 +67199,11 @@ PrefabInstance:
       propertyPath: dragonWeapon
       value: 
       objectReference: {fileID: 535674134}
+    - target: {fileID: 2564453280458856373, guid: e344ba4e5a1508a4a9133612aa1c3172,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 85c00c1a9407bc24cafa4cfc1ccf1c88, type: 3}
     - target: {fileID: 2564453280760003061, guid: e344ba4e5a1508a4a9133612aa1c3172,
         type: 3}
       propertyPath: m_LocalRotation.w
@@ -67219,7 +67224,8 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.0067422213
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2564453280458856373, guid: e344ba4e5a1508a4a9133612aa1c3172, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e344ba4e5a1508a4a9133612aa1c3172, type: 3}
 --- !u!4 &1277495261 stripped
 Transform:
@@ -98904,7 +98910,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1686870173}
-  m_LocalRotation: {x: -0.0139261605, y: 0.9595801, z: 0.048257183, w: 0.27691767}
+  m_LocalRotation: {x: -0.0139261605, y: 0.9595801, z: 0.048257176, w: 0.2769177}
   m_LocalPosition: {x: -143.78519, y: 5.5879984, z: 91.187874}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

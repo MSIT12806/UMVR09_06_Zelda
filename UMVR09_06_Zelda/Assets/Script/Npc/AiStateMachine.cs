@@ -890,7 +890,7 @@ public class GolemArmorBreakState : GolemBaseState
                 time -= 5f;
             }
 
-            if (getHit.Hit == HitType.finishing)
+            if (getHit.DamageState.damageState == DamageState.Finishing)
             {
                 time = 5.2f;
             }

@@ -63,7 +63,6 @@ public class StageManager : MonoBehaviour
         if (d <= distance)
         {
             picoState.gameState = (GameState)TriggerType;
-            Debug.Log(picoState.gameState);
             if (isNightScene)
                 ObjectManager.myCamera.stage = TriggerType;
             else
