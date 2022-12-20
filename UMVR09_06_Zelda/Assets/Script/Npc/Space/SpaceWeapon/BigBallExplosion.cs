@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class BigBallExplosion : MonoBehaviour
+public class SmallBallExplosion : MonoBehaviour
 {
     ParticleSystem keeping;
     public ParticleSystem[] explosions;
