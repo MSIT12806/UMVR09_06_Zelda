@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class SmallBallExplosion : MonoBehaviour
+public class BigBallExplosion: MonoBehaviour
 {
     ParticleSystem keeping;
-    public ParticleSystem[] explosions;
+    public ParticleSystem explosion;
     // Start is called before the first frame update
 
     void Start()
@@ -34,7 +34,7 @@ public class SmallBallExplosion : MonoBehaviour
     {
         //做一次攻擊判定
         //爆炸
-        var exp = explosions.First(i => i.gameObject.activeSelf == false);
+        var exp = explosion;
         exp.transform.position = transform.position;
         exp.gameObject.SetActive(true);
     }
