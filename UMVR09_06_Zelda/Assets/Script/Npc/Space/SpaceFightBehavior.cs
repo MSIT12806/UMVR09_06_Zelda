@@ -25,6 +25,8 @@ public class SpaceFightBehavior : StateMachineBehaviour
             target = ObjectManager2.MainCharacter;
             awake = true;
         }
+        manager.dizzy = false;
+        manager.CanGetHit = false;
         //dazeSeconds = UnityEngine.Random.value * 3;
         weight = UnityEngine.Random.value;
         Debug.Log(move);

@@ -242,6 +242,7 @@ public class UiManager : MonoBehaviour
         if (ImgToShow == null) return;
         if (mosterType == 0 || mosterType == 1)
         {
+            Debug.Log(ImgToShow);
             Vector2 v = Camera.main.WorldToScreenPoint(WeakPoints[mosterType].position);
             ImgToShow.position = v;
         }

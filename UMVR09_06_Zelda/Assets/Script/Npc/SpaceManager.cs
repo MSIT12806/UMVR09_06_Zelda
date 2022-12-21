@@ -12,15 +12,20 @@ public class SpaceManager : MonoBehaviour, NpcHelper
     public List<GameObject> smallBallsAroundBody = new List<GameObject>();
     public float Hp { get => npc.Hp; set => npc.Hp = value; }
 
+    public float MaxArmor = 12;
+    public float Armor = 12;
+
+    public bool dizzy = false;
+
     public bool CanBeKockedOut => throw new System.NotImplementedException();
 
-    public bool Dizzy => false;
+    public bool Dizzy => dizzy;
 
     public float MaxHp => npc.MaxHp;
 
-    public float WeakPoint => throw new System.NotImplementedException();
+    public float WeakPoint => Armor;
 
-    public float MaxWeakPoint => throw new System.NotImplementedException();
+    public float MaxWeakPoint => MaxArmor;
 
     public float Radius => 0.6f;
 
@@ -34,6 +39,9 @@ public class SpaceManager : MonoBehaviour, NpcHelper
     public bool InSkill2State;
     public bool InSkill3State;
     public bool CanGetHit;
+
+    public float ArmorBreakTime = 7;
+    public float ShowWeakTime = 0;
 
     // Start is called before the first frame update
     Animator animator;
@@ -71,25 +79,35 @@ public class SpaceManager : MonoBehaviour, NpcHelper
                 }
             }
         }
+
+        ShowWeakTime -= Time.deltaTime;
+
     }
     public void GetHurt(DamageData damageData)
     {
         if (Hp <= 0) return;
-        if (CanGetHit == true) animator.Play("GetHit");
+        Hp -= damageData.Damage;
+
+        if(damageData.DamageState.damageState == DamageState.Finishing)
+        {
+            ArmorBreakTime = 2;
+        }
+        
+        if (CanGetHit == true)//ÅS¥X®zÂI
+        {
+            Armor -= 1;
+            if (Armor <= 0)
+            {
+                animator.Play("ArmorBreak");
+            }
+            else
+                animator.Play("GetHit");
+        }
 
         if (Hp <= 0)
         {
             animator.Play("Standing_React_Death_Right");
             return;
-        }
-        if (damageData.DamageState.damageState == DamageState.TimePause)
-        {
-            FreezeTime = 5;
-            foreach(var i in EffectPlaying)
-            {
-                i.Pause();
-                Debug.Log(111111111);
-            }
         }
 
         //if (InSkill1State)
@@ -116,6 +134,7 @@ public class SpaceManager : MonoBehaviour, NpcHelper
                 }
                 InSkill2State = false;
                 animator.Play("GetHit");
+                ShowWeakTime = 5;
                 Debug.Log("innnnnnnnnnnnnnnnnnnnn");
                 foreach (var i in EffectPlaying)
                 {
@@ -130,6 +149,7 @@ public class SpaceManager : MonoBehaviour, NpcHelper
             {
                 InSkill3State = false;
                 animator.Play("GetHit");
+                ShowWeakTime = 5;
                 var effect = transform.GetComponent<AnimAfffectSpace>();
                 //effect.FX_AttactSkill0301.GetComponent<ParticleSystem>().Stop();
                 //effect.FX_AttactSkill0302.GetComponent<ParticleSystem>().Stop();
@@ -138,6 +158,15 @@ public class SpaceManager : MonoBehaviour, NpcHelper
                 {
                     i.Stop();
                 }
+            }
+        }
+        if (damageData.DamageState.damageState == DamageState.TimePause)
+        {
+            FreezeTime = 5;
+            foreach(var i in EffectPlaying)
+            {
+                i.Pause();
+                Debug.Log(111111111);
             }
         }
 

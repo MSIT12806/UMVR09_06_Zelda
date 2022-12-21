@@ -16,7 +16,6 @@ public class SpaceSkill010Behavior : StateMachineBehaviour
         space.InSkill1State = true;
         selfTransform = animator.transform;
         target = ObjectManager2.MainCharacter.transform;
-        UiManager.singleton.ShowSikaTip("ItemIceTips");
     }
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -63,6 +62,7 @@ public class SpaceSkill010Behavior : StateMachineBehaviour
             if ((Once.IcePosision - selfTransform.position).magnitude <= 3.5)
             {
                 Once.IceDestroyTime = 0f;
+                space.ShowWeakTime = 5;
                 animator.Play("GetHit");
                 Debug.Log("innnnnnnnnnnnnnnnnnnnn");
             }
@@ -74,7 +74,6 @@ public class SpaceSkill010Behavior : StateMachineBehaviour
         {
             i.Stop();
         }
-        UiManager.singleton.HideTip();
         space.InSkill1State = false;
     }
 }
