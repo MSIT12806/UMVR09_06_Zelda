@@ -57,7 +57,7 @@ public class StageManager : MonoBehaviour
         picoState = Pico.GetComponent<PicoState>();
         if (TriggerType == 1)
         {
-            stageOneWave = 4;//第一關會有四波
+            stageOneWave = 2;//第一關會有 2 波
         }
         dragonVirtualCamera.Priority = 5;
         dragonVirtualCamera.gameObject.SetActive(false);
@@ -83,8 +83,10 @@ public class StageManager : MonoBehaviour
             switch ((int)picoState.gameState)
             {
                 case 1:
-                    if (stageOneWave > 0 && ObjectManager.StageMonsterMonitor[1] < 10)
+                    if (stageOneWave > 0 && ObjectManager.StageMonsterMonitor[1] < 15)
                     {
+                        ObjectManager.GenUsao2(ObjectManager.stageOneSpawnPoint.position, 10, 5, GameState.FirstStage);
+                        ObjectManager.GenUsaoSword(ObjectManager.stageOneSpawnPoint.position, 10, 10, GameState.FirstStage);
                         ObjectManager.StageOneResurrection();
                         stageOneWave--;
                     }

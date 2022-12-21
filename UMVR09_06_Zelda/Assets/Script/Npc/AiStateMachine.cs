@@ -90,13 +90,13 @@ public class UsaoFightState : UsaoAiState
     public UsaoFightState(Transform t, Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Fight", t.GetComponent<PicoState>())
     {
         target = t;
-        animator.SetBool("findTarget", true);
         head = selfTransform.FindAnyChild<Transform>("Character1_Head");
         RefreshDazeTime();
         keepOrAttack = UnityEngine.Random.value;
     }
     public override AiState SwitchState()
     {
+        animator.SetBool("findTarget", true);
         if(picoState.gameState != npc.gameState)
         {
             return new UsaoIdleState(target, picoState, animator, selfTransform, npcHelper);
