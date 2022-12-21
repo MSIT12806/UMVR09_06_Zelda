@@ -184,7 +184,7 @@ public class TPSCamera : MonoBehaviour
     HashSet<GameObject> transparentObj = new HashSet<GameObject>();
     private void TransparentBlockObject()
     {
-        var hitArr = Physics.SphereCastAll(this.transform.position, 0.2f, m_FollowTarget.position.AddY(1.3f) - this.transform.position, Vector3.Distance(this.transform.position, m_FollowTarget.position), transparentLayer);
+        var hitArr = Physics.SphereCastAll(this.transform.position, 0.2f, m_FollowTarget.position.AddY(1.3f) - this.transform.position, Vector3.Distance(this.transform.position, m_FollowTarget.position.AddY(1.3f))-1f, transparentLayer);
         if (hitArr.Length != 0)
         {
             foreach (var hit in hitArr)

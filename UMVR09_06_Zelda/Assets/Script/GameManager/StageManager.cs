@@ -105,10 +105,10 @@ public class StageManager : MonoBehaviour
                 case 3:
                     if (!golemStand && ObjectManager.StageMonsterMonitor[3] <= 0)
                     {
+                        golemStand = true;
                         golemVirtualCamera.gameObject.SetActive(true);
                         golemVirtualCamera.Priority = 20;
                         golemDirector.Play();
-                        golemStand = true;
                     }
                     if (Golem.Stand && Golem.Hp > 0 && ObjectManager.StageMonsterMonitor[3] < 10)
                     {
