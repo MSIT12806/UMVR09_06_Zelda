@@ -68,4 +68,6 @@ public class AnimAfffectSpace : MonoBehaviour
     {
         FX_AttactSkill0302.GetComponent<ParticleSystem>().Play();
     }
+
+
 }

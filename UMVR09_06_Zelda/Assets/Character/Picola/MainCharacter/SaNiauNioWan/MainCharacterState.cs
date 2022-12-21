@@ -244,15 +244,12 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     /// </summary>
     private void DodgeTranslate()
     {
-        //何時 dodge 會被改成 true?
         if (dodge)//
         {
-            //print("dodge----------");
             frontMove = true;
         }
         if (frontMove)
         {
-            //上面才有個 fTimer， 這裡又一個 time ，差在哪？
             time += Time.deltaTime;
         }
         float dodgeEndingTime = 0.16f;

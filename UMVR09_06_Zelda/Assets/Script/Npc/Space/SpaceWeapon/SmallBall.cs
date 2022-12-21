@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Ron;
 
 public class SmallBall : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class SmallBall : MonoBehaviour
     public SpaceManager spaceManager;
     public bool nowAttack;
     public SpaceWeapon weapons;
+    ParticleSystem keeping;
 
     public Vector3 startPos;
     void Start()
@@ -22,6 +24,12 @@ public class SmallBall : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    private void OnEnable()
+    {
+        nowAttack = false;
+        if (keeping == null) keeping = transform.FindAnyChild<ParticleSystem>("Flash_Main");
+        keeping.Play();
+    }
     // Update is called once per frame
     void Update()
     {
@@ -38,13 +46,9 @@ public class SmallBall : MonoBehaviour
         }
         AroundBehavior();
     }
-    private void OnEnable()
-    {
-            nowAttack = false;
-    }
     void Attack()
     {
-        if(transform.localPosition.x>0 && transform.localPosition.z < 0.05)
+        if(transform.localPosition.x>0 && transform.localPosition.z > 0 && transform.localPosition.z < 0.1)
         {
             Debug.Log(123456);
             weapons.SmallBallAttack(transform.position);

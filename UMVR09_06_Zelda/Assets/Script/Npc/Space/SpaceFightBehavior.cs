@@ -12,6 +12,13 @@ public class SpaceFightBehavior : StateMachineBehaviour
     bool move;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        animator.ResetTrigger("Attack01");
+        animator.ResetTrigger("Attack02");
+        animator.ResetTrigger("Attack03");
+        animator.ResetTrigger("Attack04");
+        animator.ResetTrigger("Skill01");
+        animator.ResetTrigger("Skill02");
+        animator.ResetTrigger("Skill03");
         if (awake == false)
         {
             manager = animator.GetComponent<SpaceManager>();

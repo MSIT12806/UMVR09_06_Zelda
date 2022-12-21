@@ -1090,6 +1090,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71b411e674952a449a95efdec9aa12c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1102 &1014827331442203388
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Standing_React_Death_Right
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours:
+  - {fileID: 6371743543521886910}
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: d95de78430af1a2449472a74e67be5a0, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!1102 &1149540329113997784
 AnimatorState:
   serializedVersion: 6
@@ -1173,6 +1200,9 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: -1047474813589723460}
     m_Position: {x: 740, y: 200, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 1014827331442203388}
+    m_Position: {x: -650, y: -30, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -1412,14 +1442,26 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.24999976
-  m_TransitionOffset: 0.012418447
-  m_ExitTime: 0.88659066
+  m_TransitionDuration: 0.19481122
+  m_TransitionOffset: 0
+  m_ExitTime: 0.8727935
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!114 &6371743543521886910
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b95a9b581b9474f4cbd1e3cc107b4fa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1102 &6424263095168268012
 AnimatorState:
   serializedVersion: 6
