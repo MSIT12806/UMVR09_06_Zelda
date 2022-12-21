@@ -85,7 +85,7 @@ public class UsaoFightState : UsaoAiState
     Vector3 direction;
     float dazeSeconds;
     float keepDistance = 10f;
-    float attackDistance = 2f;
+    float attackDistance = 1.5f;
     float keepOrAttack;
     public UsaoFightState(Transform t, Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Fight", t.GetComponent<PicoState>())
     {
@@ -165,7 +165,7 @@ public class UsaoChaseState : UsaoAiState
     public UsaoChaseState(Transform alertObject, Animator a, Transform self, UsaoFightState fightState, NpcHelper nh) : base(a, self, nh, "Chase", alertObject.GetComponent<PicoState>())
     {
         var r = UnityEngine.Random.value;
-        attackRange = r > 0.2 ? 10f : 3f;
+        attackRange = r > 0.2 ? 10f : 1.5f;
         alertTarget = alertObject;
         animator.SetBool("notReach", true);
         AddChasingNpc();
