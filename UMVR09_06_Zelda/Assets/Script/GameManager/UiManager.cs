@@ -63,7 +63,14 @@ public class UiManager : MonoBehaviour
             isNightScene = false;
         }
     }
-
+    public void Close()
+    {
+        gameObject.SetActive(false);
+    }
+    public void Open()
+    {
+        gameObject.SetActive(true);
+    }
     void Start()
     {
 
