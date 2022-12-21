@@ -212,7 +212,7 @@ public class UsaoChaseState : UsaoAiState
 
     public override void SetAnimation()
     {
-        npcHelper.Turn(alertTarget.position - selfTransform.position);
+        selfTransform.LookAt(alertTarget);
         var f = animator.GetFloat("forward");
         f = Math.Min(f + 0.02f, 1);
         animator.SetFloat("forward", f);

@@ -1,14 +1,16 @@
+using Ron;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GetApple : MonoBehaviour
 {
+    private ParticleSystem heal;
     // Start is called before the first frame update
     void Start()
     {
+        heal = ObjectManager.MainCharacter.FindAnyChild<ParticleSystem>("AppleLine");
     }
-    int floatFrameCount = 150;
     // Update is called once per frame
     void Update()
     {
@@ -17,6 +19,7 @@ public class GetApple : MonoBehaviour
         {
             PicoManager.AppleCount++;
             Destroy(gameObject);
+            heal.Play();
         }
     }
 }
