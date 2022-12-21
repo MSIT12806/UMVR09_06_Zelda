@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Ron;
 
 public class GolemManager : MonoBehaviour, NpcHelper
 {
@@ -36,6 +37,9 @@ public class GolemManager : MonoBehaviour, NpcHelper
     Animator animator;
     public bool Stand { get; set; }
 
+    AudioSource FootL;
+    AudioSource FootR;
+
     void Awake()
     {
 
@@ -47,6 +51,8 @@ public class GolemManager : MonoBehaviour, NpcHelper
     }
     void Start()
     {
+        FootL = this.transform.FindAnyChild<Transform>("Foot_L").GetComponent<AudioSource>();
+        FootR = this.transform.FindAnyChild<Transform>("Foot_R").GetComponent<AudioSource>();
         aiState = new GolemIdleState(ObjectManager.MainCharacter, animator, transform, 12f, this);
 
 
@@ -121,6 +127,18 @@ public class GolemManager : MonoBehaviour, NpcHelper
             this.transform.Find("FX_GolemAttack03").gameObject.GetComponent<ParticleSystem>().Play();
         }
 
+    }
+
+    public void SoundController(int SoundType)
+    {
+        if(SoundType == 1)
+        {
+            FootL.Play();
+        }
+        if(SoundType == 2)
+        {
+            FootR.Play();
+        }
     }
 
     void GolemAttack0201()

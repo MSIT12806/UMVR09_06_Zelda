@@ -47,7 +47,11 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
     public float CollisionDisplacement => 0.15f;
 
     public string Name => throw new NotImplementedException();
-
+    private void OnEnable()
+    {
+        var bornFx = transform.FindAnyChild<ParticleSystem>("RiseRing");
+        bornFx.Play();
+    }
     void Awake()
     {
         ObjectManager.StateManagers.Add(this.gameObject.GetInstanceID(), this);
