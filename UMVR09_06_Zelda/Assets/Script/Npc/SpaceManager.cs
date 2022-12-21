@@ -117,6 +117,10 @@ public class SpaceManager : MonoBehaviour, NpcHelper
                 InSkill2State = false;
                 animator.Play("GetHit");
                 Debug.Log("innnnnnnnnnnnnnnnnnnnn");
+                foreach (var i in EffectPlaying)
+                {
+                    i.Stop();
+                }
             }
         }
 
@@ -130,6 +134,10 @@ public class SpaceManager : MonoBehaviour, NpcHelper
                 //effect.FX_AttactSkill0301.GetComponent<ParticleSystem>().Stop();
                 //effect.FX_AttactSkill0302.GetComponent<ParticleSystem>().Stop();
                 Debug.Log("innnnnnnnnnnnnnnnnnnnn");
+                foreach (var i in EffectPlaying)
+                {
+                    i.Stop();
+                }
             }
         }
 

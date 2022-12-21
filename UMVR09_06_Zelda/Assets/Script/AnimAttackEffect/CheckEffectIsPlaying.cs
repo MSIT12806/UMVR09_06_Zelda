@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CheckEffectIsPlaying : MonoBehaviour
 {
-    SpaceManager space;
+    public SpaceManager space;
     ParticleSystem effect;
     // Start is called before the first frame update
     void Start()
@@ -17,11 +17,11 @@ public class CheckEffectIsPlaying : MonoBehaviour
     {
         if (effect.isPlaying)
         {
-            //space.EffectPlaying.Add(this.GetComponent<ParticleSystem>());
+            space.EffectPlaying.Add(this.GetComponent<ParticleSystem>());
 
             //Debug.Log(3333333333);
         }
-        if (effect.isStopped && space.EffectPlaying.Contains(effect))
+        if (effect.isStopped)
         {
             space.EffectPlaying.Remove(effect);
         }
