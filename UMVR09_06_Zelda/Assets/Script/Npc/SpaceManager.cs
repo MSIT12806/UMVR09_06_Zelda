@@ -211,7 +211,7 @@ public class SpaceManager : MonoBehaviour, NpcHelper
         }
         if (attackType == 3)//´¶³q§ðÀ»3
         {
-            print(111);
+            //print(111);
             NpcCommon.AttackDetectionRectangle("", transform.position, transform.forward, transform.right, 4, 7, false, new DamageData(30, transform.forward * 0.6f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
         }
         if (attackType == 4)//´¶³q§ðÀ»4
