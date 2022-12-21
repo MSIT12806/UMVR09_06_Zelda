@@ -206,7 +206,7 @@ public class Npc : MonoBehaviour
                 animator.applyRootMotion = false;
 
                 var rotateWay = Vector3.SignedAngle(transform.forward, hitInfo.point - transform.position, Vector3.up);
-                transform.Rotate(0, -Mathf.Sign(rotateWay) * 2, 0);
+                transform.Rotate(0, -Mathf.Sign(rotateWay) * 3, 0);
             }
             nextPosition = Vector3.zero;//取消程式位移
             collideFront = hitSomethingWhenMoving;
