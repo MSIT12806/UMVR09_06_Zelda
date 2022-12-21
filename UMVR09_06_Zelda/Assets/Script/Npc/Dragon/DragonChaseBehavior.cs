@@ -19,6 +19,7 @@ public class DragonChaseBehavior : StateMachineBehaviour
         manager = animator.transform.GetComponent<DragonManager>();
         npc = animator.transform.GetComponent<Npc>();
         targetPoint = manager.ArrivePoint;
+        lastDistance = float.MaxValue - 100;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -29,7 +30,6 @@ public class DragonChaseBehavior : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        lastDistance = float.MaxValue - 100;
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

@@ -10,7 +10,8 @@ public class StageThreeController : MonoBehaviour
     public GameObject golem2;
     GolemManager golem;
     public CinemachineVirtualCamera camera;
-    public void StageTwoShowFinished()
+    public AudioSource GolemBGM;
+    public void StageThreeShowFinished()
     {
         Destroy(golem1);
         golem2.SetActive(true);
@@ -19,5 +20,9 @@ public class StageThreeController : MonoBehaviour
         camera.Priority = 5;
         camera.gameObject.SetActive(false);
         golem.Stand = true;
+    }
+    public void PlayGolemBGM()
+    {
+        GolemBGM.Play();
     }
 }

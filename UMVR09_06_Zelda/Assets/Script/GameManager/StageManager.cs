@@ -19,12 +19,17 @@ public class StageManager : MonoBehaviour
     public PlayableDirector dragonDirector;
     public PlayableDirector spaceDirector;
     public PlayableDirector golemDirector;
-    [HideInInspector]public CinemachineVirtualCamera dragonVirtualCamera;
+    [HideInInspector] public CinemachineVirtualCamera dragonVirtualCamera;
     [HideInInspector] public CinemachineVirtualCamera golemVirtualCamera;
     [HideInInspector] public CinemachineVirtualCamera spaceVirtualCamera;
     bool isNightScene;
     private bool dragonPlay;
     private bool golemStand;
+
+    //scene 1 
+    LevelHandler levelHandler1;
+    LevelHandler levelHandler2;
+    LevelHandler levelHandler3;
 
     private void Awake()
     {
@@ -40,6 +45,9 @@ public class StageManager : MonoBehaviour
         }
         if (isNightScene)
         {
+            levelHandler1 = GameObject.Find("Obelisk_zodiac_low (1)").GetComponent<LevelHandler>();
+            levelHandler2 = GameObject.Find("Obelisk_zodiac_low (2)").GetComponent<LevelHandler>();
+            levelHandler3 = GameObject.Find("Obelisk_zodiac_low").GetComponent<LevelHandler>();
             Dragon = GameObject.Find("Blue Variant").GetComponent<DragonManager>();
             Golem = GameObject.Find("PBR_Golem (1)").GetComponent<GolemManager>();
             dragonVirtualCamera = GameObject.Find("CM vcam3").GetComponent<CinemachineVirtualCamera>();
@@ -83,6 +91,11 @@ public class StageManager : MonoBehaviour
             switch ((int)picoState.gameState)
             {
                 case 1:
+                    if (stageOneWave <= 0 && ObjectManager.StageMonsterMonitor[1] <= 0)
+                    {
+                        levelHandler1.FinishThisLevel();
+                        return;
+                    }
                     if (stageOneWave > 0 && ObjectManager.StageMonsterMonitor[1] < 15)
                     {
                         ObjectManager.GenUsao2(ObjectManager.stageOneSpawnPoint.position, 10, 5, GameState.FirstStage);
@@ -92,6 +105,11 @@ public class StageManager : MonoBehaviour
                     }
                     return;
                 case 2:
+                    if (Dragon.Hp <= 0)
+                    {
+                        levelHandler2.FinishThisLevel();
+                        return;
+                    }
                     if (!dragonPlay && ObjectManager.StageMonsterMonitor[2] <= 0)
                     {
                         dragonVirtualCamera.gameObject.SetActive(true);
@@ -105,6 +123,12 @@ public class StageManager : MonoBehaviour
                     }
                     return;
                 case 3:
+
+                    if (Golem.Hp <= 0)
+                    {
+                        levelHandler3.FinishThisLevel();
+                        return;
+                    }
                     if (!golemStand && ObjectManager.StageMonsterMonitor[3] <= 0)
                     {
                         golemStand = true;

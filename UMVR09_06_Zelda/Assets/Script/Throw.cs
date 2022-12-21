@@ -30,6 +30,7 @@ public class Throw : MonoBehaviour
     private Item useItem;
 
     private Transform ThrowItem;
+    public ParticleSystem heal;
     public Transform RightHandThrow_pos;
     public GameObject Sword;
     public GameObject SwordEffect1;
@@ -86,6 +87,7 @@ public class Throw : MonoBehaviour
                 PicoManager.Hp = PicoManager.MaxHp;
             }
             PicoManager.AppleCount -= 1;
+            heal.Play();
         }
 
         if (CanThrow == true && isRunning == false)

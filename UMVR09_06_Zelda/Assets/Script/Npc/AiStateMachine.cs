@@ -97,7 +97,7 @@ public class UsaoFightState : UsaoAiState
     public override AiState SwitchState()
     {
         animator.SetBool("findTarget", true);
-        if(picoState.gameState != npc.gameState)
+        if (picoState.gameState != npc.gameState)
         {
             return new UsaoIdleState(target, picoState, animator, selfTransform, npcHelper);
         }
@@ -110,7 +110,7 @@ public class UsaoFightState : UsaoAiState
 
         var distance = Vector3.Distance(target.position, selfTransform.position);
         int count = GetChasingNpcCount();
-        if (keepOrAttack >0.5)
+        if (keepOrAttack > 0.5)
         {
             if (distance > keepDistance) return new UsaoChaseState(target, animator, selfTransform, this, npcHelper);
             else if (distance <= keepDistance) return new UsaoAttackState(target, animator, selfTransform, this, npcHelper);
@@ -212,7 +212,8 @@ public class UsaoChaseState : UsaoAiState
 
     public override void SetAnimation()
     {
-        npcHelper.Turn(alertTarget.position - selfTransform.position);
+        if (npc.collide == false)
+            selfTransform.LookAt(alertTarget);
         var f = animator.GetFloat("forward");
         f = Math.Min(f + 0.02f, 1);
         animator.SetFloat("forward", f);

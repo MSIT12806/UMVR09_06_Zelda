@@ -63,7 +63,14 @@ public class UiManager : MonoBehaviour
             isNightScene = false;
         }
     }
-
+    public void Close()
+    {
+        gameObject.SetActive(false);
+    }
+    public void Open()
+    {
+        gameObject.SetActive(true);
+    }
     void Start()
     {
 
@@ -101,9 +108,13 @@ public class UiManager : MonoBehaviour
     }
     public void Fail()
     {
+        Invoke("ShowFail", 2);
+        Invoke("FadeOut", 4);
+        Invoke("SwitchToMainScene", 5.5f);
+    }
+    public void ShowFail()
+    {
         transform.FindAnyChild<Transform>("Fail").gameObject.SetActive(true);
-        Invoke("FadeOut", 2);
-        Invoke("SwitchToMainScene", 3.5f);
     }
     public void SwitchToMainScene()
     {
@@ -115,7 +126,14 @@ public class UiManager : MonoBehaviour
     }
     public void Success()
     {
-        transform.FindAnyChild<Transform>("Success").gameObject.SetActive(true);
+        Invoke("ShowSuccess", 2);
+        Invoke("FadeOut", 4);
+        Invoke("SwitchToMainScene", 5.5f);
+    }
+    public void ShowSuccess()
+    {
+
+        transform.FindAnyChild<Transform>("Sucess").gameObject.SetActive(true);
     }
     public void ShowSikaTip(string sikaType)
     {
