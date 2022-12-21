@@ -115,7 +115,9 @@ public class UiManager : MonoBehaviour
     }
     public void Success()
     {
-        transform.FindAnyChild<Transform>("Success").gameObject.SetActive(true);
+        transform.FindAnyChild<Transform>("Sucess").gameObject.SetActive(true);
+        Invoke("FadeOut", 2);
+        Invoke("SwitchToMainScene", 3.5f);
     }
     public void ShowSikaTip(string sikaType)
     {

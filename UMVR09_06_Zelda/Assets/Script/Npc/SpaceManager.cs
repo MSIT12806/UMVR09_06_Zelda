@@ -59,6 +59,7 @@ public class SpaceManager : MonoBehaviour, NpcHelper
     // Update is called once per frame
     void Update()
     {
+        GameSuccess();
         FreezeTime -= Time.deltaTime;
         if(FreezeTime <= 0)
         {
@@ -67,11 +68,19 @@ public class SpaceManager : MonoBehaviour, NpcHelper
                 if (i.isPaused)
                 {
                     i.Play();
-                    Debug.Log(2222222);
                 }
             }
         }
     }
+
+    private void GameSuccess()
+    {
+        if (Hp <= 0)
+        {
+            UiManager.singleton.Success();
+        }
+    }
+
     public void GetHurt(DamageData damageData)
     {
         if (Hp <= 0) return;
@@ -88,23 +97,8 @@ public class SpaceManager : MonoBehaviour, NpcHelper
             foreach(var i in EffectPlaying)
             {
                 i.Pause();
-                Debug.Log(111111111);
             }
         }
-
-        //if (InSkill1State)
-        //{
-        //    if (Once.IcePosision != Vector3.zero)
-        //    {
-        //        if ((Once.IcePosision - transform.position).magnitude <= 3.5)
-        //        {
-        //            Once.IceDestroyTime = 0f;
-        //            InSkill1State = false;
-        //            animator.Play("GetHit");
-        //            Debug.Log("innnnnnnnnnnnnnnnnnnnn");
-        //        }
-        //    }
-        //}
 
         if (InSkill2State)
         {
@@ -116,7 +110,6 @@ public class SpaceManager : MonoBehaviour, NpcHelper
                 }
                 InSkill2State = false;
                 animator.Play("GetHit");
-                Debug.Log("innnnnnnnnnnnnnnnnnnnn");
             }
         }
 
@@ -127,17 +120,9 @@ public class SpaceManager : MonoBehaviour, NpcHelper
                 InSkill3State = false;
                 animator.Play("GetHit");
                 var effect = transform.GetComponent<AnimAfffectSpace>();
-                //effect.FX_AttactSkill0301.GetComponent<ParticleSystem>().Stop();
-                //effect.FX_AttactSkill0302.GetComponent<ParticleSystem>().Stop();
-                Debug.Log("innnnnnnnnnnnnnnnnnnnn");
             }
         }
 
-
-
-
-        Debug.Log("hit");
-        //aiState = new UsaoHurtState(transform.GetComponent<Animator>(), transform, damageData);
     }
 
     public void Move()
