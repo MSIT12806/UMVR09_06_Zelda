@@ -512,10 +512,10 @@ namespace CartoonFX
             {
                 audioSource = GetComponent<AudioSource>();
             }
-            if (audioSource != null)
-            {
-                audioSource.PlayDelayed(UnityEngine.Random.Range(0, 0.04f));
-            }
+            //if (audioSource != null)
+            //{
+            //    audioSource.PlayDelayed(UnityEngine.Random.Range(0, 0.04f));
+            //}
             foreach (var animLight in animatedLights)
             {
                 if (animLight.light != null)
@@ -539,8 +539,23 @@ namespace CartoonFX
         const int CHECK_EVERY_N_FRAME = 20;
         static int GlobalStartFrameOffset = 0;
         int startFrameOffset;
+
+        bool CanPlaySound;
         void Update()
         {
+            if (this.GetComponent<ParticleSystem>().isPlaying && CanPlaySound && audioSource != null)
+            {
+                audioSource.Play();
+                Debug.Log(123456);
+                //audioSource.PlayDelayed(UnityEngine.Random.Range(0, 0.04f));
+                CanPlaySound = false;
+            }
+            else if (this.GetComponent<ParticleSystem>().isStopped && audioSource != null)
+            {
+                CanPlaySound = true;
+            }
+
+
 #if !DISABLE_LIGHTS || !DISABLE_CAMERA_SHAKE
             time += Time.deltaTime;
 
