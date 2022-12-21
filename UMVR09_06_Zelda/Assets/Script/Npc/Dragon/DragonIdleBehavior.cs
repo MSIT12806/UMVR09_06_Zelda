@@ -13,9 +13,13 @@ public class DragonIdleBehavior : StateMachineBehaviour
     bool fightState { get => (int)state.gameState == 2 && manager.Show; }
 
     float flyStateWeight;
+    public Npc npc;
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        if (npc == null) npc = animator.GetComponent<Npc>();
+
         if (animator.name == "Blue Variant 2") return;
         target = ObjectManager.MainCharacter;
         manager = animator.transform.GetComponent<DragonManager>();
@@ -53,7 +57,6 @@ public class DragonIdleBehavior : StateMachineBehaviour
             }
             // do attack
             var distance = Vector3.Distance(target.position, animator.transform.position);
-            //還差衝鋒...然後要用隨機來處理
             if (manager.Hp < manager.MaxHp / 2 && UnityEngine.Random.value > 0.5)
             {
                 animator.SetTrigger("Sprint");
@@ -91,7 +94,7 @@ public class DragonIdleBehavior : StateMachineBehaviour
         if (animator.name == "Blue Variant 2") return;
         if (fightState)
         {
-
+            if (npc.PauseTime >= 0) return;
             AiStateCommon.Turn(animator.transform, target.position - animator.transform.position);
             AiStateCommon.Look(head, target);
 

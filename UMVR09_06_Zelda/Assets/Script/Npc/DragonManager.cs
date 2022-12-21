@@ -96,6 +96,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
         }
         if (dState.damageState == DamageState.Fever)
         {
+            if (weakPoint <= 0) return;
             animator.CrossFade("Dizzy2", 0.1f);
             canBeKnockedOut = false;
             dizzy = true;
@@ -106,6 +107,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
         {
             if (dState.damageState == DamageState.Bomb)
             {
+                if (weakPoint <= 0) return;
                 animator.CrossFade("Dizzy2", 0.1f);
                 canBeKnockedOut = false;
                 dizzy = true;
@@ -116,6 +118,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
         {
             if (dState.damageState == DamageState.Ice)
             {
+                if (weakPoint <= 0) return;
                 animator.CrossFade("Dizzy2", 0.1f);
                 canBeKnockedOut = false;
                 dizzy = true;
