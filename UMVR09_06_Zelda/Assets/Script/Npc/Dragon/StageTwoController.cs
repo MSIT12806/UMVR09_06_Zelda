@@ -10,6 +10,7 @@ public class StageTwoController : MonoBehaviour
     public GameObject dragon2;
     DragonManager Dragon;
     public CinemachineVirtualCamera camera;
+    public AudioSource DragonBGM;
     public void StageTwoShowFinished()
     {
         Destroy(dragon1);
@@ -19,5 +20,10 @@ public class StageTwoController : MonoBehaviour
         Dragon.Show = true;
 
         camera.gameObject.SetActive(false);
+    }
+
+    public void PlayDragonBGM() 
+    {
+        DragonBGM.Play();
     }
 }
