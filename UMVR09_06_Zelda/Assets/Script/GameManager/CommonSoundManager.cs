@@ -3,27 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StartSoundManager : MonoBehaviour
+public class CommonSoundManager : MonoBehaviour
 {
-    public static StartSoundManager singleton;
     AudioSource ads;
 
-    int state=1;//1=> keep. 0=> close. 2=> open
+    int state = 1;//1=> keep. 0=> close. 2=> open
     // Start is called before the first frame update
-    float duration = 2.5f;
-    float currentTime = 0;
     void Start()
     {
-        singleton = this;
         ads = GetComponent<AudioSource>();
-        StartCoroutine(PlayMusic());
     }
-
+    float duration = 2.5f;
+    float currentTime = 0;
     // Update is called once per frame
     void Update()
     {
         if (currentTime > duration) return;
         currentTime += Time.deltaTime;
+        Debug.Log("volume = "+ ads.volume);
         switch (state)
         {
             case 1:
@@ -51,7 +48,7 @@ public class StartSoundManager : MonoBehaviour
         currentTime = 0;
         state = 0;
     }
-    public void OpenSceneMusic()
+    private void OpenSceneMusic()
     {
         currentTime = 0;
         state = 2;

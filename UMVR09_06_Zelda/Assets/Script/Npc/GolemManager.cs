@@ -37,6 +37,7 @@ public class GolemManager : MonoBehaviour, NpcHelper
     Animator animator;
     public bool Stand { get; set; }
 
+    public CommonSoundManager music;
     AudioSource FootL;
     AudioSource FootR;
 
@@ -179,10 +180,10 @@ public class GolemManager : MonoBehaviour, NpcHelper
         dizzy = true;
     }
 
-    public void Die()
+    private void FallTonic()
     {
         //掉蘋果跟掉愛心
-        int heartCount = UnityEngine.Random.Range(1, 3);
+        int heartCount = UnityEngine.Random.Range(2, 4);
         for (int i = 0; i < heartCount; i++)
         {
             var go = Instantiate(heart);
@@ -195,6 +196,11 @@ public class GolemManager : MonoBehaviour, NpcHelper
             var go = Instantiate(apple);
             go.transform.position = transform.position + Vector3Extension.GetRandomDirection().AddY(1).normalized;
         }
+        StartSoundManager.singleton.OpenSceneMusic();
+    }
+    public void Die()
+    {
+        music.StopSceneMusic();
 
 
         ObjectManager.myCamera.SetDefault();
@@ -207,6 +213,7 @@ public class GolemManager : MonoBehaviour, NpcHelper
         {
             item.Die();
         }
+        Invoke("FallTonic", 2f);
     }
 
     //public void OnDrawGizmos()

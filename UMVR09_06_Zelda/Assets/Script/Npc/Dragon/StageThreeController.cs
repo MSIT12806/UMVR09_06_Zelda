@@ -32,6 +32,7 @@ public class StageThreeController : MonoBehaviour
     }
     public void CloseUi()
     {
+        StartSoundManager.singleton.StopSceneMusic();
         UiManager.singleton.gameObject.SetActive(false);
     }
 }

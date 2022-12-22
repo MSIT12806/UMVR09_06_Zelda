@@ -17974,7 +17974,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 228414085}
           m_TargetAssemblyTypeName: StageTwoController, Assembly-CSharp
-          m_MethodName: CloseUi
+          m_MethodName: PlayDragonBGM
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -34283,6 +34283,7 @@ GameObject:
   m_Component:
   - component: {fileID: 375725564}
   - component: {fileID: 375725565}
+  - component: {fileID: 375725566}
   m_Layer: 0
   m_Name: Scene01BGM
   m_TagString: Untagged
@@ -34316,10 +34317,10 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: c243f7e724120f64abce2ced767564a9, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 1
+  m_PlayOnAwake: 0
+  m_Volume: 0.2
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -34401,6 +34402,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &375725566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 375725563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4526a0621be72034791688ee1014651d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &376123805
 GameObject:
   m_ObjectHideFlags: 0
@@ -34690,6 +34703,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 431e0f40623146c4dbc7c3e82afaa0a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PicoTpPlace: {fileID: 0}
   TriggerType: 2
   Pico: {fileID: 693283532}
   distance: 12
@@ -46084,6 +46098,10 @@ PrefabInstance:
       propertyPath: RendererAddress
       value: RockGolemMesh
       objectReference: {fileID: 0}
+    - target: {fileID: 812130049, guid: 5752f796e3e1390418365a49a0e90a84, type: 3}
+      propertyPath: music
+      value: 
+      objectReference: {fileID: 1610957560}
     - target: {fileID: 264797725108926862, guid: 5752f796e3e1390418365a49a0e90a84,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -48733,6 +48751,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 431e0f40623146c4dbc7c3e82afaa0a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PicoTpPlace: {fileID: 0}
   TriggerType: 0
   Pico: {fileID: 693283532}
   distance: 7
@@ -73967,6 +73986,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2564453280441697093, guid: e344ba4e5a1508a4a9133612aa1c3172,
         type: 3}
+      propertyPath: music
+      value: 
+      objectReference: {fileID: 2133512523}
+    - target: {fileID: 2564453280441697093, guid: e344ba4e5a1508a4a9133612aa1c3172,
+        type: 3}
       propertyPath: dragonWeapon
       value: 
       objectReference: {fileID: 535674134}
@@ -73998,7 +74022,7 @@ PrefabInstance:
     - target: {fileID: 2793536179690078594, guid: e344ba4e5a1508a4a9133612aa1c3172,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3387199791076751171, guid: e344ba4e5a1508a4a9133612aa1c3172,
         type: 3}
@@ -74160,6 +74184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 431e0f40623146c4dbc7c3e82afaa0a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PicoTpPlace: {fileID: 0}
   TriggerType: 3
   Pico: {fileID: 693283532}
   distance: 15
@@ -99810,6 +99835,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1610957559}
   - component: {fileID: 1610957558}
+  - component: {fileID: 1610957560}
   m_Layer: 0
   m_Name: GolemBGM
   m_TagString: Untagged
@@ -99928,6 +99954,18 @@ Transform:
   m_Father: {fileID: 662196377}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1610957560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1610957557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90db45e7dc237444ca68b5adc94fcbc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1614636713
 GameObject:
   m_ObjectHideFlags: 0
@@ -106050,6 +106088,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 431e0f40623146c4dbc7c3e82afaa0a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PicoTpPlace: {fileID: 0}
   TriggerType: 0
   Pico: {fileID: 693283532}
   distance: 10
@@ -106580,7 +106619,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1686870173}
-  m_LocalRotation: {x: -0.0139261605, y: 0.9595801, z: 0.048257183, w: 0.27691767}
+  m_LocalRotation: {x: -0.0139261605, y: 0.9595801, z: 0.048257176, w: 0.2769177}
   m_LocalPosition: {x: -143.78519, y: 5.5879984, z: 91.187874}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -112731,6 +112770,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeImage: {fileID: 682616427}
   time: 0
+  newAlpha: 0
   IsFadeIn: 1
 --- !u!1 &1735276945
 GameObject:
@@ -112926,6 +112966,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 431e0f40623146c4dbc7c3e82afaa0a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PicoTpPlace: {fileID: 0}
   TriggerType: 1
   Pico: {fileID: 693283532}
   distance: 6
@@ -118780,6 +118821,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 431e0f40623146c4dbc7c3e82afaa0a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PicoTpPlace: {fileID: 0}
   TriggerType: 0
   Pico: {fileID: 693283532}
   distance: 7
@@ -125326,6 +125368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 431e0f40623146c4dbc7c3e82afaa0a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PicoTpPlace: {fileID: 0}
   TriggerType: 0
   Pico: {fileID: 693283532}
   distance: 7
@@ -140788,6 +140831,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2133512522}
   - component: {fileID: 2133512521}
+  - component: {fileID: 2133512523}
   m_Layer: 0
   m_Name: DragonBGM
   m_TagString: Untagged
@@ -140906,6 +140950,18 @@ Transform:
   m_Father: {fileID: 662196377}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2133512523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2133512520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90db45e7dc237444ca68b5adc94fcbc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2134623594
 GameObject:
   m_ObjectHideFlags: 0
