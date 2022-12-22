@@ -213,7 +213,7 @@ public class Npc : MonoBehaviour
         animator.CrossFade(aniName, mixTime);
     }
 
-    bool StaticCollision(float radius = 0.23f, float maxDistance = 0.3f)
+    bool StaticCollision(float maxDistance = 0.3f)
     {
         if (stateManager == null)
         {
@@ -221,7 +221,7 @@ public class Npc : MonoBehaviour
         }
         collideFront = false;
         animator.applyRootMotion = true;
-        var hitSomethingWhenMoving = Physics.SphereCast(this.transform.position + new Vector3(0, 0.7f, 0), radius, transform.forward, out var hitInfo, 0.5f, layerMask);
+        var hitSomethingWhenMoving = Physics.SphereCast(this.transform.position + new Vector3(0, 0.7f, 0), stateManager.Radius, transform.forward, out var hitInfo, 0.5f, layerMask);
         var hitInfos = Physics.OverlapCapsule(transform.position, transform.position.AddY(1.7f), stateManager.Radius, layerMask).Where(i => i.name != name).ToList();
         var hitSomething = hitSomethingWhenMoving || hitInfos.Count() > 0;
         if (hitSomething && hitInfo.transform != this.transform)
@@ -241,6 +241,7 @@ public class Npc : MonoBehaviour
                 {
                     if (pauseTime > 0) break;
                     var closestPoint = item.ClosestPoint(transform.position).WithY(transform.position.y);
+                    Debug.Log(transform.position);
                     transform.position -= (closestPoint - transform.position).normalized * 0.1f;
                 }
             }
