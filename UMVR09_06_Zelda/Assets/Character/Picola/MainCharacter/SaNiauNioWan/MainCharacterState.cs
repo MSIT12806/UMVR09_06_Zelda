@@ -325,7 +325,6 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     }
     public void FeverAttackSpeed(float speed)//事件觸發
     {
-        print("123");
         if (speed > 1)
         {
             FeverIk = true;

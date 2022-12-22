@@ -241,7 +241,6 @@ public class Npc : MonoBehaviour
                 {
                     if (pauseTime > 0) break;
                     var closestPoint = item.ClosestPoint(transform.position).WithY(transform.position.y);
-                    Debug.Log(transform.position);
                     transform.position -= (closestPoint - transform.position).normalized * 0.1f;
                 }
             }
