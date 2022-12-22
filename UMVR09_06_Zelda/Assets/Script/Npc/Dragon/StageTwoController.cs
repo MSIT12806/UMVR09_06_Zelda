@@ -29,12 +29,10 @@ public class StageTwoController : MonoBehaviour
 
     public void OpenUi()
     {
-        Debug.Log("OpenUi");
         UiManager.singleton.gameObject.SetActive(true);
     }
     public void CloseUi()
     {
-        Debug.Log("CloseUi");
         UiManager.singleton.gameObject.SetActive(false);
     }
 }

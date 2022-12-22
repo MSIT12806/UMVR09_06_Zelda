@@ -139467,7 +139467,7 @@ PlayableDirector:
   - key: {fileID: -590814341039323537, guid: e92c9f65dab7c5a4b88ada3cdd02bc3e, type: 2}
     value: {fileID: 0}
   - key: {fileID: 2299896557431972870, guid: e92c9f65dab7c5a4b88ada3cdd02bc3e, type: 2}
-    value: {fileID: 0}
+    value: {fileID: 2071329400}
   m_ExposedReferences:
     m_References:
     - 57f4078da833c2143be73b0a44320bd1: {fileID: 1716269159}
@@ -139521,6 +139521,8 @@ MonoBehaviour:
     m_Signals:
     - {fileID: 11400000, guid: a9ae50c0279940548a1d37d0c2add756, type: 2}
     - {fileID: 11400000, guid: 9cb6247ab5ede5445abce1b826323f3d, type: 2}
+    - {fileID: 11400000, guid: de095b78ac774ee44b454fdacff9c2d2, type: 2}
+    - {fileID: 11400000, guid: 7e304d64ed42c2c48894e81687517ef1, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
@@ -139541,6 +139543,34 @@ MonoBehaviour:
         - m_Target: {fileID: 2071329399}
           m_TargetAssemblyTypeName: StageThreeController, Assembly-CSharp
           m_MethodName: PlayGolemBGM
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2071329399}
+          m_TargetAssemblyTypeName: StageThreeController, Assembly-CSharp
+          m_MethodName: CloseUi
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2071329399}
+          m_TargetAssemblyTypeName: StageThreeController, Assembly-CSharp
+          m_MethodName: OpenUi
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
