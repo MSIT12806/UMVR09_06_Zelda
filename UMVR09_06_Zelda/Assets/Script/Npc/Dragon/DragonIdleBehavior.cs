@@ -34,11 +34,11 @@ public class DragonIdleBehavior : StateMachineBehaviour
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if (animator.name == "Blue Variant 2") return;
-        if (manager.Hp <= 0)
-        {
-            manager.Die();
+        //if (manager.Hp <= 0)
+        //{
+        //    manager.Die();
 
-        }
+        //}
 
         if (fightState)
         {
