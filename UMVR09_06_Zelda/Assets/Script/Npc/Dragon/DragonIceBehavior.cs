@@ -34,7 +34,7 @@ public class DragonIceBehavior : StateMachineBehaviour
     // OnStateMove is called right after Animator.OnAnimatorMove()
     override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (manager.Hp <= 0) manager.Die();
+        //if (manager.Hp <= 0) manager.Die();
         AiStateCommon.Turn(animator.transform, ObjectManager.MainCharacter.position - animator.transform.position);
         Turn(head, ObjectManager.MainCharacter.position - head.transform.position);
     }

@@ -25,4 +25,13 @@ public class StageThreeController : MonoBehaviour
     {
         GolemBGM.Play();
     }
+
+    public void OpenUi()
+    {
+        UiManager.singleton.gameObject.SetActive(true);
+    }
+    public void CloseUi()
+    {
+        UiManager.singleton.gameObject.SetActive(false);
+    }
 }

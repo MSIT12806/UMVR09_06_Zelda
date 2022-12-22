@@ -18,7 +18,8 @@ Shader "Ron/DitherShader"
 
       //include useful shader functions
       #include "UnityCG.cginc"
-
+                  //取_LightColor0 參數(燈光原色)
+            #include "Lighting.cginc"  
       //define vertex and fragment shader functions
       #pragma vertex vert
       #pragma fragment frag
@@ -45,6 +46,9 @@ Shader "Ron/DitherShader"
         float4 position : SV_POSITION;
         float2 uv : TEXCOORD0;
         float4 screenPosition : TEXCOORD1;
+
+                float3 worldNormal:TEXCOORD2; //uv座標
+                float3 worldPos:TEXCOORD3;  //世界座標
       };
 
       //the vertex shader function
@@ -62,7 +66,9 @@ Shader "Ron/DitherShader"
       fixed4 frag(v2f i) : SV_TARGET{
         //texture value the dithering is based on
         float4 texColor = tex2D(_MainTex, i.uv);
-    
+        float4 col = texColor;
+                col.rgb*= _LightColor0.rgb;//測試：乘上光源顏色，調整光色會跟著變。
+       
         //value from the dither pattern
         float2 screenPos = i.screenPosition.xy / i.screenPosition.w;
         float2 ditherCoordinate = screenPos * _ScreenParams.xy * _DitherPattern_TexelSize.xy;
@@ -71,7 +77,6 @@ Shader "Ron/DitherShader"
         //combine dither pattern with texture value to get final result
             clip(_MinDistance - ditherValue.r);
 
-        float4 col =  _Color;
         return col;
           }
 

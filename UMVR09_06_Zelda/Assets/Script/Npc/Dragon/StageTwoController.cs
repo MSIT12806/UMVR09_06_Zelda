@@ -26,4 +26,13 @@ public class StageTwoController : MonoBehaviour
     {
         DragonBGM.Play();
     }
+
+    public void OpenUi()
+    {
+        UiManager.singleton.gameObject.SetActive(true);
+    }
+    public void CloseUi()
+    {
+        UiManager.singleton.gameObject.SetActive(false);
+    }
 }

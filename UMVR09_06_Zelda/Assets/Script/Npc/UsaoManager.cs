@@ -181,6 +181,7 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
     public void JumpStart()
     {
         if (npc.collide) return;
+        if (npc.PauseTime >= 0) return;
         jumpRandomDirection = (new Vector3(UnityEngine.Random.value - 0.5f, 0, UnityEngine.Random.value - 0.5f)).normalized;
         jump = 21;
     }

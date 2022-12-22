@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DitherMat
+  m_Name: DitherMat_Usao2
   m_Shader: {fileID: 4800000, guid: 5a61968340cec914d8d0df714d41fd72, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -45,7 +45,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: facd579af587a3c4db5d4a04bbaef377, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -75,7 +75,7 @@ Material:
     - _GlossyReflections: 1
     - _MaxDistance: 3
     - _Metallic: 0
-    - _MinDistance: 0.1
+    - _MinDistance: 0.3
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02

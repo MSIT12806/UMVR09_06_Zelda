@@ -230,6 +230,24 @@ public class DragonManager : MonoBehaviour, NpcHelper
 
     public void Die()
     {
+        ObjectManager.myCamera.SetDefault();
+        ObjectManager.myCamera.m_StareTarget[2] = null;
+        dizzy = false;
+        UiManager.singleton.HideTip();
+        animator.Play("Die");
+        //把小怪都殺死
+        var usaosBelongSecondStage = ObjectManager.StagePools[2];
+        foreach (var item in usaosBelongSecondStage)
+        {
+            item.Die();
+        }
+
+        Invoke("FallTonic", 2f);
+    }
+
+    private void FallTonic()
+    {
+
         //掉蘋果跟掉愛心
         int heartCount = UnityEngine.Random.Range(2, 4);
         for (int i = 0; i < heartCount; i++)
@@ -244,19 +262,6 @@ public class DragonManager : MonoBehaviour, NpcHelper
             var go = Instantiate(apple);
             go.transform.position = transform.position + Vector3Extension.GetRandomDirection().AddY(1).normalized;
         }
-
-        ObjectManager.myCamera.SetDefault();
-        ObjectManager.myCamera.m_StareTarget[2] = null;
-        dizzy = false;
-        UiManager.singleton.HideTip();
-        animator.Play("Die");
-        //把小怪都殺死
-        var usaosBelongSecondStage = ObjectManager.StagePools[2];
-        foreach (var item in usaosBelongSecondStage)
-        {
-            item.Die();
-        }
-
 
     }
     #endregion

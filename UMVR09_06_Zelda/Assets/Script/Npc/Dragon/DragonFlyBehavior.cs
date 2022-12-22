@@ -56,10 +56,10 @@ public class DragonFlyBehavior : StateMachineBehaviour
     override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
 
-        if (manager.Hp <= 0)
-        {
-            manager.Die();
-        }
+        //if (manager.Hp <= 0)
+        //{
+        //    manager.Die();
+        //}
 
         if (fightState)
         {

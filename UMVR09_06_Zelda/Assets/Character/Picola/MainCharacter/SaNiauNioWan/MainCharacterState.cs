@@ -358,7 +358,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
         if (attackType == 4)//終結技
             NpcCommon.AttackDetection("Pico", transform.position, transform.forward, 360, 4f, true, new DamageData(100f, transform.forward * 0.15f, HitType.Heavy, new DamageStateInfo(DamageState.Finishing, 0)), "Npc");
         if (attackType == 5)//無雙
-            NpcCommon.AttackDetection("Pico", transform.position, transform.forward, 360, 13f, true, new DamageData(150f, transform.forward * 0.15f, HitType.Heavy, new DamageStateInfo(DamageState.Fever, 0)), "Npc");
+            NpcCommon.AttackDetection("Pico", transform.position, transform.forward, 360, 13f, true, new DamageData(200f, transform.forward * 0.15f, HitType.Heavy, new DamageStateInfo(DamageState.Fever, 0)), "Npc");
         if (attackType == 6)//無雙前面幾段小攻擊
             NpcCommon.AttackDetection("Pico", transform.position, transform.forward, 360, 13f, false, new DamageData(10f, transform.forward * 0.15f, HitType.light, new DamageStateInfo(DamageState.Fever, 0)), "Npc");
 
