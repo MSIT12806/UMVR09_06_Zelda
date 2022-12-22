@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UsaoManager : MonoBehaviour, IHp, NpcHelper
 {
@@ -54,7 +55,17 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
     }
     void Awake()
     {
-        ObjectManager.StateManagers.Add(this.gameObject.GetInstanceID(), this);
+
+        var currentScene = SceneManager.GetActiveScene();
+        var currentSceneName = currentScene.name;
+        if(currentSceneName == "NightScene")
+        {
+            ObjectManager.StateManagers.Add(this.gameObject.GetInstanceID(), this);
+        }
+        else
+        {
+            ObjectManager2.StateManagers.Add(this.gameObject.GetInstanceID(), this);
+        }
         animator = transform.GetComponent<Animator>();
         OriginPosition = transform.position;
         head = transform.FindAnyChild<Transform>("Character1_Head");
@@ -62,10 +73,18 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
     void Start()
     {
         npc = transform.GetComponent<Npc>();
-        var picoState = ObjectManager.MainCharacter.GetComponent<PicoState>();
-        usaoIdleState = new UsaoIdleState(ObjectManager.MainCharacter, picoState, animator, transform, this);
-        usaoFightState = new UsaoFightState(ObjectManager.MainCharacter, animator, transform, this);
-
+        if (ObjectManager.MainCharacter != null)
+        {
+            var picoState = ObjectManager.MainCharacter.GetComponent<PicoState>();
+            usaoIdleState = new UsaoIdleState(ObjectManager.MainCharacter, picoState, animator, transform, this);
+            usaoFightState = new UsaoFightState(ObjectManager.MainCharacter, animator, transform, this);
+        }
+        else
+        {
+            var picoState = ObjectManager2.MainCharacter.GetComponent<PicoState>();
+            usaoIdleState = new UsaoIdleState(ObjectManager2.MainCharacter, picoState, animator, transform, this);
+            usaoFightState = new UsaoFightState(ObjectManager2.MainCharacter, animator, transform, this);
+        }
         StartAiState();
     }
 

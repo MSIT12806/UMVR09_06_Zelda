@@ -94,16 +94,18 @@ public class SpaceManager : MonoBehaviour, NpcHelper
         {
             ArmorBreakTime = 2;
         }
-        
+        var currentAnimatorState = animator.GetCurrentAnimatorStateInfo(0);
         if (CanGetHit == true)//ÅS¥X®zÂI
         {
             Armor -= 1;
-            if (Armor <= 0)
+            if (Armor <= 0 )
             {
                 animator.Play("ArmorBreak");
             }
-            else
+            else if(currentAnimatorState.IsName("Week") || currentAnimatorState.IsName("GetHit"))
                 animator.Play("GetHit");
+            else if (currentAnimatorState.IsName("ArmorBreak") || currentAnimatorState.IsName("GetHit 0"))
+                animator.Play("GetHit 0");
         }
 
         if (Hp <= 0)
@@ -128,7 +130,7 @@ public class SpaceManager : MonoBehaviour, NpcHelper
 
         if (InSkill2State)
         {
-            if (damageData.DamageState.damageState == DamageState.Bomb)
+            if (damageData.DamageState.damageState == DamageState.Bomb && damageData.DamageState.damageState == DamageState.Fever)
             {
                 if (transform.Find("BlackHoll").gameObject.activeSelf)
                 {
@@ -147,18 +149,21 @@ public class SpaceManager : MonoBehaviour, NpcHelper
 
         if (InSkill3State)
         {
-            if (damageData.DamageState.damageState == DamageState.TimePause)
+            if (damageData.DamageState.damageState == DamageState.TimePause && damageData.DamageState.damageState == DamageState.Fever)
             {
                 InSkill3State = false;
                 animator.Play("GetHit");
-                ShowWeakTime = 5;
-                var effect = transform.GetComponent<AnimAfffectSpace>();
+                ShowWeakTime = 10;
+                //var effect = transform.GetComponent<AnimAfffectSpace>();
                 //effect.FX_AttactSkill0301.GetComponent<ParticleSystem>().Stop();
+                //effect.FX_AttactSkill0301.GetComponent<ParticleSystem>().Clear();
                 //effect.FX_AttactSkill0302.GetComponent<ParticleSystem>().Stop();
+                //effect.FX_AttactSkill0302.GetComponent<ParticleSystem>().Clear();
                 Debug.Log("innnnnnnnnnnnnnnnnnnnn");
                 foreach (var i in EffectPlaying)
                 {
                     i.Stop();
+                    i.Clear();
                 }
             }
         }
