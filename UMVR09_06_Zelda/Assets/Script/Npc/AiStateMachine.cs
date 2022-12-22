@@ -141,7 +141,12 @@ public class UsaoFightState : UsaoAiState
 
     private int GetChasingNpcCount()
     {
-        return ObjectManager.ChasingNpc.Count;
+        //if(ObjectManager.ChasingNpc != null)
+            return ObjectManager.ChasingNpc.Count;
+        //else
+        //{
+        //    return ObjectManager2.ChasingNpc.Count;
+        //}
     }
 
     public override void SetAnimation()
