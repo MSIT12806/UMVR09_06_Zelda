@@ -16,7 +16,8 @@ public enum DamageState
     Ice,
     TimePause,
     Fever,
-    Finishing
+    Finishing,
+    Other
 }
 public class DamageData
 {
