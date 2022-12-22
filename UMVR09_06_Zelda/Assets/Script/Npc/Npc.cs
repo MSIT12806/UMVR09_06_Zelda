@@ -196,10 +196,21 @@ public class Npc : MonoBehaviour
             }
         }
     }
+
+    public void LookAt(Transform target)
+    {
+        if (pauseTime > 0) return;
+        transform.LookAt(target);
+    }
     public void PlayAnimation(string aniName)
     {
         if (pauseTime > 0) return;
         animator.Play(aniName);
+    }
+    public void CrossAnimation(string aniName,float mixTime)
+    {
+        if (pauseTime > 0) return;
+        animator.CrossFade(aniName, mixTime);
     }
 
     bool StaticCollision(float radius = 0.23f, float maxDistance = 0.3f)

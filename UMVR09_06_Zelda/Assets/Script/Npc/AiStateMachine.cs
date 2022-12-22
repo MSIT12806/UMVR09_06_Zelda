@@ -222,7 +222,7 @@ public class UsaoChaseState : UsaoAiState
     public override void SetAnimation()
     {
         if (npc.collide == false)
-            selfTransform.LookAt(alertTarget);//這樣真的好嗎?
+            npc.LookAt(alertTarget);//這樣真的好嗎?
         var f = animator.GetFloat("forward");
         f = Math.Min(f + 0.02f, 1);
         animator.SetFloat("forward", f);
@@ -320,7 +320,7 @@ public class UsaoHurtState : UsaoAiState
 
             if (UnityEngine.Random.value >= 0.5)
             {
-                animator.CrossFade("GetHit.Die01_SwordAndShield", 0.2f, 0);
+                npc.CrossAnimation("GetHit.Die01_SwordAndShield", 0.2f);
             }
             else
             {
