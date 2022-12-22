@@ -166,6 +166,7 @@ public class GolemManager : MonoBehaviour, NpcHelper
         if (Shield > 0 && ShieldEffect.active == false)
         {
             ShieldEffect.SetActive(true);
+            //ShieldEffect.GetComponent<Renderer>().material.SetFloat("_MaskAppearProgress")
         }
         else if(Shield <= 0 && ShieldEffect.active == true)
         {
