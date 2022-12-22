@@ -49,7 +49,7 @@ public class UsaoIdleState : UsaoAiState
 {
     Transform target;
     UsaoManager manager;
-
+    float findTime = UnityEngine.Random.value * 5;
     public UsaoIdleState(Transform t, PicoState state, Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Idle", t.GetComponent<PicoState>())
     {
         target = t;
@@ -60,7 +60,16 @@ public class UsaoIdleState : UsaoAiState
     //Idel 應該有個初始位置    
     public override AiState SwitchState()
     {
-        return picoState.gameState == npc.gameState ? new UsaoFightState(target, animator, selfTransform, npcHelper) : this;
+        if (picoState.gameState != npc.gameState)
+        {
+            return this;
+        }
+        if (findTime > 0)
+        {
+            findTime -= Time.deltaTime;
+            return this;
+        }
+        return new UsaoFightState(target, animator, selfTransform, npcHelper);
     }
 
     public override void SetAnimation()
@@ -213,7 +222,7 @@ public class UsaoChaseState : UsaoAiState
     public override void SetAnimation()
     {
         if (npc.collide == false)
-            selfTransform.LookAt(alertTarget);
+            selfTransform.LookAt(alertTarget);//這樣真的好嗎?
         var f = animator.GetFloat("forward");
         f = Math.Min(f + 0.02f, 1);
         animator.SetFloat("forward", f);
