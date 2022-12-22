@@ -101,7 +101,7 @@ public class GolemManager : MonoBehaviour, NpcHelper
     {
         if (attackType == 1)//普攻1 
         {
-            NpcCommon.AttackDetection("", transform.position, transform.forward, 90, 4.5f, false, new DamageData(30f, transform.forward * 0.6f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");//
+            NpcCommon.AttackDetection("", transform.position, transform.forward, 360, 4.5f, false, new DamageData(30f, transform.forward * 0.6f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");//
             this.transform.Find("FX_GolemAttack01").gameObject.GetComponent<ParticleSystem>().Play();
         }
         if (attackType == 2)//技能2
