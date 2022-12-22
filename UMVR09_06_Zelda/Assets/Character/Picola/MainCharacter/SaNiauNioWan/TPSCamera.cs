@@ -115,13 +115,13 @@ public class TPSCamera : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(2))
         {
-            if (m_StareTarget[stage] != null)
+            if (m_StareTarget[stage] != null && m_StareTarget[stage].gameObject.activeSelf)
             {
                 if (state.Name == "Default") SetStare();
                 else SetDefault();
             }
             else
-                state = new Default(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance);
+                SetDefault();
         }
         if (Input.GetKeyDown(KeyCode.M))
         {
