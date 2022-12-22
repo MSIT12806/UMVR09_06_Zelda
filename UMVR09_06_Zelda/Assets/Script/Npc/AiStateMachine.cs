@@ -226,8 +226,6 @@ public class UsaoChaseState : UsaoAiState
         var f = animator.GetFloat("forward");
         f = Math.Min(f + 0.02f, 1);
         animator.SetFloat("forward", f);
-        if (npc.nextPosition != Vector3.zero)
-            npc.nextPosition += direction * 0.001f;
     }
 
 }
@@ -263,9 +261,6 @@ public class UsaoAttackState : UsaoAiState
         else
             animator.SetInteger("attackWay", UnityEngine.Random.Range(3, 7));
 
-
-        //攻擊判定交給動作事件處理
-        //NpcCommon.AttackDetection(selfTransform.position, selfTransform.forward, 5f, 2f, false, new DamageData(5, Vector3.zero, HitType.light), "Player");
     }
 
 }
@@ -317,10 +312,6 @@ public class UsaoHurtState : UsaoAiState
                 npc.PlayAnimation("GetHit.SwordAndShieldImpact02");
             else
                 npc.PlayAnimation("GetHit.SwordAndShieldImpact01");
-            if (npc.collide == false)
-            {
-                //npc.nextPosition = selfTransform.position + getHit.Force;//不知道為什麼  註解掉之後還是會擊飛
-            }
 
             return;
         }
@@ -339,13 +330,6 @@ public class UsaoHurtState : UsaoAiState
 
             npc.KnockOff(getHit.Force);
         }
-
-        //if (NpcData.Hp < 0.0001f)
-        //{
-        //    System.Random random = new System.Random();
-        //    animator.SetInteger("playDeadType", random.Next(1, 3));
-        //    getHit = null;
-        //}
     }
 
 }
@@ -403,7 +387,6 @@ public class UsaoDeathState : UsaoAiState
 public static class AiStateCommon
 {
 
-    //其實不應該寫在這邊
     public static bool Turn(Transform body, Vector3 direction)
     {
         var degree = Vector3.SignedAngle(body.forward.WithY(), direction.WithY(), Vector3.up);

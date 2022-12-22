@@ -52,11 +52,11 @@ public class Npc : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameObject.activeSelf == false) return;
+        TimePause();
+        if (pauseTime > 0) return;
 
         OnGround = StandOnTerrain();
         collide = StaticCollision();
-        TimePause();
         if (stopAnimationMoving > 0)
         {
             stopAnimationMoving--;
@@ -68,6 +68,8 @@ public class Npc : MonoBehaviour
             }
         }
     }
+
+    private Vector3 pausePosition;
     bool pause;
     float beforePauseAnimatorSpeed;
     Vector3 beforePauseInitVelocity;
@@ -82,6 +84,10 @@ public class Npc : MonoBehaviour
             initVel = Vector3.zero;
             beforePauseNextPosition += nextPosition;
             nextPosition = Vector3.zero;
+            if (ik != null)
+            {
+                ik.IkActive = false;
+            }
         }
         if (animator.speed == 0 && pauseTime <= 0)
         {
@@ -93,8 +99,7 @@ public class Npc : MonoBehaviour
             animator.speed = beforePauseAnimatorSpeed;
             if (ik != null)
             {
-
-                ik.enabled = true;
+                ik.IkActive = true;
             }
             renderer.gameObject.SetActive(oriEnabled);
             if (materials != null)
@@ -110,6 +115,12 @@ public class Npc : MonoBehaviour
     }
     private void LateUpdate()
     {
+        if (pauseTime > 0)
+        {
+
+            transform.position = pausePosition;
+            return;
+        }
 
         if (!collide)
         {
@@ -117,10 +128,12 @@ public class Npc : MonoBehaviour
             LerpToNextPosition();
         }
         FreeFall();
+
     }
     float lerpTime;
     private void LerpToNextPosition()
     {
+        if (pauseTime > 0) return;
         if (lerpTime < Time.time)
         {
             nextPosition = Vector3.zero;
@@ -159,6 +172,7 @@ public class Npc : MonoBehaviour
 
         if (damageData.DamageState.damageState == DamageState.TimePause)
         {
+            pausePosition = transform.position;
             pauseTime = damageData.DamageState.KeepTime;
             beforePauseAnimatorSpeed = animator.speed;
             animator.speed = 0;
@@ -184,7 +198,7 @@ public class Npc : MonoBehaviour
     }
     public void PlayAnimation(string aniName)
     {
-        if (pause) return;
+        if (pauseTime > 0) return;
         animator.Play(aniName);
     }
 
@@ -201,7 +215,7 @@ public class Npc : MonoBehaviour
         var hitSomething = hitSomethingWhenMoving || hitInfos.Count() > 0;
         if (hitSomething && hitInfo.transform != this.transform)
         {
-            if (hitSomethingWhenMoving && this.name != "MainCharacter") //讓 npc 隨機旋轉，離開障礙物
+            if (hitSomethingWhenMoving && this.name != "MainCharacter" && pauseTime <= 0) //讓 npc 隨機旋轉，離開障礙物
             {
                 animator.applyRootMotion = false;
 
@@ -214,7 +228,7 @@ public class Npc : MonoBehaviour
             {
                 foreach (var item in hitInfos)
                 {
-                    if (pauseTime >= 0) break;
+                    if (pauseTime > 0) break;
                     var closestPoint = item.ClosestPoint(transform.position).WithY(transform.position.y);
                     transform.position -= (closestPoint - transform.position).normalized * 0.1f;
                 }
@@ -228,7 +242,7 @@ public class Npc : MonoBehaviour
     void NpcCollision()
     {
         if (collide) return;
-        if (pause) return;
+        if (pauseTime > 0) return;
         if (alives == null) return;
         foreach (var item in alives.Values)
         {
