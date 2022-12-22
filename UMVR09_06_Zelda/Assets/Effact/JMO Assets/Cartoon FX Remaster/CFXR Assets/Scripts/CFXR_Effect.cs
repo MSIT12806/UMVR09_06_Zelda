@@ -546,7 +546,6 @@ namespace CartoonFX
             if (this.GetComponent<ParticleSystem>().isPlaying && CanPlaySound && audioSource != null)
             {
                 audioSource.Play();
-                Debug.Log(123456);
                 //audioSource.PlayDelayed(UnityEngine.Random.Range(0, 0.04f));
                 CanPlaySound = false;
             }

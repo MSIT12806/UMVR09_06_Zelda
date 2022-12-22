@@ -49,7 +49,7 @@ public class UsaoIdleState : UsaoAiState
 {
     Transform target;
     UsaoManager manager;
-
+    float findTime = UnityEngine.Random.value * 5;
     public UsaoIdleState(Transform t, PicoState state, Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Idle", t.GetComponent<PicoState>())
     {
         target = t;
@@ -60,7 +60,16 @@ public class UsaoIdleState : UsaoAiState
     //Idel 應該有個初始位置    
     public override AiState SwitchState()
     {
-        return picoState.gameState == npc.gameState ? new UsaoFightState(target, animator, selfTransform, npcHelper) : this;
+        if (picoState.gameState != npc.gameState)
+        {
+            return this;
+        }
+        if (findTime > 0)
+        {
+            findTime -= Time.deltaTime;
+            return this;
+        }
+        return new UsaoFightState(target, animator, selfTransform, npcHelper);
     }
 
     public override void SetAnimation()
@@ -213,12 +222,10 @@ public class UsaoChaseState : UsaoAiState
     public override void SetAnimation()
     {
         if (npc.collide == false)
-            selfTransform.LookAt(alertTarget);
+            npc.LookAt(alertTarget);//這樣真的好嗎?
         var f = animator.GetFloat("forward");
         f = Math.Min(f + 0.02f, 1);
         animator.SetFloat("forward", f);
-        if (npc.nextPosition != Vector3.zero)
-            npc.nextPosition += direction * 0.001f;
     }
 
 }
@@ -254,9 +261,6 @@ public class UsaoAttackState : UsaoAiState
         else
             animator.SetInteger("attackWay", UnityEngine.Random.Range(3, 7));
 
-
-        //攻擊判定交給動作事件處理
-        //NpcCommon.AttackDetection(selfTransform.position, selfTransform.forward, 5f, 2f, false, new DamageData(5, Vector3.zero, HitType.light), "Player");
     }
 
 }
@@ -308,10 +312,6 @@ public class UsaoHurtState : UsaoAiState
                 npc.PlayAnimation("GetHit.SwordAndShieldImpact02");
             else
                 npc.PlayAnimation("GetHit.SwordAndShieldImpact01");
-            if (npc.collide == false)
-            {
-                //npc.nextPosition = selfTransform.position + getHit.Force;//不知道為什麼  註解掉之後還是會擊飛
-            }
 
             return;
         }
@@ -320,22 +320,16 @@ public class UsaoHurtState : UsaoAiState
 
             if (UnityEngine.Random.value >= 0.5)
             {
-                animator.CrossFade("GetHit.Die01_SwordAndShield", 0.2f, 0);
+                npc.CrossAnimation("GetHit.Die01_SwordAndShield", 0.2f);
             }
             else
             {
                 npc.PlayAnimation("GetHit.Flying Back Death");
                 getHit.Force.y = 0.75f;
             }
+
             npc.KnockOff(getHit.Force);
         }
-
-        //if (NpcData.Hp < 0.0001f)
-        //{
-        //    System.Random random = new System.Random();
-        //    animator.SetInteger("playDeadType", random.Next(1, 3));
-        //    getHit = null;
-        //}
     }
 
 }
@@ -357,7 +351,7 @@ public class UsaoDeathState : UsaoAiState
 
     public override void SetAnimation()
     {
-        if (Time.frameCount > deathTime + 180)
+        if (Time.frameCount > deathTime + 120)
         {
             //死亡程序
             var fxGo = ObjectManager.DieFx.Dequeue();
@@ -393,7 +387,6 @@ public class UsaoDeathState : UsaoAiState
 public static class AiStateCommon
 {
 
-    //其實不應該寫在這邊
     public static bool Turn(Transform body, Vector3 direction)
     {
         var degree = Vector3.SignedAngle(body.forward.WithY(), direction.WithY(), Vector3.up);
@@ -1097,7 +1090,7 @@ public class GolemSkillState : GolemBaseState
             {
                 if (dis > 5f)//太近就不會追蹤
                     LookAt();
-                if(!npc.collide)
+                if (!npc.collide)
                     selfTransform.Translate(0, 0, moveSpeed);
             }
         }

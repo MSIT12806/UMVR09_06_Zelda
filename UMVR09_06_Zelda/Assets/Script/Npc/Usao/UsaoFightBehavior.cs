@@ -6,12 +6,14 @@ public class UsaoFightBehavior : StateMachineBehaviour
 {
     bool awake = false;
     IKController ik;
+    Npc npc;
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         //awake
         if (awake == false)
         {
             ik = animator.GetComponent<IKController>();
+            npc = animator.GetComponent<Npc>();
             //...
 
             awake = true;
@@ -23,6 +25,7 @@ public class UsaoFightBehavior : StateMachineBehaviour
 
     override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        if (npc.PauseTime > 0) return;
         AiStateCommon.Turn(animator.transform, ObjectManager.MainCharacter.position - animator.transform.position);
     }
 }

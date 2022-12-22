@@ -94,7 +94,7 @@ public class DragonIdleBehavior : StateMachineBehaviour
         if (animator.name == "Blue Variant 2") return;
         if (fightState)
         {
-            if (npc.PauseTime >= 0) return;
+            if (npc.PauseTime > 0) return;
             AiStateCommon.Turn(animator.transform, target.position - animator.transform.position);
             AiStateCommon.Look(head, target);
 
