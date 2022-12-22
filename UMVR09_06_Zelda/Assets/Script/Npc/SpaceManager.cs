@@ -6,6 +6,7 @@ using Ron;
 
 public class SpaceManager : MonoBehaviour, NpcHelper
 {
+    public bool Show;//表演完設為true
     public HashSet<ParticleSystem> EffectPlaying = new HashSet<ParticleSystem>();
     Npc npc;
     public SpaceWeapon spaceWeapon;
@@ -62,6 +63,7 @@ public class SpaceManager : MonoBehaviour, NpcHelper
     }
     void Start()
     {
+        this.gameObject.SetActive(false);
     }
 
     // Update is called once per frame

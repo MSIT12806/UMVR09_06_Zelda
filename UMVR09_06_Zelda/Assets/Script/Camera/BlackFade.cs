@@ -7,7 +7,7 @@ public class BlackFade : MonoBehaviour
 {
     public Image fadeImage;
     public float time;
-    private float newAlpha;
+    public float newAlpha;
     public bool IsFadeIn = true;
     // Start is called before the first frame update
     void Start()

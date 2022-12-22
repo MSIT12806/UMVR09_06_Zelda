@@ -8,6 +8,10 @@ using UnityEngine.SceneManagement;
 
 public class StageManager : MonoBehaviour
 {
+    public Transform PicoTpPlace;
+    bool PicoCanTp = true;
+    BlackFade1 BlackScreen;
+
     public int TriggerType;
     public Transform Pico;
     public float distance = 10;
@@ -25,6 +29,7 @@ public class StageManager : MonoBehaviour
     bool isNightScene;
     private bool dragonPlay;
     private bool golemStand;
+    private bool spacePlay;
 
     //scene 1 
     LevelHandler levelHandler1;
@@ -55,6 +60,7 @@ public class StageManager : MonoBehaviour
         }
         else
         {
+            BlackScreen = GameObject.Find("BlackScreen").GetComponent<BlackFade1>();
             Space = GameObject.Find("space3").GetComponent<SpaceManager>();
         }
     }
@@ -148,10 +154,23 @@ public class StageManager : MonoBehaviour
             switch ((int)picoState.gameState)
             {
                 case 2:
-                    if (!dragonPlay && ObjectManager2.StageMonsterMonitor[2] <= 0)
+                    if (!spacePlay && ObjectManager2.StageMonsterMonitor[2] <= 0)
                     {
-                        spaceDirector.Play();
-                        dragonPlay = true;
+                        //spaceVirtualCamera.gameObject.SetActive(true);
+                        //spaceVirtualCamera.Priority = 20;
+                        BlackScreen.FadeOut();
+                        if (BlackScreen.newAlpha >= 1)
+                        {
+                            if (PicoCanTp)
+                            {
+                                PicoCanTp = false;
+                                Pico.transform.position = PicoTpPlace.position;
+                            }
+                            spaceDirector.Play();
+                            BlackScreen.FadeIn();
+                            spacePlay = true;
+                        }
+                        //dragonPlay = true;
                     }
                     //if (Dragon.Hp > 0 && Dragon.Show && ObjectManager2.StageMonsterMonitor[2] < 10)
                     //{
