@@ -101,7 +101,11 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
         IK = GetComponent<IKController>();
 
     }
-
+    public void RecoverGameSpeed()
+    {
+        Debug.Log("恢復遊戲速度");
+        Time.timeScale = 1;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -160,6 +164,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
             {
                 PicoManager.Power -= PicoManager.PowerCost;
                 animator.SetTrigger("Fever");
+                Time.timeScale = 0.1f;
             }
         }
 
@@ -306,6 +311,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
                 var nh = managers[i.GetInstanceID()];
                 if (nh.WeakPoint <=0)
                 {
+                    Time.timeScale = 0.1f;
                     animator.SetTrigger("Finishing");
                     FinishingReleased = true;
                     break;
