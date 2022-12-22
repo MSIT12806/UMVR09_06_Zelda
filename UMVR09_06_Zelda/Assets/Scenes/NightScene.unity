@@ -17953,6 +17953,8 @@ MonoBehaviour:
     m_Signals:
     - {fileID: 11400000, guid: a9ae50c0279940548a1d37d0c2add756, type: 2}
     - {fileID: 11400000, guid: a04ade5349f495c418ac557a4b82326a, type: 2}
+    - {fileID: 11400000, guid: de095b78ac774ee44b454fdacff9c2d2, type: 2}
+    - {fileID: 11400000, guid: 7e304d64ed42c2c48894e81687517ef1, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
@@ -17972,7 +17974,35 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 228414085}
           m_TargetAssemblyTypeName: StageTwoController, Assembly-CSharp
-          m_MethodName: PlayDragonBGM
+          m_MethodName: CloseUi
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 228414085}
+          m_TargetAssemblyTypeName: StageTwoController, Assembly-CSharp
+          m_MethodName: CloseUi
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 228414085}
+          m_TargetAssemblyTypeName: StageTwoController, Assembly-CSharp
+          m_MethodName: OpenUi
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -18028,7 +18058,7 @@ PlayableDirector:
   - key: {fileID: -4761103991768563890, guid: 1f523ea2dd2a4d74dbd6acfc397b48fd, type: 2}
     value: {fileID: 0}
   - key: {fileID: -259721134404379648, guid: 1f523ea2dd2a4d74dbd6acfc397b48fd, type: 2}
-    value: {fileID: 685014693250569828}
+    value: {fileID: 228414084}
   m_ExposedReferences:
     m_References:
     - 2136ba7d8c2a3c44fbe3b5aeee74d6b5: {fileID: 0}
@@ -139437,7 +139467,7 @@ PlayableDirector:
   - key: {fileID: -590814341039323537, guid: e92c9f65dab7c5a4b88ada3cdd02bc3e, type: 2}
     value: {fileID: 0}
   - key: {fileID: 2299896557431972870, guid: e92c9f65dab7c5a4b88ada3cdd02bc3e, type: 2}
-    value: {fileID: 685014693250569828}
+    value: {fileID: 0}
   m_ExposedReferences:
     m_References:
     - 57f4078da833c2143be73b0a44320bd1: {fileID: 1716269159}
@@ -140789,6 +140819,56 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 685014693250569828, guid: e4e06a1de23194f4883ea55c319edeb7,
+        type: 3}
+      propertyPath: m_Events.m_Events.Array.data[0].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 685014693250569828, guid: e4e06a1de23194f4883ea55c319edeb7,
+        type: 3}
+      propertyPath: m_Events.m_Events.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 228414085}
+    - target: {fileID: 685014693250569828, guid: e4e06a1de23194f4883ea55c319edeb7,
+        type: 3}
+      propertyPath: m_Events.m_Events.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 228414085}
+    - target: {fileID: 685014693250569828, guid: e4e06a1de23194f4883ea55c319edeb7,
+        type: 3}
+      propertyPath: m_Events.m_Events.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 685014693250569828, guid: e4e06a1de23194f4883ea55c319edeb7,
+        type: 3}
+      propertyPath: m_Events.m_Events.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 685014693250569828, guid: e4e06a1de23194f4883ea55c319edeb7,
+        type: 3}
+      propertyPath: m_Events.m_Events.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OpenUi
+      objectReference: {fileID: 0}
+    - target: {fileID: 685014693250569828, guid: e4e06a1de23194f4883ea55c319edeb7,
+        type: 3}
+      propertyPath: m_Events.m_Events.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CloseUi
+      objectReference: {fileID: 0}
+    - target: {fileID: 685014693250569828, guid: e4e06a1de23194f4883ea55c319edeb7,
+        type: 3}
+      propertyPath: m_Events.m_Events.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: StageTwoController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 685014693250569828, guid: e4e06a1de23194f4883ea55c319edeb7,
+        type: 3}
+      propertyPath: m_Events.m_Events.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: StageTwoController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 685014693250569828, guid: e4e06a1de23194f4883ea55c319edeb7,
+        type: 3}
+      propertyPath: m_Events.m_Events.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 744671465451384296, guid: e4e06a1de23194f4883ea55c319edeb7,
         type: 3}
       propertyPath: m_IsActive
@@ -140939,20 +141019,9 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 685014693250569828, guid: e4e06a1de23194f4883ea55c319edeb7, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e4e06a1de23194f4883ea55c319edeb7, type: 3}
---- !u!114 &685014693250569828 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 685014693250569828, guid: e4e06a1de23194f4883ea55c319edeb7,
-    type: 3}
-  m_PrefabInstance: {fileID: 685014693250569825}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2600259474675906526 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2599672475977009566, guid: 2f4c6503393c0524092f221f451eca7a,

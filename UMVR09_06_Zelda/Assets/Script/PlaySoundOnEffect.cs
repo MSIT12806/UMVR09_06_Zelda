@@ -24,10 +24,6 @@ public class PlaySoundOnEffect : MonoBehaviour
     // Update is called once per framebool CanPlaySound;
     void Update()
     {
-        if(name == "FX_Yell")
-        {
-            Debug.Log("Yell"+effect.isPlaying+":" +audioSource + ":"+ CanPlaySound);
-        }
         if (effect.isPlaying && CanPlaySound && audioSource != null)
         {
             audioSource.Play();
