@@ -4707,6 +4707,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8293178818871931233}
     m_Modifications:
+    - target: {fileID: 4370658065225910120, guid: 8cd4b4f9771b0104e9ddb96ec04994bf,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5131511002512154037, guid: 8cd4b4f9771b0104e9ddb96ec04994bf,
         type: 3}
       propertyPath: m_RootOrder
@@ -5030,6 +5035,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8901892991968540424, guid: 0fe0863202626d34ea7dcad6a2707555,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fe0863202626d34ea7dcad6a2707555, type: 3}
 --- !u!4 &5035682321799152769 stripped
@@ -5110,6 +5120,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SwordLight0101
+      objectReference: {fileID: 0}
+    - target: {fileID: 8198670610402307477, guid: fa993bbd40afaa14cb4164c82e48942e,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa993bbd40afaa14cb4164c82e48942e, type: 3}
