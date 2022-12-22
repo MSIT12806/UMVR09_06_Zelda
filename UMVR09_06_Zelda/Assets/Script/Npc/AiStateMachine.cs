@@ -964,10 +964,10 @@ public class GolemAttackState : GolemBaseState
     {
         currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
 
-        if (currentAnimation.IsName("Attack01"))
-        {
-            finish = true;
-        }
+        //if (currentAnimation.IsName("Attack01"))
+        //{
+        //    finish = true;
+        //}
         if (getHit != null)
         {
             if (getHit.DamageState.damageState == DamageState.TimePause)
@@ -1017,12 +1017,12 @@ public class GolemAttackState : GolemBaseState
         //if (!animator.IsInTransition(0) && !currentAnimation.IsName("Attack02") && !currentAnimation.IsName("Attack02 0") && !currentAnimation.IsName("Attack01") && inStateTime > 1)
         if (!animator.IsInTransition(0) && !currentAnimation.IsTag("Attack") && inStateTime > 1)
         {
-            if (finish && gm.Shield <= 0)
-            {
-                //Attack01結束後 切至weak 
-                return new GolemWeakState(target, animator, selfTransform, nowArmor, npcHelper);
-            }
-            else
+            //if (finish && gm.Shield <= 0)
+            //{
+            //    //Attack01結束後 切至weak 
+            //    return new GolemWeakState(target, animator, selfTransform, nowArmor, npcHelper);
+            //}
+            //else
                 //Attack02結束後 切回idle
                 return new GolemIdleState(target, animator, selfTransform, nowArmor, npcHelper);
         }

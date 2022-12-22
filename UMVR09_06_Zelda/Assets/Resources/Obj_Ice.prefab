@@ -37,7 +37,7 @@ Transform:
   - {fileID: 4468722294924902}
   - {fileID: 4354133497527038}
   - {fileID: 3368208420966694003}
-  - {fileID: 4569437536737616407}
+  - {fileID: 599767517583511152}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -168,7 +168,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.50735295, g: 0.73619545, b: 1, a: 1}
-  m_Intensity: 2
+  m_Intensity: 5
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -742,7 +742,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1670782109967511903}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.27, y: 2.33, z: 0.39}
+  m_LocalPosition: {x: -0.05, y: 2.33, z: 0.302}
   m_LocalScale: {x: 1.7513, y: 1.7513, z: 1.7513}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1001,7 +1001,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.5
+      scalar: 0.3
       minScalar: 0.2
       maxCurve:
         serializedVersion: 2
@@ -1464,7 +1464,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 1
+      value: 1.42
       mode: 0
       spread: 0
       speed:
@@ -1583,7 +1583,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 20
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -5612,85 +5612,88 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!1001 &8762598579935662674
+--- !u!1001 &5665575200257654325
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 4237741520885958}
     m_Modifications:
-    - target: {fileID: 1565506079972833602, guid: a690e17970281584ba678199090f844c, type: 3}
-      propertyPath: m_Materials.Array.size
-      value: 1
+    - target: {fileID: 5112403345841327294, guid: 53979e9ded42be84980f0c1da3dfd907,
+        type: 3}
+      propertyPath: m_Range
+      value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 4035222792055163472, guid: a690e17970281584ba678199090f844c, type: 3}
-      propertyPath: m_Materials.Array.size
-      value: 1
+    - target: {fileID: 5112403345841327294, guid: 53979e9ded42be84980f0c1da3dfd907,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5112403345868107844, guid: a690e17970281584ba678199090f844c, type: 3}
-      propertyPath: m_Materials.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5112403345868107845, guid: a690e17970281584ba678199090f844c, type: 3}
+    - target: {fileID: 5112403345868107845, guid: 53979e9ded42be84980f0c1da3dfd907,
+        type: 3}
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
-    - target: {fileID: 5112403345868107845, guid: a690e17970281584ba678199090f844c, type: 3}
+    - target: {fileID: 5112403345868107845, guid: 53979e9ded42be84980f0c1da3dfd907,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5112403345868107845, guid: a690e17970281584ba678199090f844c, type: 3}
+    - target: {fileID: 5112403345868107845, guid: 53979e9ded42be84980f0c1da3dfd907,
+        type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.82
+      value: 2.42
       objectReference: {fileID: 0}
-    - target: {fileID: 5112403345868107845, guid: a690e17970281584ba678199090f844c, type: 3}
+    - target: {fileID: 5112403345868107845, guid: 53979e9ded42be84980f0c1da3dfd907,
+        type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.46
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5112403345868107845, guid: a690e17970281584ba678199090f844c, type: 3}
+    - target: {fileID: 5112403345868107845, guid: 53979e9ded42be84980f0c1da3dfd907,
+        type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 5112403345868107845, guid: a690e17970281584ba678199090f844c, type: 3}
+    - target: {fileID: 5112403345868107845, guid: 53979e9ded42be84980f0c1da3dfd907,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5112403345868107845, guid: a690e17970281584ba678199090f844c, type: 3}
+    - target: {fileID: 5112403345868107845, guid: 53979e9ded42be84980f0c1da3dfd907,
+        type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5112403345868107845, guid: a690e17970281584ba678199090f844c, type: 3}
+    - target: {fileID: 5112403345868107845, guid: 53979e9ded42be84980f0c1da3dfd907,
+        type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5112403345868107845, guid: a690e17970281584ba678199090f844c, type: 3}
+    - target: {fileID: 5112403345868107845, guid: 53979e9ded42be84980f0c1da3dfd907,
+        type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5112403345868107845, guid: a690e17970281584ba678199090f844c, type: 3}
+    - target: {fileID: 5112403345868107845, guid: 53979e9ded42be84980f0c1da3dfd907,
+        type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5112403345868107845, guid: a690e17970281584ba678199090f844c, type: 3}
+    - target: {fileID: 5112403345868107845, guid: 53979e9ded42be84980f0c1da3dfd907,
+        type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5112403345868107898, guid: a690e17970281584ba678199090f844c, type: 3}
+    - target: {fileID: 5112403345868107898, guid: 53979e9ded42be84980f0c1da3dfd907,
+        type: 3}
       propertyPath: m_Name
       value: CFXR3 Hit Ice B (Air)
       objectReference: {fileID: 0}
-    - target: {fileID: 5112403347238810575, guid: a690e17970281584ba678199090f844c, type: 3}
-      propertyPath: m_Materials.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7531768400295773595, guid: a690e17970281584ba678199090f844c, type: 3}
-      propertyPath: m_Materials.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: a690e17970281584ba678199090f844c, type: 3}
---- !u!4 &4569437536737616407 stripped
+  m_SourcePrefab: {fileID: 100100000, guid: 53979e9ded42be84980f0c1da3dfd907, type: 3}
+--- !u!4 &599767517583511152 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 5112403345868107845, guid: a690e17970281584ba678199090f844c, type: 3}
-  m_PrefabInstance: {fileID: 8762598579935662674}
+  m_CorrespondingSourceObject: {fileID: 5112403345868107845, guid: 53979e9ded42be84980f0c1da3dfd907,
+    type: 3}
+  m_PrefabInstance: {fileID: 5665575200257654325}
   m_PrefabAsset: {fileID: 0}
