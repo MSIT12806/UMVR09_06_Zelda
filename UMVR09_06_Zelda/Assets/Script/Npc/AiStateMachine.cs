@@ -327,6 +327,7 @@ public class UsaoHurtState : UsaoAiState
                 npc.PlayAnimation("GetHit.Flying Back Death");
                 getHit.Force.y = 0.75f;
             }
+
             npc.KnockOff(getHit.Force);
         }
 
@@ -357,7 +358,7 @@ public class UsaoDeathState : UsaoAiState
 
     public override void SetAnimation()
     {
-        if (Time.frameCount > deathTime + 180)
+        if (Time.frameCount > deathTime + 120)
         {
             //死亡程序
             var fxGo = ObjectManager.DieFx.Dequeue();
@@ -1097,7 +1098,7 @@ public class GolemSkillState : GolemBaseState
             {
                 if (dis > 5f)//太近就不會追蹤
                     LookAt();
-                if(!npc.collide)
+                if (!npc.collide)
                     selfTransform.Translate(0, 0, moveSpeed);
             }
         }
