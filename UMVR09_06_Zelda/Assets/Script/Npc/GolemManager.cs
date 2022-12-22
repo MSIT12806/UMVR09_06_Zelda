@@ -158,6 +158,7 @@ public class GolemManager : MonoBehaviour, NpcHelper
     public void SetShield()
     {
         Shield = 10;
+        this.transform.Find("FX_Yell").gameObject.GetComponent<ParticleSystem>().Play();
     }
 
     public void ShieldEffectControl()

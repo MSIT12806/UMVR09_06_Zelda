@@ -64,16 +64,18 @@ public class SpaceSkill010Behavior : StateMachineBehaviour
                 Once.IceDestroyTime = 0f;
                 space.ShowWeakTime = 5;
                 animator.Play("GetHit");
+                foreach(var i in space.EffectPlaying)
+                {
+                    Debug.Log(i.name);
+                    i.Stop();
+                    i.Clear();
+                }
                 Debug.Log("innnnnnnnnnnnnnnnnnnnn");
             }
         }
     }
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        foreach(var i in space.EffectPlaying)
-        {
-            i.Stop();
-        }
         space.InSkill1State = false;
     }
 }

@@ -26,7 +26,7 @@ public class PlaySoundOnEffect : MonoBehaviour
     {
         if(name == "FX_Yell")
         {
-            //Debug.Log(CanPlaySound);
+            Debug.Log("Yell"+effect.isPlaying+":" +audioSource + ":"+ CanPlaySound);
         }
         if (effect.isPlaying && CanPlaySound && audioSource != null)
         {

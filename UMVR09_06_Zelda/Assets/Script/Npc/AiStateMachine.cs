@@ -641,7 +641,8 @@ public class GolemChaseState : GolemBaseState
 
         currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
         if (!animator.IsInTransition(0) && currentAnimation.IsName("Walk"))
-            selfTransform.Translate(0, 0, 0.05f);
+            if (!npc.collide)
+                selfTransform.Translate(0, 0, 0.05f);
         if (getHit != null)
         {
             if (getHit.DamageState.damageState == DamageState.TimePause)
@@ -1096,8 +1097,8 @@ public class GolemSkillState : GolemBaseState
             {
                 if (dis > 5f)//太近就不會追蹤
                     LookAt();
-
-                selfTransform.Translate(0, 0, moveSpeed);
+                if(!npc.collide)
+                    selfTransform.Translate(0, 0, moveSpeed);
             }
         }
 
@@ -1109,7 +1110,8 @@ public class GolemSkillState : GolemBaseState
                 float dis = (target.position - selfTransform.position).magnitude;
                 if (dis > 2f)
                 {
-                    selfTransform.Translate(0, 0, moveSpeed);
+                    if (!npc.collide)
+                        selfTransform.Translate(0, 0, moveSpeed);
                 }
             }
         }
