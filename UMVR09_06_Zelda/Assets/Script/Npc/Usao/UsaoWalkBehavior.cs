@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// 處理對峙時移動的碰撞問題
@@ -10,6 +11,9 @@ public class UsaoWalkBehavior : StateMachineBehaviour
     Npc npc;
     bool awake = false;
     IKController ik;
+    bool isNightScene;
+    Transform target;
+    Transform targetHead;
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         //awake
@@ -20,6 +24,13 @@ public class UsaoWalkBehavior : StateMachineBehaviour
             //...
 
             awake = true;
+
+            var currentScene = SceneManager.GetActiveScene();
+            var currentSceneName = currentScene.name;
+            isNightScene = currentSceneName == "NightScene";
+
+            target = isNightScene ? ObjectManager.MainCharacter : ObjectManager2.MainCharacter;
+            targetHead = isNightScene ? ObjectManager.MainCharacterHead : ObjectManager2.MainCharacterHead;
         }
 
         ik.LookAtObj = ObjectManager.MainCharacterHead;
@@ -34,7 +45,7 @@ public class UsaoWalkBehavior : StateMachineBehaviour
         else
         {
             animator.applyRootMotion = true;
-            AiStateCommon.Turn(animator.transform, ObjectManager.MainCharacter.position - animator.transform.position);
+            AiStateCommon.Turn(animator.transform, target.position - animator.transform.position);
         }
 
     }

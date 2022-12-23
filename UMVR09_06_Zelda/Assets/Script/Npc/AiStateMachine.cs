@@ -118,7 +118,6 @@ public class UsaoFightState : UsaoAiState
 
 
         var distance = Vector3.Distance(target.position, selfTransform.position);
-        int count = GetChasingNpcCount();
         if (keepOrAttack > 0.5)
         {
             if (distance > keepDistance) return new UsaoChaseState(target, animator, selfTransform, this, npcHelper);
@@ -139,15 +138,6 @@ public class UsaoFightState : UsaoAiState
         dazeSeconds = UnityEngine.Random.Range(0, 0);
     }
 
-    private int GetChasingNpcCount()
-    {
-        //if(ObjectManager.ChasingNpc != null)
-            return ObjectManager.ChasingNpc.Count;
-        //else
-        //{
-        //    return ObjectManager2.ChasingNpc.Count;
-        //}
-    }
 
     public override void SetAnimation()
     {
@@ -182,20 +172,10 @@ public class UsaoChaseState : UsaoAiState
         attackRange = r > 0.2 ? 10f : 1.5f;
         alertTarget = alertObject;
         animator.SetBool("notReach", true);
-        AddChasingNpc();
         this.fightState = fightState;
         npc = selfTransform.GetComponent<Npc>();
     }
 
-    private void AddChasingNpc()
-    {
-        ObjectManager.ChasingNpc.Add(this);
-    }
-
-    private void RemoveChasingNpc()
-    {
-        ObjectManager.ChasingNpc.Remove(this);
-    }
 
     public override AiState SwitchState()
     {
@@ -213,7 +193,6 @@ public class UsaoChaseState : UsaoAiState
         var distance = Vector3.Distance(alertTarget.position, selfTransform.position);
         if (distance >= attackRange) return this;
 
-        RemoveChasingNpc();
         if (distance < attackRange)
         {
             animator.SetBool("notReach", false);
