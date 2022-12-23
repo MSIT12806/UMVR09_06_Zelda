@@ -8,6 +8,14 @@ public class DragonEffect : MonoBehaviour
     public GameObject FX_PerpareFireBall;
     public GameObject FX_Ascent;
     public GameObject FX_ThrewFire;
+    public GameObject FX_TailAttack;
+    public GameObject FX_RunAttack;
+    public GameObject FX_StopRun;
+    public GameObject FX_Bit;
+
+    public AudioSource SE_FlyWing;
+    public AudioSource SE_PrepRun;
+    public AudioSource SE_FlyAttack;
 
     void Yell()
     {
@@ -30,4 +38,39 @@ public class DragonEffect : MonoBehaviour
         FX_ThrewFire.GetComponent<ParticleSystem>().Play();
     }
 
+    void TailAttackEffect()
+    {
+        FX_TailAttack.GetComponent<ParticleSystem>().Play();
+    }
+
+    void RunAttackEffect()
+    {
+        FX_RunAttack.GetComponent<ParticleSystem>().Play();
+    }
+
+    void FX_StopRunkEffect()
+    {
+        FX_StopRun.GetComponent<ParticleSystem>().Play();
+    }
+
+    void FX_BitEffect()
+    {
+        FX_Bit.GetComponent<ParticleSystem>().Play();
+    }
+
+
+    void FlyWingSound()
+    {
+        SE_FlyWing.GetComponent<AudioSource>().Play(); ;
+    }
+
+    void PrepRunSound()
+    {
+        SE_PrepRun.GetComponent<AudioSource>().Play(); ;
+    }
+
+    void FlyAttackSound()
+    {
+        SE_FlyAttack.GetComponent<AudioSource>().Play();
+    }
 }

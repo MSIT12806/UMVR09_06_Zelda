@@ -3792,8 +3792,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7116163442875687807}
-  m_LocalRotation: {x: 0.007153658, y: 0.88925004, z: -0.013915211, w: 0.4571537}
-  m_LocalPosition: {x: -86.22806, y: 5.02, z: 95.524}
+  m_LocalRotation: {x: 0.008366486, y: 0.87295854, z: -0.014981963, w: 0.4874925}
+  m_LocalPosition: {x: -81.22806, y: 5.02, z: 81.524}
   m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -5133,6 +5133,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4097420217758095137}
     m_Modifications:
+    - target: {fileID: 429552688756467457, guid: bdbc66c39fd04ac42862e4d6023c169f,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6837499095340927025, guid: bdbc66c39fd04ac42862e4d6023c169f,
         type: 3}
       propertyPath: m_Name
@@ -5274,6 +5279,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SwordLight0201
       objectReference: {fileID: 0}
+    - target: {fileID: 5589203809709470321, guid: 6e7e0fc638818b54c928b7f177d4eed0,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e7e0fc638818b54c928b7f177d4eed0, type: 3}
 --- !u!4 &8374535050564837053 stripped
@@ -5404,6 +5414,11 @@ PrefabInstance:
         type: 3}
       propertyPath: EmissionModule.m_Bursts.Array.data[3].countCurve.scalar
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3097329100290100961, guid: a1a5d860a10a43d49a651644ebab5dc7,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4613838521680368712, guid: a1a5d860a10a43d49a651644ebab5dc7,
         type: 3}
@@ -5558,6 +5573,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SwordLight0102
       objectReference: {fileID: 0}
+    - target: {fileID: 7025985271813304461, guid: 377cd3956742e4f47be09c8b860f2312,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 377cd3956742e4f47be09c8b860f2312, type: 3}
 --- !u!1 &5695257620702915126 stripped
@@ -5579,6 +5599,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4097420217758095137}
     m_Modifications:
+    - target: {fileID: 5792855986659453117, guid: a73641c73faeb434283ed01aeff0d8c1,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9215912138549091212, guid: a73641c73faeb434283ed01aeff0d8c1,
         type: 3}
       propertyPath: m_Name

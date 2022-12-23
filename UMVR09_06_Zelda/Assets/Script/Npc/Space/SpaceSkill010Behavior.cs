@@ -36,7 +36,7 @@ public class SpaceSkill010Behavior : StateMachineBehaviour
 
         if (canAttack)
         {
-            if (dis > 5)
+            if (dis > 6)
             {
                 space.FaceTarget(target.position, selfTransform, 50);
             }
@@ -45,6 +45,11 @@ public class SpaceSkill010Behavior : StateMachineBehaviour
                 canAttack = false;
                 NpcCommon.AttackDetection("", selfTransform.position, selfTransform.forward, 360, 2, true, new DamageData(80, selfTransform.forward * 0.6f, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
                 animator.SetTrigger("Skill01HitTarget");
+                foreach(var i in space.EffectPlaying)
+                {
+                    i.Stop();
+                    i.Clear();
+                }
                 //Transform FX = selfTransform.FindAnyChild<Transform>("FX_SpaceSkill01");
                 //Transform F = FX.Find("Glow_Ground_Skill01");
                 //F.gameObject.SetActive(false);
