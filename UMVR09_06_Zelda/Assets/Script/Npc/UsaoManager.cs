@@ -53,6 +53,7 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
         var bornFx = transform.FindAnyChild<ParticleSystem>("RiseRing");
         bornFx.Play();
     }
+    bool isNightScene;
     void Awake()
     {
 
@@ -61,10 +62,12 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
         if(currentSceneName == "NightScene")
         {
             ObjectManager.StateManagers.Add(this.gameObject.GetInstanceID(), this);
+            isNightScene = true;
         }
         else
         {
             ObjectManager2.StateManagers.Add(this.gameObject.GetInstanceID(), this);
+            isNightScene = false;
         }
         animator = transform.GetComponent<Animator>();
         OriginPosition = transform.position;
@@ -73,7 +76,7 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
     void Start()
     {
         npc = transform.GetComponent<Npc>();
-        if (ObjectManager.MainCharacter != null)
+        if (isNightScene)
         {
             var picoState = ObjectManager.MainCharacter.GetComponent<PicoState>();
             usaoIdleState = new UsaoIdleState(ObjectManager.MainCharacter, picoState, animator, transform, this);
