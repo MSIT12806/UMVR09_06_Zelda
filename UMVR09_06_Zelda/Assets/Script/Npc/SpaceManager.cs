@@ -130,7 +130,7 @@ public class SpaceManager : MonoBehaviour, NpcHelper
 
         if (InSkill2State)
         {
-            if (damageData.DamageState.damageState == DamageState.Bomb && damageData.DamageState.damageState == DamageState.Fever)
+            if (damageData.DamageState.damageState == DamageState.Bomb || damageData.DamageState.damageState == DamageState.Fever)
             {
                 if (transform.Find("BlackHoll").gameObject.activeSelf)
                 {
@@ -149,11 +149,14 @@ public class SpaceManager : MonoBehaviour, NpcHelper
 
         if (InSkill3State)
         {
-            if (damageData.DamageState.damageState == DamageState.TimePause && damageData.DamageState.damageState == DamageState.Fever)
+            if (damageData.DamageState.damageState == DamageState.TimePause || damageData.DamageState.damageState == DamageState.Fever)
             {
                 InSkill3State = false;
                 animator.Play("GetHit");
-                ShowWeakTime = 10;
+                if (damageData.DamageState.damageState == DamageState.TimePause)
+                    ShowWeakTime = 10;
+                else if(damageData.DamageState.damageState == DamageState.Fever)
+                    ShowWeakTime = 5;
                 //var effect = transform.GetComponent<AnimAfffectSpace>();
                 //effect.FX_AttactSkill0301.GetComponent<ParticleSystem>().Stop();
                 //effect.FX_AttactSkill0301.GetComponent<ParticleSystem>().Clear();
@@ -162,6 +165,7 @@ public class SpaceManager : MonoBehaviour, NpcHelper
                 Debug.Log("innnnnnnnnnnnnnnnnnnnn");
                 foreach (var i in EffectPlaying)
                 {
+                    Debug.Log(i.name);
                     i.Stop();
                     i.Clear();
                 }
