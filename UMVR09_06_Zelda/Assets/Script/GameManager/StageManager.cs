@@ -105,7 +105,9 @@ public class StageManager : MonoBehaviour
                     if (stageOneWave > 0 && ObjectManager.StageMonsterMonitor[1] < 15)
                     {
                         ObjectManager.GenUsao2(ObjectManager.stageOneSpawnPoint.position, 10, 5, GameState.FirstStage);
+                        ObjectManager.StageMonsterMonitor[1] += 5;
                         ObjectManager.GenUsaoSword(ObjectManager.stageOneSpawnPoint.position, 10, 10, GameState.FirstStage);
+                        ObjectManager.StageMonsterMonitor[1] += 10;
                         ObjectManager.StageOneResurrection();
                         stageOneWave--;
                     }
@@ -172,10 +174,6 @@ public class StageManager : MonoBehaviour
                         }
                         //dragonPlay = true;
                     }
-                    //if (Dragon.Hp > 0 && Dragon.Show && ObjectManager2.StageMonsterMonitor[2] < 10)
-                    //{
-                    //    ObjectManager.StageTwoResurrection();
-                    //}
                     return;
             }
         }
