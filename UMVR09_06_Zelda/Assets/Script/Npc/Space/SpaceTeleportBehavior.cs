@@ -9,7 +9,7 @@ public class SpaceTeleportBehavior : StateMachineBehaviour
     bool awake;
     bool TpTrigger = false;
     float inStateTime = 0;
-    float movePerframe = 1f;
+    float movePerframe = 30f;
     SpaceManager space;
 
     Vector3 MoveTo;
@@ -38,11 +38,12 @@ public class SpaceTeleportBehavior : StateMachineBehaviour
             space.FaceTarget(MoveTo,selfTransform,360);
         }
         float dis = (MoveTo - selfTransform.position).magnitude;
-        selfTransform.Translate(0, 0, movePerframe);
-        if(dis <= movePerframe)
+        if(dis <= movePerframe * Time.deltaTime)
         {
             selfTransform.position = MoveTo;
         }
+        else
+            selfTransform.Translate(0, 0, movePerframe*Time.deltaTime);
         //inStateTime += Time.deltaTime;
         //if (inStateTime >= 0.4f)
         //{
