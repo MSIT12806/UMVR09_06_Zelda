@@ -290,17 +290,12 @@ public class UsaoHurtState : UsaoAiState
         // 依照 damageData.hit 決定播放哪個動畫。
         npc.Hp -= getHit.Damage;
         animator.SetFloat("hp", npc.Hp);
-        if (getHit.Hit == HitType.light)
-        {
-
-            if (UnityEngine.Random.value >= 0.5f)
-                npc.PlayAnimation("GetHit.SwordAndShieldImpact02");
-            else
-                npc.PlayAnimation("GetHit.SwordAndShieldImpact01");
-
-            return;
-        }
-        if (getHit.Hit == HitType.Heavy)
+        var currentInfo = animator.GetCurrentAnimatorStateInfo(0);
+        var currentInfoTransition = animator.GetAnimatorTransitionInfo(0);
+        if (currentInfo.IsTag("Lie") ||
+            currentInfoTransition.IsName("Die01_SwordAndShield -> GetUp_SwordAndShield") ||
+            currentInfoTransition.IsName("Flying Back Death -> GettingUp03") ||
+            getHit.Hit == HitType.Heavy)
         {
 
             if (UnityEngine.Random.value >= 0.5)
@@ -314,6 +309,16 @@ public class UsaoHurtState : UsaoAiState
             }
 
             npc.KnockOff(getHit.Force);
+            return;
+        }
+        if (getHit.Hit == HitType.light)
+        {
+
+            if (UnityEngine.Random.value >= 0.5f)
+                npc.PlayAnimation("GetHit.SwordAndShieldImpact02");
+            else
+                npc.PlayAnimation("GetHit.SwordAndShieldImpact01");
+
         }
     }
 
@@ -326,7 +331,12 @@ public class UsaoDeathState : UsaoAiState
     {
 
         deathTime = Time.frameCount;
-        if (damageData.Hit == HitType.Heavy) return;
+        var currentInfo = animator.GetCurrentAnimatorStateInfo(0);
+        var currentInfoTransition = animator.GetAnimatorTransitionInfo(0);
+        if (currentInfo.IsTag("Lie") ||
+            currentInfoTransition.IsName("Die01_SwordAndShield -> GetUp_SwordAndShield") ||
+            currentInfoTransition.IsName("Flying Back Death -> GettingUp03") ||
+            getHit.Hit == HitType.Heavy) return;
         if (UnityEngine.Random.value >= 0.5f)
             npc.PlayAnimation("GetHit.Standing React Death Right");
         else

@@ -342,7 +342,7 @@ public class Npc : MonoBehaviour
 
         animator.SetBool("Grounded", false);
         grounded = false;
-        initVel = force;
+        initVel = force * 0.2f;
     }
     int stopAnimationMoving;
     public void CancelMotionIfCollided(int keepFrame)
