@@ -2,6 +2,7 @@ using Ron;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class LevelHandler : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class LevelHandler : MonoBehaviour
     bool finished;
     bool done;
 
+    public PlayableDirector timeline;
     ParticleSystem bean;
     ParticleSystem light;
     List<Transform> column = new List<Transform>();
@@ -34,5 +36,7 @@ public class LevelHandler : MonoBehaviour
                     i.SetColor("_EmissionColor", new Color(0, 0, 0, 0));
             }
         }
+
+        timeline.Play();
     }
 }

@@ -41,7 +41,7 @@ public class ObjectManager2 : MonoBehaviour
         GameObject.FindGameObjectsWithTag("Player").ToList().ForEach(i => NpcsAlive.Add(i.GetInstanceID(), i));
 
         //特效池
-        AttackFx = new Queue<GameObject>(20);
+        AttackFx = new Queue<GameObject>(100);
         InitAttackFx();
 
         //載入短暫浮現的特效或物件
@@ -58,7 +58,7 @@ public class ObjectManager2 : MonoBehaviour
     void InitAttackFx()
     {
         var fx = (GameObject)Resources.Load("CFXR Hit A (Red)");
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 100; i++)
         {
             var go = Instantiate(fx);
             AttackFx.Enqueue(go);

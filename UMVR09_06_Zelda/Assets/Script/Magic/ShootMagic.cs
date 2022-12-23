@@ -57,7 +57,6 @@ public class ShootMagic : MonoBehaviour
                     target = ObjectManager2.MainCharacter;
                 }
             }
-            force = (target.position - transform.position).normalized;
             initialize = true;
         }
         var offset = 0f;
