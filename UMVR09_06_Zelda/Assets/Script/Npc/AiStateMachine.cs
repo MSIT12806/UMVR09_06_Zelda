@@ -879,7 +879,7 @@ public class GolemArmorBreakState : GolemBaseState
 
             if (getHit.DamageState.damageState == DamageState.Finishing)
             {
-                time = 5.2f;
+                time = 7f;
             }
 
             GolemManager gm = (GolemManager)npcHelper;

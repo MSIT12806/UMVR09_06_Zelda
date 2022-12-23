@@ -201,7 +201,7 @@ public class GolemManager : MonoBehaviour, NpcHelper
     public void Die()
     {
         music.StopSceneMusic();
-
+        dizzy = false;
 
         ObjectManager.myCamera.SetDefault();
         ObjectManager.myCamera.m_StareTarget[3] = null;
