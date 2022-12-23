@@ -80,7 +80,7 @@ public static class NpcCommon
 
                     if (attacker == "Pico")
                     {
-                        if (damageData.DamageState.damageState != DamageState.Fever) PicoManager.Power++;
+                        if (damageData.DamageState.damageState != DamageState.Fever && damageData.DamageState.damageState != DamageState.Other) PicoManager.Power++;
                     }
 
                 }
@@ -116,14 +116,14 @@ public static class NpcCommon
 
         foreach (var item in lst)
         {
-            bool inAttackRange =false;
+            bool inAttackRange = false;
             bool inAttackRange2 = false;
 
             Transform nowNpc = item.transform;
             var vec = nowNpc.position - attackCenter;
             vec.y = 0;
             float Dot = Vector3.Dot(attackForward, vec);
-            if(Dot >= 0)
+            if (Dot >= 0)
             {
                 float forwardProject = Vector3.Project(vec, attackForward).magnitude;
                 float RightProject = Vector3.Project(vec, attackRight).magnitude;

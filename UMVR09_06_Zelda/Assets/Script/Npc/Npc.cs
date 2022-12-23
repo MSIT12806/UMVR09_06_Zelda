@@ -48,10 +48,14 @@ public class Npc : MonoBehaviour
     public string DitherAddress;
     Transform renderer;
 
+    //public Vector3 currentPos;
+
 
     // Update is called once per frame
     void Update()
     {
+        //currentPos = transform.position;
+
         TimePause();
         if (pauseTime > 0) return;
 
@@ -127,6 +131,10 @@ public class Npc : MonoBehaviour
             NpcCollision();
             LerpToNextPosition();
         }
+        //else if (collide)
+        //{
+        //    transform.position = currentPos;
+        //}
         FreeFall();
 
     }
@@ -342,7 +350,7 @@ public class Npc : MonoBehaviour
 
         animator.SetBool("Grounded", false);
         grounded = false;
-        initVel = force;
+        initVel = force * 0.2f;
     }
     int stopAnimationMoving;
     public void CancelMotionIfCollided(int keepFrame)
