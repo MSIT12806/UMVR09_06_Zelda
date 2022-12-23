@@ -11797,7 +11797,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 419235578}
-  m_LocalRotation: {x: 0.08449331, y: 0.7492357, z: -0.097449414, w: 0.6496233}
+  m_LocalRotation: {x: 0.08449332, y: 0.7492357, z: -0.09744942, w: 0.6496233}
   m_LocalPosition: {x: 24.808594, y: 19.479134, z: 187.11383}
   m_LocalScale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
   m_ConstrainProportionsScale: 0
@@ -12433,6 +12433,10 @@ PrefabInstance:
     - target: {fileID: 474436618, guid: 4f320ab5e1c207d479610b23bcf76d58, type: 3}
       propertyPath: m_LocalScale.z
       value: 1.3298002
+      objectReference: {fileID: 0}
+    - target: {fileID: 971141860, guid: 4f320ab5e1c207d479610b23bcf76d58, type: 3}
+      propertyPath: m_IgnoreTimeScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 971141860, guid: 4f320ab5e1c207d479610b23bcf76d58, type: 3}
       propertyPath: m_DefaultBlend.m_Time
@@ -39812,6 +39816,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 776884029682623109, guid: 510be0e958e2ffe4bb58cb4fc9c1be5e,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2046102329827991577, guid: 510be0e958e2ffe4bb58cb4fc9c1be5e,
         type: 3}
       propertyPath: m_RootOrder
