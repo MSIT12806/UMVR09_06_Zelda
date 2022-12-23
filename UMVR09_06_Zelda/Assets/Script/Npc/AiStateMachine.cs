@@ -50,7 +50,7 @@ public class UsaoIdleState : UsaoAiState
 {
     Transform target;
     UsaoManager manager;
-    float findTime = UnityEngine.Random.value * 5;
+    float findTime = UnityEngine.Random.value * 2;
     public UsaoIdleState(Transform t, PicoState state, Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Idle", t.GetComponent<PicoState>())
     {
         target = t;
