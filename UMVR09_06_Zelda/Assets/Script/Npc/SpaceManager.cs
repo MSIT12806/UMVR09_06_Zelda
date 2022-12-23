@@ -177,6 +177,12 @@ public class SpaceManager : MonoBehaviour, NpcHelper
         {
             animator.Play("GetHit");
             ShowWeakTime = 5;
+            foreach (var i in EffectPlaying)
+            {
+                Debug.Log(i.name);
+                i.Stop();
+                i.Clear();
+            }
         }
 
         if (damageData.DamageState.damageState == DamageState.TimePause)
