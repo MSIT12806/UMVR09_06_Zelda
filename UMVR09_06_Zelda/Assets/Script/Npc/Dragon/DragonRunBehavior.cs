@@ -52,6 +52,7 @@ public class DragonRunBehavior : StateMachineBehaviour
         {
             Debug.Log(distanceBetweenIce);
             Once.IceDestroyTime = 0f;//讓冰塊消失
+            manager.transform.FindAnyChild<ParticleSystem>("GetHit").Play();//冰塊碎掉特效
             npc.GetHurt(new DamageData(20, Vector3.zero, HitType.light, new DamageStateInfo(DamageState.Ice, 3)));
             alreadyHit = true;
         }

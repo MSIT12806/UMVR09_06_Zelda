@@ -14,6 +14,7 @@ public class ObjectManager2 : MonoBehaviour
     public static Dictionary<int, GameObject> NpcsAlive;//碰撞偵測、攻擊判定用。
     public static List<GameObject> Statics;
     public static Queue<GameObject> AttackFx;
+    public static Queue<GameObject> DieFx;
     public static Dictionary<int, NpcHelper> StateManagers = new Dictionary<int, NpcHelper>();
     public static TPSCamera myCamera;
     public static Transform MainCharacter;
@@ -43,6 +44,8 @@ public class ObjectManager2 : MonoBehaviour
         //特效池
         AttackFx = new Queue<GameObject>(100);
         InitAttackFx();
+        DieFx = new Queue<GameObject>(20);
+        InitDieFx();
 
         //載入短暫浮現的特效或物件
         TimeStopChain = Instantiate((GameObject)Resources.Load("FX_TimeStopKeep")); //時間暫停
@@ -55,6 +58,19 @@ public class ObjectManager2 : MonoBehaviour
         }
 
     }
+
+
+    private void InitDieFx()
+    {
+        var fx = (GameObject)Resources.Load("FX_NPC_Die");
+        for (int i = 0; i < 20; i++)
+        {
+            var go = Instantiate(fx);
+            DieFx.Enqueue(go);
+        }
+    }
+
+
     void InitAttackFx()
     {
         var fx = (GameObject)Resources.Load("CFXR Hit A (Red)");
