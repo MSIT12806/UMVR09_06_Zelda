@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine;
 [ExecuteInEditMode]
 
 //螢幕後處理特效綁在攝影機上
-[RequireComponent(typeof(Camera))]
+[RequireComponent(typeof(CinemachineVirtualCamera))]
 public class PostEffectBase : MonoBehaviour
 {
     public Shader Shader = null;
