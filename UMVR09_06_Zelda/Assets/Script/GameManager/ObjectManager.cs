@@ -164,7 +164,7 @@ public class ObjectManager : MonoBehaviour
     {
         var position = stageTwoSpawnPoint.position;
         var range = 10;
-        if (UnityEngine.Random.value < 0.99f) return;
+        if (UnityEngine.Random.value < 0.999f) return;
         //全體復活
         foreach (var usao in StageDeathPool[2].Values)
         {
@@ -189,7 +189,7 @@ public class ObjectManager : MonoBehaviour
     {
         var position = stageThreeSpawnPoint.position;
         var range = 10;
-        if (UnityEngine.Random.value < 0.99f) return;
+        if (UnityEngine.Random.value < 0.999f) return;
         //全體復活
         foreach (var usao in StageDeathPool[3].Values)
         {
