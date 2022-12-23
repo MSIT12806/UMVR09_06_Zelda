@@ -93,7 +93,7 @@ MeshCollider:
   m_GameObject: {fileID: 1000010204532970}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -172,6 +172,7 @@ GameObject:
   - component: {fileID: 33000011350018428}
   - component: {fileID: 23000011436492682}
   - component: {fileID: 64000010104935824}
+  - component: {fileID: 4130141745517296270}
   m_Layer: 0
   m_Name: ClassicColumnBrokenC4_LOD0
   m_TagString: Untagged
@@ -253,11 +254,24 @@ MeshCollider:
   m_GameObject: {fileID: 1000012247813890}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 8d43c8139de2b0647adf0e9af6afcbe4, type: 3}
+--- !u!65 &4130141745517296270
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012247813890}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.6744151, y: 4.606501, z: 1.6772461}
+  m_Center: {x: 0.00016468768, y: 2.3032477, z: -0.0037615309}
 --- !u!1 &1000012731233682
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,7 +365,7 @@ MeshCollider:
   m_GameObject: {fileID: 1000012731233682}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
