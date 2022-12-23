@@ -10,6 +10,7 @@ public class GolemManager : MonoBehaviour, NpcHelper
     GameObject apple;
     GameObject heart;
 
+
     public bool dizzy = false;
 
     public GameObject ShieldEffect;
@@ -27,7 +28,8 @@ public class GolemManager : MonoBehaviour, NpcHelper
 
     public float MaxWeakPoint => 12;
 
-    public float Radius => 1.5f;
+    public float Radius { set => radius = value; get => radius; } 
+    public float radius = 1.5f;
 
     public float CollisionDisplacement => 0;
 
@@ -72,6 +74,27 @@ public class GolemManager : MonoBehaviour, NpcHelper
         Debug.DrawLine(transform.position, transform.position + transform.forward * 5f, Color.green);
         //Debug.Log(Shield);
         //Debug.Log(Dizzy);
+
+        if(Shield > 0)
+        {
+            radius = 3;
+        }
+        else
+        {
+            radius = 1.5f;
+        }
+    }
+
+    private void LateUpdate()
+    {
+        float dis = (transform.position.WithY() - ObjectManager.MainCharacter.position.WithY()).magnitude;
+        if(dis <= Radius)
+        {
+            Vector3 dir = (ObjectManager.MainCharacter.position - transform.position);
+            dir.y =0;
+            dir.Normalize();
+            ObjectManager.MainCharacter.transform.position =transform.position + dir*Radius; 
+        }
     }
     public void GetHurt(DamageData damageData)
     {
