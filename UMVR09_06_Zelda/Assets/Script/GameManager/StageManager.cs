@@ -78,7 +78,9 @@ public class StageManager : MonoBehaviour
         golemVirtualCamera.Priority = 5;
         golemVirtualCamera.gameObject.SetActive(false);
     }
-
+    bool stageOneFinished;
+    bool stageTwoFinished;
+    bool stageThreeFinished;
     // Update is called once per frame
     void Update()
     {
@@ -97,9 +99,10 @@ public class StageManager : MonoBehaviour
             switch ((int)picoState.gameState)
             {
                 case 1:
-                    if (stageOneWave <= 0 && ObjectManager.StageMonsterMonitor[1] <= 0)
+                    if (!stageOneFinished && stageOneWave <= 0 && ObjectManager.StageMonsterMonitor[1] <= 0)
                     {
                         levelHandler1.FinishThisLevel();
+                        stageOneFinished = true;
                         return;
                     }
                     if (stageOneWave > 0 && ObjectManager.StageMonsterMonitor[1] < 15)
@@ -113,9 +116,10 @@ public class StageManager : MonoBehaviour
                     }
                     return;
                 case 2:
-                    if (Dragon.Hp <= 0)
+                    if (!stageTwoFinished && Dragon.Hp <= 0)
                     {
                         levelHandler2.FinishThisLevel();
+                        stageTwoFinished = true;
                         return;
                     }
                     if (!dragonPlay && ObjectManager.StageMonsterMonitor[2] <= 0)
@@ -132,9 +136,10 @@ public class StageManager : MonoBehaviour
                     return;
                 case 3:
 
-                    if (Golem.Hp <= 0)
+                    if (!stageThreeFinished && Golem.Hp <= 0)
                     {
                         levelHandler3.FinishThisLevel();
+                        stageThreeFinished = true;
                         return;
                     }
                     if (!golemStand && ObjectManager.StageMonsterMonitor[3] <= 0)
