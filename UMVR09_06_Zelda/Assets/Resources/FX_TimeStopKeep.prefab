@@ -804,7 +804,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: 1db4b3d7db34beb4fb8b120a3ecdee1f, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 1545826398509634697, guid: 09c5e925b34ef8c46ac54491fb02fd15,
         type: 3}
       propertyPath: m_PlayOnAwake
@@ -930,7 +930,8 @@ PrefabInstance:
       propertyPath: startDelay.scalar
       value: 4.75
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1545826398509634697, guid: 09c5e925b34ef8c46ac54491fb02fd15, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 09c5e925b34ef8c46ac54491fb02fd15, type: 3}
 --- !u!4 &2245773691943312069 stripped
 Transform:
