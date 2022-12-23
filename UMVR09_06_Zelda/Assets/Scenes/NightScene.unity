@@ -641,7 +641,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 20236810}
           m_TargetAssemblyTypeName: CameraCloser, Assembly-CSharp
-          m_MethodName: CloseCamera
+          m_MethodName: OpenCamera
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -11797,7 +11797,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 419235578}
-  m_LocalRotation: {x: 0.08449332, y: 0.7492357, z: -0.09744942, w: 0.6496233}
+  m_LocalRotation: {x: 0.0844933, y: 0.74923575, z: -0.097449414, w: 0.6496232}
   m_LocalPosition: {x: 24.808594, y: 19.479134, z: 187.11383}
   m_LocalScale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
   m_ConstrainProportionsScale: 0
