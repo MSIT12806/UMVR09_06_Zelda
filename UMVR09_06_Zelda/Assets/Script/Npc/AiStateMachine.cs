@@ -1145,6 +1145,7 @@ public class GolemSkillState : GolemBaseState
             if (iceToGolem <= 3 && (currentAnimation.IsName("Skill") || currentAnimation.IsName("Skill 0")))
             {
                 Once.IceDestroyTime = 0f;
+                gm.transform.FindAnyChild<ParticleSystem>("GetHit").Play();
                 AttackFlaw = true;
                 if (gm.Shield > 0)//解護盾的方法
                 {
