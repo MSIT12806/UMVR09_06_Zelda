@@ -10,7 +10,7 @@ public class SpaceMoveBehavior : StateMachineBehaviour
     bool awake;
     bool TpTrigger = false;
     float inStateTime = 0;
-    float movePerframe = 0.4f;
+    float movePerframe = 15f;
 
     Vector3 MoveTo;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -38,12 +38,12 @@ public class SpaceMoveBehavior : StateMachineBehaviour
         }
         Vector3 dir = MoveTo - selfTransform.position;
         float dis = (MoveTo - selfTransform.position).magnitude;
-        if(dis <= movePerframe)
+        if(dis <= movePerframe * Time.deltaTime)
         {
             selfTransform.position = MoveTo;
         }
         else 
-            selfTransform.Translate(0, 0, movePerframe);
+            selfTransform.Translate(0, 0, movePerframe*Time.deltaTime);
         //inStateTime += Time.deltaTime;
         //if (inStateTime >= 0.4f)
         //{

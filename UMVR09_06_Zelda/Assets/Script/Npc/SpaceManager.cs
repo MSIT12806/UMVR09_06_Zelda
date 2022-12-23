@@ -92,7 +92,8 @@ public class SpaceManager : MonoBehaviour, NpcHelper
 
         if(damageData.DamageState.damageState == DamageState.Finishing)
         {
-            ArmorBreakTime = 2;
+            ArmorBreakTime = 0;
+            animator.Play("GetHit");
         }
         var currentAnimatorState = animator.GetCurrentAnimatorStateInfo(0);
         if (CanGetHit == true)//ÅS¥X®zÂI
@@ -171,6 +172,19 @@ public class SpaceManager : MonoBehaviour, NpcHelper
                 }
             }
         }
+
+        if(damageData.DamageState.damageState == DamageState.Fever)
+        {
+            animator.Play("GetHit");
+            ShowWeakTime = 5;
+            foreach (var i in EffectPlaying)
+            {
+                Debug.Log(i.name);
+                i.Stop();
+                i.Clear();
+            }
+        }
+
         if (damageData.DamageState.damageState == DamageState.TimePause)
         {
             FreezeTime = 5;

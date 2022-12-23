@@ -203,12 +203,12 @@ public class DragonManager : MonoBehaviour, NpcHelper
         //把球球從口部的位置發出
         var fireBall = dragonWeapon.GetComponentsInChildren<Transform>(true).FirstOrDefault(i => i.gameObject.activeSelf == false && i.tag == "FireBall");
         if (fireBall == null) return;
-        fireBall.gameObject.SetActive(true);
         fireBall.transform.position = dragonMouth.position;
         //速度、方向
         var shootMagic = fireBall.GetComponent<ShootMagic>();
         shootMagic.force = -dragonHead.transform.right;
         shootMagic.existSeconds = 2;
+        fireBall.gameObject.SetActive(true);
         //一段時間後爆炸/消失
     }
 

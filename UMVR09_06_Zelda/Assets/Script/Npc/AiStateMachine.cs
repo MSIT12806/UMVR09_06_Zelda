@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using static UnityEngine.GraphicsBuffer;
 
@@ -49,7 +50,7 @@ public class UsaoIdleState : UsaoAiState
 {
     Transform target;
     UsaoManager manager;
-    float findTime = UnityEngine.Random.value * 5;
+    float findTime = UnityEngine.Random.value * 2;
     public UsaoIdleState(Transform t, PicoState state, Animator a, Transform self, NpcHelper nh) : base(a, self, nh, "Idle", t.GetComponent<PicoState>())
     {
         target = t;
@@ -337,26 +338,33 @@ public class UsaoDeathState : UsaoAiState
     {
         if (Time.frameCount > deathTime + 120)
         {
-            //死亡程序
-            var fxGo = ObjectManager.DieFx.Dequeue();
-            fxGo.transform.position = selfTransform.position;
+            var currentScene = SceneManager.GetActiveScene();
+            var currentSceneName = currentScene.name;
+            if( currentSceneName == "NightScene")
+            {
+                //死亡程序
+                var fxGo = ObjectManager.DieFx.Dequeue();
+                fxGo.transform.position = selfTransform.position;
 
-            //移出場外以免打擊判定與推擠判定
-            selfTransform.position.AddY(-1000);
+                //移出場外以免打擊判定與推擠判定
+                selfTransform.position.AddY(-1000);
 
-            //移出活人池增益效能
-            ObjectManager.NpcsAlive.Remove(selfTransform.gameObject.GetInstanceID());
+                //移出活人池增益效能
+                ObjectManager.NpcsAlive.Remove(selfTransform.gameObject.GetInstanceID());
 
-            //移入備用池
-            ObjectManager.StageDeathPool[(int)npc.gameState].Add(selfTransform.gameObject.GetInstanceID(), selfTransform.gameObject);
+                //移入備用池
+                ObjectManager.StageDeathPool[(int)npc.gameState].Add(selfTransform.gameObject.GetInstanceID(), selfTransform.gameObject);
 
-            //怪物數量監控
-            ObjectManager.StageMonsterMonitor[(int)npc.gameState]--;
+                //怪物數量監控
+                ObjectManager.StageMonsterMonitor[(int)npc.gameState]--;
 
-            //死亡消失與特效
-            selfTransform.gameObject.SetActive(false);
-            fxGo.SetActive(true);
-            ObjectManager.DieFx.Enqueue(fxGo);
+                //死亡消失與特效
+                selfTransform.gameObject.SetActive(false);
+                fxGo.SetActive(true);
+                ObjectManager.DieFx.Enqueue(fxGo);
+            }
+
+
         }
     }
 
@@ -871,7 +879,7 @@ public class GolemArmorBreakState : GolemBaseState
 
             if (getHit.DamageState.damageState == DamageState.Finishing)
             {
-                time = 5.2f;
+                time = 7f;
             }
 
             GolemManager gm = (GolemManager)npcHelper;
