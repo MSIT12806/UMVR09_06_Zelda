@@ -333,10 +333,19 @@ public class UsaoDeathState : UsaoAiState
         deathTime = Time.frameCount;
         var currentInfo = animator.GetCurrentAnimatorStateInfo(0);
         var currentInfoTransition = animator.GetAnimatorTransitionInfo(0);
-        if (currentInfo.IsTag("Lie") ||
-            currentInfoTransition.IsName("Die01_SwordAndShield -> GetUp_SwordAndShield") ||
-            currentInfoTransition.IsName("Flying Back Death -> GettingUp03") ||
-            getHit.Hit == HitType.Heavy) return;
+        try
+        {
+
+            if (currentInfo.IsTag("Lie") ||
+                currentInfoTransition.IsName("Die01_SwordAndShield -> GetUp_SwordAndShield") ||
+                currentInfoTransition.IsName("Flying Back Death -> GettingUp03") ||
+                getHit.Hit == HitType.Heavy) return;
+        }
+        catch (Exception ex)
+        {
+            Debug.Log(ex.Message);
+            return;
+        }
         if (UnityEngine.Random.value >= 0.5f)
             npc.PlayAnimation("GetHit.Standing React Death Right");
         else
@@ -350,7 +359,7 @@ public class UsaoDeathState : UsaoAiState
         {
             var currentScene = SceneManager.GetActiveScene();
             var currentSceneName = currentScene.name;
-            if( currentSceneName == "NightScene")
+            if (currentSceneName == "NightScene")
             {
                 //死亡程序
                 var fxGo = ObjectManager.DieFx.Dequeue();
@@ -373,7 +382,26 @@ public class UsaoDeathState : UsaoAiState
                 fxGo.SetActive(true);
                 ObjectManager.DieFx.Enqueue(fxGo);
             }
+            else
+            {
+                //死亡程序
+                var fxGo = ObjectManager2.DieFx.Dequeue();
+                fxGo.transform.position = selfTransform.position;
 
+                //移出活人池增益效能
+                ObjectManager2.NpcsAlive.Remove(selfTransform.gameObject.GetInstanceID());
+
+                //移入備用池
+                UnityEngine.Object.Destroy(selfTransform.gameObject);
+
+                //怪物數量監控
+                ObjectManager2.StageMonsterMonitor[(int)npc.gameState]--;
+
+                //死亡消失與特效
+                selfTransform.gameObject.SetActive(false);
+                fxGo.SetActive(true);
+                ObjectManager2.DieFx.Enqueue(fxGo);
+            }
 
         }
     }
@@ -1025,8 +1053,8 @@ public class GolemAttackState : GolemBaseState
             //    return new GolemWeakState(target, animator, selfTransform, nowArmor, npcHelper);
             //}
             //else
-                //Attack02結束後 切回idle
-                return new GolemIdleState(target, animator, selfTransform, nowArmor, npcHelper);
+            //Attack02結束後 切回idle
+            return new GolemIdleState(target, animator, selfTransform, nowArmor, npcHelper);
         }
 
         return this;

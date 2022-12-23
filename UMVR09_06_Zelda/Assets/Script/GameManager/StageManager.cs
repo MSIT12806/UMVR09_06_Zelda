@@ -78,6 +78,8 @@ public class StageManager : MonoBehaviour
         golemVirtualCamera.Priority = 5;
         golemVirtualCamera.gameObject.SetActive(false);
     }
+    const float delayFrame = 2.5f;
+    float finishTinelineDelay = delayFrame;
     bool stageOneFinished;
     bool stageTwoFinished;
     bool stageThreeFinished;
@@ -101,8 +103,14 @@ public class StageManager : MonoBehaviour
                 case 1:
                     if (!stageOneFinished && stageOneWave <= 0 && ObjectManager.StageMonsterMonitor[1] <= 0)
                     {
+                        if (finishTinelineDelay > 0)
+                        {
+                            finishTinelineDelay-=Time.deltaTime;
+                            return;
+                        }
                         levelHandler1.FinishThisLevel();
                         stageOneFinished = true;
+                        finishTinelineDelay = delayFrame;
                         return;
                     }
                     if (stageOneWave > 0 && ObjectManager.StageMonsterMonitor[1] < 15)
@@ -118,8 +126,15 @@ public class StageManager : MonoBehaviour
                 case 2:
                     if (!stageTwoFinished && Dragon.Hp <= 0)
                     {
+
+                        if (finishTinelineDelay > 0)
+                        {
+                            finishTinelineDelay -= Time.deltaTime;
+                            return;
+                        }
                         levelHandler2.FinishThisLevel();
                         stageTwoFinished = true;
+                        finishTinelineDelay = delayFrame;
                         return;
                     }
                     if (!dragonPlay && ObjectManager.StageMonsterMonitor[2] <= 0)
@@ -138,8 +153,14 @@ public class StageManager : MonoBehaviour
 
                     if (!stageThreeFinished && Golem.Hp <= 0)
                     {
+                        if (finishTinelineDelay > 0)
+                        {
+                            finishTinelineDelay -= Time.deltaTime;
+                            return;
+                        }
                         levelHandler3.FinishThisLevel();
                         stageThreeFinished = true;
+                        finishTinelineDelay = delayFrame;
                         return;
                     }
                     if (!golemStand && ObjectManager.StageMonsterMonitor[3] <= 0)
