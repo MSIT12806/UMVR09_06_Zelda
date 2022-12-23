@@ -34,7 +34,7 @@ public class SpaceStageController : MonoBehaviour
 
     public void PlaySpaceBGM()
     {
-        //SpaceBGM.Play();
+        SpaceBGM.Play();
     }
 
     public void OpenUi()

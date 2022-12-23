@@ -7,26 +7,20 @@ using UnityEngine.SceneManagement;
 
 public static class NpcCommon
 {
-    static bool isNightScene;
-    static bool awake;
 
     public static void AttackDetection(string attacker, Vector3 attackCenter, Vector3 attackForward, float angle, float distance, bool repelDirection, DamageData damageData, params string[] tags)//攻擊範圍偵測
     {
-        if (awake == false)
+        bool isNightScene;
+        var currentScene = SceneManager.GetActiveScene();
+        var currentSceneName = currentScene.name;
+        if (currentSceneName == "NightScene")
         {
-            var currentScene = SceneManager.GetActiveScene();
-            var currentSceneName = currentScene.name;
-            if (currentSceneName == "NightScene")
-            {
-                isNightScene = true;
-            }
-            else
-            {
-                isNightScene = false;
-            }
-            awake = true;
+            isNightScene = true;
         }
-
+        else
+        {
+            isNightScene = false;
+        }
         IEnumerable<GameObject> lst = null;
         Queue<GameObject> attackFxs;
         if (isNightScene)
@@ -91,22 +85,18 @@ public static class NpcCommon
 
     public static void AttackDetectionRectangle(string attacker, Vector3 attackCenter, Vector3 attackForward, Vector3 attackRight, float Width, float distance, bool repelDirection, DamageData damageData, params string[] tags)//攻擊範圍偵測
     {
+        bool isNightScene;
 
-        if (awake == false)
+        var currentScene = SceneManager.GetActiveScene();
+        var currentSceneName = currentScene.name;
+        if (currentSceneName == "NightScene")
         {
-            var currentScene = SceneManager.GetActiveScene();
-            var currentSceneName = currentScene.name;
-            if (currentSceneName == "NightScene")
-            {
-                isNightScene = true;
-            }
-            else
-            {
-                isNightScene = false;
-            }
-            awake = true;
+            isNightScene = true;
         }
-
+        else
+        {
+            isNightScene = false;
+        }
         IEnumerable<GameObject> lst = null;
         if (isNightScene)
             lst = ObjectManager.NpcsAlive.Values.Where(i => tags.Contains(i.tag));

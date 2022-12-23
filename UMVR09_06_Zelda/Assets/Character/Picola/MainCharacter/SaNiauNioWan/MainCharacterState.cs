@@ -241,13 +241,11 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
 
     private void LateUpdate()
     {
-        //bool hit = Physics.Raycast(transform.position, transform.forward, 0.5f, 1 << LayerMask.NameToLayer("NPC"));//LayerMask.GetMask("NPC")
-        //if (hit)
-        //{
-        //    transform.position = npc.currentPos;
-        //    //animator.applyRootMotion = false;
-        //    //Debug.Log("1111111111111111");
-        //}
+        var nowInfo = animator.GetCurrentAnimatorStateInfo(0);
+        if (nowInfo.IsName("Fever")) //處理無雙角色面向改變導致攝影機晃動的問題
+        {
+            transform.forward = Vector3.forward;
+        }
     }
 
     private void AddPowerValue()
