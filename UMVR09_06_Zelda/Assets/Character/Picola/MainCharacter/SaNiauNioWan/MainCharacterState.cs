@@ -239,6 +239,17 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
         }
     }
 
+    private void LateUpdate()
+    {
+        //bool hit = Physics.Raycast(transform.position, transform.forward, 0.5f, 1 << LayerMask.NameToLayer("NPC"));//LayerMask.GetMask("NPC")
+        //if (hit)
+        //{
+        //    transform.position = npc.currentPos;
+        //    //animator.applyRootMotion = false;
+        //    //Debug.Log("1111111111111111");
+        //}
+    }
+
     private void AddPowerValue()
     {
         PicoManager.Power++;
@@ -263,12 +274,19 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
             if (!npc.collide)
             {
                 tpc.artistMovement = true;
-                transform.Translate(new Vector3(0f, 0f, 1f) * 0.15f);
+                bool hit = Physics.Raycast(transform.position, transform.forward, 0.5f, 1 << LayerMask.NameToLayer("NPC") );//LayerMask.GetMask("NPC")
+                if (hit)
+                {
+                    //animator.applyRootMotion = false;
+                    //Debug.Log("1111111111111111");
+                }
+                else if(!hit)
+                    transform.Translate(new Vector3(0f, 0f, 1f) * 0.15f);
             }
-            else
-            {
-                tpc.artistMovement = false;
-            }
+            //else
+            //{
+            //    tpc.artistMovement = false;
+            //}
         }
         else if (time >= 0.17f)
         {
@@ -276,6 +294,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
             dodge = false;
             time = 0f;
         }
+        //animator.applyRootMotion = true;
     }
 
     public virtual void LeftMouseClick()

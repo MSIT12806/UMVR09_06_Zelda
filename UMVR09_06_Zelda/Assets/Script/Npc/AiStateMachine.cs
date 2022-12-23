@@ -1239,7 +1239,6 @@ public class GolemRoarState : GolemBaseState
     {
         target = t;
         nowArmor = armor;
-
     }
 
     public override void SetAnimation()

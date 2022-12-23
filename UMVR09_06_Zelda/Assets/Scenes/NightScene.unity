@@ -17750,10 +17750,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 569015802, guid: 5752f796e3e1390418365a49a0e90a84, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 812130048, guid: 5752f796e3e1390418365a49a0e90a84, type: 3}
+      propertyPath: m_Size.y
+      value: 4.5435185
+      objectReference: {fileID: 0}
+    - target: {fileID: 812130048, guid: 5752f796e3e1390418365a49a0e90a84, type: 3}
+      propertyPath: m_Center.y
+      value: 1.8282406
+      objectReference: {fileID: 0}
+    - target: {fileID: 812130048, guid: 5752f796e3e1390418365a49a0e90a84, type: 3}
+      propertyPath: m_Center.z
+      value: 0.13582075
+      objectReference: {fileID: 0}
     - target: {fileID: 812130049, guid: 5752f796e3e1390418365a49a0e90a84, type: 3}
       propertyPath: music
       value: 
       objectReference: {fileID: 1610957560}
+    - target: {fileID: 1885405716, guid: 5752f796e3e1390418365a49a0e90a84, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 509284550586355046, guid: 5752f796e3e1390418365a49a0e90a84,
         type: 3}
       propertyPath: m_Name
@@ -17814,7 +17834,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 3248227761587640911, guid: 5752f796e3e1390418365a49a0e90a84,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 1885405716, guid: 5752f796e3e1390418365a49a0e90a84, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5752f796e3e1390418365a49a0e90a84, type: 3}
 --- !u!4 &761415171 stripped
 Transform:
@@ -39611,6 +39637,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2b93fd3dcacb8c43ae42ff8a24cc91b, type: 3}
+--- !u!1 &1860412447 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3248227761587640911, guid: 5752f796e3e1390418365a49a0e90a84,
+    type: 3}
+  m_PrefabInstance: {fileID: 761415170}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &1860412452
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1860412447}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5000002
+  m_Center: {x: 0, y: -0.27, z: -0.0000019073486}
 --- !u!1 &1871788867 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9191193100930100450, guid: 6c5a99a2d80875d4f9087a3fd64bcea1,
