@@ -32,7 +32,7 @@ public class SpaceManager : MonoBehaviour, NpcHelper
 
     public float CollisionDisplacement => 0;
 
-    public string Name => "阿蘭娜";
+    public string Name => "月影之主  阿蘭娜";
 
     public float FreezeTime = 0;
 
