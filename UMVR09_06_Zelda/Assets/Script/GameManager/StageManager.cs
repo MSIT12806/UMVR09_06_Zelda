@@ -194,9 +194,11 @@ public class StageManager : MonoBehaviour
                                 PicoCanTp = false;
                                 Pico.transform.position = PicoTpPlace.position;
                             }
+                            spacePlay = true;
+                            //Debug.Log(!spacePlay +"123123");
+                            //Debug.Log((ObjectManager2.StageMonsterMonitor[2] <= 0) + "123123");
                             spaceDirector.Play();
                             BlackScreen.FadeIn();
-                            spacePlay = true;
                         }
                         //dragonPlay = true;
                     }
