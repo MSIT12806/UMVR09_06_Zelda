@@ -96,8 +96,8 @@ public class SpaceManager : MonoBehaviour, NpcHelper
 
         if (damageData.DamageState.damageState == DamageState.Finishing)
         {
-            ArmorBreakTime = 0;
-            animator.Play("GetHit");
+            ArmorBreakTime = 0f;
+            animator.Play("GetHit 0");
         }
         var currentAnimatorState = animator.GetCurrentAnimatorStateInfo(0);
         if (CanGetHit == true)//ÅS¥X®zÂI
