@@ -116,7 +116,7 @@ public class SpaceManager : MonoBehaviour, NpcHelper
 
         if (InSkill2State)
         {
-            if (damageData.DamageState.damageState == DamageState.Bomb || damageData.DamageState.damageState == DamageState.Fever)
+            if (damageData.DamageState.damageState == DamageState.TimePause)
             {
                 if (transform.Find("BlackHoll").gameObject.activeSelf)
                 {
@@ -124,24 +124,34 @@ public class SpaceManager : MonoBehaviour, NpcHelper
                 }
                 InSkill2State = false;
                 animator.Play("GetHit");
-                ShowWeakTime = 5;
+                ShowWeakTime = 10;
                 foreach (var i in EffectPlaying)
                 {
                     i.Stop();
+                    i.Clear();
                 }
+            }
+        }
+
+        else if (damageData.DamageState.damageState == DamageState.TimePause)
+        {
+            FreezeTime = 5;
+            foreach(var i in EffectPlaying)
+            {
+                i.Pause();
             }
         }
 
         if (InSkill3State)
         {
-            if (damageData.DamageState.damageState == DamageState.TimePause || damageData.DamageState.damageState == DamageState.Fever)
+            if (damageData.DamageState.damageState == DamageState.Bomb || damageData.DamageState.damageState == DamageState.Fever)
             {
                 InSkill3State = false;
                 animator.Play("GetHit");
-                if (damageData.DamageState.damageState == DamageState.TimePause)
-                    ShowWeakTime = 10;
-                else if(damageData.DamageState.damageState == DamageState.Fever)
-                    ShowWeakTime = 5;
+                //if (damageData.DamageState.damageState == DamageState.TimePause)
+                //    ShowWeakTime = 10;
+                //else if(damageData.DamageState.damageState == DamageState.Fever)
+                ShowWeakTime = 5;
                 foreach (var i in EffectPlaying)
                 {
                     i.Stop();
@@ -161,14 +171,6 @@ public class SpaceManager : MonoBehaviour, NpcHelper
             }
         }
 
-        if (damageData.DamageState.damageState == DamageState.TimePause)
-        {
-            FreezeTime = 5;
-            foreach(var i in EffectPlaying)
-            {
-                i.Pause();
-            }
-        }
 
     }
 

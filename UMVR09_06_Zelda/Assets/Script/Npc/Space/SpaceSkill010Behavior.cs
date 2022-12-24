@@ -75,6 +75,7 @@ public class SpaceSkill010Behavior : StateMachineBehaviour
                     i.Stop();
                     i.Clear();
                 }
+                space.transform.FindAnyChild<ParticleSystem>("GetHit").Play();
                 Debug.Log("innnnnnnnnnnnnnnnnnnnn");
             }
         }
