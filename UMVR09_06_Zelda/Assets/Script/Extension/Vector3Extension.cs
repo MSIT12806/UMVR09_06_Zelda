@@ -49,4 +49,13 @@ public static class Vector3Extension
     {
         return new Vector3(UnityEngine.Random.value - 0.5f, UnityEngine.Random.value - 0.5f, UnityEngine.Random.value - 0.5f);
     }
+
+    public static Vector3 GetDirection( Vector3 from, Vector3 to)
+    {
+        return (to - from).normalized;
+    }
+    public static Vector3 GetVector( Vector3 from, Vector3 to)
+    {
+        return (to - from);
+    }
 }
