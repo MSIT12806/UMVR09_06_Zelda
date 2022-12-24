@@ -31,7 +31,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
 
     public Vector3 ArrivePoint { get; set; }
 
-    public string Name => "克圖格亞";
+    public string Name => "魔龍  克圖格亞";
 
     public bool fireballShooting;
     public bool sprinting;
