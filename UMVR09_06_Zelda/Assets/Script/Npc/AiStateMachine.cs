@@ -331,11 +331,22 @@ public class UsaoDeathState : UsaoAiState
     {
 
         deathTime = Time.frameCount;
+
+    }
+
+    public override void SetAnimation()
+    {
+        if (Time.frameCount > deathTime + 120)
+        {
+            //死亡程序
+            npc.Die();
+        }
+        if (getHit == null) return;
+        getHit = null;
         var currentInfo = animator.GetCurrentAnimatorStateInfo(0);
         var currentInfoTransition = animator.GetAnimatorTransitionInfo(0);
         try
         {
-
             if (currentInfo.IsTag("Lie") ||
                 currentInfoTransition.IsName("Die01_SwordAndShield -> GetUp_SwordAndShield") ||
                 currentInfoTransition.IsName("Flying Back Death -> GettingUp03") ||
@@ -350,60 +361,6 @@ public class UsaoDeathState : UsaoAiState
             npc.PlayAnimation("GetHit.Standing React Death Right");
         else
             npc.PlayAnimation("GetHit.Standing React Death Left");
-
-    }
-
-    public override void SetAnimation()
-    {
-        if (Time.frameCount > deathTime + 120)
-        {
-            var currentScene = SceneManager.GetActiveScene();
-            var currentSceneName = currentScene.name;
-            if (currentSceneName == "NightScene")
-            {
-                //死亡程序
-                var fxGo = ObjectManager.DieFx.Dequeue();
-                fxGo.transform.position = selfTransform.position;
-
-                //移出場外以免打擊判定與推擠判定
-                selfTransform.position.AddY(-1000);
-
-                //移出活人池增益效能
-                ObjectManager.NpcsAlive.Remove(selfTransform.gameObject.GetInstanceID());
-
-                //移入備用池
-                ObjectManager.StageDeathPool[(int)npc.gameState].Add(selfTransform.gameObject.GetInstanceID(), selfTransform.gameObject);
-
-                //怪物數量監控
-                ObjectManager.StageMonsterMonitor[(int)npc.gameState]--;
-
-                //死亡消失與特效
-                selfTransform.gameObject.SetActive(false);
-                fxGo.SetActive(true);
-                ObjectManager.DieFx.Enqueue(fxGo);
-            }
-            else
-            {
-                //死亡程序
-                var fxGo = ObjectManager2.DieFx.Dequeue();
-                fxGo.transform.position = selfTransform.position;
-
-                //移出活人池增益效能
-                ObjectManager2.NpcsAlive.Remove(selfTransform.gameObject.GetInstanceID());
-
-                //移入備用池
-                UnityEngine.Object.Destroy(selfTransform.gameObject);
-
-                //怪物數量監控
-                ObjectManager2.StageMonsterMonitor[(int)npc.gameState]--;
-
-                //死亡消失與特效
-                selfTransform.gameObject.SetActive(false);
-                fxGo.SetActive(true);
-                ObjectManager2.DieFx.Enqueue(fxGo);
-            }
-
-        }
     }
 
     public override AiState SwitchState()
