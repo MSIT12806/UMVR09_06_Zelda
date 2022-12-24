@@ -77,7 +77,6 @@ public class SpaceManager : MonoBehaviour, NpcHelper
                 if (i.isPaused)
                 {
                     i.Play();
-                    Debug.Log(2222222);
                 }
             }
         }
@@ -89,8 +88,13 @@ public class SpaceManager : MonoBehaviour, NpcHelper
     {
         if (Hp <= 0) return;
         Hp -= damageData.Damage;
+        if (Hp <= 0)
+        {
+            Die();
+            return;
+        }
 
-        if(damageData.DamageState.damageState == DamageState.Finishing)
+        if (damageData.DamageState.damageState == DamageState.Finishing)
         {
             ArmorBreakTime = 0;
             animator.Play("GetHit");
@@ -109,25 +113,6 @@ public class SpaceManager : MonoBehaviour, NpcHelper
                 animator.Play("GetHit 0");
         }
 
-        if (Hp <= 0)
-        {
-            animator.Play("Standing_React_Death_Right");
-            return;
-        }
-
-        //if (InSkill1State)
-        //{
-        //    if (Once.IcePosision != Vector3.zero)
-        //    {
-        //        if ((Once.IcePosision - transform.position).magnitude <= 3.5)
-        //        {
-        //            Once.IceDestroyTime = 0f;
-        //            InSkill1State = false;
-        //            animator.Play("GetHit");
-        //            Debug.Log("innnnnnnnnnnnnnnnnnnnn");
-        //        }
-        //    }
-        //}
 
         if (InSkill2State)
         {
@@ -140,7 +125,6 @@ public class SpaceManager : MonoBehaviour, NpcHelper
                 InSkill2State = false;
                 animator.Play("GetHit");
                 ShowWeakTime = 5;
-                Debug.Log("innnnnnnnnnnnnnnnnnnnn");
                 foreach (var i in EffectPlaying)
                 {
                     i.Stop();
@@ -158,15 +142,8 @@ public class SpaceManager : MonoBehaviour, NpcHelper
                     ShowWeakTime = 10;
                 else if(damageData.DamageState.damageState == DamageState.Fever)
                     ShowWeakTime = 5;
-                //var effect = transform.GetComponent<AnimAfffectSpace>();
-                //effect.FX_AttactSkill0301.GetComponent<ParticleSystem>().Stop();
-                //effect.FX_AttactSkill0301.GetComponent<ParticleSystem>().Clear();
-                //effect.FX_AttactSkill0302.GetComponent<ParticleSystem>().Stop();
-                //effect.FX_AttactSkill0302.GetComponent<ParticleSystem>().Clear();
-                Debug.Log("innnnnnnnnnnnnnnnnnnnn");
                 foreach (var i in EffectPlaying)
                 {
-                    Debug.Log(i.name);
                     i.Stop();
                     i.Clear();
                 }
@@ -179,7 +156,6 @@ public class SpaceManager : MonoBehaviour, NpcHelper
             ShowWeakTime = 5;
             foreach (var i in EffectPlaying)
             {
-                Debug.Log(i.name);
                 i.Stop();
                 i.Clear();
             }
@@ -191,15 +167,9 @@ public class SpaceManager : MonoBehaviour, NpcHelper
             foreach(var i in EffectPlaying)
             {
                 i.Pause();
-                Debug.Log(111111111);
             }
         }
 
-
-
-
-        Debug.Log("hit");
-        //aiState = new UsaoHurtState(transform.GetComponent<Animator>(), transform, damageData);
     }
 
     public void Move()
@@ -220,7 +190,8 @@ public class SpaceManager : MonoBehaviour, NpcHelper
 
     public void Die()
     {
-        throw new System.NotImplementedException();
+        animator.Play("Standing_React_Death_Right");
+        UiManager.singleton.Success();
     }
 
     public void AnimationAttack(int attackType)

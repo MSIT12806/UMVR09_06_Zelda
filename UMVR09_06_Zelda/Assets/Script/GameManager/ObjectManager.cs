@@ -163,12 +163,12 @@ public class ObjectManager : MonoBehaviour
     internal static void StageTwoResurrection()
     {
         var position = stageTwoSpawnPoint.position;
-        var range = 10;
-        if (UnityEngine.Random.value < 0.999f) return;
+        var range = 5;
+        if (UnityEngine.Random.value < 0.9995f) return;
         //全體復活
         foreach (var usao in StageDeathPool[2].Values)
         {
-            usao.transform.position = position + new Vector3(UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1), 0, UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1));
+            usao.transform.position = position + new Vector3(UnityEngine.Random.Range(1, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1), 0, UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1));
             var npc = usao.GetComponent<Npc>();
             npc.Hp = npc.MaxHp;
             var ator = usao.GetComponent<Animator>();
@@ -188,12 +188,12 @@ public class ObjectManager : MonoBehaviour
     internal static void StageThreeResurrection()
     {
         var position = stageThreeSpawnPoint.position;
-        var range = 10;
-        if (UnityEngine.Random.value < 0.999f) return;
+        var range = 5;
+        if (UnityEngine.Random.value < 0.9995f) return;
         //全體復活
         foreach (var usao in StageDeathPool[3].Values)
         {
-            usao.transform.position = position + new Vector3(UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1), 0, UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1));
+            usao.transform.position = position + new Vector3(UnityEngine.Random.Range(1, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1), 0, UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1));
             var npc = usao.GetComponent<Npc>();
             npc.Hp = npc.MaxHp;
             var ator = usao.GetComponent<Animator>();

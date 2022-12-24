@@ -9,17 +9,29 @@ public class PlaySoundOnEffect : MonoBehaviour
     private AudioSource audioSource;
     private ParticleSystem effect;
     bool CanPlaySound;
+    bool Initialized;
     void Start()
+    {
+        if (!Initialized)
+        {
+            Initialize();
+        }
+    }
+    void Initialize()
     {
         audioSource = this.GetComponent<AudioSource>();
         effect = this.GetComponent<ParticleSystem>();
+        Initialized = true;
     }
-
     void OnEnable()
     {
-
-        if (audioSource == null)
+        if (!Initialized)
         {
+            Initialize();
+        }
+        if (audioSource != null)
+        {
+            CanPlaySound = true;
         }
     }
     // Update is called once per framebool CanPlaySound;
@@ -28,7 +40,6 @@ public class PlaySoundOnEffect : MonoBehaviour
         if (effect.isPlaying && CanPlaySound && audioSource != null)
         {
             audioSource.PlayDelayed(DelayTime);
-            //audioSource.PlayDelayed(UnityEngine.Random.Range(0, 0.04f));
             CanPlaySound = false;
         }
         else if (effect.isStopped && audioSource != null)

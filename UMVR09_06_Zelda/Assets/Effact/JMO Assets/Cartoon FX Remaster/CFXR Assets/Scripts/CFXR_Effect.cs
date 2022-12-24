@@ -649,6 +649,7 @@ namespace CartoonFX
             }
         }
 #endif
+        private AudioSource audioSource;
 
 #if UNITY_EDITOR
         // Editor preview
@@ -671,7 +672,6 @@ namespace CartoonFX
         [System.NonSerialized] bool particleWasStopped;
         [System.NonSerialized] float particleTime;
         [System.NonSerialized] float particleTimeUnwrapped;
-        private AudioSource audioSource;
 
         void OnDestroy()
         {

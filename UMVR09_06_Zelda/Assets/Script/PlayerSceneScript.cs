@@ -17,28 +17,35 @@ public class PlayerSceneScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         FadeIn();
-
         if (ChangeScene)
+        {
+            StartCoroutine(LoadYourAsyncScene());
+        }
+    }
+    IEnumerator LoadYourAsyncScene()
+    {
+
+        PicoManager.Hp = PicoManager.MaxHp;
+        PicoManager.Power = 0;
+        PicoManager.AppleCount = PicoManager.MaxApple;
+
+        // 等到異步場景完全加載
+        while (Alpha < 1)
         {
             Alpha += 0.05f;
             BlackScreen.color = new Color(BlackScreen.color.r, BlackScreen.color.g, BlackScreen.color.b, Alpha);
-
-            if (Alpha >= 1 )
-            {
-                PicoManager.Hp = PicoManager.MaxHp;
-                PicoManager.Power = 0;
-                PicoManager.AppleCount = PicoManager.MaxApple;
-                Invoke("StartGame", 0.3f);
-                ChangeScene = false;
-            }
+            yield return null;
         }
-    }
-    void StartGame()
-    {
+
         SceneManager.LoadScene(1);
+        // Wait until the asynchronous scene fully loads
+        //while ()
+        //{
+        //    yield return null;
+        //}
     }
     public void FadeIn()
     {
@@ -46,13 +53,13 @@ public class PlayerSceneScript : MonoBehaviour
     }
     public void StartButtonClick()
     {
-        StartCoroutine(StartButton());
+        StartButton();
     }
-    IEnumerator StartButton()
+    void StartButton()
     {
+        if (ChangeScene) return;
         //yield return new WaitForSeconds(1.5f);
         ChangeScene = true;
         BlackScreen.gameObject.SetActive(true);
-        yield return 0;
     }
 }
