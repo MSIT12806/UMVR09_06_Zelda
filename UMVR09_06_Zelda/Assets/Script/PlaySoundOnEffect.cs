@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlaySoundOnEffect : MonoBehaviour
 {
+    public float DelayTime = 0f;
     // Start is called before the first frame update
     private AudioSource audioSource;
     private ParticleSystem effect;
@@ -26,7 +27,7 @@ public class PlaySoundOnEffect : MonoBehaviour
     {
         if (effect.isPlaying && CanPlaySound && audioSource != null)
         {
-            audioSource.Play();
+            audioSource.PlayDelayed(DelayTime);
             //audioSource.PlayDelayed(UnityEngine.Random.Range(0, 0.04f));
             CanPlaySound = false;
         }
