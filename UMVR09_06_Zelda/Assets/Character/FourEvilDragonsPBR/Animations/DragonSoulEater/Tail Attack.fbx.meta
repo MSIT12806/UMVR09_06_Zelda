@@ -447,16 +447,16 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.4503242
-        functionName: TailAttack
+      - time: 0.24971046
+        functionName: FX_TailAttack
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: b11601d3f25612d46902453df527e4e8,
           type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.35348403
-        functionName: FX_TailAttack
+      - time: 0.4503242
+        functionName: TailAttack
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: b11601d3f25612d46902453df527e4e8,
           type: 3}
