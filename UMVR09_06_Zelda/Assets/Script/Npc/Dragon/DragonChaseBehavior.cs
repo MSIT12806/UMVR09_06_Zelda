@@ -37,7 +37,7 @@ public class DragonChaseBehavior : StateMachineBehaviour
     {
         //if (manager.Hp <= 0) manager.Die();
         var d = Vector3.Distance(targetPoint, animator.transform.position);
-        if (lastDistance - d > 0.05f)
+        if (lastDistance - d > 0.05f && !npc.collide)
         {
             animator.transform.position += animator.transform.forward * speed;
             lastDistance = d;
