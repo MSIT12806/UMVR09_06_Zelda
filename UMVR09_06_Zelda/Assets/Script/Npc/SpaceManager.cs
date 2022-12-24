@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Ron;
+using UnityEngine.Playables;
+using Cinemachine;
 
 public class SpaceManager : MonoBehaviour, NpcHelper
 {
@@ -44,10 +46,19 @@ public class SpaceManager : MonoBehaviour, NpcHelper
     public float ArmorBreakTime = 7;
     public float ShowWeakTime = 0;
 
+    BlackFade1 BlackScreen;
+
+    public PlayableDirector spaceEndDirector;
+    public CinemachineVirtualCamera SpaceVirtualCamera;
+    public CinemachineVirtualCamera SpaceVirtualCamera2;
+    bool CanPlayEnd = true;
+    GameObject EndSpace;
     // Start is called before the first frame update
     Animator animator;
     void Awake()
     {
+        EndSpace = GameObject.Find("space3_3");
+        BlackScreen = GameObject.Find("BlackScreen").GetComponent<BlackFade1>();
         var currentScene = SceneManager.GetActiveScene();
         var currentSceneName = currentScene.name;
         if (currentSceneName == "NightScene")
@@ -83,6 +94,14 @@ public class SpaceManager : MonoBehaviour, NpcHelper
 
         ShowWeakTime -= Time.deltaTime;
 
+        if (Hp <= 0 && BlackScreen.newAlpha >= 1 && CanPlayEnd)
+        {
+            CanPlayEnd = false;
+            SpaceVirtualCamera.Priority = 20;
+            //EndSpace.SetActive(true);
+            spaceEndDirector.Play();
+        }
+
     }
     public void GetHurt(DamageData damageData)
     {
@@ -91,6 +110,7 @@ public class SpaceManager : MonoBehaviour, NpcHelper
         if (Hp <= 0)
         {
             Die();
+            //BlackScreen.FadeOut(0.01f);
             return;
         }
 
@@ -193,7 +213,7 @@ public class SpaceManager : MonoBehaviour, NpcHelper
     public void Die()
     {
         animator.Play("Standing_React_Death_Right");
-        UiManager.singleton.Success();
+        //UiManager.singleton.Success();
     }
 
     public void AnimationAttack(int attackType)

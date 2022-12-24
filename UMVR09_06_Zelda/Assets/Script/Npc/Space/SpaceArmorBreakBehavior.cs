@@ -8,6 +8,7 @@ public class SpaceArmorBreakBehavior : StateMachineBehaviour
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         space = animator.transform.GetComponent<SpaceManager>();
+        space.dizzy = true;
         space.CanGetHit = false;
     }
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

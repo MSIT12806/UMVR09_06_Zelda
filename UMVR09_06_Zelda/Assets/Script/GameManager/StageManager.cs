@@ -186,7 +186,7 @@ public class StageManager : MonoBehaviour
                     {
                         //spaceVirtualCamera.gameObject.SetActive(true);
                         //spaceVirtualCamera.Priority = 20;
-                        BlackScreen.FadeOut();
+                        BlackScreen.FadeOut(0.01f);
                         if (BlackScreen.newAlpha >= 1)
                         {
                             if (PicoCanTp)
@@ -198,7 +198,7 @@ public class StageManager : MonoBehaviour
                             //Debug.Log(!spacePlay +"123123");
                             //Debug.Log((ObjectManager2.StageMonsterMonitor[2] <= 0) + "123123");
                             spaceDirector.Play();
-                            BlackScreen.FadeIn();
+                            BlackScreen.FadeIn(1);
                         }
                         //dragonPlay = true;
                     }
