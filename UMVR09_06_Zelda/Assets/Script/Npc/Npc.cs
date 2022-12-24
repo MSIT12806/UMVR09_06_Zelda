@@ -248,8 +248,10 @@ public class Npc : MonoBehaviour
                 foreach (var item in hitInfos)
                 {
                     if (pauseTime > 0) break;
-                    var closestPoint = item.ClosestPoint(transform.position).WithY(transform.position.y);
-                    transform.position -= (closestPoint - transform.position).normalized * 0.1f;
+                    var closestPoint = collider.ClosestPoint(item.transform.position);
+                    var moveVec = (closestPoint.WithY(transform.position.y) - transform.position).normalized * 0.1f;
+                    //if(moveVec == Vector3.zero) moveVec = Vector3Extension.GetDirection(transform.position.WithY(), item.transform.position.WithY()) * 0.3f;
+                    transform.position -= moveVec;
                 }
             }
 
@@ -371,6 +373,7 @@ public class Npc : MonoBehaviour
         MaxHp = Hp;
         ik = GetComponent<IKController>();
         materials = new List<Material>();
+        collide = GetComponent<Collider>();
         if (string.IsNullOrEmpty(MaterialAddress) == false)
         {
             var rendererParent = transform.FindAnyChild<Transform>(MaterialAddress);

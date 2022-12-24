@@ -419,19 +419,27 @@ public static class AiStateCommon
 
     public static bool Turn(Transform body, Vector3 direction)
     {
-        var degree = Vector3.SignedAngle(body.forward.WithY(), direction.WithY(), Vector3.up);
-        if (degree < -4)
+        bool canTurn = true;
+        var npc = body.GetComponent<Npc>();
+        if (npc != null)
         {
-            body.Rotate(Vector3.up, -2);
-            return true;
-
+            canTurn = !npc.collide;
         }
-        else if (degree > 4)
+        if (canTurn)
         {
-            body.Rotate(Vector3.up, 2);
-            return true;
-        }
+            var degree = Vector3.SignedAngle(body.forward.WithY(), direction.WithY(), Vector3.up);
+            if (degree < -4)
+            {
+                body.Rotate(Vector3.up, -2);
+                return true;
 
+            }
+            else if (degree > 4)
+            {
+                body.Rotate(Vector3.up, 2);
+                return true;
+            }
+        }
         return false;
     }
 
