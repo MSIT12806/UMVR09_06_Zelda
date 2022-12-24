@@ -179,6 +179,11 @@ public class GolemManager : MonoBehaviour, NpcHelper
         this.transform.Find("FX_GolemAttack0202").gameObject.GetComponent<ParticleSystem>().Play();
     }
 
+    void PrepRolling()
+    {
+        this.transform.Find("FX_PrepRolling").gameObject.GetComponent<ParticleSystem>().Play();
+    }
+
     public void SetShield()
     {
         Shield = 10;
