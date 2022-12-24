@@ -21,4 +21,9 @@ public class RadialBlurEffect : PostEffectBase
             Graphics.Blit(source, destination);
         }
     }
+
+    public void SetBlur()
+    {
+
+    }
 }
