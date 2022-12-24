@@ -133,7 +133,7 @@ public class DragonManager : MonoBehaviour, NpcHelper
                 animator.CrossFade("ArmorBreak", 0.1f);
             }
         }
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("ArmorBreak"))
+        if (weakPoint <= 0)
         {
             if (damageData.DamageState.damageState == DamageState.Finishing)
             {
@@ -145,7 +145,6 @@ public class DragonManager : MonoBehaviour, NpcHelper
 
     public void ResetWeakPoint()
     {
-
         dizzy = false;
         weakPoint = MaxWeakPoint;
     }
