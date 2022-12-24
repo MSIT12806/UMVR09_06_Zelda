@@ -590,7 +590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a314e5271d383d4a976bb8325b24d80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  virCamera: {fileID: 0}
+  virCamera: {fileID: 1336006490}
 --- !u!114 &20236811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10294,6 +10294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b8ae05bfa540114682b1c8f3618893f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DelayTime: 0
 --- !u!1 &349677684
 GameObject:
   m_ObjectHideFlags: 0
@@ -11669,6 +11670,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b8ae05bfa540114682b1c8f3618893f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DelayTime: 0
 --- !u!1001 &415856212
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11832,7 +11834,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 419235578}
-  m_LocalRotation: {x: 0.08449331, y: 0.74923575, z: -0.09744942, w: 0.6496232}
+  m_LocalRotation: {x: 0.08449331, y: 0.7492357, z: -0.097449414, w: 0.6496233}
   m_LocalPosition: {x: 24.808594, y: 19.479134, z: 187.11383}
   m_LocalScale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
   m_ConstrainProportionsScale: 0
@@ -22430,6 +22432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b8ae05bfa540114682b1c8f3618893f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DelayTime: 0
 --- !u!82 &971973974
 AudioSource:
   m_ObjectHideFlags: 0
@@ -22925,6 +22928,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b8ae05bfa540114682b1c8f3618893f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DelayTime: 0
 --- !u!82 &1003393291
 AudioSource:
   m_ObjectHideFlags: 0
@@ -34137,6 +34141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b8ae05bfa540114682b1c8f3618893f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DelayTime: 0
 --- !u!4 &1637661028 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8293178818871931233, guid: b2b93fd3dcacb8c43ae42ff8a24cc91b,
@@ -35421,6 +35426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b8ae05bfa540114682b1c8f3618893f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DelayTime: 0
 --- !u!82 &1680073733
 AudioSource:
   m_ObjectHideFlags: 0
@@ -35810,7 +35816,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1686870173}
-  m_LocalRotation: {x: -0.0139261605, y: 0.9595801, z: 0.048257183, w: 0.27691767}
+  m_LocalRotation: {x: -0.0139261605, y: 0.9595801, z: 0.048257176, w: 0.2769177}
   m_LocalPosition: {x: -143.78519, y: 5.5879984, z: 91.187874}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -39987,6 +39993,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b8ae05bfa540114682b1c8f3618893f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DelayTime: 0
 --- !u!1001 &1855706817
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -46369,6 +46376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b8ae05bfa540114682b1c8f3618893f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DelayTime: 0
 --- !u!1 &2600259474675906526 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2599672475977009566, guid: 2f4c6503393c0524092f221f451eca7a,
@@ -46715,6 +46723,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b8ae05bfa540114682b1c8f3618893f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DelayTime: 0
 --- !u!1001 &6482304216071831992
 PrefabInstance:
   m_ObjectHideFlags: 0
