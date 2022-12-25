@@ -7,7 +7,7 @@ using UnityEngine;
 public class SpaceWeapon : MonoBehaviour
 {
     public ShootMagic[] smallBalls;
-    public ShootMagic bigBall;
+    public ShootMagic[] bigBalls;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +30,7 @@ public class SpaceWeapon : MonoBehaviour
     }
     public void BigBallAttack(Vector3 position)
     {
+        var bigBall = GetBigBall();
         bigBall.existSeconds = 3f;
         bigBall.transform.position = position;
         bigBall.force = (ObjectManager2.MainCharacter.position - this.transform.position).WithY();
@@ -39,5 +40,9 @@ public class SpaceWeapon : MonoBehaviour
     private ShootMagic GetSmallBall()
     {
         return smallBalls.First(i => i.gameObject.activeSelf == false);
+    }
+    private ShootMagic GetBigBall()
+    {
+        return bigBalls.First(i => i.gameObject.activeSelf == false);
     }
 }
