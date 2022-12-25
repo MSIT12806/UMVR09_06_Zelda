@@ -8,7 +8,6 @@ public class SpaceArmorBreakBehavior : StateMachineBehaviour
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         space = animator.transform.GetComponent<SpaceManager>();
-        space.dizzy = true;
         space.CanGetHit = false;
     }
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -17,14 +16,15 @@ public class SpaceArmorBreakBehavior : StateMachineBehaviour
 
         if(space.ArmorBreakTime <= 0)
         {
-            animator.Play("standing_idle");
-            space.Armor = space.MaxArmor;
+            animator.SetTrigger("backToIdle");
+            space.dizzy = false;
+            space.ArmorBreakTime = 7;
+            //animator.Play("standing_idle");
         }
     }
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        space.dizzy = false;
-        space.ArmorBreakTime = 7;
+        space.Armor = space.MaxArmor;
         //®zÂIUIÁôÂÃ
     }
 }

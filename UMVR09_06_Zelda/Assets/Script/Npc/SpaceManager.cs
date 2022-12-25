@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Ron;
+using UnityEngine.Playables;
+using Cinemachine;
 
 public class SpaceManager : MonoBehaviour, NpcHelper
 {
@@ -44,10 +46,19 @@ public class SpaceManager : MonoBehaviour, NpcHelper
     public float ArmorBreakTime = 7;
     public float ShowWeakTime = 0;
 
+    BlackFade1 BlackScreen;
+
+    public PlayableDirector spaceEndDirector;
+    public CinemachineVirtualCamera SpaceVirtualCamera;
+    public CinemachineVirtualCamera SpaceVirtualCamera2;
+    bool CanPlayEnd = true;
+    GameObject EndSpace;
     // Start is called before the first frame update
     Animator animator;
     void Awake()
     {
+        EndSpace = GameObject.Find("space3_3");
+        BlackScreen = GameObject.Find("BlackScreen").GetComponent<BlackFade1>();
         var currentScene = SceneManager.GetActiveScene();
         var currentSceneName = currentScene.name;
         if (currentSceneName == "NightScene")
@@ -83,6 +94,14 @@ public class SpaceManager : MonoBehaviour, NpcHelper
 
         ShowWeakTime -= Time.deltaTime;
 
+        if (Hp <= 0 && BlackScreen.newAlpha >= 1 && CanPlayEnd)
+        {
+            CanPlayEnd = false;
+            SpaceVirtualCamera.Priority = 20;
+            //EndSpace.SetActive(true);
+            spaceEndDirector.Play();
+        }
+
     }
     public void GetHurt(DamageData damageData)
     {
@@ -91,13 +110,14 @@ public class SpaceManager : MonoBehaviour, NpcHelper
         if (Hp <= 0)
         {
             Die();
+            //BlackScreen.FadeOut(0.01f);
             return;
         }
 
         if (damageData.DamageState.damageState == DamageState.Finishing)
         {
-            ArmorBreakTime = 0;
-            animator.Play("GetHit");
+            ArmorBreakTime = 0f;
+            animator.Play("GetHit 0");
         }
         var currentAnimatorState = animator.GetCurrentAnimatorStateInfo(0);
         if (CanGetHit == true)//ÅS¥X®zÂI
@@ -116,7 +136,7 @@ public class SpaceManager : MonoBehaviour, NpcHelper
 
         if (InSkill2State)
         {
-            if (damageData.DamageState.damageState == DamageState.Bomb || damageData.DamageState.damageState == DamageState.Fever)
+            if (damageData.DamageState.damageState == DamageState.TimePause)
             {
                 if (transform.Find("BlackHoll").gameObject.activeSelf)
                 {
@@ -124,24 +144,34 @@ public class SpaceManager : MonoBehaviour, NpcHelper
                 }
                 InSkill2State = false;
                 animator.Play("GetHit");
-                ShowWeakTime = 5;
+                ShowWeakTime = 10;
                 foreach (var i in EffectPlaying)
                 {
                     i.Stop();
+                    i.Clear();
                 }
+            }
+        }
+
+        else if (damageData.DamageState.damageState == DamageState.TimePause)
+        {
+            FreezeTime = 5;
+            foreach(var i in EffectPlaying)
+            {
+                i.Pause();
             }
         }
 
         if (InSkill3State)
         {
-            if (damageData.DamageState.damageState == DamageState.TimePause || damageData.DamageState.damageState == DamageState.Fever)
+            if (damageData.DamageState.damageState == DamageState.Bomb || damageData.DamageState.damageState == DamageState.Fever)
             {
                 InSkill3State = false;
                 animator.Play("GetHit");
-                if (damageData.DamageState.damageState == DamageState.TimePause)
-                    ShowWeakTime = 10;
-                else if(damageData.DamageState.damageState == DamageState.Fever)
-                    ShowWeakTime = 5;
+                //if (damageData.DamageState.damageState == DamageState.TimePause)
+                //    ShowWeakTime = 10;
+                //else if(damageData.DamageState.damageState == DamageState.Fever)
+                ShowWeakTime = 5;
                 foreach (var i in EffectPlaying)
                 {
                     i.Stop();
@@ -161,14 +191,6 @@ public class SpaceManager : MonoBehaviour, NpcHelper
             }
         }
 
-        if (damageData.DamageState.damageState == DamageState.TimePause)
-        {
-            FreezeTime = 5;
-            foreach(var i in EffectPlaying)
-            {
-                i.Pause();
-            }
-        }
 
     }
 
@@ -191,7 +213,7 @@ public class SpaceManager : MonoBehaviour, NpcHelper
     public void Die()
     {
         animator.Play("Standing_React_Death_Right");
-        UiManager.singleton.Success();
+        //UiManager.singleton.Success();
     }
 
     public void AnimationAttack(int attackType)
