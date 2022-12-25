@@ -27,6 +27,7 @@ public class SpaceStageEndController : MonoBehaviour
         Space = space2.GetComponent<SpaceManager>();
         Space.Show = true;
 
+        UiManager.singleton.ShowSuccess();
         //camera1.gameObject.SetActive(false);
         //camera2.gameObject.SetActive(false);
 

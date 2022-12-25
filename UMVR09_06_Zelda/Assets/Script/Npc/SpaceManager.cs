@@ -213,7 +213,7 @@ public class SpaceManager : MonoBehaviour, NpcHelper
 
     public void Die()
     {
-
+        UiManager.singleton.HideTip();
         ObjectManager2.myCamera.SetDefault();
         ObjectManager2.myCamera.m_StareTarget[1] = null;
         animator.Play("Standing_React_Death_Right");
