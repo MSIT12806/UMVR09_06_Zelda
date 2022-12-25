@@ -18,6 +18,9 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     public Animator animator;
     public AnimatorStateInfo currentAnimation;
 
+    public AudioSource SE_FootStepL;
+    public AudioSource SE_FootStepR;
+
     public float Fever;
     public int FeverTimes;
 
@@ -491,9 +494,11 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     }
     void FootL()
     {
+        SE_FootStepL.GetComponent<AudioSource>().Play();
     }
     void FootR()
     {
+        SE_FootStepR.GetComponent<AudioSource>().Play();
     }
 
     public void Die()
