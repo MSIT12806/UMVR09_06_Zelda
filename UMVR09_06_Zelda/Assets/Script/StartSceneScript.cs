@@ -7,6 +7,7 @@ public class StartSceneScript : MonoBehaviour
     public CanvasGroup a;
     public GameObject startUI;
     bool FadeOut = false;
+    public AudioSource ButtonSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +39,7 @@ public class StartSceneScript : MonoBehaviour
     IEnumerator NewGame()
     {
         FadeOut = true;
+        ButtonSound.Play();
         yield return new WaitForSeconds(1f);
         //Application.LoadLevel(1);
     }

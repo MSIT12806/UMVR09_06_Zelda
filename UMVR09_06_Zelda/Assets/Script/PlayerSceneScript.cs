@@ -11,6 +11,7 @@ public class PlayerSceneScript : MonoBehaviour
     public Image BlackScreen;
     bool ChangeScene = false;
     float Alpha = 0;
+    public AudioSource ButtonClick;
     void Start()
     {
 
@@ -59,6 +60,7 @@ public class PlayerSceneScript : MonoBehaviour
     {
         if (ChangeScene) return;
         //yield return new WaitForSeconds(1.5f);
+        ButtonClick.Play();
         ChangeScene = true;
         BlackScreen.gameObject.SetActive(true);
     }
