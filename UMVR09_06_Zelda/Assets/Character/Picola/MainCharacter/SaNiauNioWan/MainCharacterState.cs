@@ -112,11 +112,6 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            MoonTp.SetActive(true);
-        }
-
         if (noHurt > 0) noHurt--;
 
         //處理美術位移
