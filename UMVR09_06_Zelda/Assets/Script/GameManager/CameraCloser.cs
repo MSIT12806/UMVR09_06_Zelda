@@ -1,3 +1,4 @@
+using Ron;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,5 +24,11 @@ public class CameraCloser : MonoBehaviour
     public void OpenCamera()
     {
         virCamera.SetActive(true);
+    }
+
+    public void FinalLight()
+    {
+       var fx = GameObject.Find("fbxPodium (1)").transform.FindAnyChild<Transform>("FX_Light_Line");
+        fx.gameObject.SetActive(true);
     }
 }

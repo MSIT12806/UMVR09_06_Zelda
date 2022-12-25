@@ -59,7 +59,21 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.29996717
+        functionName: FootL
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.8170899
+        functionName: FootR
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -846,7 +860,8 @@ ModelImporter:
     - name: LeftHandThumb3
       parentName: LeftHandThumb2
       position: {x: -0.034, y: 3.5527135e-16, z: 1.4210854e-16}
-      rotation: {x: 7.3669576e-10, y: 0.0000000012566302, z: -0.0000000016413559, w: 1}
+      rotation: {x: 7.3669576e-10, y: 0.0000000012566302, z: -0.0000000016413559,
+        w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: RightShoulder
       parentName: Spine02
@@ -1360,7 +1375,8 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 10038fdbf93c4dd43af9ce774d03a956, type: 3}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 10038fdbf93c4dd43af9ce774d03a956,
+    type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1
