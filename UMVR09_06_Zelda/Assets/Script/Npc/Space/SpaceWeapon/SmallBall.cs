@@ -51,6 +51,7 @@ public class SmallBall : MonoBehaviour
         if(transform.localPosition.x>0 && transform.localPosition.z > 0 && transform.localPosition.z < 0.1)
         {
             //Debug.Log(123456);
+            
             weapons.SmallBallAttack(transform.position);
             this.transform.localPosition = startPos;
             transform.gameObject.SetActive(false);
