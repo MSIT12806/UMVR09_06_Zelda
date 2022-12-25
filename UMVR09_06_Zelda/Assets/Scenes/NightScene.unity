@@ -11832,7 +11832,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 419235578}
-  m_LocalRotation: {x: 0.09718861, y: 0.7387343, z: -0.109118976, w: 0.65796584}
+  m_LocalRotation: {x: 0.09718861, y: 0.7387343, z: -0.10911896, w: 0.65796596}
   m_LocalPosition: {x: 24.808594, y: 19.479134, z: 187.11383}
   m_LocalScale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
   m_ConstrainProportionsScale: 0
@@ -13370,7 +13370,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 518374358}
   m_LocalRotation: {x: -0, y: 0.97678226, z: -0, w: -0.21423471}
-  m_LocalPosition: {x: -20.454, y: 1.69, z: -19.275}
+  m_LocalPosition: {x: -20.505, y: 1.674, z: -19.083}
   m_LocalScale: {x: 2.4570582, y: 3.7173681, z: 0.3622}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -22252,7 +22252,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: bbbacb33641cbd1408f7ef2d38824c68, type: 3}
+  m_audioClip: {fileID: 8300000, guid: d695de4cea976b84bbe9e0fe2d6f5d60, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -22748,7 +22748,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: bbbacb33641cbd1408f7ef2d38824c68, type: 3}
+  m_audioClip: {fileID: 8300000, guid: d695de4cea976b84bbe9e0fe2d6f5d60, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -35244,7 +35244,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: bbbacb33641cbd1408f7ef2d38824c68, type: 3}
+  m_audioClip: {fileID: 8300000, guid: d695de4cea976b84bbe9e0fe2d6f5d60, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -40049,6 +40049,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1965425261331413170, guid: 510be0e958e2ffe4bb58cb4fc9c1be5e,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2046102329827991577, guid: 510be0e958e2ffe4bb58cb4fc9c1be5e,
         type: 3}
       propertyPath: m_RootOrder

@@ -61,12 +61,12 @@ public class DragonEffect : MonoBehaviour
 
     void FlyWingSound()
     {
-        SE_FlyWing.GetComponent<AudioSource>().Play(); ;
+        SE_FlyWing.GetComponent<AudioSource>().Play();
     }
 
     void PrepRunSound()
     {
-        SE_PrepRun.GetComponent<AudioSource>().Play(); ;
+        SE_PrepRun.GetComponent<AudioSource>().Play();
     }
 
     void FlyAttackSound()
