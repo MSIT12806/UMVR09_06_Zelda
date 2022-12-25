@@ -220,6 +220,52 @@ public class UsaoManager : MonoBehaviour, IHp, NpcHelper
 
     public void Die()
     {
-        GetHurt(new DamageData(Hp, Vector3.zero, HitType.light, DamageStateInfo.NormalAttack));
+
+        var currentScene = SceneManager.GetActiveScene();
+        var currentSceneName = currentScene.name;
+        if (currentSceneName == "NightScene")
+        {
+            //死亡程序
+            var fxGo = ObjectManager.DieFx.Dequeue();
+            fxGo.transform.position = transform.position;
+
+            //移出場外以免打擊判定與推擠判定
+            transform.position.AddY(-1000);
+
+            //移出活人池增益效能
+            ObjectManager.NpcsAlive.Remove(transform.gameObject.GetInstanceID());
+
+            //移入備用池
+            ObjectManager.StageDeathPool[(int)npc.gameState].TryAdd(transform.gameObject.GetInstanceID(), transform.gameObject);
+
+            //怪物數量監控
+            ObjectManager.StageMonsterMonitor[(int)npc.gameState]--;
+
+            //死亡消失與特效
+            transform.gameObject.SetActive(false);
+            fxGo.SetActive(true);
+            ObjectManager.DieFx.Enqueue(fxGo);
+        }
+        else
+        {
+            //死亡程序
+            var fxGo = ObjectManager2.DieFx.Dequeue();
+            fxGo.transform.position = transform.position;
+
+            //移出活人池增益效能
+            ObjectManager2.NpcsAlive.Remove(transform.gameObject.GetInstanceID());
+
+            //移入備用池
+            UnityEngine.Object.Destroy(transform.gameObject);
+
+            //怪物數量監控
+            ObjectManager2.StageMonsterMonitor[(int)npc.gameState]--;
+
+            //死亡消失與特效
+            transform.gameObject.SetActive(false);
+            fxGo.SetActive(true);
+            ObjectManager2.DieFx.Enqueue(fxGo);
+        }
+
     }
 }

@@ -171,7 +171,7 @@ PrefabInstance:
     - target: {fileID: 366177274020809761, guid: cacd8a357d52ab446b88336c542873f1,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.123
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 366177274020809761, guid: cacd8a357d52ab446b88336c542873f1,
         type: 3}
@@ -221,6 +221,16 @@ PrefabInstance:
     - target: {fileID: 366177274259003049, guid: cacd8a357d52ab446b88336c542873f1,
         type: 3}
       propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 366177274259003051, guid: cacd8a357d52ab446b88336c542873f1,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 366177274259003051, guid: cacd8a357d52ab446b88336c542873f1,
+        type: 3}
+      propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 366177274371077250, guid: cacd8a357d52ab446b88336c542873f1,

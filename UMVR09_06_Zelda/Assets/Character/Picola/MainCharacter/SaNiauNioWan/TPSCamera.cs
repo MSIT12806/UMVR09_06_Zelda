@@ -81,9 +81,9 @@ public class TPSCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RefreshCameraState();
         //GetRotateDegreeByKeyboard();
         GetRotateDegreeByMouse();
+        RefreshCameraState();
         TransparentBlockObject();
         state.SetRotateDegree(fMX, fMY, m_CameraSensitivity);
         state.UpdateParameters(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance, m_LookSmoothTime);
@@ -92,6 +92,7 @@ public class TPSCamera : MonoBehaviour
 
     public void SetDefault()
     {
+        fMX = 100;//Vector3.SignedAngle(transform.forward, m_FollowTarget.forward, Vector3.up);
         state = new Default(m_LookPoint, m_FollowTarget, m_LookHeight, m_FollowDistance);
     }
     public void SetStare()
@@ -184,7 +185,7 @@ public class TPSCamera : MonoBehaviour
     HashSet<GameObject> transparentObj = new HashSet<GameObject>();
     private void TransparentBlockObject()
     {
-        var hitArr = Physics.SphereCastAll(this.transform.position, 0.2f, m_FollowTarget.position.AddY(1.3f) - this.transform.position, Vector3.Distance(this.transform.position, m_FollowTarget.position.AddY(1.3f))-1f, transparentLayer);
+        var hitArr = Physics.SphereCastAll(this.transform.position, 0.2f, m_FollowTarget.position.AddY(1.3f) - this.transform.position, Vector3.Distance(this.transform.position, m_FollowTarget.position.AddY(1.3f)) - 1f, transparentLayer);
         if (hitArr.Length != 0)
         {
             foreach (var hit in hitArr)

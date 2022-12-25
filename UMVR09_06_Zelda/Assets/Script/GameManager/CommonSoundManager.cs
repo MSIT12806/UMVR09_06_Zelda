@@ -20,7 +20,6 @@ public class CommonSoundManager : MonoBehaviour
     {
         if (currentTime > duration) return;
         currentTime += Time.deltaTime;
-        Debug.Log("volume = "+ ads.volume);
         switch (state)
         {
             case 1:

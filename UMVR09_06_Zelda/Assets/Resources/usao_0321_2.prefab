@@ -751,6 +751,7 @@ GameObject:
   - component: {fileID: 3847143800239141233}
   - component: {fileID: 3226364403899404772}
   - component: {fileID: 8776525819237294026}
+  - component: {fileID: 7950147050112470104}
   m_Layer: 8
   m_Name: MiniUsao
   m_TagString: Untagged
@@ -837,6 +838,19 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &7950147050112470104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 776411865809912227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a78411d37b448c48adb339c552c8629, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showStage: 0
 --- !u!1 &851629015658234884
 GameObject:
   m_ObjectHideFlags: 0

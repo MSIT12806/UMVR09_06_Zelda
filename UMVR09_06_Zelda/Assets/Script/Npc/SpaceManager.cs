@@ -52,12 +52,12 @@ public class SpaceManager : MonoBehaviour, NpcHelper
     public CinemachineVirtualCamera SpaceVirtualCamera;
     public CinemachineVirtualCamera SpaceVirtualCamera2;
     bool CanPlayEnd = true;
-    GameObject EndSpace;
+    public GameObject EndSpace;
     // Start is called before the first frame update
     Animator animator;
     void Awake()
     {
-        EndSpace = GameObject.Find("space3_3");
+        //EndSpace = GameObject.Find("space3_3").gameObject;
         BlackScreen = GameObject.Find("BlackScreen").GetComponent<BlackFade1>();
         var currentScene = SceneManager.GetActiveScene();
         var currentSceneName = currentScene.name;
@@ -97,8 +97,9 @@ public class SpaceManager : MonoBehaviour, NpcHelper
         if (Hp <= 0 && BlackScreen.newAlpha >= 1 && CanPlayEnd)
         {
             CanPlayEnd = false;
-            SpaceVirtualCamera.Priority = 20;
-            //EndSpace.SetActive(true);
+            //SpaceVirtualCamera.Priority = 20;
+            EndSpace.SetActive(true);
+            this.gameObject.SetActive(false);
             spaceEndDirector.Play();
         }
 
@@ -212,6 +213,9 @@ public class SpaceManager : MonoBehaviour, NpcHelper
 
     public void Die()
     {
+
+        ObjectManager2.myCamera.SetDefault();
+        ObjectManager2.myCamera.m_StareTarget[1] = null;
         animator.Play("Standing_React_Death_Right");
         //UiManager.singleton.Success();
     }
