@@ -412,7 +412,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &12291043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -446,7 +446,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 12291042}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -517,6 +517,7 @@ GameObject:
   - component: {fileID: 20236810}
   - component: {fileID: 20236812}
   - component: {fileID: 20236811}
+  - component: {fileID: 20236813}
   m_Layer: 0
   m_Name: Stage03_Timeline
   m_TagString: Untagged
@@ -570,6 +571,12 @@ PlayableDirector:
     value: {fileID: 20236812}
   - key: {fileID: 6812492785915924913, guid: f6c34505ab6d3fe4ebc119f405fb22c5, type: 2}
     value: {fileID: 1326992511}
+  - key: {fileID: 3624166326797590489, guid: f6c34505ab6d3fe4ebc119f405fb22c5, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 1648893467248603015, guid: f6c34505ab6d3fe4ebc119f405fb22c5, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 6779703546878645869, guid: f6c34505ab6d3fe4ebc119f405fb22c5, type: 2}
+    value: {fileID: 20236812}
   m_ExposedReferences:
     m_References:
     - 60767bac4c27dda4daf56f89cf066c30: {fileID: 1614954279}
@@ -644,6 +651,36 @@ MonoBehaviour:
         - m_Target: {fileID: 20236810}
           m_TargetAssemblyTypeName: CameraCloser, Assembly-CSharp
           m_MethodName: CloseCamera
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &20236813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20236807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: 774a8f79993ad48498bc9839c9f3dff0, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 20236810}
+          m_TargetAssemblyTypeName: CameraCloser, Assembly-CSharp
+          m_MethodName: FinalLight
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -12455,37 +12492,37 @@ PrefabInstance:
     - target: {fileID: 6942378765527368337, guid: 4f320ab5e1c207d479610b23bcf76d58,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 27.7646
+      value: -3.789999
       objectReference: {fileID: 0}
     - target: {fileID: 6942378765527368337, guid: 4f320ab5e1c207d479610b23bcf76d58,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 18.16192
+      value: 15.979998
       objectReference: {fileID: 0}
     - target: {fileID: 6942378765527368337, guid: 4f320ab5e1c207d479610b23bcf76d58,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 186.7455
+      value: 175.43
       objectReference: {fileID: 0}
     - target: {fileID: 6942378765527368337, guid: 4f320ab5e1c207d479610b23bcf76d58,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.65011287
+      value: -0.61883575
       objectReference: {fileID: 0}
     - target: {fileID: 6942378765527368337, guid: 4f320ab5e1c207d479610b23bcf76d58,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.06883948
+      value: 0.00000013783574
       objectReference: {fileID: 0}
     - target: {fileID: 6942378765527368337, guid: 4f320ab5e1c207d479610b23bcf76d58,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.75250596
+      value: 0.78552043
       objectReference: {fileID: 0}
     - target: {fileID: 6942378765527368337, guid: 4f320ab5e1c207d479610b23bcf76d58,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.07968175
+      value: 0.00000010058284
       objectReference: {fileID: 0}
     - target: {fileID: 6942378765527368337, guid: 4f320ab5e1c207d479610b23bcf76d58,
         type: 3}
@@ -33600,7 +33637,7 @@ PrefabInstance:
     - target: {fileID: 1877787067568005793, guid: 22e2137e1797cc64ea9af75dcb5342b4,
         type: 3}
       propertyPath: playOnAwake
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1877787067568005793, guid: 22e2137e1797cc64ea9af75dcb5342b4,
         type: 3}
@@ -33625,7 +33662,7 @@ PrefabInstance:
     - target: {fileID: 1877787067580802135, guid: 22e2137e1797cc64ea9af75dcb5342b4,
         type: 3}
       propertyPath: playOnAwake
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1877787067580802135, guid: 22e2137e1797cc64ea9af75dcb5342b4,
         type: 3}
@@ -33645,7 +33682,7 @@ PrefabInstance:
     - target: {fileID: 1877787067742851641, guid: 22e2137e1797cc64ea9af75dcb5342b4,
         type: 3}
       propertyPath: playOnAwake
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1877787067742851641, guid: 22e2137e1797cc64ea9af75dcb5342b4,
         type: 3}
@@ -33735,7 +33772,7 @@ PrefabInstance:
     - target: {fileID: 6888266096366291398, guid: 22e2137e1797cc64ea9af75dcb5342b4,
         type: 3}
       propertyPath: playOnAwake
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6888266096366291398, guid: 22e2137e1797cc64ea9af75dcb5342b4,
         type: 3}
