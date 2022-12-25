@@ -126,6 +126,9 @@ public class ObjectManager : MonoBehaviour
             StagePools[(int)state].Add(npc);
             npc.Hp = 200;
             npc.gameState = state;
+            
+            var showMap = go.transform.FindAnyChild<ShowOnMap>("MiniUsao");
+            showMap.showStage = (int)state ;
             NpcsAlive.Add(go.GetInstanceID(), go);
         }
     }
@@ -221,6 +224,8 @@ public class ObjectManager : MonoBehaviour
             StagePools[(int)state].Add(npc);
             npc.Hp = 150;
             npc.gameState = state;
+            var showMap = go.transform.FindAnyChild<ShowOnMap>("MiniUsao");
+            showMap.showStage = (int)state;
             NpcsAlive.Add(go.GetInstanceID(), go);
         }
     }
@@ -238,6 +243,9 @@ public class ObjectManager : MonoBehaviour
             StagePools[(int)state].Add(npc);
             npc.Hp = 50;
             npc.gameState = state;
+            
+            var showMap = go.transform.FindAnyChild<ShowOnMap>("MiniUsao");
+            showMap.showStage = (int)state ;
             NpcsAlive.Add(go.GetInstanceID(), go);
         }
     }
