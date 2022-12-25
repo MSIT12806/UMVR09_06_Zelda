@@ -124635,6 +124635,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 60
       objectReference: {fileID: 0}
+    - target: {fileID: 5424836709348293236, guid: f08e9d7b4edf6b74aaadb20b1a7d417b,
+        type: 3}
+      propertyPath: clearBehavior
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5424836709348293236, guid: f08e9d7b4edf6b74aaadb20b1a7d417b,
+        type: 3}
+      propertyPath: cameraShake.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5424836709348293236, guid: f08e9d7b4edf6b74aaadb20b1a7d417b,
+        type: 3}
+      propertyPath: cameraShake.shakeStrength.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5424836709348293236, guid: f08e9d7b4edf6b74aaadb20b1a7d417b,
+        type: 3}
+      propertyPath: cameraShake.shakeCurve.m_Curve.Array.data[1].time
+      value: 0.25011688
+      objectReference: {fileID: 0}
+    - target: {fileID: 5424836709348293236, guid: f08e9d7b4edf6b74aaadb20b1a7d417b,
+        type: 3}
+      propertyPath: cameraShake.shakeCurve.m_Curve.Array.data[1].value
+      value: 0.007075472
+      objectReference: {fileID: 0}
+    - target: {fileID: 5424836709348293236, guid: f08e9d7b4edf6b74aaadb20b1a7d417b,
+        type: 3}
+      propertyPath: cameraShake.shakeCurve.m_Curve.Array.data[0].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5424836709348293236, guid: f08e9d7b4edf6b74aaadb20b1a7d417b,
+        type: 3}
+      propertyPath: cameraShake.shakeCurve.m_Curve.Array.data[1].outSlope
+      value: -1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f08e9d7b4edf6b74aaadb20b1a7d417b, type: 3}
 --- !u!1001 &1139419193200203509
@@ -125716,6 +125751,60 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3278034651513035203}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4415769574647154168 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1169278035506584635, guid: d8c63d88c09c6cc47b0eef07f678912b,
+    type: 3}
+  m_PrefabInstance: {fileID: 3278034651513035203}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &626161712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4415769574647154168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9205bc1bbacc90040a998067b5643d16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clearBehavior: 0
+  cameraShake:
+    enabled: 1
+    useMainCamera: 1
+    cameras: []
+    delay: 0
+    duration: 1
+    shakeSpace: 0
+    shakeStrength: {x: 0.1, y: 0, z: 0.1}
+    shakeCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.5
+        inSlope: -4.679606
+        outSlope: -4.679606
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.1026499
+      - serializedVersion: 3
+        time: 0.14974976
+        value: 0
+        inSlope: -1
+        outSlope: -1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    shakesDelay: 0
+  animatedLights: []
+  fadeOutReference: {fileID: 0}
 --- !u!4 &4415769574647154169 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1169278035506584634, guid: d8c63d88c09c6cc47b0eef07f678912b,
@@ -126058,6 +126147,60 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4168285910116281428}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4775909427484010334 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8908060283069565706, guid: 607188948e47c62448d4aef6d9c6c6f7,
+    type: 3}
+  m_PrefabInstance: {fileID: 4168285910116281428}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1615493182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4775909427484010334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9205bc1bbacc90040a998067b5643d16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clearBehavior: 0
+  cameraShake:
+    enabled: 1
+    useMainCamera: 1
+    cameras: []
+    delay: 0.1
+    duration: 1
+    shakeSpace: 0
+    shakeStrength: {x: 0, y: 0.1, z: 0}
+    shakeCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: -1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: -1
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    shakesDelay: 0.05
+  animatedLights: []
+  fadeOutReference: {fileID: 0}
 --- !u!1001 &5656093376914270632
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -126174,6 +126317,60 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5656093376914270632}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4775909428909232991 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 880746918244317943, guid: 00fd273f0d9613d488592fe96ee0a4f7,
+    type: 3}
+  m_PrefabInstance: {fileID: 5656093376914270632}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &650733687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4775909428909232991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9205bc1bbacc90040a998067b5643d16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clearBehavior: 0
+  cameraShake:
+    enabled: 1
+    useMainCamera: 1
+    cameras: []
+    delay: 0.1
+    duration: 1
+    shakeSpace: 0
+    shakeStrength: {x: 0, y: 0.1, z: 0}
+    shakeCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.49697876
+        value: 0
+        inSlope: -1
+        outSlope: -1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    shakesDelay: 0.05
+  animatedLights: []
+  fadeOutReference: {fileID: 0}
 --- !u!1001 &6315291811139467167
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -126326,6 +126523,60 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6315291811139467167}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4415769575042935175 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7702170733296737816, guid: 543c46c72f689374ca77125d67890919,
+    type: 3}
+  m_PrefabInstance: {fileID: 6315291811139467167}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &708843342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4415769575042935175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9205bc1bbacc90040a998067b5643d16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clearBehavior: 0
+  cameraShake:
+    enabled: 1
+    useMainCamera: 1
+    cameras: []
+    delay: 0
+    duration: 1
+    shakeSpace: 0
+    shakeStrength: {x: 0.1, y: 0, z: 0.1}
+    shakeCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.5023575
+        inSlope: -3.908669
+        outSlope: -3.908669
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.17243029
+      - serializedVersion: 3
+        time: 0.14697266
+        value: 0
+        inSlope: -1
+        outSlope: -1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    shakesDelay: 0
+  animatedLights: []
+  fadeOutReference: {fileID: 0}
 --- !u!1001 &6352939944308118815
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -126906,6 +127157,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 5424836709348293236, guid: f08e9d7b4edf6b74aaadb20b1a7d417b,
+        type: 3}
+      propertyPath: clearBehavior
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5424836709348293236, guid: f08e9d7b4edf6b74aaadb20b1a7d417b,
+        type: 3}
+      propertyPath: cameraShake.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5424836709348293236, guid: f08e9d7b4edf6b74aaadb20b1a7d417b,
+        type: 3}
+      propertyPath: cameraShake.shakeStrength.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5424836709348293236, guid: f08e9d7b4edf6b74aaadb20b1a7d417b,
+        type: 3}
+      propertyPath: cameraShake.shakeCurve.m_Curve.Array.data[1].time
+      value: 0.2500031
+      objectReference: {fileID: 0}
+    - target: {fileID: 5424836709348293236, guid: f08e9d7b4edf6b74aaadb20b1a7d417b,
+        type: 3}
+      propertyPath: cameraShake.shakeCurve.m_Curve.Array.data[0].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5424836709348293236, guid: f08e9d7b4edf6b74aaadb20b1a7d417b,
+        type: 3}
+      propertyPath: cameraShake.shakeCurve.m_Curve.Array.data[1].outSlope
+      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f08e9d7b4edf6b74aaadb20b1a7d417b, type: 3}

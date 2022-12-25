@@ -73,10 +73,17 @@ public class StageManager : MonoBehaviour
         {
             stageOneWave = 2;//第一關會有 2 波
         }
-        dragonVirtualCamera.Priority = 5;
-        dragonVirtualCamera.gameObject.SetActive(false);
-        golemVirtualCamera.Priority = 5;
-        golemVirtualCamera.gameObject.SetActive(false);
+        if (dragonVirtualCamera != null)
+        {
+            dragonVirtualCamera.Priority = 5;
+            dragonVirtualCamera.gameObject.SetActive(false);
+        }
+
+        if (golemVirtualCamera != null)
+        {
+            golemVirtualCamera.Priority = 5;
+            golemVirtualCamera.gameObject.SetActive(false);
+        }
     }
     const float delayFrame = 2.5f;
     float finishTinelineDelay = delayFrame;
