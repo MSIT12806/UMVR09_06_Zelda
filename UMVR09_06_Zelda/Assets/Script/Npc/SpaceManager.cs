@@ -185,6 +185,10 @@ public class SpaceManager : MonoBehaviour, NpcHelper
         {
             animator.Play("GetHit");
             ShowWeakTime = 5;
+            if (transform.Find("BlackHoll").gameObject.activeSelf)
+            {
+                transform.Find("BlackHoll").gameObject.SetActive(false);
+            }
             foreach (var i in EffectPlaying)
             {
                 i.Stop();
