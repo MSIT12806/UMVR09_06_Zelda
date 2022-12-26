@@ -1205,7 +1205,7 @@ public class GolemSkillState : GolemBaseState
             animator.SetTrigger("SheikahDefense");
             return new GolemWeakState(target, animator, selfTransform, nowArmor, npcHelper);
         }
-        if (AttackFlaw)
+        if (AttackFlaw && FreezeTime <= 0)
         {
             animator.SetTrigger("HaveShieldGetHit");
 
