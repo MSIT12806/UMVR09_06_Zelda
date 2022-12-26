@@ -66,6 +66,7 @@ public class GolemManager : MonoBehaviour, NpcHelper
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log(Time.deltaTime);
         aiState.SetAnimation();
         aiState = aiState.SwitchState();
 
