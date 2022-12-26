@@ -3,19 +3,26 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Fire
+  - Terrain
+  - FxTemporaire
+  - Npc
+  - Static
+  - Manage
+  - FireBall
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - postprecess
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Terrain
+  - Player
+  - MiniMap
+  - NPC
+  - Wall
   - 
   - 
   - 
