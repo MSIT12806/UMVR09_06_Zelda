@@ -120,7 +120,7 @@ public class ObjectManager : MonoBehaviour
         for (int i = 0; i < normalNumber; i++)
         {
             usao.transform.position = position + new Vector3(UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1), 1, UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1));
-            usao.transform.forward = ObjectManager.MainCharacter.position - usao.transform.position;
+            usao.transform.forward = ObjectManager.MainCharacter.position.WithY() - usao.transform.position.WithY();
             var go = Instantiate(usao);
             var npc = go.GetComponent<Npc>();
             StagePools[(int)state].Add(npc);
@@ -218,7 +218,7 @@ public class ObjectManager : MonoBehaviour
         for (int i = 0; i < normalNumber; i++)
         {
             usao.transform.position = position + new Vector3(UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1), 1, UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1));
-            usao.transform.forward = ObjectManager.MainCharacter.position - usao.transform.position;
+            usao.transform.forward = ObjectManager.MainCharacter.position.WithY() - usao.transform.position.WithY();
             var go = Instantiate(usao);
             var npc = go.GetComponent<Npc>();
             StagePools[(int)state].Add(npc);
@@ -237,7 +237,7 @@ public class ObjectManager : MonoBehaviour
         for (int i = 0; i < normalNumber; i++)
         {
             usao.transform.position = position + new Vector3(UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1), 1, UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1));
-            usao.transform.forward = ObjectManager.MainCharacter.position - usao.transform.position;
+            usao.transform.forward = ObjectManager.MainCharacter.position.WithY() - usao.transform.position.WithY();
             var go = Instantiate(usao);
             var npc = go.GetComponent<Npc>();
             StagePools[(int)state].Add(npc);
