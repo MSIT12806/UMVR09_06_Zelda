@@ -73,6 +73,7 @@ public class ShootMagic : MonoBehaviour
             NpcCommon.AttackDetection("Dragon", transform.position, transform.forward, 360f, redius, false, new DamageData(50, Vector3.zero, HitType.Heavy, DamageStateInfo.NormalAttack), "Player");
             try
             {
+                if (isNightScene == false) return;
                 var fx = Instantiate(ObjectManager.DragonFireBallExplosionFx);
                 fx.transform.position = transform.position;
                 fx.SetActive(true);
