@@ -195,6 +195,7 @@ public class TPSCamera : MonoBehaviour
                     if (hit.transform.gameObject.tag == "Npc")
                     {
                         var npc = hit.transform.GetComponent<Npc>();
+                        if (string.IsNullOrEmpty(npc.MaterialAddress) || string.IsNullOrEmpty(npc.DitherAddress)) return;
                         var oriSkin = npc.transform.FindAnyChild<Transform>(npc.MaterialAddress);
                         var ditherSkin = npc.transform.FindAnyChild<Transform>(npc.DitherAddress);
                         oriSkin.gameObject.SetActive(false);
