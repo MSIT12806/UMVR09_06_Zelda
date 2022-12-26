@@ -1070,8 +1070,8 @@ public class GolemSkillState : GolemBaseState
 
         currentAnimation = animator.GetCurrentAnimatorStateInfo(0);
 
-        if (currentAnimation.IsName("Skill 0")) moveSpeed = 0.3f;
-        else if (currentAnimation.IsName("Skill2 0")) moveSpeed = 0.5f;
+        if (currentAnimation.IsName("Skill 0")) moveSpeed = 15f * Time.deltaTime;
+        else if (currentAnimation.IsName("Skill2 0")) moveSpeed = 25f * Time.deltaTime;
 
 
         if (!(currentAnimation.IsName("Skill") || currentAnimation.IsName("Skill 0")))// && !currentAnimation.IsName("Skill2 0")
@@ -1205,7 +1205,7 @@ public class GolemSkillState : GolemBaseState
             animator.SetTrigger("SheikahDefense");
             return new GolemWeakState(target, animator, selfTransform, nowArmor, npcHelper);
         }
-        if (AttackFlaw)
+        if (AttackFlaw && FreezeTime <= 0)
         {
             animator.SetTrigger("HaveShieldGetHit");
 
