@@ -231,10 +231,10 @@ public class UiManager : MonoBehaviour
         //大怪--弱點槽 //希卡指示器？
         for (int i = 0; i < WeakableMonsters.Length; i++)
         {
-            if ((int)picoState.gameState - 2 != 0 && (int)picoState.gameState - 2 != 1) return;
+            if ((int)picoState.GameState - 2 != 0 && (int)picoState.GameState - 2 != 1) return;
             var item = WeakableMonsters[i];
             if (item == null) break;
-            if (item.name != WeakableMonsters[(int)picoState.gameState - 2].name) continue;
+            if (item.name != WeakableMonsters[(int)picoState.GameState - 2].name) continue;
             var nh = StateManagers[item.gameObject.GetInstanceID()];
             if (nh.Dizzy)
             {
@@ -252,7 +252,7 @@ public class UiManager : MonoBehaviour
                 ImgToShow.gameObject.SetActive(false);
             }
         }
-        ImageFollow((int)picoState.gameState - 2);
+        ImageFollow((int)picoState.GameState - 2);
 
     }
     void ImageFollow(int mosterType)
@@ -271,12 +271,12 @@ public class UiManager : MonoBehaviour
         var b = a.FindAnyChild<Transform>("GreatEnemyName");
         var nameUi = b.GetComponent<TextMeshProUGUI>();
         var hp = GreatEnemyState.transform.FindAnyChild<Image>("GreatEnemyHpBarFull");
-        var hpInfo = myCamera.m_StareTarget[(int)picoState.gameState].GetComponent<Npc>();
+        var hpInfo = myCamera.m_StareTarget[(int)picoState.GameState].GetComponent<Npc>();
         hp.fillAmount = hpInfo.Hp / hpInfo.MaxHp;
         if (isNightScene)
-            nameUi.text = ObjectManager.StateManagers[myCamera.m_StareTarget[(int)picoState.gameState].gameObject.GetInstanceID()].Name;
+            nameUi.text = ObjectManager.StateManagers[myCamera.m_StareTarget[(int)picoState.GameState].gameObject.GetInstanceID()].Name;
         else
-            nameUi.text = ObjectManager2.StateManagers[myCamera.m_StareTarget[(int)picoState.gameState].gameObject.GetInstanceID()].Name;
+            nameUi.text = ObjectManager2.StateManagers[myCamera.m_StareTarget[(int)picoState.GameState].gameObject.GetInstanceID()].Name;
     }
 
     void SetHpBar()

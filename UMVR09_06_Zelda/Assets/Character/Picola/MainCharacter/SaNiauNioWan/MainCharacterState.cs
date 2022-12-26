@@ -499,7 +499,7 @@ public class MainCharacterState : MonoBehaviour, NpcHelper
     public void Die()
     {
         var gameState = GetComponent<PicoState>();
-        gameState.gameState = GameState.FailStage;
+        gameState.GameState = GameState.FailStage;
         canOperate = false;
         die = true;
         //顯示失敗的 Ui

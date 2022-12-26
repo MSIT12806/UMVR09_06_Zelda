@@ -10,7 +10,7 @@ public class DragonIdleBehavior : StateMachineBehaviour
     PicoState state;
     float dazeSeconds;
     Transform head;
-    bool fightState { get => (int)state.gameState == 2 && manager.Show; }
+    bool fightState { get => (int)state.GameState == 2 && manager.Show; }
 
     float flyStateWeight;
     public Npc npc;

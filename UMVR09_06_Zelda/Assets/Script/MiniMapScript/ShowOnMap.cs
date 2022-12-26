@@ -27,7 +27,7 @@ public class ShowOnMap : MonoBehaviour
     void Update()
     {
         if (!isNight) return;
-        if((int)gameState.gameState == showStage)
+        if((int)gameState.GameState == showStage)
         {
             mesh.enabled = true;
         }

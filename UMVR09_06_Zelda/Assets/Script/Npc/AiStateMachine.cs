@@ -61,7 +61,7 @@ public class UsaoIdleState : UsaoAiState
     //Idel 應該有個初始位置    
     public override AiState SwitchState()
     {
-        if (picoState.gameState != npc.gameState)
+        if (picoState.GameState != npc.gameState)
         {
             return this;
         }
@@ -107,7 +107,7 @@ public class UsaoFightState : UsaoAiState
     public override AiState SwitchState()
     {
         animator.SetBool("findTarget", true);
-        if (picoState.gameState != npc.gameState)
+        if (picoState.GameState != npc.gameState)
         {
             return new UsaoIdleState(target, picoState, animator, selfTransform, npcHelper);
         }
@@ -185,7 +185,7 @@ public class UsaoChaseState : UsaoAiState
 
 
         //1. 如果目標物件消失於視野之外[，進行巡邏後]，回到發呆狀態
-        if (usaoManager.stage != picoState.gameState)
+        if (usaoManager.stage != picoState.GameState)
         {
             animator.SetBool("notReach", false);
             return new UsaoIdleState(alertTarget, picoState, animator, selfTransform, usaoManager);
@@ -546,7 +546,7 @@ public class GolemIdleState : GolemBaseState
             animator.SetTrigger("Dead");
             return new GolemDeadState(target, animator, selfTransform, npcHelper);
         }
-        if (picoState.gameState != GameState.ThridStage)
+        if (picoState.GameState != GameState.ThridStage)
             return this;
         if (gm.Stand == false) return this;
 

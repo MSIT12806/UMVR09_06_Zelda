@@ -38,5 +38,7 @@ public class LevelHandler : MonoBehaviour
         }
 
         timeline.Play();
+       var ps =  ObjectManager.MainCharacter.GetComponent<PicoState>();
+        ps.TargetState = GameState.SecondStage;
     }
 }

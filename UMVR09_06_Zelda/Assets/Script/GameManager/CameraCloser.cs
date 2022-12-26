@@ -31,4 +31,20 @@ public class CameraCloser : MonoBehaviour
        var fx = GameObject.Find("fbxPodium (1)").transform.FindAnyChild<Transform>("FX_Light_Line");
         fx.gameObject.SetActive(true);
     }
+
+    public void NFirstFinish()
+    {
+        var ps = ObjectManager.MainCharacter.GetComponent<PicoState>();
+        ps.LevelOneFinished();
+    }
+    public void NTwoFinish()
+    {
+        var ps = ObjectManager.MainCharacter.GetComponent<PicoState>();
+        ps.LevelTwoFinished();
+    }
+    public void NThreeFinish()
+    {
+        var ps = ObjectManager.MainCharacter.GetComponent<PicoState>();
+        ps.LevelThreeFinished();
+    }
 }

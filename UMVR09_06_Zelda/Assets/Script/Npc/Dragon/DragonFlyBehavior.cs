@@ -12,7 +12,7 @@ public class DragonFlyBehavior : StateMachineBehaviour
     Npc npc;
     float dazeSeconds;
     Transform head;
-    bool fightState { get => (int)state.gameState == 2; }
+    bool fightState { get => (int)state.GameState == 2; }
 
     private Vector3 flyPoint = Vector3.zero;
     bool turnFinish;

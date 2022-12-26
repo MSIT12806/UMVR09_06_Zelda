@@ -126,7 +126,7 @@ public class TPSCamera : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.M))
         {
-            cameras[(int)gameState.gameState].gameObject.SetActive(!cameras[(int)gameState.gameState].gameObject.activeSelf);
+            cameras[(int)gameState.GameState].gameObject.SetActive(!cameras[(int)gameState.GameState].gameObject.activeSelf);
         }
     }
 

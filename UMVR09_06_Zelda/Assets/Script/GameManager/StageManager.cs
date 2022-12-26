@@ -96,7 +96,7 @@ public class StageManager : MonoBehaviour
         var d = Vector3.Distance(this.transform.position, Pico.position);
         if (d <= distance)
         {
-            picoState.gameState = (GameState)TriggerType;
+            picoState.GameState = (GameState)TriggerType;
             if (isNightScene)
                 ObjectManager.myCamera.stage = TriggerType;
             else
@@ -105,7 +105,7 @@ public class StageManager : MonoBehaviour
 
         if (isNightScene)
         {
-            switch ((int)picoState.gameState)
+            switch ((int)picoState.GameState)
             {
                 case 1:
                     if (!stageOneFinished && stageOneWave <= 0 && ObjectManager.StageMonsterMonitor[1] <= 0)
@@ -186,7 +186,7 @@ public class StageManager : MonoBehaviour
         }
         else
         {
-            switch ((int)picoState.gameState)
+            switch ((int)picoState.GameState)
             {
                 case 2:
                     if (!spacePlay && ObjectManager2.StageMonsterMonitor[2] <= 0)
