@@ -85,11 +85,11 @@ public class ObjectManager : MonoBehaviour
         StageMonsterMonitor[1] = 30;
 
         //SecondStage
-        GenUsao2(stageTwoSpawnPoint.position, 10, 10, GameState.SecondStage);
+        GenUsao2(stageTwoSpawnPoint.position, 10, 10, GameState.SecondStage, stageTwoSpawnPoint.forward);
         StageMonsterMonitor[2] = 10;
 
         //ThirdStage
-        GenUsaoSword(stageThreeSpawnPoint.position, 10, 10, GameState.ThridStage);
+        GenUsaoSword(stageThreeSpawnPoint.position, 10, 10, GameState.ThridStage, stageThreeSpawnPoint.forward);
         StageMonsterMonitor[3] = 10;
     }
 
@@ -113,14 +113,14 @@ public class ObjectManager : MonoBehaviour
         }
     }
 
-    public static void GenUsaoSword(Vector3 position, int range, int normalNumber, GameState state)
+    public static void GenUsaoSword(Vector3 position, int range, int normalNumber, GameState state, Vector3 forward)
     {
         var usao = (GameObject)Resources.Load("usao_WithSword");
 
         for (int i = 0; i < normalNumber; i++)
         {
             usao.transform.position = position + new Vector3(UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1), 1, UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1));
-            usao.transform.forward = ObjectManager.MainCharacter.position.WithY() - usao.transform.position.WithY();
+            usao.transform.forward = forward;
             var go = Instantiate(usao);
             var npc = go.GetComponent<Npc>();
             StagePools[(int)state].Add(npc);
@@ -211,14 +211,14 @@ public class ObjectManager : MonoBehaviour
         StageDeathPool[3].Clear();
         return;
     }
-    public static void GenUsao2(Vector3 position, int range, int normalNumber, GameState state)
+    public static void GenUsao2(Vector3 position, int range, int normalNumber, GameState state, Vector3 forward)
     {
         var usao = (GameObject)Resources.Load("usao_0321_2");
 
         for (int i = 0; i < normalNumber; i++)
         {
             usao.transform.position = position + new Vector3(UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1), 1, UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1));
-            usao.transform.forward = ObjectManager.MainCharacter.position.WithY() - usao.transform.position.WithY();
+            usao.transform.forward = forward;
             var go = Instantiate(usao);
             var npc = go.GetComponent<Npc>();
             StagePools[(int)state].Add(npc);
@@ -230,14 +230,14 @@ public class ObjectManager : MonoBehaviour
         }
     }
 
-    public static void GenUsao(Vector3 position, float range, int normalNumber, GameState state)
+    public static void GenUsao(Vector3 position, float range, int normalNumber, GameState state, Vector3 forward)
     {
         var usao = (GameObject)Resources.Load("usao_0321");
 
         for (int i = 0; i < normalNumber; i++)
         {
             usao.transform.position = position + new Vector3(UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1), 1, UnityEngine.Random.Range(3, range) * (UnityEngine.Random.Range(0, 2) * 2 - 1));
-            usao.transform.forward = ObjectManager.MainCharacter.position.WithY() - usao.transform.position.WithY();
+            usao.transform.forward = forward;
             var go = Instantiate(usao);
             var npc = go.GetComponent<Npc>();
             StagePools[(int)state].Add(npc);
