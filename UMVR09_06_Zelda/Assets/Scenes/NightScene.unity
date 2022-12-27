@@ -2153,6 +2153,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1277495263}
     m_Modifications:
+    - target: {fileID: 2693118467847406253, guid: 7844ec73793c57247afc9fab6c1396de,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3247405135154357721, guid: 7844ec73793c57247afc9fab6c1396de,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4021103657954561942, guid: 7844ec73793c57247afc9fab6c1396de,
         type: 3}
       propertyPath: m_RootOrder
@@ -2208,10 +2218,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4021103657954561960, guid: 7844ec73793c57247afc9fab6c1396de,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4021103657954561961, guid: 7844ec73793c57247afc9fab6c1396de,
         type: 3}
       propertyPath: m_Name
       value: FX_Bit
+      objectReference: {fileID: 0}
+    - target: {fileID: 4021103657954561961, guid: 7844ec73793c57247afc9fab6c1396de,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4249825647893159325, guid: 7844ec73793c57247afc9fab6c1396de,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4751668508166179909, guid: 7844ec73793c57247afc9fab6c1396de,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5588876038941996706, guid: 7844ec73793c57247afc9fab6c1396de,
         type: 3}
@@ -2226,6 +2256,11 @@ PrefabInstance:
     - target: {fileID: 5588876038941996706, guid: 7844ec73793c57247afc9fab6c1396de,
         type: 3}
       propertyPath: m_Intensity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8418415662241458952, guid: 7844ec73793c57247afc9fab6c1396de,
+        type: 3}
+      propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -11965,7 +12000,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 419235578}
-  m_LocalRotation: {x: 0.09718861, y: 0.7387343, z: -0.10911896, w: 0.65796596}
+  m_LocalRotation: {x: 0.09718861, y: 0.7387343, z: -0.109118976, w: 0.65796584}
   m_LocalPosition: {x: 24.808594, y: 19.479134, z: 187.11383}
   m_LocalScale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
   m_ConstrainProportionsScale: 0
@@ -46083,6 +46118,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1277495261}
     m_Modifications:
+    - target: {fileID: 1786078680631996547, guid: ce95e9b8c9cc4c640911de2409215389,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4415769573979190856, guid: ce95e9b8c9cc4c640911de2409215389,
         type: 3}
       propertyPath: m_RootOrder
@@ -46142,6 +46182,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FX_TailAttack
+      objectReference: {fileID: 0}
+    - target: {fileID: 4415769573979190859, guid: ce95e9b8c9cc4c640911de2409215389,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4415769574973705213, guid: ce95e9b8c9cc4c640911de2409215389,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985604976681048944, guid: ce95e9b8c9cc4c640911de2409215389,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9165415203779267091, guid: ce95e9b8c9cc4c640911de2409215389,
         type: 3}
